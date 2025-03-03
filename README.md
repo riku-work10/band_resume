@@ -100,4 +100,6 @@ Xの投稿では「いいね」などの反応が得られる一方で、オー�
 
 ## ■ 画面遷移図
 figma: https://www.figma.com/design/dpj1zkwMEp87XlXc8Z58jS/%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB%E5%9B%B3%E3%80%80%E3%83%8F%E3%83%AB%E3%82%AB%E3%83%9F%E3%83%A9%E3%82%A4%E5%B1%A5%E6%AD%B4%E6%9B%B8?node-id=0-1&t=zYOJi0X0KVsyz8Xa-1
- 
+
+## ■ 画面遷移図
+https://app.diagrams.net/?lang=ja#G1xShYBrU9EUV6WFsn0uuufk-EPmey43jL#%7B%22pageId%22%3A%22DR81uq3sAJu_aOfsdmAd%22%7D
