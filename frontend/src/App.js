@@ -8,9 +8,16 @@ import TaskPage from "./pages/TaskPage";
 import HomePage from "./pages/HomePage";
 import LivePage from "./pages/LivePage";
 import ResumePage from "./pages/ResumePage";
+import MyPage from "./pages/MyPage";
 import SignUp from './components/auth/SignUp';
 import SignIn from './components/auth/SignIn';
-import Mypage from './pages/MyPage';
+import MyResumePage from './pages/MyResumePage';
+import NotificationPage from './pages/NotificationPage';
+import OpenChatPage from './pages/OpenChatPage';
+import TopPage from './pages/TopPage';
+import ContactPage from './pages/info/ContactPage';
+import PrivacyPolicyPage from './pages/info/PrivacyPolicyPage';
+import TermsOfServicePage from './pages/info/TermsOfServicePage';
 
 const App = () => {
   
@@ -25,12 +32,20 @@ const App = () => {
       <main className="flex-grow container mx-auto px-6 py-4">
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/tasks" element={<TaskPage />} />
           <Route path="/lives" element={<LivePage />} />
           <Route path="/resumes" element={<ResumePage />} />
+          <Route path="/myresumes" element={<MyResumePage />} />
+          <Route path="/notification" element={<NotificationPage />} />
+          <Route path="/chat" element={<OpenChatPage />} />
+          <Route path="/top" element={<TopPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/privacypolicy" element={<PrivacyPolicyPage />} />
+          <Route path="/termspfservice" element={<TermsOfServicePage />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/signin" element={<SignIn />} />
-          <Route path="/mypage" element={<Mypage />} />
-          <Route path="/tasks" element={<TaskPage />} />
+          <Route path="/mypage" element={<MyPage />} />
+          
         </Routes>
       </main>
       <Footer />
