@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import SignOutButtun from "../auth/SignOutButtun";
 
 const Header = () => {
   return (
@@ -27,7 +28,9 @@ const Header = () => {
               ログイン
             </Link>
           </li>
-          <li>ログアウトボタン</li>
+          <li>
+            <SignOutButtun />
+          </li>
           <li>
             <Link to="/tasks">
               タスク
