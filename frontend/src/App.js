@@ -1,32 +1,57 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React from 'react';
+import { Route, BrowserRouter, Routes } from 'react-router-dom';
+import "./index.css";
+
+import Header from './components/layout/Header';
+import Footer from "./components/layout/Footer";
+import TaskPage from "./pages/TaskPage";
+import HomePage from "./pages/HomePage";
+import LivePage from "./pages/LivePage";
+import ResumePage from "./pages/ResumePage";
+import MyPage from "./pages/MyPage";
+import SignUp from './components/auth/SignUp';
+import SignIn from './components/auth/SignIn';
+import MyResumePage from './pages/MyResumePage';
+import NotificationPage from './pages/NotificationPage';
+import OpenChatPage from './pages/OpenChatPage';
+import TopPage from './pages/TopPage';
+import ContactPage from './pages/info/ContactPage';
+import PrivacyPolicyPage from './pages/info/PrivacyPolicyPage';
+import TermsOfServicePage from './pages/info/TermsOfServicePage';
 
 const App = () => {
-  const [tasks, setTasks] =useState ([]);
-  const API_URL = `${process.env.REACT_APP_API_URL}/tasks`;
-  console.log(API_URL);
-
-  const fetch = async () => {
-    const res = await axios.get(API_URL);
-    setTasks(res.data);
-  };
-
-  useEffect(() => {
-    fetch();
-  }, []);
+  
 
 
   return (
-<div className="p-6 bg-gray-100 rounded-lg shadow-md">
-  <h1 className="text-3xl text-gray-600 font-semibold text-center mb-4">アプリ開発</h1>
-  <p className="text-lg text-gray-600 mb-6 text-center">テスト！</p>
-  {tasks.map((task, index) => (
-    <div key={index} className="task mb-3 p-4 bg-white rounded-lg shadow-sm flex justify-between items-center">
-      <span className="text-lg text-gray-800">{task.name}</span>
-    </div>
-  ))}
-</div>
 
+    <div>
+      <BrowserRouter>
+      <div className="flex flex-col min-h-screen">
+      <Header />
+      <main className="flex-grow container mx-auto px-6 py-4">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/tasks" element={<TaskPage />} />
+          <Route path="/lives" element={<LivePage />} />
+          <Route path="/resumes" element={<ResumePage />} />
+          <Route path="/myresumes" element={<MyResumePage />} />
+          <Route path="/notification" element={<NotificationPage />} />
+          <Route path="/chat" element={<OpenChatPage />} />
+          <Route path="/top" element={<TopPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/privacypolicy" element={<PrivacyPolicyPage />} />
+          <Route path="/termspfservice" element={<TermsOfServicePage />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/mypage" element={<MyPage />} />
+          
+        </Routes>
+      </main>
+      <Footer />
+      </div>
+    </BrowserRouter>
+    </div> 
   )
 };
 
