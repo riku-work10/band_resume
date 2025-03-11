@@ -28,5 +28,17 @@ module App
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+
+    config.api_only = true # これはもともとある記述
+
+    config.generators do |g|
+      g.skip_routes true   # ルート自動設定を無効化
+      g.helper false       # ヘルパー生成を無効化
+      g.test_framework nil # テストフレームワークを無効化
+    end
+
+    # タイムゾーンを日本時間に設定
+    config.time_zone = 'Tokyo'
+    config.active_record.default_timezone = :local
   end
 end
