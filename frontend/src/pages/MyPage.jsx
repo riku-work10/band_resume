@@ -4,11 +4,12 @@ import axios from "axios";
 
 const Mypage = () => {
   const [user, setUser] = useState(null);
+  const API_URL = `${process.env.REACT_APP_API_URL}/api/${process.env.REACT_APP_API_VERSION}`;
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/api/v1/auth/validate_token", {
+        const res = await axios.get(`${API_URL}/auth/validate_token`, {
           headers: {
             "access-token": localStorage.getItem("access-token"),
             client: localStorage.getItem("client"),

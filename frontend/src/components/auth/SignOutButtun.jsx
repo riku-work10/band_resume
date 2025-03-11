@@ -1,9 +1,10 @@
 import axios from "axios";
 
 const SignOutButtun = () => {
+  const API_URL = `${process.env.REACT_APP_API_URL}/api/${process.env.REACT_APP_API_VERSION}`;
   const handleLogout = async () => {
     try {
-      await axios.delete("http://localhost:3000/api/v1/auth/sign_out", {
+      await axios.delete(`${API_URL}/auth/sign_out`, {
         headers: {
           "access-token": localStorage.getItem("access-token"),
           client: localStorage.getItem("client"),
