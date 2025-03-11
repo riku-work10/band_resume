@@ -51,7 +51,8 @@ module App
     config.middleware.insert_before 0, Rack::Cors do
       allow do
         # 今回はRailsのポートが3000番、Reactのポートが8000番にするので、Reactのリクエストを許可するためにlocalhost:8000を設定
-        origins 'localhost:8000'
+        # 本番環境も関わってくるから環境変数で設定してあげること！
+        origins ENV["FRONT_URL"]
         resource '*',
                  :headers => :any,
                  # この一文で、渡される、'access-token'、'uid'、'client'というheaders情報を用いてログイン状態を維持する。
