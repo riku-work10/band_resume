@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::API
   include DeviseTokenAuth::Concerns::SetUserByToken
-  before_action :set_user_by_token, except: :manifest
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :fix_session_params, if: -> { params[:session].present? } # 追加
   before_action :fix_registration_params, if: -> { params[:registration].present? } # 追加
