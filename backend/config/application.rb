@@ -52,7 +52,7 @@ module App
       allow do
         # 今回はRailsのポートが3000番、Reactのポートが8000番にするので、Reactのリクエストを許可するためにlocalhost:8000を設定
         # 本番環境も関わってくるから環境変数で設定してあげること！
-        origins 'https://band-resume-git-login-rikus-projects-0196bac5.vercel.app'
+        origins ENV['FRONT_URL']
         resource '*',
                  :headers => :any,
                  # この一文で、渡される、'access-token'、'uid'、'client'というheaders情報を用いてログイン状態を維持する。
