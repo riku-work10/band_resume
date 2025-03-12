@@ -1,35 +1,31 @@
-import React from "react";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useState } from "react";
+import EditProfile from "../components/auth/EditProfile";
+import { useAuth } from "../hooks/AuthContext";
 
 const Mypage = () => {
-  const [user, setUser] = useState(null);
-  const API_URL = `${process.env.REACT_APP_API_URL}/api/${process.env.REACT_APP_API_VERSION}`;
+  const { user } = useAuth();
+  const [isEditing, setIsEditing] = useState(false);
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const res = await axios.get(`${API_URL}/auth/validate_token`, {
-          headers: {
-            "access-token": localStorage.getItem("access-token"),
-            client: localStorage.getItem("client"),
-            uid: localStorage.getItem("uid"),
-          },
-        });
-        setUser(res.data.data);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    fetchUser();
-  }, []);
+  const toggleEdit = () => {
+    setIsEditing(!isEditing);  // 編集フォームの表示を切り替え
+  };
+
+
 
   return (
     <div>
       <h2>My Page</h2>
       {user ? (
         <div>
-          <p>Email: {user.email}</p>
+          {isEditing ? (
+            <EditProfile setIsEditing={setIsEditing}/>
+          ) : (
+            <div>
+              <p>Name: {user.name}</p>
+              <p>Email: {user.email}</p>
+              <button onClick={toggleEdit}>プロフィール編集</button>
+            </div>
+          )}
         </div>
       ) : (
         <p>ログインしてください</p>
@@ -39,4 +35,3 @@ const Mypage = () => {
 };
 
 export default Mypage;
-
