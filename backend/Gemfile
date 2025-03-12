@@ -51,3 +51,9 @@ gem "rack-cors"
 
 #環境変数用
 gem "dotenv-rails"
+
+#認証関係
+
+gem "devise"
+gem "devise_token_auth"
+gem 'devise-i18n'

@@ -3,11 +3,11 @@ import axios from 'axios';
 
 const TaskPage = () => {
   const [tasks, setTasks] =useState ([]);
-  const API_URL = `${process.env.REACT_APP_API_URL}/tasks`;
+  const API_URL = `${process.env.REACT_APP_API_URL}/api/${process.env.REACT_APP_API_VERSION}`;
   console.log(API_URL);
 
   const fetch = async () => {
-    const res = await axios.get(API_URL);
+    const res = await axios.get(`${API_URL}/tasks`);
     setTasks(res.data);
   };
 
