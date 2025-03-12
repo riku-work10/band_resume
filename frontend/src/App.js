@@ -18,6 +18,7 @@ import TopPage from './pages/TopPage';
 import ContactPage from './pages/info/ContactPage';
 import PrivacyPolicyPage from './pages/info/PrivacyPolicyPage';
 import TermsOfServicePage from './pages/info/TermsOfServicePage';
+import { AuthProvider } from './hooks/AuthContext';
 
 const App = () => {
   
@@ -25,7 +26,7 @@ const App = () => {
 
   return (
 
-    <div>
+    <AuthProvider>
       <BrowserRouter>
       <div className="flex flex-col min-h-screen">
       <Header />
@@ -51,7 +52,7 @@ const App = () => {
       <Footer />
       </div>
     </BrowserRouter>
-    </div> 
+    </AuthProvider>
   )
 };
 
