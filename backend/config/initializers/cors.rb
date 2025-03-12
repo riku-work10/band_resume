@@ -7,7 +7,7 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins ENV['VERCEL_URL']
+    origins 'https://band-resume-git-login-rikus-projects-0196bac5.vercel.app'
 
     resource "*",
       headers: :any,
