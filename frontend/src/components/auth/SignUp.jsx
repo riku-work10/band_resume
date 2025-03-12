@@ -7,6 +7,8 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const API_URL = `${process.env.REACT_APP_API_URL}/api/${process.env.REACT_APP_API_VERSION}`;
+  console.log("React VERCEL_URL:", process.env.REACT_APP_VERCEL_URL);  // => http://localhost:3000
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
