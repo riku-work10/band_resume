@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const LoginFooter = () => {
   return (
-    <div className="bg-stone-600 text-white py-4 shadow-md">
+    <div >
       <ul className="container mx-auto flex justify-between items-center px-6">
                 <li>
                   <Link to="/lives">
