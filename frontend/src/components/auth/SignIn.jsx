@@ -4,7 +4,7 @@ import { useAuth } from "../../hooks/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 const SignIn = () => {
-  const { login } = useAuth();
+  const { signin } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -12,7 +12,7 @@ const SignIn = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await login(email, password); // 🔹 `login` を呼び出し
+      await signin(email, password); // 🔹 `login` を呼び出し
       alert("ログイン成功！");
       navigate("/top"); // トップページへ遷移
     } catch (err) {
@@ -23,7 +23,7 @@ const SignIn = () => {
 
   return (
     <div>
-      <h2>Login</h2>
+      <h2>ログイン</h2>
       <form onSubmit={handleSubmit}>
         <input type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
         <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />

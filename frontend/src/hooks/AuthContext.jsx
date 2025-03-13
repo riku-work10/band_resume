@@ -33,7 +33,8 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const login = async (email, password) => {
+  //ログイン
+  const signin = async (email, password) => {
     try {
       const res = await apiClient.post('/auth/sign_in', { email, password });
       
@@ -49,7 +50,23 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  //新規登録
+  const signup = async (email, password, passwordConfirmation) => {
+    try {
+      await apiClient.post("/auth", {
+        email,
+        password,
+        password_confirmation: passwordConfirmation,
+      });
 
+      // サインアップ後に自動的にログイン
+      await signin(email, password);
+    } catch (err) {
+      console.error("サインアップに失敗しました:", err);
+    }
+  };
+
+  //ログアウト
   const logout = () => {
     localStorage.removeItem('access-token');
     localStorage.removeItem('client');
@@ -58,7 +75,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, setUser}}>
+    <AuthContext.Provider value={{ user, signup, signin, logout, setUser}}>
       {children}
     </AuthContext.Provider>
   );
