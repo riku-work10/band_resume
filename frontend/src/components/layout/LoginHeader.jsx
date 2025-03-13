@@ -1,25 +1,9 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import SignOutButtun from "../auth/SignOutButtun";
+import GetPageName from "../../hooks/GetPageName";
 
 const LoginHeader = () => {
-
-    const getPageName = () => {
-      switch (location.pathname) {
-        case "/lives":
-          return "ライブ一覧";
-        case "/myresumes":
-          return "マイ履歴書";
-        case "/resumes":
-          return "履歴書一覧";
-        case "/chat":
-          return "オープンチャット";
-        case "/mypage":
-          return "マイページ";
-        default:
-          return "ハルカミライ"
-      }
-    };
 
   const location = useLocation();
   return (
@@ -31,7 +15,7 @@ const LoginHeader = () => {
           </Link>
           </li>
           <li>
-          <h1>{getPageName()}</h1>
+          <h1>{GetPageName()}</h1>
           </li>
           <li>
             <SignOutButtun />
