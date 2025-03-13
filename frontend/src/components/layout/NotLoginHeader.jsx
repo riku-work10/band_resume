@@ -1,47 +1,38 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from 'react';
+import { Link, useLocation } from "react-router-dom";
 
 const NotLoginHeader = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
+
   return (
-    <div>
-      <ul className="flex space-x-6">
-          <li>
-          <Link to="/" className="hover:underline">
-              <h1 className="text-lg font-bold">ハルカミライ（ホーム）</h1>
-          </Link>
-          </li>
-          <li>
-            <Link to="/signup">
-              新規登録
-            </Link>
-          </li>
-          <li>
-            <Link to="/signin">
-              ログイン
-            </Link>
-          </li>
-          <li>
-            <Link to="/notification">
-              通知
-            </Link>
-          </li>
-          <li>
-            <Link to="/contact">
-              お問い合わせ
-            </Link>
-          </li>
-          <li>
-            <Link to="/privacypolicy">
-              プライバシーポリシー
-            </Link>
-          </li>
-          <li>
-            <Link to="/termspfservice">
-              利用規約
-            </Link>
-          </li>
-        </ul>
-    </div>
+    <header className="bg-stone-600 text-white p-4 relative">
+      <div className="flex justify-between items-center">
+        {/* ロゴ */}
+        <div className="flex-1">
+          <Link to="/top" className={`text-lg font-bold ${location.pathname === "/" ? "text-red-500" : ""}`}>ハルカミライ（トップ）</Link>
+        </div>
+        {/*ハンバーガーメニュー） */}
+        <div className="flex-1 flex justify-end items-center space-x-4">
+          <button className="text-white focus:outline-none z-50" onClick={() => setIsOpen(!isOpen)}>
+            {isOpen ? <p>X</p> : <p>=</p>}
+          </button>
+        </div>
+      </div>
+      {/* メニューリスト（isOpen が true のときだけ表示） */}
+      {isOpen && (
+        <nav className="menu-container absolute top-16 right-0 w-1/8 bg-stone-700 p-4 shadow-lg rounded-l-lg">
+          <ul className="space-y-2">
+            <li><Link to="/tasks" className="block" onClick={() => setIsOpen(false)}>タスク</Link></li>
+            <li><Link to="/signin" className="block" onClick={() => setIsOpen(false)}>ログイン</Link></li>
+            <li><Link to="/signup" className="block" onClick={() => setIsOpen(false)}>新規登録</Link></li>
+            <li><Link to="/contact" className="block" onClick={() => setIsOpen(false)}>お問い合わせ</Link></li>
+            <li><Link to="/privacypolicy" className="block" onClick={() => setIsOpen(false)}>プライバシーポリシー</Link></li>
+            <li><Link to="/termspfservice" className="block" onClick={() => setIsOpen(false)}>利用規約</Link></li>
+          </ul>
+        </nav>
+      )}
+    </header>
   )
 };
     
