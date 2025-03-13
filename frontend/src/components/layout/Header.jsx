@@ -2,7 +2,6 @@ import React from "react";
 import LoginHeader from "./LoginHeader";
 import NotLoginHeader from "./NotLoginHeader";
 import { useAuth } from '../../hooks/AuthContext';
-import { Link } from "react-router-dom";
 
 const Header = () => {
   const { user } = useAuth();

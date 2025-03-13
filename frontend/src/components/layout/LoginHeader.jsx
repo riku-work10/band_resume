@@ -5,7 +5,6 @@ import SignOutButtun from "../auth/SignOutButtun";
 const LoginHeader = () => {
   return (
     <div>
-      <h1>ログインしたあとのヘッダーです</h1>
       <ul className="flex space-x-6">
           <li>
           <Link to="/top" className="hover:underline">

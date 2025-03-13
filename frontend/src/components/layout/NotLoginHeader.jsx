@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 const NotLoginHeader = () => {
   return (
     <div>
-      <h1>ログインしていない時のヘッダーです</h1>
       <ul className="flex space-x-6">
           <li>
           <Link to="/" className="hover:underline">
