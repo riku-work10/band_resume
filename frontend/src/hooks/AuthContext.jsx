@@ -67,15 +67,15 @@ export const AuthProvider = ({ children }) => {
   };
 
   //ログアウト
-  const logout = () => {
+  const signout = () => {
     localStorage.removeItem('access-token');
     localStorage.removeItem('client');
     localStorage.removeItem('uid');
-    setUser(null);
+    setUser(null);  // ユーザー情報をクリア
   };
 
   return (
-    <AuthContext.Provider value={{ user, signup, signin, logout, setUser}}>
+    <AuthContext.Provider value={{ user, signup, signin, signout, setUser}}>
       {children}
     </AuthContext.Provider>
   );
