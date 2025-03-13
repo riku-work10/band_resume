@@ -21,6 +21,7 @@ const Mypage = () => {
             <EditProfile setIsEditing={setIsEditing}/>
           ) : (
             <div>
+              {user.image && <img src={user.image} alt={user.name}  style={{ width: '200px', height: 'auto' }}/>}
               <p>Name: {user.name}</p>
               <p>Email: {user.email}</p>
               <button onClick={toggleEdit}>プロフィール編集</button>
