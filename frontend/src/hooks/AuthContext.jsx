@@ -33,12 +33,22 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const login = (userData, token, client, uid) => {
-    localStorage.setItem('access-token', token);
-    localStorage.setItem('client', client);
-    localStorage.setItem('uid', uid);
-    setUser(userData);
+  const login = async (email, password) => {
+    try {
+      const res = await apiClient.post('/auth/sign_in', { email, password });
+      
+      // 認証情報をローカルストレージに保存
+      localStorage.setItem("access-token", res.headers["access-token"]);
+      localStorage.setItem("client", res.headers["client"]);
+      localStorage.setItem("uid", res.headers["uid"]);
+
+      // 🔹 `fetchUser` を実行して `user` を更新
+      fetchUser(res.headers["access-token"], res.headers["client"], res.headers["uid"]);
+    } catch (err) {
+      console.error("ログインに失敗しました:", err);
+    }
   };
+
 
   const logout = () => {
     localStorage.removeItem('access-token');
