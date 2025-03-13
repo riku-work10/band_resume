@@ -5,53 +5,37 @@ import GetPageName from "../../hooks/GetPageName";
 
 const LoginHeader = () => {
   const [isOpen, setIsOpen] = useState(false);
-
   const location = useLocation();
+
   return (
     <header className="bg-stone-600 text-white p-4 relative">
       <div className="flex justify-between items-center">
         {/* ロゴ */}
-        <Link to="/top" className="text-lg font-bold">
-          ハルカミライ（トップ）
-        </Link>
-        <p>{GetPageName()}</p>
-        {/* ハンバーガーメニューボタン */}
-        <button
-          className="text-white focus:outline-none z-50"
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          {isOpen ? ( // 🔹 メニューが開いている時は「×」アイコンを表示
-            <p>
-            X
-            </p>
-          ) : ( // 🔹 メニューが閉じている時は「≡」アイコンを表示
-            <p>=</p>
-          )}
-        </button>
+        <div className="flex-1">
+          <Link to="/top" className={`text-lg font-bold ${location.pathname === "/top" ? "text-red-500" : ""}`}>ハルカミライ（トップ）</Link>
+        </div>
+        {/* ページタイトル */}
+        <div className="flex-1 text-center">
+          <p className="text-lg font-semibold">{GetPageName()}</p>
+        </div>
+        {/*（通知 & ハンバーガーメニュー） */}
+        <div className="flex-1 flex justify-end items-center space-x-4">
+          <Link to="/notification" className="block" onClick={() => setIsOpen(false)}>通知</Link>
+          <button className="text-white focus:outline-none z-50" onClick={() => setIsOpen(!isOpen)}>
+            {isOpen ? <p>X</p> : <p>=</p>}
+          </button>
+        </div>
       </div>
 
       {/* メニューリスト（isOpen が true のときだけ表示） */}
       {isOpen && (
-        <nav className="menu-container absolute top-16 left-0 w-full bg-stone-700 p-4 shadow-lg rounded">
+        <nav className="menu-container absolute top-16 right-0 w-1/8 bg-stone-700 p-4 shadow-lg rounded-l-lg">
           <ul className="space-y-2">
-            <li>
-              <Link to="/tasks" className="block" onClick={() => setIsOpen(false)}>タスク</Link>
-            </li>
-            <li>
-              <Link to="/notification" className="block" onClick={() => setIsOpen(false)}>通知</Link>
-            </li>
-            <li>
-              <Link to="/contact" className="block" onClick={() => setIsOpen(false)}>お問い合わせ</Link>
-            </li>
-            <li>
-              <Link to="/privacypolicy" className="block" onClick={() => setIsOpen(false)}>プライバシーポリシー</Link>
-            </li>
-            <li>
-              <Link to="/termspfservice" className="block" onClick={() => setIsOpen(false)}>利用規約</Link>
-            </li>
-            <li>
-              <SignOutButtun />
-            </li>
+            <li><Link to="/tasks" className="block" onClick={() => setIsOpen(false)}>タスク</Link></li>
+            <li><Link to="/contact" className="block" onClick={() => setIsOpen(false)}>お問い合わせ</Link></li>
+            <li><Link to="/privacypolicy" className="block" onClick={() => setIsOpen(false)}>プライバシーポリシー</Link></li>
+            <li><Link to="/termspfservice" className="block" onClick={() => setIsOpen(false)}>利用規約</Link></li>
+            <li><SignOutButtun /></li>
           </ul>
         </nav>
       )}
