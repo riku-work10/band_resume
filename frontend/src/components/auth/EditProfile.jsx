@@ -6,6 +6,7 @@ const EditProfile = ({ setIsEditing }) => {
   const { user, setUser } = useAuth();  // `setUser`をコンテキストから取得
   const [name, setName] = useState(user.name || "");
   const [email, setEmail] = useState(user.email || "");
+  const [image, setImageUrl] = useState(user.image || "");
   const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
@@ -14,6 +15,7 @@ const EditProfile = ({ setIsEditing }) => {
     const updatedUser = {
       name,
       email,
+      image,
     };
 
     try {
@@ -28,13 +30,28 @@ const EditProfile = ({ setIsEditing }) => {
   };
 
   return (
-    <div>
+    <div className="text-black">
       <h2>プロフィール編集</h2>
       {error && <p>{error}</p>}
       <form onSubmit={handleSubmit}>
+      <div>
+        {/* URL が入力されている場合に編集ページで画像を表示 */}
+        {image && <img src={image} alt="profile" style={{ width: '200px', height: 'auto' }} />}
+      </div>
+      <div>
+          <label>画像:</label>
+          <input
+            className="text-white"
+            type="text"
+            value={image}
+            onChange={(e) => setImageUrl(e.target.value)}
+            placeholder="https://example.com/image.jpg"
+          />
+        </div>
         <div>
           <label>名前:</label>
           <input
+            className="text-white"
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -42,8 +59,9 @@ const EditProfile = ({ setIsEditing }) => {
           />
         </div>
         <div>
-          <label>Email:</label>
+          <label>メールアドレス:</label>
           <input
+            className="text-white"
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
