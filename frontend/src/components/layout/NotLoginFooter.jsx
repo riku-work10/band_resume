@@ -7,6 +7,4 @@ const NotLoginFooter = () => {
     </div>
   )
 };
-    
-
 export default NotLoginFooter;

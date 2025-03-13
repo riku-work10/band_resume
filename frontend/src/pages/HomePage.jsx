@@ -18,6 +18,7 @@ const HomePage = () => {
             </Link>
           </li>
         </ul>
+        <img src={"https://delyze.com/wp-content/uploads/2022/04/hrkmr-logo-thumb.jpg"} alt="Example" style={{ width: '1000px', height: 'auto' }} />
     </div>
   )
 };
