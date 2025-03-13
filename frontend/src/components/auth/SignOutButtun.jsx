@@ -1,24 +1,17 @@
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../hooks/AuthContext";
 
 const SignOutButtun = () => {
-  const API_URL = `${process.env.REACT_APP_API_URL}/api/${process.env.REACT_APP_API_VERSION}`;
-  const handleLogout = async () => {
-    try {
-      await axios.delete(`${API_URL}/auth/sign_out`, {
-        headers: {
-          "access-token": localStorage.getItem("access-token"),
-          client: localStorage.getItem("client"),
-          uid: localStorage.getItem("uid"),
-        },
-      });
-      localStorage.clear();
-      alert("ログアウトしました");
-    } catch (err) {
-      console.error(err);
-    }
+  const { signout } = useAuth(); // `logout` 関数を `useAuth` から取得
+  const navigate = useNavigate();
+  
+  const handleLogout = () => {
+    signout(); // ローカルストレージからトークン削除
+    alert("ログアウトしました");
+    navigate("/"); // トップページに遷移
   };
 
-  return <button onClick={handleLogout}>Logout</button>;
+  return <button onClick={handleLogout}>ログアウト</button>;
 };
 
 export default SignOutButtun;

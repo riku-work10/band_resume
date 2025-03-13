@@ -33,22 +33,49 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const login = (userData, token, client, uid) => {
-    localStorage.setItem('access-token', token);
-    localStorage.setItem('client', client);
-    localStorage.setItem('uid', uid);
-    setUser(userData);
+  //ログイン
+  const signin = async (email, password) => {
+    try {
+      const res = await apiClient.post('/auth/sign_in', { email, password });
+      
+      // 認証情報をローカルストレージに保存
+      localStorage.setItem("access-token", res.headers["access-token"]);
+      localStorage.setItem("client", res.headers["client"]);
+      localStorage.setItem("uid", res.headers["uid"]);
+
+      // 🔹 `fetchUser` を実行して `user` を更新
+      fetchUser(res.headers["access-token"], res.headers["client"], res.headers["uid"]);
+    } catch (err) {
+      console.error("ログインに失敗しました:", err);
+    }
   };
 
-  const logout = () => {
+  //新規登録
+  const signup = async (email, password, passwordConfirmation) => {
+    try {
+      await apiClient.post("/auth", {
+        email,
+        password,
+        password_confirmation: passwordConfirmation,
+      });
+
+      // サインアップ後に自動的にログイン
+      await signin(email, password);
+    } catch (err) {
+      console.error("サインアップに失敗しました:", err);
+    }
+  };
+
+  //ログアウト
+  const signout = () => {
     localStorage.removeItem('access-token');
     localStorage.removeItem('client');
     localStorage.removeItem('uid');
-    setUser(null);
+    setUser(null);  // ユーザー情報をクリア
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, setUser}}>
+    <AuthContext.Provider value={{ user, signup, signin, signout, setUser}}>
       {children}
     </AuthContext.Provider>
   );

@@ -1,38 +1,13 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import LoginFooter from "./LoginFooter";
+import NotLoginFooter from "./NotLoginFooter";
+import { useAuth } from '../../hooks/AuthContext';
 
 const Footer = () => {
+  const { user } = useAuth();
   return (
-    <div>
-      <h1>フッターです</h1>
-      <p>今から実装します</p>
-      <ul className="flex space-x-6">
-                <li>
-                  <Link to="/lives">
-                    ライブ一覧
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/myresumes">
-                    マイ履歴書
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/resumes">
-                    履歴書一覧
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/chat">
-                    オープンチャット
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/mypage">
-                    マイページ
-                  </Link>
-                </li>
-              </ul>
+    <div className="fixed bottom-0 left-0 w-full h-12 bg-stone-600 text-white shadow-md z-50 ">
+      { user ? <LoginFooter /> : <NotLoginFooter />}
     </div>
   )
 };

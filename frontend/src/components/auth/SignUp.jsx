@@ -1,26 +1,22 @@
 import React from "react";
 import { useState } from "react";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../hooks/AuthContext";
 
 const SignUp = () => {
+  const { signup } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
-  const API_URL = `${process.env.REACT_APP_API_URL}/api/${process.env.REACT_APP_API_VERSION}`;
+  const navigate = useNavigate();
 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(`${API_URL}/auth`, {
-        email,
-        password,
-        password_confirmation: passwordConfirmation,
-      });
-      localStorage.setItem("access-token", res.headers["access-token"]);
-      localStorage.setItem("client", res.headers["client"]);
-      localStorage.setItem("uid", res.headers["uid"]);
+      await signup(email, password, passwordConfirmation);
       alert("登録成功！");
+      navigate("/top");
     } catch (err) {
       console.error(err);
       alert("登録に失敗しました");
