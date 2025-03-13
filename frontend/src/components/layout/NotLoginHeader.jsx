@@ -22,11 +22,6 @@ const NotLoginHeader = () => {
             </Link>
           </li>
           <li>
-            <Link to="/tasks">
-              タスク
-            </Link>
-          </li>
-          <li>
             <Link to="/notification">
               通知
             </Link>

@@ -3,9 +3,8 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <div>
-      <h1>フッターです</h1>
-      <ul className="flex space-x-6">
+    <div className="bg-stone-600 text-white py-4 shadow-md">
+      <ul className="container mx-auto flex justify-between items-center px-6">
                 <li>
                   <Link to="/lives">
                     ライブ一覧
