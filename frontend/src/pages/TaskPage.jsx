@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from 'axios';
+import apiClient from "../services/apiClient";
 
 const TaskPage = () => {
   const [tasks, setTasks] =useState ([]);
@@ -7,7 +7,7 @@ const TaskPage = () => {
   console.log(API_URL);
 
   const fetch = async () => {
-    const res = await axios.get(`${API_URL}/tasks`);
+    const res = await apiClient.get(`${API_URL}/tasks`);
     setTasks(res.data);
   };
 
