@@ -13,7 +13,7 @@ const Mypage = () => {
 
   return (
     <div>
-      <h2>My Page</h2>
+      <h2>マイページ</h2>
       {user ? (
         <div>
           {/* 編集モード isEditing=trueの場合モーダルを表示する*/}
@@ -31,8 +31,8 @@ const Mypage = () => {
           {!isEditing && (
             <div>
               {user.image && <img src={user.image} alt={user.name} style={{ width: '200px', height: 'auto' }} />}
-              <p>Name: {user.name}</p>
-              <p>Email: {user.email}</p>
+              <p>名前: {user.name}</p>
+              <p>メールアドレス: {user.email}</p>
               <button onClick={toggleEdit}>プロフィール編集</button>
             </div>
           )}

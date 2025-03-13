@@ -39,7 +39,7 @@ const EditProfile = ({ setIsEditing }) => {
         {image && <img src={image} alt="profile" style={{ width: '200px', height: 'auto' }} />}
       </div>
       <div>
-          <label>画像 URL:</label>
+          <label>画像:</label>
           <input
             className="text-white"
             type="text"
@@ -59,7 +59,7 @@ const EditProfile = ({ setIsEditing }) => {
           />
         </div>
         <div>
-          <label>Email:</label>
+          <label>メールアドレス:</label>
           <input
             className="text-white"
             type="email"
