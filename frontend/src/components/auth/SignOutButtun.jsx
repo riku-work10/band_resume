@@ -1,6 +1,8 @@
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const SignOutButtun = () => {
+  const navigate = useNavigate();
   const API_URL = `${process.env.REACT_APP_API_URL}/api/${process.env.REACT_APP_API_VERSION}`;
   const handleLogout = async () => {
     try {
@@ -13,6 +15,7 @@ const SignOutButtun = () => {
       });
       localStorage.clear();
       alert("ログアウトしました");
+      navigate("/");
     } catch (err) {
       console.error(err);
     }

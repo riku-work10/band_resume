@@ -1,10 +1,12 @@
 import React from "react";
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
   const API_URL = `${process.env.REACT_APP_API_URL}/api/${process.env.REACT_APP_API_VERSION}`;
 
   
@@ -19,6 +21,7 @@ const SignIn = () => {
       localStorage.setItem("client", res.headers["client"]);
       localStorage.setItem("uid", res.headers["uid"]);
       alert("ログイン成功！");
+      navigate("/top");
     } catch (err) {
       console.error(err);
       alert("ログイン失敗");

@@ -1,11 +1,13 @@
 import React from "react";
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
+  const navigate = useNavigate();
   const API_URL = `${process.env.REACT_APP_API_URL}/api/${process.env.REACT_APP_API_VERSION}`;
 
 
@@ -21,6 +23,7 @@ const SignUp = () => {
       localStorage.setItem("client", res.headers["client"]);
       localStorage.setItem("uid", res.headers["uid"]);
       alert("登録成功！");
+      navigate("/top");
     } catch (err) {
       console.error(err);
       alert("登録に失敗しました");

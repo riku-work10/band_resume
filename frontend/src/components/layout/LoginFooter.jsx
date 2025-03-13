@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const LoginFooter = () => {
   return (
     <div >
-      <ul className="container mx-auto flex justify-between items-center px-6">
+      <ul className="container mx-auto flex items-center justify-center justify-between px-6">
                 <li>
                   <Link to="/lives">
                     ライブ一覧
