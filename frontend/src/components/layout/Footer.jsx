@@ -5,7 +5,6 @@ const Footer = () => {
   return (
     <div>
       <h1>フッターです</h1>
-      <p>今から実装します</p>
       <ul className="flex space-x-6">
                 <li>
                   <Link to="/lives">

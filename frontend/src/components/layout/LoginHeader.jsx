@@ -8,9 +8,9 @@ const LoginHeader = () => {
       <h1>ログインしたあとのヘッダーです</h1>
       <ul className="flex space-x-6">
           <li>
-            <Link to="/top">
-              トップページ
-            </Link>
+          <Link to="/top" className="hover:underline">
+              <h1 className="text-lg font-bold">ハルカミライ（トップ）</h1>
+          </Link>
           </li>
           <li>
             <SignOutButtun />

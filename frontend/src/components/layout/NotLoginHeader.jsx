@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import SignOutButtun from "../auth/SignOutButtun";
 
 const NotLoginHeader = () => {
   return (
@@ -8,9 +7,9 @@ const NotLoginHeader = () => {
       <h1>ログインしていない時のヘッダーです</h1>
       <ul className="flex space-x-6">
           <li>
-            <Link to="/">
-              ホームページ
-            </Link>
+          <Link to="/" className="hover:underline">
+              <h1 className="text-lg font-bold">ハルカミライ（ホーム）</h1>
+          </Link>
           </li>
           <li>
             <Link to="/signup">
