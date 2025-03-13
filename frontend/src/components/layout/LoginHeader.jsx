@@ -1,13 +1,14 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import SignOutButtun from "../auth/SignOutButtun";
 
 const LoginHeader = () => {
+  const location = useLocation();
   return (
     <div>
       <ul className="flex space-x-6">
           <li>
-          <Link to="/top" className="hover:underline">
+          <Link to="/top" className={`hover:underline ${location.pathname === "/top" ? "text-red-500" : ""}`}>
               <h1 className="text-lg font-bold">ハルカミライ（トップ）</h1>
           </Link>
           </li>
