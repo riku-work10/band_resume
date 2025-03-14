@@ -7,8 +7,8 @@ class Api::V1::ResumesController < ApplicationController
   end
 
   def show
-    resume = Resume.includes(:learning_records).find(params[:id])
-    render json: resume.as_json(include: :learning_records)
+    resume = Resume.find(params[:id])
+    render json: resume
   end
 
   def create
@@ -23,7 +23,7 @@ class Api::V1::ResumesController < ApplicationController
   def update
     resume = Resume.find(params[:id])  # 指定されたIDで Resume を検索
     if resume.update(resume_params)  # パラメータで指定された内容で Resume を更新
-      render json: resume.as_json(include: :learning_records)  # 更新成功時に新しい Resume を JSON で返す
+      render json: resume
     else
       render json: { errors: resume.errors.full_messages }, status: :unprocessable_entity  # 更新失敗時にエラーメッセージを返す
     end
