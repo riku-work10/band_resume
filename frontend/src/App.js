@@ -20,6 +20,7 @@ import PrivacyPolicyPage from './pages/info/PrivacyPolicyPage';
 import TermsOfServicePage from './pages/info/TermsOfServicePage';
 import { AuthProvider } from './hooks/AuthContext';
 import ResumesShow from './components/resumes/ResumesShow';
+import ResumesCreate from './components/resumes/ResumesCreate';
 
 const App = () => {
   
@@ -31,12 +32,13 @@ const App = () => {
       <BrowserRouter>
       <div className="flex flex-col min-h-screen">
       <Header />
-      <main className="flex-grow container mx-auto px-6 py-4">
+      <main className="flex-grow container mx-auto px-6">
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/tasks" element={<TaskPage />} />
           <Route path="/lives" element={<LivePage />} />
           <Route path="/resumes" element={<ResumePage />} />
+          <Route path="/resumes/create" element={<ResumesCreate />} />
           <Route path="/resumes/:resumeId" element={<ResumesShow />} />
           <Route path="/myresumes" element={<MyResumePage />} />
           <Route path="/notification" element={<NotificationPage />} />
