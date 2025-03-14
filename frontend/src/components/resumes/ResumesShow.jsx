@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { getResume, ResumeDelete  } from '../../services/apiResumes';
+import ResumeEdit from './ResumesEdit';
 
 const ResumePageShow = () => {
   const { resumeId } = useParams(); // URLパラメータからIDを取得
@@ -8,6 +9,7 @@ const ResumePageShow = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate(); 
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchResume = async () => {
@@ -54,6 +56,7 @@ const ResumePageShow = () => {
               <p>紹介: {resume.introduction}</p>
               {resume.sns_url && <a href={resume.sns_url} target="_blank" rel="noopener noreferrer">SNSリンク</a>}
               <br />
+              <button onClick={() => setIsEditModalOpen(true)}>履歴書編集</button>
               <button
               onClick={() => handleDelete(resumeId)}
               className="py-2 px-4 bg-red-500 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400"
@@ -63,6 +66,15 @@ const ResumePageShow = () => {
             </div>
         ) : (
           <p>履歴書を読み込み中...</p>
+        )}
+
+        {/* 編集モーダル */}
+        {isEditModalOpen && (
+          <ResumeEdit
+            resume={resume}
+            onClose={() => setIsEditModalOpen(false)}
+            onUpdate={setResume}
+          />
         )}
     </div>
   );

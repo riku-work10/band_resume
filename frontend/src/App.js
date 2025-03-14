@@ -21,6 +21,7 @@ import TermsOfServicePage from './pages/info/TermsOfServicePage';
 import { AuthProvider } from './hooks/AuthContext';
 import ResumesShow from './components/resumes/ResumesShow';
 import ResumesCreate from './components/resumes/ResumesCreate';
+import ResumesEdit from './components/resumes/ResumesEdit';
 
 const App = () => {
   
@@ -39,6 +40,7 @@ const App = () => {
           <Route path="/lives" element={<LivePage />} />
           <Route path="/resumes" element={<ResumePage />} />
           <Route path="/resumes/create" element={<ResumesCreate />} />
+          <Route path="/resumes/edit" element={<ResumesEdit />} />
           <Route path="/resumes/:resumeId" element={<ResumesShow />} />
           <Route path="/myresumes" element={<MyResumePage />} />
           <Route path="/notification" element={<NotificationPage />} />
