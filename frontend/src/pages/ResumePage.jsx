@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import styled from "styled-components";
 import { Link } from 'react-router-dom';
 import { getResumes } from '../services/apiResumes';
 
@@ -30,6 +29,7 @@ const ResumePage = () => {
     <div>
       {resumes.map((resume) => (
       <div key={resume.id}>
+        <Link to={`/resumes/${resume.id}`} className="hover:underline">
         <h2>{resume.title}</h2>
         {resume.profile_image && <img src={resume.profile_image} alt={resume.title} width="100" />}
         <p>年齢: {resume.age}歳</p>
@@ -37,8 +37,7 @@ const ResumePage = () => {
         <p>場所: {resume.location}</p>
         <p>紹介: {resume.introduction}</p>
         {resume.sns_url && <a href={resume.sns_url} target="_blank" rel="noopener noreferrer">SNSリンク</a>}
-        <br />
-        <Link to={`/resumes/${resume.id}`} className="hover:underline">詳細ページへ</Link>
+        </Link>
         <hr />
       </div>
       ))}

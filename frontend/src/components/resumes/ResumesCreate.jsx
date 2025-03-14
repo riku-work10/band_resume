@@ -1,17 +1,20 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { createResume } from '../../services/apiResumes';
-import { useAuth } from '../../hooks/AuthContext';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { createResume } from "../../services/apiResumes";
+import { useAuth } from "../../hooks/AuthContext";
+import SelectAge from "../selectlists/SelectAge";
+import SelectGender from "../selectlists/SelectGender";
+import SelectLocation from "../selectlists/SelectLocation";
 
-const ResumesCreate = () => {
+const ResumesCreate = ({ onClose }) => {
   const { user } = useAuth();
-  const [title, setTitle] = useState('');
-  const [profileImage, setProfileImage] = useState('');
-  const [age, setAge] = useState('');
-  const [gender, setGender] = useState('');
-  const [snsUrl, setSnsUrl] = useState('');
-  const [location, setLocation] = useState('');
-  const [introduction, setIntroduction] = useState('');
+  const [title, setTitle] = useState("");
+  const [profileImage, setProfileImage] = useState("");
+  const [age, setAge] = useState("");
+  const [gender, setGender] = useState("");
+  const [snsUrl, setSnsUrl] = useState("");
+  const [location, setLocation] = useState("");
+  const [introduction, setIntroduction] = useState("");
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
@@ -22,102 +25,92 @@ const ResumesCreate = () => {
         user_id: user.id,
         title,
         profile_image: profileImage,
-        age: age,
-        gender: gender,
+        age,
+        gender,
         sns_url: snsUrl,
-        location: location,
-        introduction: introduction,
+        location,
+        introduction,
       };
-      const newResume = await createResume(resumeData); // 履歴書作成
-      navigate("/myresumes");
+      await createResume(resumeData); // 履歴書作成
+      onClose(); // モーダルを閉じる
+      navigate("/myresumes"); // 一覧へリダイレクト
     } catch (err) {
-      setError('履歴書の作成に失敗しました');
+      setError("履歴書の作成に失敗しました");
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="bg-gray-100 p-4 rounded-lg shadow-md text-black" >
-      <h2>新しい履歴書の作成</h2>
+    <div>
+      <h2 className="text-lg font-bold">新しい履歴書の作成</h2>
 
-      <div>
-        <label>タイトル：</label>
-        <input
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          required
-          className="bg-emerald-400"
-        />
-      </div>
+      <form onSubmit={handleSubmit} className="bg-gray-100 p-4 rounded-lg shadow-md text-black">
+        <div>
+          <label className="text-black">タイトル：</label>
+          <input
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            required
+            className="border border-gray-300 p-2 w-full rounded text-white"
+          />
+        </div>
 
-      <div>
-        <label>プロフィール画像URL：</label>
-        <input
-          type="text"
-          value={profileImage}
-          onChange={(e) => setProfileImage(e.target.value)}
-          className="bg-emerald-400"
-        />
-      </div>
+        <div>
+          <label className="text-black">プロフィール画像URL：</label>
+          <input
+            type="text"
+            value={profileImage}
+            onChange={(e) => setProfileImage(e.target.value)}
+            className="border border-gray-300 p-2 w-full rounded text-white"
+          />
+        </div>
 
-      <div>
-        <label>年齢：</label>
-        <input
-          type="number"
-          value={age}
-          onChange={(e) => setAge(e.target.value)}
-          className="bg-emerald-400"
-        />
-      </div>
+        <div>
+          <label className="text-black">年齢：</label>
+          <SelectAge value={age} onChange={(e) => setAge(e.target.value)} />
+        </div>
 
-      <div>
-        <label>性別：</label>
-        <input
-          type="text"
-          value={gender}
-          onChange={(e) => setGender(e.target.value)}
-          className="bg-emerald-400"
-        />
-      </div>
+        <div>
+          <label className="text-black">性別：</label>
+          <SelectGender value={gender} onChange={(e) => setGender(e.target.value)} />
+        </div>
 
-      <div>
-        <label>SNSリンク：</label>
-        <input
-          type="text"
-          value={snsUrl}
-          onChange={(e) => setSnsUrl(e.target.value)}
-          className="bg-emerald-400"
-        />
-      </div>
+        <div>
+          <label className="text-black">SNSリンク：</label>
+          <input
+            type="text"
+            value={snsUrl}
+            onChange={(e) => setSnsUrl(e.target.value)}
+            className="border border-gray-300 p-2 w-full rounded text-white"
+          />
+        </div>
 
-      <div>
-        <label>場所：</label>
-        <input
-          type="text"
-          value={location}
-          onChange={(e) => setLocation(e.target.value)}
-          className="bg-emerald-400"
-        />
-      </div>
+        <div>
+          <label className="text-black">場所：</label>
+          <SelectLocation value={location} onChange={(e) => setLocation(e.target.value)} />
+        </div>
 
-      <div>
-        <label>自己紹介：</label>
-        <textarea
-          value={introduction}
-          onChange={(e) => setIntroduction(e.target.value)}
-          className="bg-emerald-400"
-        />
-      </div>
+        <div>
+          <label className="text-black">自己紹介：</label>
+          <textarea
+            value={introduction}
+            onChange={(e) => setIntroduction(e.target.value)}
+            className="border border-gray-300 p-2 w-full rounded text-white"
+          />
+        </div>
 
-      {error && <p>{error}</p>}
+        {error && <p className="text-red-500">{error}</p>}
 
-      <button
-        type="submit"
-        className="mt-4 py-2 px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
-      >
-        履歴書作成
-      </button>
-    </form>
+        <div className="flex justify-end gap-2 mt-4">
+          <button type="button" onClick={onClose} className="bg-gray-400 text-white px-4 py-2 rounded">
+            キャンセル
+          </button>
+          <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">
+            履歴書作成
+          </button>
+        </div>
+      </form>
+    </div>
   );
 };
 
