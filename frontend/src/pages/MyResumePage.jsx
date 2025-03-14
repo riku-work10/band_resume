@@ -1,8 +1,8 @@
 import ResumesCreate from "../components/resumes/ResumesCreate";
 import React, { useState, useEffect } from "react";
-import { getResumesByUserId } from "../services/apiClient";
 import { useAuth } from "../hooks/AuthContext";
 import { Link } from "react-router-dom";
+import { getResumesByUserId } from "../services/apiResumes";
 
 const MyResumePage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
