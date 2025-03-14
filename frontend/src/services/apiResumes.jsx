@@ -42,10 +42,10 @@ export const createResume = async (resumeData) => {
 };
 
 //履歴書を削除する
-const ResumeDelete = async () => {
-  try {
-    await apiClient.delete(`/resumes/${resume.id}`); // apiClientを使用
-  } catch (error) {
-    throw new Error('履歴書の削除に失敗しました');
-  }
-};
+// export const ResumeDelete = async () => {
+//   try {
+//     await apiClient.delete(`/resumes/${resume.id}`); // apiClientを使用
+//   } catch (error) {
+//     throw new Error('履歴書の削除に失敗しました');
+//   }
+// };
