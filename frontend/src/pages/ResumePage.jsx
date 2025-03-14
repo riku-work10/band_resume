@@ -37,6 +37,8 @@ const ResumePage = () => {
         <p>場所: {resume.location}</p>
         <p>紹介: {resume.introduction}</p>
         {resume.sns_url && <a href={resume.sns_url} target="_blank" rel="noopener noreferrer">SNSリンク</a>}
+        <br />
+        <Link to={`/resumes/${resume.id}`} className="hover:underline">詳細ページへ</Link>
         <hr />
       </div>
       ))}
