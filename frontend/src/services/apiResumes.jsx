@@ -49,3 +49,13 @@ export const ResumeDelete = async (id) => {
     throw new Error('履歴書の削除に失敗しました');
   }
 };
+
+//自分の履歴書のみ取得
+export const getResumesByUserId = async (userId) => {
+  try {
+    const response = await apiClient.get(`/resumes?user_id=${userId}`);
+    return response.data; // フィルタリングされたデータを返す
+  } catch (error) {
+    throw new Error('履歴書の取得に失敗しました');
+  }
+};

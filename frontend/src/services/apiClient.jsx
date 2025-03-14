@@ -24,14 +24,4 @@ apiClient.interceptors.request.use((config) => {
   return config;
 });
 
-//自分の履歴書のみ取得
-export const getResumesByUserId = async (userId) => {
-  try {
-    const response = await apiClient.get(`/resumes?user_id=${userId}`);
-    return response.data; // フィルタリングされたデータを返す
-  } catch (error) {
-    throw new Error('履歴書の取得に失敗しました');
-  }
-};
-
 export default apiClient;

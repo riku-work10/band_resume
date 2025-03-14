@@ -12,9 +12,9 @@ const ResumeComments = ({ resumeId }) => {
   // コメント一覧を取得
   useEffect(() => {
     apiClient
-      .get(`/resumes/${resumeId}/comments`)
+      .get(`/resumes/${resumeId}/resume_comments`)
       .then((response) => {
-        setComments(response.data || [] );
+        setComments(response.data || [] ); //コメントがまだ作成されていない場合にエラーが出ないように[]
       })
       .catch((error) => {
         console.error("コメントの取得に失敗しました", error);
@@ -25,7 +25,7 @@ const ResumeComments = ({ resumeId }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await apiClient.post(`/resumes/${resumeId}/comments`, {
+      const response = await apiClient.post(`/resumes/${resumeId}/resume_comments`, {
         content,
       });
 
@@ -40,7 +40,7 @@ const ResumeComments = ({ resumeId }) => {
   // コメント削除
   const handleDelete = async (commentId) => {
     try {
-      await apiClient.delete(`/resumes/${resumeId}/comments/${commentId}`);
+      await apiClient.delete(`/resumes/${resumeId}/resume_comments/${commentId}`);
 
       // 削除後にコメントリストからそのコメントを除外
       setComments(comments.filter((comment) => comment.id !== commentId));
