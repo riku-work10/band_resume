@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getResume, ResumeDelete  } from '../../services/apiResumes';
 import ResumeEdit from './ResumesEdit';
+import ResumeComments from '../comments/ResumeComments';
 
 const ResumePageShow = () => {
   const { resumeId } = useParams(); // URLパラメータからIDを取得
@@ -63,6 +64,7 @@ const ResumePageShow = () => {
               >
                 履歴書削除
               </button>
+              <ResumeComments resumeId={resumeId}/>
             </div>
         ) : (
           <p>履歴書を読み込み中...</p>
