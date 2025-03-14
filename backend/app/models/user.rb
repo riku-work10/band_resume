@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
 
   #アソシエーションたち
   has_many :resumes, dependent: :destroy
-  has_many :comments, dependent: :destroy
+  has_many :resume_comments, dependent: :destroy
 
   validates :email, presence: true, uniqueness: true
 end

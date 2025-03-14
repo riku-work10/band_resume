@@ -60,7 +60,7 @@ const ResumeComments = ({ resumeId }) => {
     e.preventDefault();
 
     try {
-      const response = await apiClient.put(`/api/v1/resumes/${resumeId}/comments/${editCommentId}`, {
+      const response = await apiClient.put(`/resumes/${resumeId}/resume_comments/${editCommentId}`, {
         content,
       });
 
