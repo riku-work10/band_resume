@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :users, only: [:create, :show, :update, :destroy]
       resources :resumes do
-        resources :comments, only: [:index, :create, :destroy, :update]
+        resources :resume_comments, only: [:index, :create, :destroy, :update]
       end
 
       get "tasks" => "tasks#index"

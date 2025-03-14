@@ -1,4 +1,4 @@
-class  Api::V1::CommentsController < ApplicationController
+class  Api::V1::ResumeCommentsController < ApplicationController
   before_action :authenticate_api_v1_user!
 
   def index

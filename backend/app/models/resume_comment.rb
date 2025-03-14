@@ -1,4 +1,4 @@
-class Comment < ApplicationRecord
+class ResumeComment < ApplicationRecord
   belongs_to :user
   belongs_to :resume
 
