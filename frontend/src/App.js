@@ -22,7 +22,7 @@ import { AuthProvider } from './hooks/AuthContext';
 import ResumesShow from './components/resumes/ResumesShow';
 
 const App = () => {
-  
+
 
 
   return (

@@ -1,17 +1,20 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { createResume } from '../../services/apiResumes';
-import { useAuth } from '../../hooks/AuthContext';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { createResume } from "../../services/apiResumes";
+import { useAuth } from "../../hooks/AuthContext";
+import SelectAge from "../selectlists/SelectAge";
+import SelectGender from "../selectlists/SelectGender";
+import SelectLocation from "../selectlists/SelectLocation";
 
 const ResumesCreate = ({ onClose }) => {
   const { user } = useAuth();
-  const [title, setTitle] = useState('');
-  const [profileImage, setProfileImage] = useState('');
-  const [age, setAge] = useState('');
-  const [gender, setGender] = useState('');
-  const [snsUrl, setSnsUrl] = useState('');
-  const [location, setLocation] = useState('');
-  const [introduction, setIntroduction] = useState('');
+  const [title, setTitle] = useState("");
+  const [profileImage, setProfileImage] = useState("");
+  const [age, setAge] = useState("");
+  const [gender, setGender] = useState("");
+  const [snsUrl, setSnsUrl] = useState("");
+  const [location, setLocation] = useState("");
+  const [introduction, setIntroduction] = useState("");
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
@@ -32,7 +35,7 @@ const ResumesCreate = ({ onClose }) => {
       onClose(); // モーダルを閉じる
       navigate("/myresumes"); // 一覧へリダイレクト
     } catch (err) {
-      setError('履歴書の作成に失敗しました');
+      setError("履歴書の作成に失敗しました");
     }
   };
 
@@ -48,7 +51,7 @@ const ResumesCreate = ({ onClose }) => {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             required
-            className="border border-gray-300 p-2 w-full rounded"
+            className="border border-gray-300 p-2 w-full rounded text-white"
           />
         </div>
 
@@ -58,28 +61,18 @@ const ResumesCreate = ({ onClose }) => {
             type="text"
             value={profileImage}
             onChange={(e) => setProfileImage(e.target.value)}
-            className="border border-gray-300 p-2 w-full rounded"
+            className="border border-gray-300 p-2 w-full rounded text-white"
           />
         </div>
 
         <div>
           <label className="text-black">年齢：</label>
-          <input
-            type="number"
-            value={age}
-            onChange={(e) => setAge(e.target.value)}
-            className="border border-gray-300 p-2 w-full rounded"
-          />
+          <SelectAge value={age} onChange={(e) => setAge(e.target.value)} />
         </div>
 
         <div>
           <label className="text-black">性別：</label>
-          <input
-            type="text"
-            value={gender}
-            onChange={(e) => setGender(e.target.value)}
-            className="border border-gray-300 p-2 w-full rounded"
-          />
+          <SelectGender value={gender} onChange={(e) => setGender(e.target.value)} />
         </div>
 
         <div>
@@ -88,18 +81,13 @@ const ResumesCreate = ({ onClose }) => {
             type="text"
             value={snsUrl}
             onChange={(e) => setSnsUrl(e.target.value)}
-            className="border border-gray-300 p-2 w-full rounded"
+            className="border border-gray-300 p-2 w-full rounded text-white"
           />
         </div>
 
         <div>
           <label className="text-black">場所：</label>
-          <input
-            type="text"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-            className="border border-gray-300 p-2 w-full rounded"
-          />
+          <SelectLocation value={location} onChange={(e) => setLocation(e.target.value)} />
         </div>
 
         <div>
@@ -107,24 +95,17 @@ const ResumesCreate = ({ onClose }) => {
           <textarea
             value={introduction}
             onChange={(e) => setIntroduction(e.target.value)}
-            className="border border-gray-300 p-2 w-full rounded"
+            className="border border-gray-300 p-2 w-full rounded text-white"
           />
         </div>
 
         {error && <p className="text-red-500">{error}</p>}
 
         <div className="flex justify-end gap-2 mt-4">
-          <button
-            type="button"
-            onClick={onClose}
-            className="bg-gray-400 text-white px-4 py-2 rounded"
-          >
+          <button type="button" onClick={onClose} className="bg-gray-400 text-white px-4 py-2 rounded">
             キャンセル
           </button>
-          <button
-            type="submit"
-            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
-          >
+          <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">
             履歴書作成
           </button>
         </div>
