@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../hooks/AuthContext';
 import { putResume } from '../../services/apiResumes';
+import SelectAge from "../selectlists/SelectAge";
+import SelectGender from "../selectlists/SelectGender";
+import SelectLocation from "../selectlists/SelectLocation";
+
 
 const ResumeEdit = ({ resume, onClose, onUpdate }) => {
   const { user } = useAuth();
@@ -74,23 +78,13 @@ const ResumeEdit = ({ resume, onClose, onUpdate }) => {
           </div>
 
           <div>
-            <label className="text-black">年齢：</label>
-            <input
-              type="number"
-              value={age}
-              onChange={(e) => setAge(e.target.value)}
-              className="border border-gray-300 p-2 w-full rounded"
-            />
+          <label className="text-black">年齢：</label>
+          <SelectAge value={age} onChange={(e) => setAge(e.target.value)} />
           </div>
 
           <div>
             <label className="text-black">性別：</label>
-            <input
-              type="text"
-              value={gender}
-              onChange={(e) => setGender(e.target.value)}
-              className="border border-gray-300 p-2 w-full rounded"
-            />
+            <SelectGender value={gender} onChange={(e) => setGender(e.target.value)} />
           </div>
 
           <div>
@@ -104,13 +98,8 @@ const ResumeEdit = ({ resume, onClose, onUpdate }) => {
           </div>
 
           <div>
-            <label className="text-black">場所：</label>
-            <input
-              type="text"
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
-              className="border border-gray-300 p-2 w-full rounded"
-            />
+          <label className="text-black">場所：</label>
+          <SelectLocation value={location} onChange={(e) => setLocation(e.target.value)} />
           </div>
 
           <div>
