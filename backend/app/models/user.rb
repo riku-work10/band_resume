@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   include DeviseTokenAuth::Concerns::User
 
   #アソシエーションたち
-  has_many :resumes, dependent: destroy
+  has_many :resumes, dependent: :destroy
 
   validates :email, presence: true, uniqueness: true
 end
