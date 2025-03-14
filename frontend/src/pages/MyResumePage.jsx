@@ -39,7 +39,7 @@ const MyResumePage = () => {
         <p>履歴書がありません。</p>
       ) : (
         resumes.map((resume) => (
-          <Link to={`/resumes/${resume.id}`}>
+          <Link to={`/resumes/${resume.id}`} className="hover:underline">
           <div key={resume.id} className="border p-4 my-4 rounded shadow-md">
             <h2 className="text-xl font-bold">{resume.title}</h2>
             <p>年齢: {resume.age}歳</p>
