@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
   #アソシエーションたち
   has_many :resumes, dependent: :destroy
   has_many :resume_comments, dependent: :destroy
+  has_many :resume_likes
+  has_many :liked_resumes, through: :likes, source: :resume
 
   validates :email, presence: true, uniqueness: true
 end
