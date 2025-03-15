@@ -46,6 +46,12 @@ class Api::V1::ResumesController < ApplicationController
     render json: { liked: liked }
   end
 
+  def my_liked_resumes
+    liked_resumes = current_api_v1_user.liked_resumes
+
+    render json: liked_resumes
+  end
+
   private
 
   def resume_params
