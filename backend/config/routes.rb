@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       resources :users, only: [:create, :show, :update, :destroy]
       resources :resumes do
         resources :resume_comments, only: [:index, :create, :destroy, :update]
+        resource :like, only: [:create, :destroy]
       end
 
       get "tasks" => "tasks#index"
