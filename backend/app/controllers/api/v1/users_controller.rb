@@ -30,6 +30,12 @@ class Api::V1::UsersController < ApplicationController
     head :no_content
   end
 
+  def liked_resumes
+    liked_resumes = current_api_v1_user.liked_resumes
+
+    render json: liked_resumes, include: [:user] # 必要なら関連データも含める
+  end
+
   private
 
   def user_params

@@ -39,6 +39,13 @@ class Api::V1::ResumesController < ApplicationController
     head :no_content  #HTTPステータスコードの204を返すという意味
   end
 
+  def liked_by_current_user
+    resume = Resume.find(params[:id])
+    liked = current_api_v1_user.liked_resumes.exists?(resume.id)
+
+    render json: { liked: liked }
+  end
+
   private
 
   def resume_params
