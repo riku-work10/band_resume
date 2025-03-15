@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { getResume, ResumeDelete  } from '../../services/apiResumes';
 import ResumeEdit from './ResumesEdit';
 import ResumeComments from '../comments/ResumeComments';
+import ResumeLikeButton from '../likes/ResumeLikeButton ';
 
 const ResumePageShow = () => {
   const { resumeId } = useParams(); // URLパラメータからIDを取得
@@ -56,6 +57,8 @@ const ResumePageShow = () => {
               <p>場所: {resume.location}</p>
               <p>紹介: {resume.introduction}</p>
               {resume.sns_url && <a href={resume.sns_url} target="_blank" rel="noopener noreferrer">SNSリンク</a>}
+              <br />
+              <ResumeLikeButton resumeId={resume.id} />
               <br />
               <button onClick={() => setIsEditModalOpen(true)}>履歴書編集</button>
               <button

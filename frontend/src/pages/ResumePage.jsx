@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getResumes } from '../services/apiResumes';
+import ResumeLikeButton from '../components/likes/ResumeLikeButton ';
 
 const ResumePage = () => {
   const [resumes, setResumes] = useState([]);
@@ -38,6 +39,8 @@ const ResumePage = () => {
         <p>紹介: {resume.introduction}</p>
         {resume.sns_url && <a href={resume.sns_url} target="_blank" rel="noopener noreferrer">SNSリンク</a>}
         </Link>
+        <br />
+        <ResumeLikeButton resumeId={resume.id} />
         <hr />
       </div>
       ))}
