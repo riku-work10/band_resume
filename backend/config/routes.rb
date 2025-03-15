@@ -9,6 +9,7 @@ Rails.application.routes.draw do
         resource :like, only: [:create, :destroy]
       end
 
+      get 'users/:id/liked_resumes', to: 'users#liked_resumes'
       get "tasks" => "tasks#index"
       mount_devise_token_auth_for 'User', at: 'auth'
     end
