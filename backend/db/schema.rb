@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_03_14_224654) do
+ActiveRecord::Schema[7.1].define(version: 2025_03_15_003257) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -22,6 +22,15 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_14_224654) do
     t.datetime "updated_at", null: false
     t.index ["resume_id"], name: "index_resume_comments_on_resume_id"
     t.index ["user_id"], name: "index_resume_comments_on_user_id"
+  end
+
+  create_table "resume_likes", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "resume_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["resume_id"], name: "index_resume_likes_on_resume_id"
+    t.index ["user_id"], name: "index_resume_likes_on_user_id"
   end
 
   create_table "resumes", force: :cascade do |t|
@@ -72,5 +81,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_14_224654) do
 
   add_foreign_key "resume_comments", "resumes"
   add_foreign_key "resume_comments", "users"
+  add_foreign_key "resume_likes", "resumes"
+  add_foreign_key "resume_likes", "users"
   add_foreign_key "resumes", "users"
 end
