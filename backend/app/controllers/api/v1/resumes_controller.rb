@@ -2,7 +2,11 @@ class Api::V1::ResumesController < ApplicationController
   before_action :authenticate_api_v1_user!
 
   def index
-    resumes = Resume.all
+    if params[:user_id]
+      resumes = Resume.where(user_id: params[:user_id])  # user_id に基づいて履歴書を取得
+    else
+      resumes = Resume.all  # user_id がない場合は全ての履歴書を取得
+    end
     render json: resumes
   end
 
