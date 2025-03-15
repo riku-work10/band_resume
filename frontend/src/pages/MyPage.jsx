@@ -2,6 +2,7 @@ import { useState } from "react";
 import EditProfile from "../components/auth/EditProfile";
 import { useAuth } from "../hooks/AuthContext";
 import '../css/modal.css';
+import ResumeLikes from "../components/likes/ResumeLikes";
 
 const Mypage = () => {
   const { user } = useAuth();
@@ -36,6 +37,7 @@ const Mypage = () => {
               <button onClick={toggleEdit}>プロフィール編集</button>
             </div>
           )}
+          <ResumeLikes />
         </div>
       ) : (
         <p>ログインしてください</p>
