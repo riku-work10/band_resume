@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       resources :resumes do
         resources :resume_comments, only: [:index, :create, :destroy, :update]
         resource :resume_likes, only: [:create, :destroy]
+        get :liked_by_current_user, on: :member
       end
 
       get 'users/:id/liked_resumes', to: 'users#liked_resumes'
