@@ -4,7 +4,6 @@ import "./index.css";
 
 import Header from './components/layout/Header';
 import Footer from "./components/layout/Footer";
-import TaskPage from "./pages/TaskPage";
 import HomePage from "./pages/HomePage";
 import LivePage from "./pages/LivePage";
 import ResumePage from "./pages/ResumePage";
@@ -34,7 +33,6 @@ const App = () => {
       <main className="flex-grow container mx-auto px-6">
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/tasks" element={<TaskPage />} />
           <Route path="/lives" element={<LivePage />} />
           <Route path="/resumes" element={<ResumePage />} />
           <Route path="/resumes/:resumeId" element={<ResumesShow />} />

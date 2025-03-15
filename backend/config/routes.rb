@@ -6,9 +6,10 @@ Rails.application.routes.draw do
       resources :users, only: [:create, :show, :update, :destroy]
       resources :resumes do
         resources :resume_comments, only: [:index, :create, :destroy, :update]
+        resource :resume_likes, only: [:create, :destroy]
       end
 
-      get "tasks" => "tasks#index"
+      get 'users/:id/liked_resumes', to: 'users#liked_resumes'
       mount_devise_token_auth_for 'User', at: 'auth'
     end
   end
