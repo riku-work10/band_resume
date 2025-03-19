@@ -10,7 +10,7 @@ const hundleSubmit = async (e) => {
   e.preventDefault();  //フォームでエンターを押してもページが更新されないようにする
 
   try {
-    const response = await apiClient.put(`resumes/${resumeId}/resume_sections/resumeSection.id`, {
+    const response = await apiClient.put(`resumes/${resumeId}/resume_sections/${resumeSection.id}`, {
       resume_section: {
         title: inputResumeSectionTitle,
       },

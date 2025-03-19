@@ -52,7 +52,7 @@ export const ResumeSections = ({resumeId}) => {
 
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
-      <Droppable droppableId='dropaable' direction='horizontal'>
+      <Droppable droppableId='droppable' direction='horizontal'>
         {(provided) => (
         <div className='taskCardsArea' {...provided.droppableProps} ref={provided.innerRef}>
             {resumeSectionsList.map((resumeSection, index) => (
