@@ -28,7 +28,7 @@ export const ResumeItem = ({ index, item, itemList, setItemList }) => {
           {...provided.draggableProps}
           {...provided.dragHandleProps}
         >
-          <p className='taskText'>{item.text}</p>
+          <p className='taskText'>{item.content}</p>
           <button
             onClick={() => handleDelete(item.id)}
             className='taskTrashButton'
