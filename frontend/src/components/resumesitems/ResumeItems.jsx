@@ -1,6 +1,7 @@
 import React from 'react';
 import { DragDropContext, Droppable} from "react-beautiful-dnd"
 import apiClient from '../../services/apiClient';
+import { ResumeItem } from './ResumeItem';
 
 
 const reorder = (itemList, startIndex, endIndex ) => {
@@ -45,12 +46,12 @@ export const ResumeItems = ({ itemList, setItemList, resumeSection, resumeId }) 
           <div {...provided.droppableProps} ref={provided.innerRef}>
             {itemList.map((item, index) => (
             <div key={item.id}>
-              {/* <Task
+              <ResumeItem
               index={index}
               item={item}
               itemList={itemList} 
               setItemList={setItemList}
-              /> */}
+              />
             </div>
             ))}
             {provided.placeholder}
