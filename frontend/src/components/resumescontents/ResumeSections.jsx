@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import apiClient from '../../services/apiClient';
+import { ResumeSection } from './ResumeSection';
 // import { ResumeSection } from './ResumeSection';
 // import { AddResumeSectionButton } from './AddResumeSectionButton';
 
@@ -55,9 +56,9 @@ export const ResumeSections = ({resumeId}) => {
       <Droppable droppableId='dropaable' direction='horizontal'>
         {(provided) => (
         <div className='taskCardsArea' {...provided.droppableProps} ref={provided.innerRef}>
-            {/* {resumeSectionsList.map((resumeSection, index) => (
-            // <ResumeSection key={resumeSection.id} index={index} resumeSectionsList={resumeSectionsList} setResumeSectionsList={setResumeSectionsList} resumeSection={resumeSection}/>
-          ))} */}
+            {resumeSectionsList.map((resumeSection, index) => (
+            <ResumeSection key={resumeSection.id} index={index} resumeSectionsList={resumeSectionsList} setResumeSectionsList={setResumeSectionsList} resumeSection={resumeSection} resumeId={resumeId}/>
+          ))}
           {provided.placeholder}
           <h1 className='text-4xl'>ここにドラッグアンドドロップを実装します</h1>
           {/* <AddResumeSectionButton resumeSectionsList={resumeSectionsList} setResumeSectionsList={setResumeSectionsList} /> */}

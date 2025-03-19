@@ -1,33 +1,28 @@
-// import React, { useEffect, useState } from 'react';
-// import { Draggable } from 'react-beautiful-dnd';
-// import { TaskCardDeleteButton } from './TaskCardDeleteButton';
-// import { TaskCardTitle } from './TaskCardTitle';
-// import { TaskAddInput } from './TaskAddInput';
-// import { Tasks } from './Tasks';
-// import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { Draggable } from 'react-beautiful-dnd';
+import apiClient from '../../services/apiClient';
 
+export const ResumeSection = ({ index, resumeSectionsList, setResumeSectionsList, resumeSection, resumeId }) => {
+  const [inputText, setInputText] = useState("")
+  const [itemList, setItemList] = useState([])
 
-// export const ResumeSection = ({ taskCardsList, setTaskCardsList, taskCard, index }) => {
-//   const [inputText, setInputText] = useState("")
-//   const [taskList, setTaskList] = useState([])
+  useEffect(() => {
+    apiClient.get(`resumes/${resumeId}/resume_sections/${resumeSection.id}/resume_items`)
+      .then(response => setItemList(response.data))  // タスクを状態にセット
+      .catch(error => console.error('Error fetching tasks:', error));
+  }, [resumeSection.id]);
 
-//   useEffect(() => {
-//     axios.get(`http://localhost:3000/tasks/${taskCard.id}/items`)
-//       .then(response => setTaskList(response.data))  // タスクを状態にセット
-//       .catch(error => console.error('Error fetching tasks:', error));
-//   }, [taskCard.id]);
-
-//   return (
-//     <Draggable draggableId={taskCard.id.toString()} index={index}>
-//       {(provided) => (
-//     <div className='taskCard' ref={provided.innerRef} {...provided.draggableProps}>
-//       <div className='taskCardTitleAndtaskCardDeleteButtonArea' {...provided.dragHandleProps}>
-//       <TaskCardTitle  taskCardsList={taskCardsList} setTaskCardsList={setTaskCardsList} taskCard={taskCard}/>
-//       <TaskCardDeleteButton taskCardsList={taskCardsList} setTaskCardsList={setTaskCardsList} taskCard={taskCard}/>
-//       </div>
-//       <TaskAddInput inputText={inputText} setInputText={setInputText} taskList={taskList} setTaskList={setTaskList} taskCard={taskCard}/>
-//       <Tasks inputText={inputText} taskList={taskList} setTaskList={setTaskList} taskCard={taskCard}/>
-//     </div>
-//       )}
-//     </Draggable>
-//   )};
+  return (
+    <Draggable draggableId={resumeSection.id.toString()} index={index}>
+      {(provided) => (
+    <div className='taskCard' ref={provided.innerRef} {...provided.draggableProps}>
+      <div className='taskCardTitleAndtaskCardDeleteButtonArea' {...provided.dragHandleProps}>
+      {/* <TaskCardTitle  resumeSectionsList={resumeSectionsList} setResumeSectionsList={setResumeSectionsList} resumeSection={resumeSection}/> */}
+      {/* <TaskCardDeleteButton resumeSectionsList={resumeSectionsList} setResumeSectionsList={setResumeSectionsList} resumeSection={resumeSection}/> */}
+      </div>
+      {/* <TaskAddInput inputText={inputText} setInputText={setInputText} itemList={itemList} setItemList={setItemList} resumeSection={resumeSection}/>
+      <Tasks inputText={inputText} itemList={itemList} setItemList={setItemList} resumeSection={resumeSection}/> */}
+    </div>
+      )}
+    </Draggable>
+  )};
