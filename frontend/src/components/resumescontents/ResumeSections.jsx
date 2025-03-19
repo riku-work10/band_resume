@@ -60,7 +60,7 @@ export const ResumeSections = ({resumeId}) => {
           ))}
           {provided.placeholder}
           <h1 className='text-4xl'>ここにドラッグアンドドロップを実装します</h1>
-          <AddResumeSectionButton resumeSectionsList={resumeSectionsList} setResumeSectionsList={setResumeSectionsList} />
+          <AddResumeSectionButton resumeSectionsList={resumeSectionsList} setResumeSectionsList={setResumeSectionsList} resumeId={resumeId}/>
         </div>
         )}
     </Droppable>
