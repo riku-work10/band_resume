@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import apiClient from '../../services/apiClient';
 import { ResumeSectionTitle } from './ResumeSectionTitle';
+import { ResumeSectionDeleteButton } from './ResumeSectionDeleteButton';
 
 export const ResumeSection = ({ index, resumeSectionsList, setResumeSectionsList, resumeSection, resumeId }) => {
   const [inputText, setInputText] = useState("")
@@ -19,7 +20,7 @@ export const ResumeSection = ({ index, resumeSectionsList, setResumeSectionsList
     <div className='taskCard' ref={provided.innerRef} {...provided.draggableProps}>
       <div className='taskCardTitleAndtaskCardDeleteButtonArea' {...provided.dragHandleProps}>
       <ResumeSectionTitle  resumeSectionsList={resumeSectionsList} setResumeSectionsList={setResumeSectionsList} resumeSection={resumeSection} resumeId={resumeId}/>
-      {/* <TaskCardDeleteButton resumeSectionsList={resumeSectionsList} setResumeSectionsList={setResumeSectionsList} resumeSection={resumeSection}/> */}
+      <ResumeSectionDeleteButton resumeSectionsList={resumeSectionsList} setResumeSectionsList={setResumeSectionsList} resumeSection={resumeSection} resumeId={resumeId}/>
       </div>
       {/* <TaskAddInput inputText={inputText} setInputText={setInputText} itemList={itemList} setItemList={setItemList} resumeSection={resumeSection}/>
       <Tasks inputText={inputText} itemList={itemList} setItemList={setItemList} resumeSection={resumeSection}/> */}
