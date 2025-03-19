@@ -4,6 +4,7 @@ import apiClient from '../../services/apiClient';
 import { ResumeSectionTitle } from './ResumeSectionTitle';
 import { ResumeSectionDeleteButton } from './ResumeSectionDeleteButton';
 import { ResumeItemAddInput } from '../resumesitems/ResumeItemAddInput';
+import { ResumeItems } from '../resumesitems/ResumeItems';
 
 export const ResumeSection = ({ index, resumeSectionsList, setResumeSectionsList, resumeSection, resumeId }) => {
   const [inputText, setInputText] = useState("")
@@ -24,7 +25,7 @@ export const ResumeSection = ({ index, resumeSectionsList, setResumeSectionsList
       <ResumeSectionDeleteButton resumeSectionsList={resumeSectionsList} setResumeSectionsList={setResumeSectionsList} resumeSection={resumeSection} resumeId={resumeId}/>
       </div>
       <ResumeItemAddInput inputText={inputText} setInputText={setInputText} itemList={itemList} setItemList={setItemList} resumeSection={resumeSection} resumeId={resumeId}/>
-      {/* <Tasks inputText={inputText} itemList={itemList} setItemList={setItemList} resumeSection={resumeSection}/> */}
+      <ResumeItems itemList={itemList} setItemList={setItemList} resumeSection={resumeSection} resumeId={resumeId}/>
     </div>
       )}
     </Draggable>
