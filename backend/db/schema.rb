@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_03_15_003257) do
+ActiveRecord::Schema[7.1].define(version: 2025_03_19_123243) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -24,6 +24,15 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_15_003257) do
     t.index ["user_id"], name: "index_resume_comments_on_user_id"
   end
 
+  create_table "resume_items", force: :cascade do |t|
+    t.string "content"
+    t.integer "position"
+    t.bigint "resume_section_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["resume_section_id"], name: "index_resume_items_on_resume_section_id"
+  end
+
   create_table "resume_likes", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "resume_id", null: false
@@ -31,6 +40,15 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_15_003257) do
     t.datetime "updated_at", null: false
     t.index ["resume_id"], name: "index_resume_likes_on_resume_id"
     t.index ["user_id"], name: "index_resume_likes_on_user_id"
+  end
+
+  create_table "resume_sections", force: :cascade do |t|
+    t.string "title"
+    t.integer "position"
+    t.bigint "resume_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["resume_id"], name: "index_resume_sections_on_resume_id"
   end
 
   create_table "resumes", force: :cascade do |t|
@@ -81,7 +99,9 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_15_003257) do
 
   add_foreign_key "resume_comments", "resumes"
   add_foreign_key "resume_comments", "users"
+  add_foreign_key "resume_items", "resume_sections"
   add_foreign_key "resume_likes", "resumes"
   add_foreign_key "resume_likes", "users"
+  add_foreign_key "resume_sections", "resumes"
   add_foreign_key "resumes", "users"
 end

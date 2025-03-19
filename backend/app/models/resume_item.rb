@@ -1,0 +1,2 @@
+class ResumeItem < ApplicationRecord
+end
