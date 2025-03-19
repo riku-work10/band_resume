@@ -47,12 +47,14 @@
 
 .taskText {
 margin-left: 12px;
+color: black;
 }
 
 .taskTrashButton {
 margin-right: 9px;
 border: none;
 cursor: pointer;
+color: black;
 }
 
 .taskCardsArea {
@@ -93,4 +95,8 @@ cursor: pointer;
   cursor: pointer;
   font-size: 26px;
   color: red;
+}
+
+.inputResumeSectionTitleText {
+  color: black;
 }

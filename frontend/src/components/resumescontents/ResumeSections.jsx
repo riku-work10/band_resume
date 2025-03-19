@@ -59,7 +59,6 @@ export const ResumeSections = ({resumeId}) => {
             <ResumeSection key={resumeSection.id} index={index} resumeSectionsList={resumeSectionsList} setResumeSectionsList={setResumeSectionsList} resumeSection={resumeSection} resumeId={resumeId}/>
           ))}
           {provided.placeholder}
-          <h1 className='text-4xl'>ここにドラッグアンドドロップを実装します</h1>
           <AddResumeSectionButton resumeSectionsList={resumeSectionsList} setResumeSectionsList={setResumeSectionsList} resumeId={resumeId}/>
         </div>
         )}

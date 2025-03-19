@@ -52,7 +52,7 @@ const handleBlur = () => {
         placeholder='aaa'
         maxLength={10}/>
       </form>) : 
-      (<h3>
+      (<h3 className='inputResumeSectionTitleText'>
         {inputResumeSectionTitle}
       </h3>)}
     </div>
