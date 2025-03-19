@@ -68,7 +68,7 @@ const ResumePageShow = () => {
               >
                 履歴書削除
               </button>
-              <ResumeSections />
+              <ResumeSections resumeId={resumeId}/>
               <ResumeComments resumeId={resumeId}/>
             </div>
         ) : (

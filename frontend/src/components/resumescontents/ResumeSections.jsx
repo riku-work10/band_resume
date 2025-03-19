@@ -1,34 +1,36 @@
 import React, { useEffect, useState } from 'react';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import axios from 'axios';
+import apiClient from '../../services/apiClient';
+// import { ResumeSection } from './ResumeSection';
+// import { AddResumeSectionButton } from './AddResumeSectionButton';
 
-const reorder = (taskCardsList, startIndex, endIndex) => {
+const reorder = (resumeSectionsList, startIndex, endIndex) => {
   //タスクを並びかえる
-  const remove = taskCardsList.splice(startIndex, 1);
-  taskCardsList.splice(endIndex, 0, remove[0]);
-  console.log(taskCardsList)
+  const remove = resumeSectionsList.splice(startIndex, 1);
+  resumeSectionsList.splice(endIndex, 0, remove[0]);
+  console.log(ResumeSections)
 }
 
-export const ResumeSections = () => {
-  const [taskCardsList, setTaskCardsList] = useState([])
+export const ResumeSections = ({resumeId}) => {
+  const [resumeSectionsList, setResumeSectionsList] = useState([])
   //ドラッグアンドドロップの処理を実装
   const handleDragEnd = async (result) => {
-    reorder(taskCardsList, result.source.index, result.destination.index)  //result.source.indexはつかんだ元の位置　//result.destination.indexはドロップした位置
-    setTaskCardsList(taskCardsList)  //taskCardsListが入れ替えた配列だ！
+    reorder(resumeSectionsList, result.source.index, result.destination.index)  //result.source.indexはつかんだ元の位置　//result.destination.indexはドロップした位置
+    setResumeSectionsList(resumeSectionsList)  //ResumeSectionsが入れ替えた配列だ！
 
-    const reorderedTasks = taskCardsList.map((task, index) => ({
-      ...task,
+    const reorderedResumeSections = resumeSectionsList.map((section, index) => ({
+      ...section,
       position: index  // 新しい位置（index）を position として設定
     }));
-    console.log(reorderedTasks)
-    setTaskCardsList(reorderedTasks)
+    console.log(reorderedResumeSections)
+    setResumeSectionsList(reorderedResumeSections)
 
     try {
       // 並べ替えた順番をバックエンドに送信
-      await axios.put('http://localhost:3000/tasks/update_position', {
-        tasks: reorderedTasks.map(task => ({
-          id: task.id,
-          position: task.position  // 新しい position を送信
+      await apiClient.put(`/resumes/${resumeId}/resume_sections/update_position`, {
+        sections: reorderedResumeSections.map(section => ({
+          id: section.id,
+          position: section.position  // 新しい position を送信
         }))
       });
 
@@ -43,8 +45,8 @@ export const ResumeSections = () => {
 //タスクカードは単純だけど細かいタスクになったら変わってくるかも？
 //→タスクに関してはタスクコンポーネントで取得すればいいのか！
   useEffect(() => {
-    axios.get('http://localhost:3000/tasks')
-      .then(response => setTaskCardsList(response.data))  // タスクを状態にセット
+    apiClient.get(`resumes/${resumeId}/resume_sections`)
+      .then(response => setResumeSectionsList(response.data))  // タスクを状態にセット
       .catch(error => console.error('Error fetching tasks:', error));
   }, []);
 
@@ -53,11 +55,12 @@ export const ResumeSections = () => {
       <Droppable droppableId='dropaable' direction='horizontal'>
         {(provided) => (
         <div className='taskCardsArea' {...provided.droppableProps} ref={provided.innerRef}>
-            {taskCardsList.map((taskCard, index) => (
-            <TaskCard key={taskCard.id} index={index} taskCardsList={taskCardsList} setTaskCardsList={setTaskCardsList} taskCard={taskCard}/>
-          ))}
+            {/* {resumeSectionsList.map((resumeSection, index) => (
+            // <ResumeSection key={resumeSection.id} index={index} resumeSectionsList={resumeSectionsList} setResumeSectionsList={setResumeSectionsList} resumeSection={resumeSection}/>
+          ))} */}
           {provided.placeholder}
-          <AddTaskCardButton taskCardsList={taskCardsList} setTaskCardsList={setTaskCardsList} />
+          <h1 className='text-4xl'>ここにドラッグアンドドロップを実装します</h1>
+          {/* <AddResumeSectionButton resumeSectionsList={resumeSectionsList} setResumeSectionsList={setResumeSectionsList} /> */}
         </div>
         )}
     </Droppable>
