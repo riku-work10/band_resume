@@ -4,6 +4,7 @@ import { getResume, ResumeDelete  } from '../../services/apiResumes';
 import ResumeEdit from './ResumesEdit';
 import ResumeComments from '../comments/ResumeComments';
 import ResumeLikeButton from '../likes/ResumeLikeButton ';
+import { ResumeSections } from '../resumescontents/ResumeSections';
 
 const ResumePageShow = () => {
   const { resumeId } = useParams(); // URLパラメータからIDを取得
@@ -67,6 +68,7 @@ const ResumePageShow = () => {
               >
                 履歴書削除
               </button>
+              <ResumeSections resumeId={resumeId}/>
               <ResumeComments resumeId={resumeId}/>
             </div>
         ) : (

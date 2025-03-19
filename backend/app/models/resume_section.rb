@@ -3,6 +3,5 @@ class ResumeSection < ApplicationRecord
   belongs_to :resume
 
   validates :position, presence: true, numericality: { only_integer: true }
-  validates :position, uniqueness: { scope: :resume_id }
 
 end
