@@ -15,7 +15,6 @@ const hundleSubmit = async (e) => {
         title: inputResumeSectionTitle,
       },
     });
-
     // 成功したら、更新されたタスクをリストに反映
     setResumeSectionsList(resumeSectionsList.map(section => 
       section.id === resumeSection.id ? response.data : section

@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import apiClient from '../../services/apiClient';
 import { ResumeSection } from './ResumeSection';
-// import { ResumeSection } from './ResumeSection';
-// import { AddResumeSectionButton } from './AddResumeSectionButton';
+import { AddResumeSectionButton } from './AddResumeSectionButton';
 
 const reorder = (resumeSectionsList, startIndex, endIndex) => {
   //タスクを並びかえる
@@ -61,7 +60,7 @@ export const ResumeSections = ({resumeId}) => {
           ))}
           {provided.placeholder}
           <h1 className='text-4xl'>ここにドラッグアンドドロップを実装します</h1>
-          {/* <AddResumeSectionButton resumeSectionsList={resumeSectionsList} setResumeSectionsList={setResumeSectionsList} /> */}
+          <AddResumeSectionButton resumeSectionsList={resumeSectionsList} setResumeSectionsList={setResumeSectionsList} />
         </div>
         )}
     </Droppable>
