@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { AddTaskCardButton } from './AddTaskCardButton';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import { TaskCard } from './TaskCard';
 import axios from 'axios';
 
 const reorder = (taskCardsList, startIndex, endIndex) => {
