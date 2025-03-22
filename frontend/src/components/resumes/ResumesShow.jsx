@@ -104,7 +104,7 @@ const ResumePageShow = () => {
                 )}
                 </div>
               </div>
-              <ResumeSections resumeId={resumeId}/>
+              <ResumeSections resumeId={resumeId} resume={resume}/>
               <ResumeComments resumeId={resumeId}/>
             </div>
         ) : (
