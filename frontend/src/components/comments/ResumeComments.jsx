@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import apiClient from "../../services/apiClient";
 import { useAuth } from "../../hooks/AuthContext";
+import { MdDelete, MdEdit } from "react-icons/md";
 
 const ResumeComments = ({ resumeId }) => {
   const [comments, setComments] = useState([]);
@@ -100,15 +101,13 @@ const ResumeComments = ({ resumeId }) => {
           <div className="flex space-x-4 ml-4">
             <button
               onClick={() => handleEdit(comment.id, comment.content)}
-              className="text-blue-500 hover:text-blue-700"
-            >
-              編集
+              className="py-2 px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400">
+              <MdEdit />
             </button>
             <button
               onClick={() => handleDelete(comment.id)}
-              className="text-red-500 hover:text-red-700"
-            >
-              削除
+              className="py-2 px-4 bg-red-500 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400">
+              <MdDelete />
             </button>
           </div>
         </div>
