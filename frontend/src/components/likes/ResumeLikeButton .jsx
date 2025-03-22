@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { fetchLikeStatus, likeResume, unlikeResume } from '../../services/apiLikes';
+import { MdFavorite, MdFavoriteBorder  } from "react-icons/md";
 
 const ResumeLikeButton = ({ resumeId }) => {
   const [liked, setLiked] = useState(false);
@@ -26,7 +27,7 @@ const ResumeLikeButton = ({ resumeId }) => {
 
   return (
     <button onClick={handleClick}>
-      {liked ? 'いいねを取り消す' : 'いいねする'}
+      {liked ? <MdFavorite /> : <MdFavoriteBorder /> }
     </button>
   );
 };

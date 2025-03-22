@@ -1,6 +1,7 @@
 import React from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import apiClient from '../../services/apiClient';
+import { MdDelete } from "react-icons/md";
 
 export const ResumeItem = ({ index, item, itemList, setItemList }) => {
   //taskを削除
@@ -31,9 +32,8 @@ export const ResumeItem = ({ index, item, itemList, setItemList }) => {
           <p className='taskText'>{item.content}</p>
           <button
             onClick={() => handleDelete(item.id)}
-            className='taskTrashButton'
-          >
-            削除
+            className="py-2 px-4 bg-red-500 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400">
+            <MdDelete />
           </button>
         </div>
       )}
