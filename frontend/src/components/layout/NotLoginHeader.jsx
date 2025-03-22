@@ -7,16 +7,16 @@ const NotLoginHeader = () => {
   const location = useLocation();
 
   return (
-    <header className="fixed bg-stone-600 text-white p-4 relative">
+    <header className="fixed bg-stone-600 text-white relative">
       <div className="flex justify-between items-center">
         {/* ロゴ */}
-        <div className="flex-1">
-          <Link to="/" className={`text-lg font-bold ${location.pathname === "/" ? "text-orange-500" : ""}`}><MdHome /></Link>
+        <div className="flex-1 flex justify-start items-center space-x-4">
+          <Link to="/" className={`text-lg font-bold ${location.pathname === "/" ? "text-orange-500" : ""}`}><MdHome className="text-xl" /></Link>
         </div>
         {/*ハンバーガーメニュー） */}
         <div className="flex-1 flex justify-end items-center space-x-4">
           <button className="text-white focus:outline-none z-50" onClick={() => setIsOpen(!isOpen)}>
-            {isOpen ? <MdClose /> : <MdOutlineMenu />}
+            {isOpen ? <MdClose className="text-xl" /> : <MdOutlineMenu className="text-xl" />}
           </button>
         </div>
       </div>

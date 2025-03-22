@@ -9,11 +9,11 @@ const LoginHeader = () => {
   const location = useLocation();
 
   return (
-    <header className="fixed bg-stone-600 text-white p-4 relative">
+    <header>
       <div className="flex justify-between items-center">
         {/* ロゴ */}
         <div className="flex-1">
-          <Link to="/top" className={`text-lg font-bold ${location.pathname === "/top" ? "text-orange-500" : ""}`}><MdHome /></Link>
+          <Link to="/top" className={`text-lg font-bold ${location.pathname === "/top" ? "text-orange-500" : ""}`}><MdHome className="text-xl"/></Link>
         </div>
         {/* ページタイトル */}
         <div className="flex-1 text-center">
@@ -21,9 +21,9 @@ const LoginHeader = () => {
         </div>
         {/*（通知 & ハンバーガーメニュー） */}
         <div className="flex-1 flex justify-end items-center space-x-4">
-          <Link to="/notification" className="block" onClick={() => setIsOpen(false)}><MdNotifications /></Link>
+          <Link to="/notification" className="block" onClick={() => setIsOpen(false)}><MdNotifications className="text-xl" /></Link>
           <button className="text-white focus:outline-none z-50" onClick={() => setIsOpen(!isOpen)}>
-            {isOpen ? <MdClose /> : <MdOutlineMenu /> }
+            {isOpen ? <MdClose className="text-xl" /> : <MdOutlineMenu className="text-xl" /> }
           </button>
         </div>
       </div>
