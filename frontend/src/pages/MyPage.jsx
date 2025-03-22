@@ -3,6 +3,7 @@ import EditProfile from "../components/auth/EditProfile";
 import { useAuth } from "../hooks/AuthContext";
 import '../css/modal.css';
 import ResumeLikes from "../components/likes/ResumeLikes";
+import { MdEdit } from "react-icons/md";
 
 const Mypage = () => {
   const { user } = useAuth();
@@ -14,7 +15,6 @@ const Mypage = () => {
 
   return (
     <div>
-      <h2>マイページ</h2>
       {user ? (
         <div>
           {/* 編集モード isEditing=trueの場合モーダルを表示する*/}
@@ -32,9 +32,11 @@ const Mypage = () => {
           {!isEditing && (
             <div>
               {user.image && <img src={user.image} alt={user.name} style={{ width: '200px', height: 'auto' }} />}
-              <p>名前: {user.name}</p>
-              <p>メールアドレス: {user.email}</p>
-              <button onClick={toggleEdit}>プロフィール編集</button>
+              <p>{user.name}</p>
+              <button className="py-2 px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400" 
+                onClick={toggleEdit}>
+                <MdEdit />
+              </button>
             </div>
           )}
           <ResumeLikes />
