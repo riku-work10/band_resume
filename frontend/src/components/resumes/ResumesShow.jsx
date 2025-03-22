@@ -5,6 +5,7 @@ import ResumeEdit from './ResumesEdit';
 import ResumeComments from '../comments/ResumeComments';
 import ResumeLikeButton from '../likes/ResumeLikeButton ';
 import { ResumeSections } from '../resumescontents/ResumeSections';
+import { MdDelete, MdEdit } from "react-icons/md";
 
 const ResumePageShow = () => {
   const { resumeId } = useParams(); // URLパラメータからIDを取得
@@ -61,12 +62,16 @@ const ResumePageShow = () => {
               <br />
               <ResumeLikeButton resumeId={resume.id} />
               <br />
-              <button onClick={() => setIsEditModalOpen(true)}>履歴書編集</button>
+              <button 
+                className="py-2 px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                onClick={() => setIsEditModalOpen(true)}>
+                <MdEdit />
+              </button>
+
               <button
               onClick={() => handleDelete(resumeId)}
-              className="py-2 px-4 bg-red-500 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400"
-              >
-                履歴書削除
+              className="py-2 px-4 bg-red-500 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400">
+                <MdDelete />
               </button>
               <ResumeSections resumeId={resumeId}/>
               <ResumeComments resumeId={resumeId}/>
