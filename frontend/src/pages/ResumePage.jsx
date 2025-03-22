@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getResumes } from '../services/apiResumes';
 import ResumeLikeButton from '../components/likes/ResumeLikeButton ';
+import ResumeSearch from '../components/search/ResumeSearch';
 
 const ResumePage = () => {
   const [resumes, setResumes] = useState([]);
@@ -28,18 +29,17 @@ const ResumePage = () => {
 
   return (
     <div>
+      <ResumeSearch />
       {resumes.map((resume) => (
       <div key={resume.id}>
         <Link to={`/resumes/${resume.id}`} className="hover:underline">
-        <h2>{resume.title}</h2>
         {resume.profile_image && <img src={resume.profile_image} alt={resume.title} width="100" />}
+        <h2>{resume.title}</h2>
         <p>年齢: {resume.age}歳</p>
         <p>性別: {resume.gender}</p>
         <p>場所: {resume.location}</p>
         <p>紹介: {resume.introduction}</p>
-        {resume.sns_url && <a href={resume.sns_url} target="_blank" rel="noopener noreferrer">SNSリンク</a>}
         </Link>
-        <br />
         <ResumeLikeButton resumeId={resume.id} />
         <hr />
       </div>

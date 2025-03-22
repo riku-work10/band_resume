@@ -49,7 +49,6 @@ const ResumePageShow = () => {
 
   return (
     <div>
-      <h1>履歴書詳細</h1>
         {resume ? (
             <div className='mb-6'>
               <h2>{resume.title}</h2>
