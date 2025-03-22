@@ -13,7 +13,7 @@ const LoginHeader = () => {
       <div className="flex justify-between items-center">
         {/* ロゴ */}
         <div className="flex-1">
-          <Link to="/top" className={`text-lg font-bold ${location.pathname === "/top" ? "text-red-500" : ""}`}><MdHome /></Link>
+          <Link to="/top" className={`text-lg font-bold ${location.pathname === "/top" ? "text-orange-500" : ""}`}><MdHome /></Link>
         </div>
         {/* ページタイトル */}
         <div className="flex-1 text-center">

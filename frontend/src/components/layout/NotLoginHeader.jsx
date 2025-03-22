@@ -11,7 +11,7 @@ const NotLoginHeader = () => {
       <div className="flex justify-between items-center">
         {/* ロゴ */}
         <div className="flex-1">
-          <Link to="/" className={`text-lg font-bold ${location.pathname === "/" ? "text-red-500" : ""}`}><MdHome /></Link>
+          <Link to="/" className={`text-lg font-bold ${location.pathname === "/" ? "text-orange-500" : ""}`}><MdHome /></Link>
         </div>
         {/*ハンバーガーメニュー） */}
         <div className="flex-1 flex justify-end items-center space-x-4">

@@ -10,39 +10,38 @@ const LoginFooter = () => {
       <ul className="container mx-auto flex items-center justify-center justify-between px-6">
         <li>
           <Link 
-          to="/lives"
-          className={location.pathname === "/lives" ? "text-red-500" : ""}
-          >
-            <MdMic />
-            ライブ一覧
+            to="/lives"
+            className={`flex flex-col items-center gap-1 ${location.pathname === "/lives" ? "text-orange-500" : ""}`}>
+            <MdMic className="text-2xl" /> {/* アイコンのサイズ調整 */}
+            <span className="text-xs sm:text-sm">ライブ一覧</span> {/* 文字サイズを小さく */}
           </Link>
         </li>
         <li>
           <Link to="/myresumes"
-          className={location.pathname === "/myresumes" ? "text-red-500" : ""}>
-            <MdOutlinePersonAddAlt1 />
-            マイ履歴書
+          className={`flex flex-col items-center gap-1 ${location.pathname === "/myresumes" ? "text-orange-500" : ""}`}>
+            <MdOutlinePersonAddAlt1 className="text-2xl"/>
+            <span className="text-xs sm:text-sm">マイ履歴書</span>
           </Link>
         </li>
         <li>
           <Link to="/resumes"
-          className={location.pathname === "/resumes" ? "text-red-500" : ""}>
-            <MdMenuBook />
-            履歴書一覧
+          className={`flex flex-col items-center gap-1 ${location.pathname === "/resumes" ? "text-orange-500" : ""}`}>
+            <MdMenuBook className="text-2xl"/>
+            <span className="text-xs sm:text-sm">履歴書一覧</span>
           </Link>
         </li>
         <li>
           <Link to="/chat"
-          className={location.pathname === "/chat" ? "text-red-500" : ""}>
-            <MdChat />
-            オープンチャット
+          className={`flex flex-col items-center gap-1 ${location.pathname === "/chat" ? "text-orange-500" : ""}`}>
+            <MdChat className="text-2xl"/>
+            <span className="text-xs sm:text-sm">オープンチャット</span>
           </Link>
         </li>
         <li>
           <Link to="/mypage"
-          className={location.pathname === "/mypage" ? "text-red-500" : ""}>
-            <MdPerson />
-            マイページ
+          className={`flex flex-col items-center gap-1 ${location.pathname === "/mypage" ? "text-orange-500" : ""}`}>
+            <MdPerson className="text-2xl"/>
+            <span className="text-xs sm:text-sm">マイページ</span>
           </Link>
         </li>
       </ul>
