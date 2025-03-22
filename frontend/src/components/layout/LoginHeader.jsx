@@ -2,17 +2,18 @@ import React, { useState } from 'react';
 import { Link, useLocation } from "react-router-dom";
 import SignOutButtun from "../auth/SignOutButtun";
 import GetPageName from "../../hooks/GetPageName";
+import { MdClose, MdOutlineMenu, MdHome, MdNotifications } from "react-icons/md";
 
 const LoginHeader = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
 
   return (
-    <header className="bg-stone-600 text-white p-4 relative">
+    <header className="fixed bg-stone-600 text-white p-4 relative">
       <div className="flex justify-between items-center">
         {/* ロゴ */}
         <div className="flex-1">
-          <Link to="/top" className={`text-lg font-bold ${location.pathname === "/top" ? "text-red-500" : ""}`}>ハルカミライ（トップ）</Link>
+          <Link to="/top" className={`text-lg font-bold ${location.pathname === "/top" ? "text-red-500" : ""}`}><MdHome /></Link>
         </div>
         {/* ページタイトル */}
         <div className="flex-1 text-center">
@@ -20,9 +21,9 @@ const LoginHeader = () => {
         </div>
         {/*（通知 & ハンバーガーメニュー） */}
         <div className="flex-1 flex justify-end items-center space-x-4">
-          <Link to="/notification" className="block" onClick={() => setIsOpen(false)}>通知</Link>
+          <Link to="/notification" className="block" onClick={() => setIsOpen(false)}><MdNotifications /></Link>
           <button className="text-white focus:outline-none z-50" onClick={() => setIsOpen(!isOpen)}>
-            {isOpen ? <p>X</p> : <p>=</p>}
+            {isOpen ? <MdClose /> : <MdOutlineMenu /> }
           </button>
         </div>
       </div>
