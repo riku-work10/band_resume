@@ -31,9 +31,9 @@ const ResumesCreate = ({ onClose }) => {
         location,
         introduction,
       };
-      await createResume(resumeData); // 履歴書作成
+      const response = await createResume(resumeData); // 履歴書作成
       onClose(); // モーダルを閉じる
-      navigate("/myresumes"); // 一覧へリダイレクト
+      navigate(`/resumes/${response.id}`); // resume詳細へ
     } catch (err) {
       setError("履歴書の作成に失敗しました");
     }
