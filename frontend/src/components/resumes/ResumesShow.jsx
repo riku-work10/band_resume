@@ -6,6 +6,7 @@ import ResumeComments from '../comments/ResumeComments';
 import ResumeLikeButton from '../likes/ResumeLikeButton ';
 import { ResumeSections } from '../resumescontents/ResumeSections';
 import { MdDelete, MdEdit } from "react-icons/md";
+import { useAuth } from '../../hooks/AuthContext';
 
 const ResumePageShow = () => {
   const { resumeId } = useParams(); // URLパラメータからIDを取得
@@ -14,6 +15,7 @@ const ResumePageShow = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate(); 
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const { user } = useAuth();
 
   useEffect(() => {
     const fetchResume = async () => {
@@ -83,20 +85,26 @@ const ResumePageShow = () => {
                 </div>
                 {/* ボタン部分 */}
                 <div className="flex space-x-4 mt-4 sm:mt-0">
+                {user && user.id === resume.user_id && ( // ログインユーザーが作成者の場合
+                <div>
                   <button
                     className="py-2 px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
                     onClick={() => setIsEditModalOpen(true)}>
                     <MdEdit />
                   </button>
                   <button
-                    onClick={() => handleDelete(resume.id)}
+                    onClick={handleDelete}
                     className="py-2 px-4 bg-red-500 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400">
                     <MdDelete />
                   </button>
+                </div>
+                 )}
+                {user && user.id !== resume.user_id && (
                   <ResumeLikeButton resumeId={resume.id} className="py-2 px-4 bg-green-500 text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400" />
+                )}
                 </div>
               </div>
-              <ResumeSections resumeId={resumeId}/>
+              <ResumeSections resumeId={resumeId} resume={resume}/>
               <ResumeComments resumeId={resumeId}/>
             </div>
         ) : (

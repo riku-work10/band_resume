@@ -2,6 +2,7 @@
 class Api::V1::ResumeItemsController < ApplicationController
   before_action :set_resume_section, only: [:index, :create, :update_position]
   before_action :set_resume_item, only: [:update, :destroy]
+  before_action :authenticate_api_v1_user!
 
   # GET /api/v1/resumes/:resume_id/resume_sections/:resume_section_id/resume_items
   def index

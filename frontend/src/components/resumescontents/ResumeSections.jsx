@@ -3,6 +3,7 @@ import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import apiClient from '../../services/apiClient';
 import { ResumeSection } from './ResumeSection';
 import { AddResumeSectionButton } from './AddResumeSectionButton';
+import { useAuth } from '../../hooks/AuthContext';
 
 const reorder = (resumeSectionsList, startIndex, endIndex) => {
   //タスクを並びかえる
@@ -11,7 +12,8 @@ const reorder = (resumeSectionsList, startIndex, endIndex) => {
   console.log(ResumeSections)
 }
 
-export const ResumeSections = ({resumeId}) => {
+export const ResumeSections = ({resumeId, resume}) => {
+  const { user } = useAuth(); 
   const [resumeSectionsList, setResumeSectionsList] = useState([])
   //ドラッグアンドドロップの処理を実装
   const handleDragEnd = async (result) => {
@@ -59,7 +61,8 @@ export const ResumeSections = ({resumeId}) => {
             <ResumeSection key={resumeSection.id} index={index} resumeSectionsList={resumeSectionsList} setResumeSectionsList={setResumeSectionsList} resumeSection={resumeSection} resumeId={resumeId}/>
           ))}
           {provided.placeholder}
-          <AddResumeSectionButton resumeSectionsList={resumeSectionsList} setResumeSectionsList={setResumeSectionsList} resumeId={resumeId}/>
+          {user && user.id === resume.user_id && (
+          <AddResumeSectionButton resumeSectionsList={resumeSectionsList} setResumeSectionsList={setResumeSectionsList} resumeId={resumeId}/>)}
         </div>
         )}
     </Droppable>

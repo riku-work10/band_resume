@@ -3,11 +3,13 @@ import { Link } from 'react-router-dom';
 import { getResumes } from '../services/apiResumes';
 import ResumeLikeButton from '../components/likes/ResumeLikeButton ';
 import ResumeSearch from '../components/search/ResumeSearch';
+import { useAuth } from '../hooks/AuthContext';
 
 const ResumePage = () => {
   const [resumes, setResumes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { user } = useAuth();
 
   useEffect(() => {
     const fetchResumes = async () => {
@@ -40,7 +42,9 @@ const ResumePage = () => {
         <p>場所: {resume.location}</p>
         <p>紹介: {resume.introduction}</p>
         </Link>
-        <ResumeLikeButton resumeId={resume.id} />
+        {user && user.id !== resume.user_id && (
+          <ResumeLikeButton resumeId={resume.id} className="py-2 px-4 bg-green-500 text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400" />
+        )}
         <hr />
       </div>
       ))}
