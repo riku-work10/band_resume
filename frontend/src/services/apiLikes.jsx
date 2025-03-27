@@ -49,7 +49,7 @@ export const fetchLikeStatusEvent = async (eventId) => {
 // いいねを追加
 export const likeEvent = async (eventId) => {
   try {
-    const response = await apiClient.post(`/events${eventId}/event_likes`);
+    const response = await apiClient.post(`/events/${eventId}/event_likes`);
     return response.data.liked;
   } catch (error) {
     console.error('Failed to like the event:', error);
