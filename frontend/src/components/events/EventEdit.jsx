@@ -1,50 +1,42 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../hooks/AuthContext';
-import { putResume } from '../../services/apiResumes';
-import SelectAge from "../selectlists/SelectAge";
-import SelectGender from "../selectlists/SelectGender";
 import SelectLocation from "../selectlists/SelectLocation";
+import { putEvent } from '../../services/apiLives';
 
 
-const EventEdit = ({ resume, onClose, onUpdate }) => {
+const EventEdit = ({ event, onClose, onUpdate }) => {
   const { user } = useAuth();
   const [title, setTitle] = useState('');
-  const [profileImage, setProfileImage] = useState('');
-  const [age, setAge] = useState('');
-  const [gender, setGender] = useState('');
-  const [snsUrl, setSnsUrl] = useState('');
+  const [image, setImage] = useState('');
+  const [date, setDate] = useState('');
   const [location, setLocation] = useState('');
   const [introduction, setIntroduction] = useState('');
   const [error, setError] = useState(null);
 
   // 編集画面の初期データを入れる＝デフォルトのデータ
   useEffect(() => {
-    if (resume) {
-      setTitle(resume.title);
-      setProfileImage(resume.profile_image || '');
-      setAge(resume.age || '');
-      setGender(resume.gender || '');
-      setSnsUrl(resume.sns_url || '');
-      setLocation(resume.location || '');
-      setIntroduction(resume.introduction || '');
+    if (event) {
+      setTitle(event.title);
+      setImage(event.image || '');
+      setDate(event.date || '');
+      setLocation(event.location || '');
+      setIntroduction(event.introduction || '');
     }
-  }, [resume]);
+  }, [event]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const updatedResumeData = {
+      const updatedEventData = {
         user_id: user.id,
         title,
-        profile_image: profileImage,
-        age,
-        gender,
-        sns_url: snsUrl,
+        image: Image,
+        date,
         location,
         introduction,
       };
-      const updatedResume = await putResume(resume.id, updatedResumeData); // 履歴書更新
-      onUpdate(updatedResume); // 親コンポーネントの状態を更新
+      const updatedEvent = await putEvent(event.id, updatedEventData); // 履歴書更新
+      onUpdate(updatedEvent); // 親コンポーネントの状態を更新
       onClose(); // モーダルを閉じる
     } catch (err) {
       setError('履歴書の更新に失敗しました');
@@ -54,7 +46,7 @@ const EventEdit = ({ resume, onClose, onUpdate }) => {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center" onClick={onClose}>
       <div className="bg-white p-6 rounded-lg shadow-lg w-96" onClick={(e) => e.stopPropagation()}>
-        <h2 className="text-lg font-bold mb-4 text-black">履歴書の編集</h2>
+        <h2 className="text-lg font-bold mb-4 text-black">イベントの編集</h2>
         <form onSubmit={handleSubmit}>
           <div>
             <label className="text-black">タイトル：</label>
@@ -68,31 +60,21 @@ const EventEdit = ({ resume, onClose, onUpdate }) => {
           </div>
 
           <div>
-            <label className="text-black">プロフィール画像URL：</label>
+            <label className="text-black">イベント画像URL：</label>
             <input
               type="text"
-              value={profileImage}
-              onChange={(e) => setProfileImage(e.target.value)}
+              value={image}
+              onChange={(e) => setImage(e.target.value)}
               className="border border-gray-300 p-2 w-full rounded"
             />
           </div>
 
           <div>
-          <label className="text-black">年齢：</label>
-          <SelectAge value={age} onChange={(e) => setAge(e.target.value)} />
-          </div>
-
-          <div>
-            <label className="text-black">性別：</label>
-            <SelectGender value={gender} onChange={(e) => setGender(e.target.value)} />
-          </div>
-
-          <div>
-            <label className="text-black">SNSリンク：</label>
+            <label className="text-black">日時：</label>
             <input
-              type="text"
-              value={snsUrl}
-              onChange={(e) => setSnsUrl(e.target.value)}
+              type="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
               className="border border-gray-300 p-2 w-full rounded"
             />
           </div>
