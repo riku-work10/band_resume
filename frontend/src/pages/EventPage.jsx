@@ -34,7 +34,7 @@ const EventPage = () => {
         <h2>{event.title}</h2>
         <p>場所: {event.location}</p>
         <p>紹介: {event.introduction}</p>
-        <p>紹介: {event.date}</p>
+        <p>開催日: {event.date}</p>
         </Link>
       </div>
       ))}
