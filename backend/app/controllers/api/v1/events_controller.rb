@@ -53,6 +53,7 @@ class Api::V1::EventsController < ApplicationController
   end
 
   private
+  
 
   def event_params
     params.require(:event).permit(:user_id, :title, :image, :location, :introduction, :date)
