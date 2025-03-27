@@ -4,6 +4,7 @@ import { MdDelete, MdEdit } from "react-icons/md";
 import { useAuth } from '../../hooks/AuthContext';
 import { deleteEvent, getEvent } from '../../services/apiLives';
 import EventEdit from './EventEdit';
+import EventComments from '../comments/EventComments';
 
 const EventShow = () => {
   const { eventId } = useParams();
@@ -100,6 +101,7 @@ const EventShow = () => {
             onUpdate={setEvent}
           />
         )}
+        <EventComments eventId={eventId}/>
     </div>
   );
 };
