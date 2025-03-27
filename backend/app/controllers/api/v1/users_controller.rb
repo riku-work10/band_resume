@@ -36,6 +36,12 @@ class Api::V1::UsersController < ApplicationController
     render json: liked_resumes, include: [:user] # 必要なら関連データも含める
   end
 
+  def liked_events
+    liked_events = current_api_v1_user.liked_events
+
+    render json: liked_events, include: [:user] # 必要なら関連データも含める
+  end
+
   private
 
   def user_params

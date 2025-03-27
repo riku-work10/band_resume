@@ -23,11 +23,15 @@ Rails.application.routes.draw do
 
       resources :events do
         resources :event_comments, only: [:index, :create, :destroy, :update]
+        resource :event_likes, only: [:create, :destroy]
+        get :liked_by_current_user, on: :member
+        get :my_liked_events, on: :collection
       end
 
 
       resources :resume_items, only: [:update, :destroy]
       get 'users/:id/liked_resumes', to: 'users#liked_resumes'
+      get 'users/:id/liked_events', to: 'users#liked_events'
       mount_devise_token_auth_for 'User', at: 'auth'
     end
   end
