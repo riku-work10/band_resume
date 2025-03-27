@@ -1,18 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../hooks/AuthContext';
+import { getEvents } from '../services/apiLives';
 
 const EventPage = () => {
-  const [resumes, setResumes] = useState([]);
+  const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const { user } = useAuth();
 
   useEffect(() => {
-    const fetchResumes = async () => {
+    const fetchEvents = async () => {
       try {
-        const data = await getResumes();  // 履歴書データを取得
-        setResumes(data); // ステートにデータをセット
+        const data = await getEvents();
+        setEvents(data);
         setLoading(false);
       } catch (err) {
         setError('履歴書の取得に失敗しました');
@@ -20,7 +19,7 @@ const EventPage = () => {
       }
     };
 
-    fetchResumes(); // データを取得
+    fetchEvents();
   }, []);
 
   if (loading) return <div>Loading...</div>;
@@ -28,15 +27,14 @@ const EventPage = () => {
 
   return (
     <div>
-      {resumes.map((resume) => (
-      <div key={resume.id}>
-        <Link to={`/resumes/${resume.id}`} className="hover:underline">
-        {resume.profile_image && <img src={resume.profile_image} alt={resume.title} width="100" />}
-        <h2>{resume.title}</h2>
-        <p>年齢: {resume.age}歳</p>
-        <p>性別: {resume.gender}</p>
-        <p>場所: {resume.location}</p>
-        <p>紹介: {resume.introduction}</p>
+      {events.map((event) => (
+      <div key={event.id}>
+        <Link to={`/events/${event.id}`} className="hover:underline">
+        {event.image && <img src={event.profile_image} alt={event.title} width="100" />}
+        <h2>{event.title}</h2>
+        <p>場所: {event.location}</p>
+        <p>紹介: {event.introduction}</p>
+        <p>紹介: {event.date}</p>
         </Link>
       </div>
       ))}
