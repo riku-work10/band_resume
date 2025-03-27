@@ -52,7 +52,7 @@ const EventShow = () => {
             <div className='mb-6'>
               <div className="mb-6 flex flex-col sm:flex-row items-start space-y-4 sm:space-y-0 sm:space-x-6">
                 {/* 画像部分 */}
-                {event.profile_image && (
+                {event.image && (
                   <img
                     src={event.image}
                     alt={event.title}

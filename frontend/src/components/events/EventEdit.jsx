@@ -30,7 +30,7 @@ const EventEdit = ({ event, onClose, onUpdate }) => {
       const updatedEventData = {
         user_id: user.id,
         title,
-        image: Image,
+        image,
         date,
         location,
         introduction,
