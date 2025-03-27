@@ -10,7 +10,7 @@ const LoginFooter = () => {
       <ul className="container mx-auto flex items-center justify-center justify-between px-6">
         <li>
           <Link 
-            to="/lives"
+            to="/events"
             className={`flex flex-col items-center gap-1 ${location.pathname === "/lives" ? "text-orange-500" : ""}`}>
             <MdMic className="text-xl" /> {/* アイコンのサイズ調整 */}
             <span className="text-xs sm:text-sm">ライブ一覧</span> {/* 文字サイズを小さく */}
