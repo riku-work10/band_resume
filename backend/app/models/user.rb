@@ -9,6 +9,8 @@ class User < ActiveRecord::Base
   has_many :resume_likes
   has_many :liked_resumes, through: :resume_likes, source: :resume
   has_many :events, dependent: :destroy
+  has_many :likes
+  has_many :liked_events, through: :likes, source: :event
 
   validates :email, presence: true, uniqueness: true
 end
