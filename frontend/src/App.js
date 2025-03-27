@@ -5,7 +5,6 @@ import "./index.css";
 import Header from './components/layout/Header';
 import Footer from "./components/layout/Footer";
 import HomePage from "./pages/HomePage";
-import LivePage from "./pages/LivePage";
 import ResumePage from "./pages/ResumePage";
 import MyPage from "./pages/MyPage";
 import SignUp from './components/auth/SignUp';
@@ -19,6 +18,7 @@ import PrivacyPolicyPage from './pages/info/PrivacyPolicyPage';
 import TermsOfServicePage from './pages/info/TermsOfServicePage';
 import { AuthProvider } from './hooks/AuthContext';
 import ResumesShow from './components/resumes/ResumesShow';
+import EventPage from './pages/EventPage';
 
 const App = () => {
 
@@ -33,7 +33,7 @@ const App = () => {
       <main className="flex-grow container mx-auto px-6 py-16">
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/lives" element={<LivePage />} />
+          <Route path="/events" element={<EventPage />} />
           <Route path="/resumes" element={<ResumePage />} />
           <Route path="/resumes/:resumeId" element={<ResumesShow />} />
           <Route path="/myresumes" element={<MyResumePage />} />
