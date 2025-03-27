@@ -21,7 +21,9 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :events, only: [:index, :show, :create, :destroy, :update]
+      resources :events do
+        resources :event_comments, only: [:index, :create, :destroy, :update]
+      end
 
 
       resources :resume_items, only: [:update, :destroy]
