@@ -39,18 +39,18 @@ class Api::V1::EventsController < ApplicationController
     head :no_content
   end
 
-  # def liked_by_current_user
-  #   resume = Resume.find(params[:id])
-  #   liked = current_api_v1_user.liked_resumes.exists?(resume.id)
+  def liked_by_current_user
+    event = Event.find(params[:id])
+    liked = current_api_v1_user.liked_events.exists?(event.id)
 
-  #   render json: { liked: liked }
-  # end
+    render json: { liked: liked }
+  end
 
-  # def my_liked_resumes
-  #   liked_resumes = current_api_v1_user.liked_resumes
+  def my_liked_events
+    liked_events = current_api_v1_user.liked_events
 
-  #   render json: liked_resumes
-  # end
+    render json: liked_events
+  end
 
   private
 
