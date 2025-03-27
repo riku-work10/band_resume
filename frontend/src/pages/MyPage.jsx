@@ -4,6 +4,7 @@ import { useAuth } from "../hooks/AuthContext";
 import '../css/modal.css';
 import ResumeLikes from "../components/likes/ResumeLikes";
 import { MdEdit } from "react-icons/md";
+import EventLikes from "../components/likes/EventLikes";
 
 const Mypage = () => {
   const { user } = useAuth();
@@ -40,6 +41,7 @@ const Mypage = () => {
             </div>
           )}
           <ResumeLikes />
+          <EventLikes />
         </div>
       ) : (
         <p>ログインしてください</p>

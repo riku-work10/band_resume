@@ -2,12 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getEvents } from '../services/apiLives';
 import EventCreate from '../components/events/EventCreate'; // イベント作成用モーダルをインポート
+import EventLikeButton from '../components/likes/EventLikeButton';
+import { useAuth } from '../hooks/AuthContext';
 
 const EventPage = () => {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false); // モーダルの開閉状態を管理
+    const { user } = useAuth();
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -40,6 +43,9 @@ const EventPage = () => {
             <p>紹介: {event.introduction}</p>
             <p>開催日: {event.date}</p>
           </Link>
+          {user && user.id !== event.user_id && (
+          <EventLikeButton eventId={event.id} className="py-2 px-4 bg-green-500 text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400" />
+        )}
         </div>
       ))}
 

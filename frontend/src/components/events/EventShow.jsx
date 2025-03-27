@@ -5,6 +5,7 @@ import { useAuth } from '../../hooks/AuthContext';
 import { deleteEvent, getEvent } from '../../services/apiLives';
 import EventEdit from './EventEdit';
 import EventComments from '../comments/EventComments';
+import EventLikeButton from '../likes/EventLikeButton';
 
 const EventShow = () => {
   const { eventId } = useParams();
@@ -87,6 +88,9 @@ const EventShow = () => {
                   </button>
                 </div>
                  )}
+                {user && user.id !== event.user_id && (
+                  <EventLikeButton eventId={event.id} className="py-2 px-4 bg-green-500 text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400" />
+                )}
                 </div>
               </div>
             </div>
