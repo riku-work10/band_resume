@@ -20,7 +20,6 @@ class  Api::V1::EventCommentsController < ApplicationController
     end
   end
 
-
   def update
     comment = EventComment.find(params[:id])
     
