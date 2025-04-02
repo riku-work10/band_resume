@@ -20,6 +20,8 @@ import { AuthProvider } from './hooks/AuthContext';
 import ResumesShow from './components/resumes/ResumesShow';
 import EventPage from './pages/EventPage';
 import EventShow from './components/events/EventShow';
+import SetlistEditForm from './components/setlists/SetlistEditForm';
+import SetlistForm from './components/setlists/SetlistForm';
 
 const App = () => {
 
@@ -48,6 +50,8 @@ const App = () => {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/mypage" element={<MyPage />} />
+          <Route path="/setlistCreate" element={<SetlistForm />} />
+          <Route path="/setlistEdit" element={<SetlistEditForm />} />
           
         </Routes>
       </main>
