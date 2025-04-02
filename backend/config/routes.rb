@@ -22,6 +22,7 @@ Rails.application.routes.draw do
       end
 
       resources :events do
+        resources :setlists, only: [:create, :update]
         resources :event_comments, only: [:index, :create, :destroy, :update]
         resource :event_likes, only: [:create, :destroy]
         get :liked_by_current_user, on: :member

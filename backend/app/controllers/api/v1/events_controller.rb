@@ -3,16 +3,16 @@ class Api::V1::EventsController < ApplicationController
 
   def index
     if params[:user_id]
-      events = Event.where(user_id: params[:user_id])
+      events = Event.includes(:setlists).where(user_id: params[:user_id])
     else
-      events = Event.all
+      events = Event.includes(:setlists).all
     end
-    render json: events
+    render json: events.as_json(include: :setlists)
   end
 
   def show
-    event = Event.find(params[:id])
-    render json: event
+    event = Event.includes(:setlists).find(params[:id])
+    render json: event.as_json(include: :setlists)
   end
 
   def create
