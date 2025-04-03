@@ -22,6 +22,9 @@ Rails.application.routes.draw do
       end
 
       resources :events do
+        collection do
+          get :tagged_events
+        end
         resources :setlists, only: [:create, :update]
         resources :event_comments, only: [:index, :create, :destroy, :update]
         resource :event_likes, only: [:create, :destroy]
