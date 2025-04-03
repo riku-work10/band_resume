@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { MdDelete, MdEdit } from "react-icons/md";
 import { useAuth } from '../../hooks/AuthContext';
 import { deleteEvent, getEvent } from '../../services/apiLives';
@@ -28,6 +28,7 @@ const EventShow = () => {
         setLoading(false);
       }
     };
+    
 
     fetchEvent();
   }, [eventId]);
@@ -85,6 +86,10 @@ const EventShow = () => {
                   </div>
                   {/* 紹介文は大きめに表示 */}
                   <p className="text-lg mt-2">{event.introduction}</p>
+                  {/* タグ表示部分 */}
+                  {event.tags && event.tags.map((tag) => (
+                    <Link key={tag.id} to={`/events/tag/${tag.name}`} className="mr-2 hover:underline">{tag.name}</Link>
+                  ))}
                 </div>
                 {/* ボタン部分 */}
                 <div className="flex space-x-4 mt-4 sm:mt-0">
@@ -107,6 +112,21 @@ const EventShow = () => {
                 )}
                 </div>
               </div>
+                <SetlistList event={event}/>
+                {event.setlists && event.setlists.length > 0 ? (
+                <button
+                  onClick={handleClickEditForm}
+                  className="py-2 px-4 bg-yellow-500 text-white rounded-lg hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-400">
+                  セトリ編集
+                </button>
+                ) : (
+                <button
+                  onClick={handleClickForm}
+                  className="py-2 px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                  セトリ作成
+                </button>
+              )}
+          <EventComments eventId={eventId}/>
             </div>
         ) : (
           <p>イベントを読み込み中...</p>
@@ -114,26 +134,11 @@ const EventShow = () => {
         {/* 編集モーダル */}
         {isEditModalOpen && (
           <EventEdit
-            event={event}
-            onClose={() => setIsEditModalOpen(false)}
+          event={event}
+          onClose={() => setIsEditModalOpen(false)}
             onUpdate={setEvent}
-          />
-        )}
-        <SetlistList event={event}/>
-        {event.setlists && event.setlists.length > 0 ? (
-        <button
-          onClick={handleClickEditForm}
-          className="py-2 px-4 bg-yellow-500 text-white rounded-lg hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-400">
-          セトリ編集
-        </button>
-      ) : (
-        <button
-          onClick={handleClickForm}
-          className="py-2 px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400">
-          セトリ作成
-        </button>
-      )}
-        <EventComments eventId={eventId}/>
+            />
+          )}
     </div>
   );
 };
