@@ -52,9 +52,10 @@ const EventPage = () => {
 
     // タグフィルタ
     if (selectedTags.length > 0) {
-      filtered = filtered.filter((event) => selectedTags.includes(event.tags.name));
+      filtered = filtered.filter((event) =>
+        event.tags.some((tag) => selectedTags.includes(tag.name))
+      );
     }
-
     // 場所フィルタ
     if (selectedLocations.length > 0) {
       filtered = filtered.filter((event) => selectedLocations.includes(event.location));
@@ -62,10 +63,6 @@ const EventPage = () => {
 
     setFilteredEvents(filtered);
   };
-
-
-
-
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;

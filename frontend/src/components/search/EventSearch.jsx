@@ -63,7 +63,7 @@ const EventSearch = ({ onSearch }) => {
           placeholder="前"
           value={startDate}
           onChange={(e) => handleAgeChange("start", e.target.value)}
-          className="p-1 border rounded w-20 text-white"
+          className="p-1 border rounded w-34 text-white"
         />
         <span className="text-white">~</span>
         <input
@@ -71,7 +71,7 @@ const EventSearch = ({ onSearch }) => {
           placeholder="後"
           value={closeDate}
           onChange={(e) => handleAgeChange("close", e.target.value)}
-          className="p-1 border rounded w-20 text-white"
+          className="p-1 border rounded w-34 text-white"
         />
       </div>
 
