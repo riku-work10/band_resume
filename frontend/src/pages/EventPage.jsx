@@ -4,9 +4,11 @@ import { getEvents } from '../services/apiLives';
 import EventCreate from '../components/events/EventCreate'; // イベント作成用モーダルをインポート
 import EventLikeButton from '../components/likes/EventLikeButton';
 import { useAuth } from '../hooks/AuthContext';
+import EventSearch from '../components/search/EventSearch';
 
 const EventPage = () => {
   const [events, setEvents] = useState([]);
+  const [filteredEvents, setFilteredEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false); // モーダルの開閉状態を管理
@@ -17,6 +19,7 @@ const EventPage = () => {
       try {
         const data = await getEvents();
         setEvents(data);
+        setFilteredEvents(data);
         setLoading(false);
       } catch (err) {
         setError('イベントの取得に失敗しました');
@@ -27,13 +30,48 @@ const EventPage = () => {
     fetchEvents();
   }, []);
 
+  
+  // 検索＆フィルタ処理
+  const handleSearch = (query, startDate, closeDate, selectedTags, selectedLocations) => {
+    let filtered = events;
+
+    // タイトル検索
+    if (query) {
+      filtered = filtered.filter((event) =>
+        event.title.toLowerCase().includes(query.toLowerCase())
+      );
+    }
+
+    // 日付範囲フィルタ
+    if (startDate || closeDate) {
+      filtered = filtered.filter((event) => {
+        const date = event.date;
+        return (!startDate || date >= startDate) && (!closeDate || event <= closeDate);
+      });
+    }
+
+    // タグフィルタ
+    if (selectedTags.length > 0) {
+      filtered = filtered.filter((event) =>
+        event.tags.some((tag) => selectedTags.includes(tag.name))
+      );
+    }
+    // 場所フィルタ
+    if (selectedLocations.length > 0) {
+      filtered = filtered.filter((event) => selectedLocations.includes(event.location));
+    }
+
+    setFilteredEvents(filtered);
+  };
+
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
   return (
     <div>
       <h1 className="text-2xl font-bold">イベント一覧</h1>
       <br></br>
-      {events.map((event) => (
+      <EventSearch onSearch={handleSearch} />
+      {filteredEvents.map((event) => (
         <div key={event.id}>
           <Link to={`/events/${event.id}`} className="hover:underline">
             {event.image && <img src={event.image} alt={event.title} width="100" />}
