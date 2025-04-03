@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/AuthContext";
 import SelectLocation from "../selectlists/SelectLocation";
+import TagSelect from "../selectlists/TagSelect";  // TagSelect コンポーネントをインポート
 import { createEvent } from "../../services/apiLives";
 
 const EventCreate = ({ onClose }) => {
@@ -11,6 +12,7 @@ const EventCreate = ({ onClose }) => {
   const [date, setDate] = useState("");
   const [location, setLocation] = useState("");
   const [introduction, setIntroduction] = useState("");
+  const [tags, setTags] = useState([]); // 複数タグを配列で保持
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
@@ -25,11 +27,13 @@ const EventCreate = ({ onClose }) => {
         location,
         introduction,
       };
-      const response = await createEvent(eventData);
+      const tagNames = tags; // タグの配列をそのまま渡す
+      const response = await createEvent(eventData, tagNames);
+      console.log(response);
       onClose();
       navigate(`/events/${response.id}`);
     } catch (err) {
-      setError("履歴書の作成に失敗しました");
+      setError("イベントの作成に失敗しました");
     }
   };
 
@@ -82,6 +86,9 @@ const EventCreate = ({ onClose }) => {
             className="border border-gray-300 p-2 w-full rounded text-white"
           />
         </div>
+
+        {/* タグ選択コンポーネントを追加 */}
+        <TagSelect value={tags} onChange={(newTags) => setTags(newTags)} />
 
         {error && <p className="text-red-500">{error}</p>}
 

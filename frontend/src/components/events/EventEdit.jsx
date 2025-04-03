@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../hooks/AuthContext';
 import SelectLocation from "../selectlists/SelectLocation";
 import { putEvent } from '../../services/apiLives';
-
+import TagSelect from '../selectlists/TagSelect'; // タグ選択コンポーネントをインポート
 
 const EventEdit = ({ event, onClose, onUpdate }) => {
   const { user } = useAuth();
@@ -11,9 +11,9 @@ const EventEdit = ({ event, onClose, onUpdate }) => {
   const [date, setDate] = useState('');
   const [location, setLocation] = useState('');
   const [introduction, setIntroduction] = useState('');
+  const [selectedTags, setSelectedTags] = useState([]); // タグの状態
   const [error, setError] = useState(null);
 
-  // 編集画面の初期データを入れる＝デフォルトのデータ
   useEffect(() => {
     if (event) {
       setTitle(event.title);
@@ -21,6 +21,7 @@ const EventEdit = ({ event, onClose, onUpdate }) => {
       setDate(event.date || '');
       setLocation(event.location || '');
       setIntroduction(event.introduction || '');
+      setSelectedTags(event.tags ? event.tags.map(tag => tag.name) : []); // 既存タグをセット
     }
   }, [event]);
 
@@ -35,11 +36,12 @@ const EventEdit = ({ event, onClose, onUpdate }) => {
         location,
         introduction,
       };
-      const updatedEvent = await putEvent(event.id, updatedEventData); // 履歴書更新
-      onUpdate(updatedEvent); // 親コンポーネントの状態を更新
-      onClose(); // モーダルを閉じる
+      const tagNames = selectedTags; 
+      const updatedEvent = await putEvent(event.id, updatedEventData, tagNames);
+      onUpdate(updatedEvent);
+      onClose();
     } catch (err) {
-      setError('履歴書の更新に失敗しました');
+      setError('イベントの更新に失敗しました');
     }
   };
 
@@ -80,8 +82,8 @@ const EventEdit = ({ event, onClose, onUpdate }) => {
           </div>
 
           <div>
-          <label className="text-black">場所：</label>
-          <SelectLocation value={location} onChange={(e) => setLocation(e.target.value)} />
+            <label className="text-black">場所：</label>
+            <SelectLocation value={location} onChange={(e) => setLocation(e.target.value)} />
           </div>
 
           <div>
@@ -91,6 +93,11 @@ const EventEdit = ({ event, onClose, onUpdate }) => {
               onChange={(e) => setIntroduction(e.target.value)}
               className="border border-gray-300 p-2 w-full rounded"
             />
+          </div>
+
+          <div>
+            <label className="text-black">タグ：</label>
+            <TagSelect value={selectedTags} onChange={setSelectedTags} />
           </div>
 
           {error && <p className="text-red-500">{error}</p>}

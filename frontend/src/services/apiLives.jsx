@@ -1,7 +1,6 @@
 import apiClient from './apiClient';
 
-
-//履歴書一覧を取得する
+//タグ付きのイベント一覧を取得
 export const getEvents = async () => {
   try {
     const response = await apiClient.get(`/events`);
@@ -11,7 +10,7 @@ export const getEvents = async () => {
   }
 };
 
-// 特定の履歴書を取得する
+//特定のイベントを取得
 export const getEvent = async (id) => {
   try {
     const response = await apiClient.get(`/events/${id}`);
@@ -21,32 +20,49 @@ export const getEvent = async (id) => {
   }
 };
 
-// 特定の履歴書を更新する
-export const putEvent = async (eventId, data) => {
+//特定のタグが付いたイベントを取得
+export const getEventsByTag = async (tagName) => {
   try {
-    const response = await apiClient.put(`/events/${eventId}`, { event: data });
+    const response = await apiClient.get(`/events/tagged_events`, {
+      params: { tag_name: tagName },
+    });
     return response.data;
   } catch (error) {
-    throw new Error('イベントの更新に失敗しました');
+    throw new Error('タグでのイベント取得に失敗しました');
   }
 };
 
-// 履歴書を新規作成する
-export const createEvent = async (eventData) => {
+//イベントを新規作成（タグを含む）
+export const createEvent = async (eventData, tagNames) => {
   try {
-    const response = await apiClient.post(`/events`, { event: eventData });
+    const response = await apiClient.post(`/events`, {
+      event: eventData,
+      tag_names: tagNames, // タグも送信
+    });
     return response.data;
   } catch (error) {
     throw new Error('イベントの作成に失敗しました');
   }
 };
 
-//履歴書を削除する
+//特定のイベントを更新（タグも更新）
+export const putEvent = async (eventId, eventData, tagNames) => {
+  try {
+    const response = await apiClient.put(`/events/${eventId}`, {
+      event: eventData,
+      tag_names: tagNames, // タグも送信
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error('イベントの更新に失敗しました');
+  }
+};
+
+//イベントを削除
 export const deleteEvent = async (id) => {
   try {
-    await apiClient.delete(`/events/${id}`); // apiClientを使用
+    await apiClient.delete(`/events/${id}`);
   } catch (error) {
     throw new Error('イベントの削除に失敗しました');
   }
 };
-

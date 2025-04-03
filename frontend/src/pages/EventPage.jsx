@@ -29,7 +29,6 @@ const EventPage = () => {
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
-
   return (
     <div>
       <h1 className="text-2xl font-bold">イベント一覧</h1>
@@ -43,6 +42,10 @@ const EventPage = () => {
             <p>紹介: {event.introduction}</p>
             <p>開催日: {event.date}</p>
           </Link>
+          {/* タグ表示部分 */}
+          {event.tags && event.tags.map((tag) => (
+            <Link key={tag.id} to={`/events/tag/${tag.name}`} className="mr-2 hover:underline">{tag.name}</Link>
+          ))}
           {user && user.id !== event.user_id && (
           <EventLikeButton eventId={event.id} className="py-2 px-4 bg-green-500 text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400" />
         )}
