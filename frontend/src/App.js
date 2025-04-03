@@ -22,6 +22,7 @@ import EventPage from './pages/EventPage';
 import EventShow from './components/events/EventShow';
 import SetlistEditForm from './components/setlists/SetlistEditForm';
 import SetlistForm from './components/setlists/SetlistForm';
+import TaggedEventsPage from './components/events/TaggedEventsPage';
 
 const App = () => {
 
@@ -52,6 +53,7 @@ const App = () => {
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/setlistCreate" element={<SetlistForm />} />
           <Route path="/setlistEdit" element={<SetlistEditForm />} />
+          <Route path="/events/tag/:tagName" element={<TaggedEventsPage />} />
           
         </Routes>
       </main>
