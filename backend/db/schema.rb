@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_04_02_041639) do
+ActiveRecord::Schema[7.1].define(version: 2025_04_03_044913) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -31,6 +31,15 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_02_041639) do
     t.datetime "updated_at", null: false
     t.index ["event_id"], name: "index_event_likes_on_event_id"
     t.index ["user_id"], name: "index_event_likes_on_user_id"
+  end
+
+  create_table "event_tags", force: :cascade do |t|
+    t.bigint "event_id", null: false
+    t.bigint "tag_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_event_tags_on_event_id"
+    t.index ["tag_id"], name: "index_event_tags_on_tag_id"
   end
 
   create_table "events", force: :cascade do |t|
@@ -111,6 +120,12 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_02_041639) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "tags", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "tasks", force: :cascade do |t|
     t.string "name"
     t.boolean "is_done"
@@ -147,6 +162,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_02_041639) do
   add_foreign_key "event_comments", "users"
   add_foreign_key "event_likes", "events"
   add_foreign_key "event_likes", "users"
+  add_foreign_key "event_tags", "events"
+  add_foreign_key "event_tags", "tags"
   add_foreign_key "events", "users"
   add_foreign_key "resume_comments", "resumes"
   add_foreign_key "resume_comments", "users"
