@@ -23,6 +23,7 @@ import EventShow from './components/events/EventShow';
 import SetlistEditForm from './components/setlists/SetlistEditForm';
 import SetlistForm from './components/setlists/SetlistForm';
 import TaggedEventsPage from './components/events/TaggedEventsPage';
+import ResumesShowSectionItemCreateEdit from './components/resumes/ResumesShowSectionItemCreateEdit';
 
 const App = () => {
 
@@ -54,6 +55,7 @@ const App = () => {
           <Route path="/setlistCreate" element={<SetlistForm />} />
           <Route path="/setlistEdit" element={<SetlistEditForm />} />
           <Route path="/events/tag/:tagName" element={<TaggedEventsPage />} />
+          <Route path="/resumesectionitemcreateedit" element={<ResumesShowSectionItemCreateEdit />} />
           
         </Routes>
       </main>

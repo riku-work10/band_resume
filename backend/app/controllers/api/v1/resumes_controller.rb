@@ -12,7 +12,7 @@ class Api::V1::ResumesController < ApplicationController
 
   def show
     resume = Resume.find(params[:id])
-    render json: resume
+    render json: resume.as_json(include: { resume_sections: { include: :resume_items } })
   end
 
   def create
@@ -27,7 +27,7 @@ class Api::V1::ResumesController < ApplicationController
   def update
     resume = Resume.find(params[:id])  # 指定されたIDで Resume を検索
     if resume.update(resume_params)  # パラメータで指定された内容で Resume を更新
-      render json: resume
+      render json: resume.as_json(include: { resume_sections: { include: :resume_items } })
     else
       render json: { errors: resume.errors.full_messages }, status: :unprocessable_entity  # 更新失敗時にエラーメッセージを返す
     end

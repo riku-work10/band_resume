@@ -4,9 +4,9 @@ import { getResume, ResumeDelete  } from '../../services/apiResumes';
 import ResumeEdit from './ResumesEdit';
 import ResumeComments from '../comments/ResumeComments';
 import ResumeLikeButton from '../likes/ResumeLikeButton ';
-import { ResumeSections } from '../resumescontents/ResumeSections';
 import { MdDelete, MdEdit } from "react-icons/md";
 import { useAuth } from '../../hooks/AuthContext';
+import ResumesShowSectionItemDetail from './ResumesShowSectionItemDetail';
 
 const ResumePageShow = () => {
   const { resumeId } = useParams(); // URLパラメータからIDを取得
@@ -48,7 +48,12 @@ const ResumePageShow = () => {
       setLoading(false);
     }
   };
-  console.log(resume)
+  
+  const CreateEditButton = () => {
+    navigate("/resumesectionitemcreateedit", {
+      state: { resume }
+    })
+  }
 
   return (
     <div>
@@ -104,7 +109,8 @@ const ResumePageShow = () => {
                 )}
                 </div>
               </div>
-              <ResumeSections resumeId={resumeId} resume={resume}/>
+              <ResumesShowSectionItemDetail resume={resume}/>
+              {resume.resume_sections.length > 0 ? (<button onClick={CreateEditButton}>コンテンツの編集</button>) : ((<button onClick={CreateEditButton}>コンテンツの作成</button>))}
               <ResumeComments resumeId={resumeId}/>
             </div>
         ) : (
