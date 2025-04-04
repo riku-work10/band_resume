@@ -1,4 +1,4 @@
-import { ResumeSections } from "../resumesections/ResumeSections";
+import { ResumeSections } from "../resumessections/ResumeSections";
 
 import { useLocation, useNavigate } from 'react-router-dom';
 const ResumesShowSectionItemCreateEdit = () => {

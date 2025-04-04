@@ -12,7 +12,7 @@ class Api::V1::ResumesController < ApplicationController
 
   def show
     resume = Resume.find(params[:id])
-    render json: resume
+    render json: resume.as_json(include: { resume_sections: { include: :resume_items } })
   end
 
   def create
