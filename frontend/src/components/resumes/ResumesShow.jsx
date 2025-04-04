@@ -110,7 +110,7 @@ const ResumePageShow = () => {
                 </div>
               </div>
               <ResumesShowSectionItemDetail resume={resume}/>
-              <button onClick={CreateEditButton}>コンテンツの作成</button>
+              {resume.resume_sections.length > 0 ? (<button onClick={CreateEditButton}>コンテンツの編集</button>) : ((<button onClick={CreateEditButton}>コンテンツの作成</button>))}
               <ResumeComments resumeId={resumeId}/>
             </div>
         ) : (

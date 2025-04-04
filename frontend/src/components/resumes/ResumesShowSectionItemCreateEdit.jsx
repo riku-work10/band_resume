@@ -11,6 +11,7 @@ const ResumesShowSectionItemCreateEdit = () => {
 
   return (
     <div>
+      <h2 className="text-6xl">コンテンツ/アイテム作成ページ</h2>
       <ResumeSections resumeId={resume.id} resume={resume}/>
       <button onClick={closebutton}>保存</button>
     </div>
