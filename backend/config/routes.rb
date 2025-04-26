@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
+  root to: "health_check#index"
+
 
   namespace :api do
     namespace :v1 do
