@@ -92,6 +92,5 @@ Rails.application.configure do
   'https://band-resume.onrender.com',
   'https://band-resume.vercel.app'
 ]
-config.action_cable.reconnect_attempts = 5
 
 end
