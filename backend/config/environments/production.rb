@@ -92,5 +92,4 @@ Rails.application.configure do
   'https://band-resume.onrender.com',
   'https://band-resume.vercel.app'
 ]
-
 end
