@@ -36,24 +36,51 @@ const OpenChatPage = () => {
 
   useEffect(() => {
     if (!token || !client || !uid) return;
-
+  
+    let reconnectAttempts = 0;
+    const maxReconnectAttempts = 5;
+  
     const cable = getCable(token, uid, client);
-
-    cableRef.current = cable.subscriptions.create(
-      { channel: "ChatChannel" },
-      {
-        received: (data) => {
-          setMessages((prev) => [...prev, data.message]);
-        },
-      }
-    );
-
+  
+    const createSubscription = () => {
+      cableRef.current = cable.subscriptions.create(
+        { channel: "ChatChannel" },
+        {
+          connected() {
+            console.log("✅ Connected to ChatChannel");
+            reconnectAttempts = 0; // 成功したらリセット
+          },
+          disconnected() {
+            console.log("⚠️ Disconnected from ChatChannel");
+  
+            if (reconnectAttempts < maxReconnectAttempts) {
+              const timeout = Math.min(3000 * (reconnectAttempts + 1), 10000); // だんだん待ち時間延ばす
+              setTimeout(() => {
+                console.log(`🔄 Reconnecting... (attempt ${reconnectAttempts + 1})`);
+                reconnectAttempts++;
+                createSubscription(); // 再度購読
+              }, timeout);
+            } else {
+              console.log("❌ Reconnect limit reached. Giving up.");
+            }
+          },
+          received: (data) => {
+            setMessages((prev) => [...prev, data.message]);
+          },
+        }
+      );
+    };
+  
+    createSubscription();
+  
     return () => {
       if (cableRef.current) {
         cableRef.current.unsubscribe();
       }
+      cable.disconnect(); // 念のため切断
     };
   }, [token, client, uid]);
+  
 
   const sendMessage = () => {
     if (!content.trim()) return;
