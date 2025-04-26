@@ -92,6 +92,6 @@ Rails.application.configure do
   'https://band-resume.onrender.com',
   'https://band-resume.vercel.app'
 ]
-puts "REDIS_URL: #{ENV['REDIS_URL']}"
+config.action_cable.reconnect_attempts = 5
 
 end
