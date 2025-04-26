@@ -93,7 +93,7 @@ Rails.application.configure do
   'https://band-resume.vercel.app'
 ]
 config.action_cable.redis = {
-  url: ENV['REDIS_URL'] || "redis://default:your-password@your-redis-url:6379",
+  url: ENV['REDIS_URL'] || "redis://default:ATZ5AAIjcDE3NmY3MmY4OTdmMTU0NmNiODI2NGUzYmNiMjZhODJiMHAxMA@welcome-joey-13945.upstash.io:6379",
   channel_prefix: "app_production",
   reconnect_attempts: 5,  # 再接続の試行回数
   reconnect_timeout: 5,   # 再接続の待機時間
