@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   has_many :events, dependent: :destroy
   has_many :event_likes
   has_many :liked_events, through: :event_likes, source: :event
+  has_many :messages
 
   validates :email, presence: true, uniqueness: true
 end

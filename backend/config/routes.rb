@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      resources :messages, only: [:index, :create, :update, :destroy]
       resources :users, only: [:create, :show, :update, :destroy]
       resources :resumes do
         resources :resume_comments, only: [:index, :create, :destroy, :update]
