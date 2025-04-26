@@ -92,4 +92,6 @@ Rails.application.configure do
   'https://band-resume.onrender.com',
   'https://band-resume.vercel.app'
 ]
+Rails.logger.info "REDIS_URL: #{ENV['REDIS_URL']}"
+
 end
