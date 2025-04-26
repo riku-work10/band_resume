@@ -24,7 +24,6 @@ const NotLoginHeader = () => {
       {isOpen && (
         <nav className="menu-container absolute top-16 right-0 w-1/8 bg-stone-700 p-4 shadow-lg rounded-l-lg">
           <ul className="space-y-2">
-            <li><Link to="/tasks" className="block" onClick={() => setIsOpen(false)}>タスク</Link></li>
             <li><Link to="/signin" className="block" onClick={() => setIsOpen(false)}>ログイン</Link></li>
             <li><Link to="/signup" className="block" onClick={() => setIsOpen(false)}>新規登録</Link></li>
             <li><Link to="/contact" className="block" onClick={() => setIsOpen(false)}>お問い合わせ</Link></li>
