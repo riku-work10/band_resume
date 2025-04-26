@@ -92,13 +92,13 @@ Rails.application.configure do
   'https://band-resume.onrender.com',
   'https://band-resume.vercel.app'
 ]
-config.action_cable.redis_connector = ->(_env, url) {
-  Redis.new(
-    url: url,
-    reconnect_attempts: 5,  # 5回まで接続を再試行する
-    timeout: 5,              # 接続のタイムアウトを5秒に設定
-    read_timeout: 5,         # 読み込みのタイムアウトを5秒に設定
-    write_timeout: 5         # 書き込みのタイムアウトを5秒に設定
-  )
+config.action_cable.redis = {
+  url: ENV['REDIS_URL'] || "redis://default:your-password@your-redis-url:6379",
+  channel_prefix: "app_production",
+  reconnect_attempts: 5,  # 再接続の試行回数
+  reconnect_timeout: 5,   # 再接続の待機時間
+  timeout: 5,             # 接続のタイムアウト時間
+  read_timeout: 5,        # 読み込みのタイムアウト時間
+  write_timeout: 5        # 書き込みのタイムアウト時間
 }
 end
