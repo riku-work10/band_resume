@@ -4,6 +4,7 @@ class Resume < ApplicationRecord
   has_many :resume_likes
   has_many :liked_by_users, through: :resume_likes, source: :user
   has_many :resume_sections, -> { order(:position) }, dependent: :destroy
+  has_many :notifications
 
   belongs_to :user
 end

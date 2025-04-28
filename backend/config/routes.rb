@@ -5,6 +5,14 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      resources :notifications, only: [:index, :update] do
+        member do
+          patch :read
+        end
+        collection do
+          patch :read_all
+        end
+      end
       resources :messages, only: [:index, :create, :update, :destroy]
       resources :users, only: [:create, :show, :update, :destroy]
       resources :resumes do
