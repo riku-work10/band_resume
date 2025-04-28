@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
   has_many :event_likes
   has_many :liked_events, through: :event_likes, source: :event
   has_many :messages
+  has_many :notifications
 
   validates :email, presence: true, uniqueness: true
 end
