@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_04_26_070820) do
+ActiveRecord::Schema[7.1].define(version: 2025_04_28_093850) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -60,6 +60,19 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_26_070820) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_messages_on_user_id"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "resume_id"
+    t.string "message"
+    t.string "resume_title"
+    t.string "comment_content"
+    t.boolean "read"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["resume_id"], name: "index_notifications_on_resume_id"
+    t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
   create_table "resume_comments", force: :cascade do |t|
@@ -174,6 +187,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_26_070820) do
   add_foreign_key "event_tags", "tags"
   add_foreign_key "events", "users"
   add_foreign_key "messages", "users"
+  add_foreign_key "notifications", "resumes"
+  add_foreign_key "notifications", "users"
   add_foreign_key "resume_comments", "resumes"
   add_foreign_key "resume_comments", "users"
   add_foreign_key "resume_items", "resume_sections"
