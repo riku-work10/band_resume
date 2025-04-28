@@ -3,7 +3,7 @@ class Api::V1::NotificationsController < ApplicationController
 
   # 通知一覧
   def index
-    @notifications = current_api_user.notifications.order(created_at: :desc)
+    @notifications = current_api_v1_user.notifications.order(created_at: :desc)
     render json: @notifications
   end
 
@@ -24,6 +24,6 @@ class Api::V1::NotificationsController < ApplicationController
   private
 
   def set_notification
-    @notification = current_api_user.notifications.find(params[:id])
+    @notification = current_api_v1_user.notifications.find(params[:id])
   end
 end
