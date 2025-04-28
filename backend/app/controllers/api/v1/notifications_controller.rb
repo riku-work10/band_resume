@@ -16,7 +16,7 @@ class Api::V1::NotificationsController < ApplicationController
     end
   end
   
-  def mark_all_as_read
+  def read_all
     current_api_v1_user.notifications.update_all(read: true)
     head :no_content
   end
