@@ -28,14 +28,13 @@ const ResumesCreate = ({ onClose }) => {
     if (!selectedFile) return;
     try {
       setIsUploading(true);
-      const res = await fetch(`http://localhost:3000/api/v1/s3/presigned_url?user_id=${user.id}&filename=${selectedFile.name}&content_type=${selectedFile.type}`);
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/${process.env.REACT_APP_API_VERSION}/s3/presigned_url?user_id=${user.id}&filename=${selectedFile.name}&content_type=${selectedFile.type}`);
       const { url, file_url } = await res.json();
       const uploadRes = await fetch(url, {
         method: "PUT",
         headers: { "Content-Type": selectedFile.type },
         body: selectedFile,
       })
-      console.log(uploadRes)
       if (!uploadRes.ok) throw new Error("S3アップロードに失敗しました");
       setProfileImage(file_url);
       alert("画像アップロード成功！");
