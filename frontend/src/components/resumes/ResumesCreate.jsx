@@ -10,6 +10,8 @@ const ResumesCreate = ({ onClose }) => {
   const { user } = useAuth();
   const [title, setTitle] = useState("");
   const [profileImage, setProfileImage] = useState("");
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [isUploading, setIsUploading] = useState(false);
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
   const [snsUrl, setSnsUrl] = useState("");
@@ -17,6 +19,32 @@ const ResumesCreate = ({ onClose }) => {
   const [introduction, setIntroduction] = useState("");
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+
+  const handleFileChange = (e) => {
+    setSelectedFile(e.target.files[0]);
+  };
+
+  const handleUpload = async () => {
+    if (!selectedFile) return;
+    try {
+      setIsUploading(true);
+      const res = await fetch(`http://localhost:3000/api/v1/s3/presigned_url?user_id=${user.id}&filename=${selectedFile.name}&content_type=${selectedFile.type}`);
+      const { url, file_url } = await res.json();
+      const uploadRes = await fetch(url, {
+        method: "PUT",
+        headers: { "Content-Type": selectedFile.type },
+        body: selectedFile,
+      })
+      console.log(uploadRes)
+      if (!uploadRes.ok) throw new Error("S3アップロードに失敗しました");
+      setProfileImage(file_url);
+      alert("画像アップロード成功！");
+    } catch (err) {
+      alert(err.message);
+    } finally {
+      setIsUploading(false);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,9 +59,9 @@ const ResumesCreate = ({ onClose }) => {
         location,
         introduction,
       };
-      const response = await createResume(resumeData); // 履歴書作成
-      onClose(); // モーダルを閉じる
-      navigate(`/resumes/${response.id}`); // resume詳細へ
+      const response = await createResume(resumeData);
+      onClose();
+      navigate(`/resumes/${response.id}`);
     } catch (err) {
       setError("履歴書の作成に失敗しました");
     }
@@ -56,13 +84,16 @@ const ResumesCreate = ({ onClose }) => {
         </div>
 
         <div>
-          <label className="text-black">プロフィール画像URL：</label>
-          <input
-            type="text"
-            value={profileImage}
-            onChange={(e) => setProfileImage(e.target.value)}
-            className="border border-gray-300 p-2 w-full rounded text-white"
-          />
+          <label className="text-black">プロフィール画像：</label>
+          <input type="file" onChange={handleFileChange} className="mb-2" />
+          <button type="button" onClick={handleUpload} disabled={isUploading} className="bg-green-500 text-white px-3 py-1 rounded ml-2">
+            {isUploading ? "アップロード中..." : "アップロード"}
+          </button>
+          {profileImage && (
+            <div className="mt-2">
+              <img src={profileImage} alt="プロフィール画像" className="h-20 rounded" />
+            </div>
+          )}
         </div>
 
         <div>
