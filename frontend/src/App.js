@@ -24,6 +24,8 @@ import SetlistEditForm from './components/setlists/SetlistEditForm';
 import SetlistForm from './components/setlists/SetlistForm';
 import TaggedEventsPage from './components/events/TaggedEventsPage';
 import ResumesShowSectionItemCreateEdit from './components/resumes/ResumesShowSectionItemCreateEdit';
+import ResetPasswordForm from './components/auth/ResetPasswordForm';
+import ForgotPasswordForm from './components/auth/ForgotPasswordForm';
 
 const App = () => {
 
@@ -56,6 +58,8 @@ const App = () => {
           <Route path="/setlistEdit" element={<SetlistEditForm />} />
           <Route path="/events/tag/:tagName" element={<TaggedEventsPage />} />
           <Route path="/resumesectionitemcreateedit" element={<ResumesShowSectionItemCreateEdit />} />
+          <Route path="/password/forgot" element={<ForgotPasswordForm />} />
+          <Route path="/password/reset" element={<ResetPasswordForm />} />
           
         </Routes>
       </main>
