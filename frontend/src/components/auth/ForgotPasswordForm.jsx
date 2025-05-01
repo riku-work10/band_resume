@@ -12,7 +12,7 @@ function ForgotPasswordForm() {
     try {
       await apiClient.post('/auth/password', {
         email,
-        redirect_url: 'https://band-resume.vercel.app/password/reset', // リセット後のReact画面URL
+        redirect_url: `${process.env.REACT_APP_VERCEL_URL}/password/reset`,// リセット後のReact画面URL
       });
       setMessage('リセットメールを送信しました。メールを確認してください。');
     } catch (error) {

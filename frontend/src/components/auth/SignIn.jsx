@@ -33,6 +33,9 @@ const SignIn = () => {
       <p>
         <Link to="/password/forgot">パスワードをお忘れですか？</Link>
       </p>
+      <p>
+        <Link to="/signup">新規登録する</Link>
+      </p>
     </div>
   );
 };
