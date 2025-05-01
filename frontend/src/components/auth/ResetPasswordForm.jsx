@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import apiClient from '../../services/apiClient';
+import { Link } from "react-router-dom";
 
 
 function ResetPasswordForm() {
@@ -68,6 +69,9 @@ function ResetPasswordForm() {
         <button type="submit">パスワードを変更する</button>
       </form>
       {message && <p>{message}</p>}
+      <p>
+        <Link to="/signin">ログインページへ戻る</Link>
+      </p>
     </div>
   );
 }

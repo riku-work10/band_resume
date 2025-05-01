@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import apiClient from '../../services/apiClient';
+import { Link } from "react-router-dom";
 
 function ForgotPasswordForm() {
   const [email, setEmail] = useState('');
@@ -33,6 +34,9 @@ function ForgotPasswordForm() {
         <button type="submit">送信</button>
       </form>
       {message && <p>{message}</p>}
+      <p>
+        <Link to="/signin">ログインページへ戻る</Link>
+      </p>
     </div>
   );
 }
