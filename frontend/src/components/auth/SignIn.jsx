@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useAuth } from "../../hooks/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const SignIn = () => {
   const { signin } = useAuth();
@@ -29,6 +30,12 @@ const SignIn = () => {
         <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
         <button type="submit">Login</button>
       </form>
+      <p>
+        <Link to="/password/forgot">パスワードをお忘れですか？</Link>
+      </p>
+      <p>
+        <Link to="/signup">新規登録する</Link>
+      </p>
     </div>
   );
 };

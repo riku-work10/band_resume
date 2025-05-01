@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import apiClient from '../../services/apiClient';
+import { Link } from "react-router-dom";
 
 function ForgotPasswordForm() {
   const [email, setEmail] = useState('');
@@ -11,7 +12,7 @@ function ForgotPasswordForm() {
     try {
       await apiClient.post('/auth/password', {
         email,
-        redirect_url: 'https://band-resume.vercel.app/password/reset', // リセット後のReact画面URL
+        redirect_url: `${process.env.REACT_APP_VERCEL_URL}/password/reset`,// リセット後のReact画面URL
       });
       setMessage('リセットメールを送信しました。メールを確認してください。');
     } catch (error) {
@@ -33,6 +34,9 @@ function ForgotPasswordForm() {
         <button type="submit">送信</button>
       </form>
       {message && <p>{message}</p>}
+      <p>
+        <Link to="/signin">ログインページへ戻る</Link>
+      </p>
     </div>
   );
 }
