@@ -93,7 +93,7 @@ Rails.application.configure do
   'https://band-resume.vercel.app'
 ]
   config.action_mailer.default_url_options = {
-    host: 'https://band-resume.vercel.app',
+    host: 'band-resume.onrender.com',
     protocol: 'https'
   }
   config.action_mailer.delivery_method = :smtp
