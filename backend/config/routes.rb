@@ -48,7 +48,10 @@ Rails.application.routes.draw do
       resources :resume_items, only: [:update, :destroy]
       get 'users/:id/liked_resumes', to: 'users#liked_resumes'
       get 'users/:id/liked_events', to: 'users#liked_events'
-      mount_devise_token_auth_for 'User', at: 'auth'
+      mount_devise_token_auth_for 'User', at: '/auth', controllers: {
+        passwords: 'api/v1/custom_passwords'
+      }
+
     end
   end
   
