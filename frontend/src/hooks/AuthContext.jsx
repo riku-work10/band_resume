@@ -50,6 +50,28 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  //グーグル認証
+const signinWithGoogle = async (idToken) => {
+  try {
+    const res = await apiClient.post("/snsauth/googleauth", {
+      id_token: idToken,
+    });
+    const accessToken = res.headers["access-token"];
+    const client = res.headers["client"];
+    const uid = res.headers["uid"];
+
+    localStorage.setItem("access-token", accessToken);
+    localStorage.setItem("client", client);
+    localStorage.setItem("uid", uid);
+
+    fetchUser(accessToken, client, uid);
+  } catch (err) {
+    console.error("Googleログインに失敗しました:", err);
+    throw err;
+  }
+};
+
+
   //新規登録
   const signup = async (email, password, passwordConfirmation) => {
     try {
@@ -75,7 +97,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, signup, signin, signout, setUser}}>
+    <AuthContext.Provider value={{ user, signup, signin, signout, setUser, signinWithGoogle}}>
       {children}
     </AuthContext.Provider>
   );

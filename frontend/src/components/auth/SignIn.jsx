@@ -1,8 +1,8 @@
-import React from "react";
 import { useState } from "react";
 import { useAuth } from "../../hooks/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import GoogleLoginButton from "./GoogleLoginButton";
 
 const SignIn = () => {
   const { signin } = useAuth();
@@ -35,6 +35,7 @@ const SignIn = () => {
       </p>
       <p>
         <Link to="/signup">新規登録する</Link>
+        < GoogleLoginButton />
       </p>
     </div>
   );
