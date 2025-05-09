@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      post 'snsauth/googleauth', to: 'snsauth#googleauth'
       get 's3/presigned_url', to: 's3#presigned_url'
       resources :notifications, only: [:index, :update] do
         member do
