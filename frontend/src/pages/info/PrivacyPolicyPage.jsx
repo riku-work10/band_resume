@@ -2,11 +2,9 @@ import React from "react";
 
 const PrivacyPolicyPage = () => {
   return (
-    <div className="bg-gray-100 text-gray-800 p-6 rounded-lg shadow-md max-w-4xl mx-auto">
+    <div className="bg-gray-100 text-gray-800 p-6 rounded-lg shadow-md max-w-4xl mx-auto mt-4">
       {/* プライバシーポリシー */}
       <section>
-        <h2 className="text-2xl font-bold text-orange-500 mb-4">プライバシーポリシー</h2>
-
         <p className="mb-4">
           ハルカミライ履歴書（以下「本サービス」）は、ユーザーの個人情報の取扱いについて以下の通り定めます。
         </p>

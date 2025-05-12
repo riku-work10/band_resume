@@ -14,6 +14,12 @@ const GetPageName = () => {
       return "オープンチャット";
     case "/mypage":
       return "マイページ";
+    case "/contact":
+      return "お問い合わせ";
+    case "/privacypolicy":
+      return "プライバシーポリシー";
+    case "/termspfservice":
+      return "利用規約";
     default:
       return "ハルカミライ"
   }
