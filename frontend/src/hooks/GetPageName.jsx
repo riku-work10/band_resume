@@ -4,7 +4,7 @@ const GetPageName = () => {
   const location = useLocation();
 
   switch (location.pathname) {
-    case "/lives":
+    case "/events":
       return "ライブ一覧";
     case "/myresumes":
       return "マイ履歴書";

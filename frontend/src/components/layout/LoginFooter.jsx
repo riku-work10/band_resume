@@ -11,7 +11,7 @@ const LoginFooter = () => {
         <li>
           <Link 
             to="/events"
-            className={`flex flex-col items-center gap-1 ${location.pathname === "/lives" ? "text-orange-500" : ""}`}>
+            className={`flex flex-col items-center gap-1 ${location.pathname === "/events" ? "text-orange-500" : ""}`}>
             <MdMic className="text-xl" /> {/* アイコンのサイズ調整 */}
             <span className="text-xs sm:text-sm">ライブ一覧</span> {/* 文字サイズを小さく */}
           </Link>
