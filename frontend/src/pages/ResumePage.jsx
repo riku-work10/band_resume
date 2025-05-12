@@ -64,7 +64,7 @@ const ResumePage = () => {
   if (error) return <div>{error}</div>;
 
   return (
-    <div>
+    <div className="pt-4">
       <ResumeSearch onSearch={handleSearch} />
       {filteredResumes.map((resume) => (
         <div key={resume.id}>

@@ -67,9 +67,7 @@ const EventPage = () => {
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
   return (
-    <div>
-      <h1 className="text-2xl font-bold">イベント一覧</h1>
-      <br></br>
+    <div className='pt-4'>
       <EventSearch onSearch={handleSearch} />
       {filteredEvents.map((event) => (
         <div key={event.id}>

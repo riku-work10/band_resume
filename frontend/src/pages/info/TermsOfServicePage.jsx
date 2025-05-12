@@ -1,12 +1,8 @@
-import React from "react";
-
 const TermsOfServicePage = () => {
   return (
-    <div className="bg-gray-100 text-gray-800 p-6 rounded-lg shadow-md max-w-4xl mx-auto">
+    <div className="bg-gray-100 text-gray-800 p-6 rounded-lg shadow-md max-w-4xl mx-auto mt-4">
       {/* 利用規約 */}
       <section className="mb-8">
-        <h2 className="text-2xl font-bold text-orange-500 mb-4">利用規約</h2>
-
         <p className="mb-4">
           この利用規約(以下、「本規約」といいます。)は、ハルカミライ履歴書（以下「本サービス」）の利用条件を定めるものであり、本サービスを利用する全てのユーザー（以下「ユーザー」）に適用されます。
         </p>
