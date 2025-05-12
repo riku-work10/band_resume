@@ -135,12 +135,7 @@ const OpenChatPage = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-black text-white">
-      {/* ヘッダー */}
-      <div className="p-4 bg-gray-900 border-b border-gray-700">
-        <h2 className="text-xl font-bold">オープンチャット</h2>
-      </div>
-
+    <div className="flex flex-col h-screen bg-black text-white mt-4">
       {/* メッセージエリア */}
       <div className="flex-1 overflow-y-auto px-4 py-2 space-y-2">
         {messages.map((msg) => {

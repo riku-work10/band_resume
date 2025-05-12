@@ -32,9 +32,7 @@ const MyResumePage = () => {
   if (error) return <div>{error}</div>;
 
   return (
-    <div>
-      <h1 className="text-2xl font-bold">自分の履歴書一覧</h1>
-
+    <div className="pt-4">
       {resumes.length === 0 ? (
         <p>履歴書がありません。</p>
       ) : (
