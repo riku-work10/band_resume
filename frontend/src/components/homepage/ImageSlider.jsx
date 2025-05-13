@@ -5,32 +5,64 @@ import "swiper/css";
 import "swiper/css/autoplay";
 import "./slider.css";
 
-const images = [
-  "https://img.ananweb.jp/2020/07/04105639/30-600x466.jpg",
-  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6WYKhzAFBqN0nwDVz_F4wIdBofX3FSDnrRQ&s",
-  "https://rockinon.com/images/entry/width:750/211469/1",
-  "https://img.barks.jp/image/review/1000220442/1.jpg",
-  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSE0kTYNfKjLvklQDuq9KNuNjLOYlQvBQjjKg&s",
-  "https://img.ananweb.jp/2020/07/04105639/30-600x466.jpg",
-  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6WYKhzAFBqN0nwDVz_F4wIdBofX3FSDnrRQ&s",
-  "https://rockinon.com/images/entry/width:750/211469/1",
-  "https://img.barks.jp/image/review/1000220442/1.jpg",
-  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSE0kTYNfKjLvklQDuq9KNuNjLOYlQvBQjjKg&s",
-  "https://img.ananweb.jp/2020/07/04105639/30-600x466.jpg",
-  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6WYKhzAFBqN0nwDVz_F4wIdBofX3FSDnrRQ&s",
-  "https://rockinon.com/images/entry/width:750/211469/1",
-  "https://img.barks.jp/image/review/1000220442/1.jpg",
-  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSE0kTYNfKjLvklQDuq9KNuNjLOYlQvBQjjKg&s",
-  "https://img.ananweb.jp/2020/07/04105639/30-600x466.jpg",
-  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6WYKhzAFBqN0nwDVz_F4wIdBofX3FSDnrRQ&s",
-  "https://rockinon.com/images/entry/width:750/211469/1",
-  "https://img.barks.jp/image/review/1000220442/1.jpg",
-  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSE0kTYNfKjLvklQDuq9KNuNjLOYlQvBQjjKg&s",
-];
+const images1 = [
+  "images/ジャケ写 (9).png",
+  "images/ジャケ写 (1).png",
+  "images/ジャケ写 (17).png",
+  "images/ジャケ写 (13).png",
+  "images/ジャケ写 (8).png",
+  "images/ジャケ写 (10).png",
+  "images/ジャケ写 (15).png",
+  "images/ジャケ写 (22).png",
+  "images/ジャケ写 (12).png",
+  "images/ジャケ写 (7).png",
+  "images/ジャケ写 (2).png",
+  "images/ジャケ写 (21).png",
+  "images/ジャケ写 (3).png",
+  "images/ジャケ写 (4).png",
+  "images/ジャケ写 (6).png",
+  "images/ジャケ写 (18).png",
+  "images/ジャケ写 (14).png",
+  "images/ジャケ写 (11).png",
+  "images/ジャケ写 (5).png",
+  "images/ジャケ写 (20).png",
+  "images/ジャケ写 (19).png",
+  "images/ジャケ写 (16).png"
+]
+
+const images2 = [
+  "images/ジャケ写 (11).png",
+  "images/ジャケ写 (21).png",
+  "images/ジャケ写 (6).png",
+  "images/ジャケ写 (14).png",
+  "images/ジャケ写 (2).png",
+  "images/ジャケ写 (9).png",
+  "images/ジャケ写 (10).png",
+  "images/ジャケ写 (7).png",
+  "images/ジャケ写 (13).png",
+  "images/ジャケ写 (3).png",
+  "images/ジャケ写 (12).png",
+  "images/ジャケ写 (5).png",
+  "images/ジャケ写 (1).png",
+  "images/ジャケ写 (22).png",
+  "images/ジャケ写 (20).png",
+  "images/ジャケ写 (16).png",
+  "images/ジャケ写 (17).png",
+  "images/ジャケ写 (4).png",
+  "images/ジャケ写 (8).png",
+  "images/ジャケ写 (19).png",
+  "images/ジャケ写 (18).png",
+  "images/ジャケ写 (15).png"
+]
+
+
+
+
 
 const ImageSlider = () => {
   // ループの滑らかさのために画像を倍に
-  const loopedImages = images.concat(images);
+  const loopedImages1 = images1.concat(images1);
+  const loopedImages2 = images2.concat(images2);
 
   return (
     <div className="slider-container">
@@ -57,7 +89,7 @@ const ImageSlider = () => {
         grabCursor={false}
         className="mySwiper"
       >
-        {loopedImages.map((src, index) => (
+        {loopedImages1.map((src, index) => (
           <SwiperSlide key={index} className="slide">
             <img src={src} alt={`album ${index}`} className="slide-img" />
           </SwiperSlide>
@@ -78,7 +110,7 @@ const ImageSlider = () => {
         className="mySwiper"
         dir="rtl"
       >
-        {loopedImages.map((src, index) => (
+        {loopedImages2.map((src, index) => (
           <SwiperSlide key={index} className="slide">
             <img src={src} alt={`album ${index}`} className="slide-img" />
           </SwiperSlide>
