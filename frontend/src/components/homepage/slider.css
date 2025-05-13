@@ -1,0 +1,43 @@
+.slider-container {
+  text-align: center;
+  padding: 20px;
+  overflow: hidden; /* ← これが非常に重要 */
+  max-width: 100vw; /* ← 横幅制限 */
+}
+
+.slider-title {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.slider-description {
+  margin-bottom: 20px;
+  color: #444;
+  padding: 0 20px;
+}
+
+.mySwiper {
+  width: 100%;
+  padding: 10px 20px;
+  overflow: hidden; /* ← スクロールバーを隠す */
+}
+
+.slide {
+  width: 150px !important; /* 明示的に指定 */
+  height: 150px;
+  flex-shrink: 0;
+}
+
+.slide-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.mySwiper .swiper-wrapper {
+  transition-timing-function: linear !important;
+  display: flex;
+  align-items: center;
+  max-width: 100%;
+}
