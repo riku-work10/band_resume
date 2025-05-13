@@ -64,20 +64,20 @@ function HomePage() {
             title="自分だけのハルカミライ履歴書を作ろう！"
             content="「好きな曲、聞いてみたい曲、好きな歌詞、最高だったライブ」あなたのハルカミライを共有しよう！"
             bg="#2a9d8f"
-            UseUrl="https://www.youtube.com/embed/3fumBcKC6RE"
+            UseUrl="/images/001.jpg"
           />
           <Section
             title="ライブ情報セトリやMCを共有、あなただけのライブ参戦履歴"
             content="「あの時のライブのセトリなんだったけ？、いままで行ったライブまとめたい」あなただけのハルカミライ参戦履歴を作ってみてください！※ライブ情報の登録大歓迎です"
             bg="#264653"
-            UseUrl="https://www.youtube.com/embed/5NV6Rdv1a3I"
+            UseUrl="/images/001.jpg"
             reverse
           />
           <Section
             title="感動・興奮・余韻を共有しよう！"
             content="「セトリ神すぎた！、predawn初めて聞けた！、余韻がやばい、グッズかわいい！」あなたが思ったこと感じたことをなんでもチャットで共有しよう！"
             bg="#263333"
-            UseUrl="https://www.youtube.com/embed/kJQP7kiw5Fk"
+            UseUrl="/images/001.jpg"
           />
           <FinalLogoSection />
         </>
