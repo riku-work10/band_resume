@@ -50,7 +50,7 @@ export const ResumeSections = ({resumeId, resume}) => {
     apiClient.get(`resumes/${resumeId}/resume_sections`)
       .then(response => setResumeSectionsList(response.data))  // タスクを状態にセット
       .catch(error => console.error('Error fetching tasks:', error));
-  }, []);
+  }, [resumeId]);
 
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
