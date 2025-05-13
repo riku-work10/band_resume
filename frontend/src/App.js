@@ -29,15 +29,13 @@ import ForgotPasswordForm from './components/auth/ForgotPasswordForm';
 
 const App = () => {
 
-
-
   return (
 
     <AuthProvider>
       <BrowserRouter>
       <div className="flex flex-col min-h-screen">
-      <Header />
-      <main className="flex-grow container mx-auto px-6 py-16">
+        <Header />
+      <main className="flex-grow pt-16">
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/events" element={<EventPage />} />
@@ -63,7 +61,9 @@ const App = () => {
           
         </Routes>
       </main>
-      <Footer />
+        <footer className="h-16">
+          <Footer />
+        </footer>
       </div>
     </BrowserRouter>
     </AuthProvider>
