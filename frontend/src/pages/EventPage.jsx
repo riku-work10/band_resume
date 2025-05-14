@@ -67,35 +67,81 @@ const EventPage = () => {
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
   return (
-    <div className='pt-4'>
-      <EventSearch onSearch={handleSearch} />
-      {filteredEvents.map((event) => (
-        <div key={event.id}>
-          <Link to={`/events/${event.id}`} className="hover:underline">
-            {event.image && <img src={event.image} alt={event.title} width="100" />}
-            <h2>{event.title}</h2>
-            <p>場所: {event.location}</p>
-            <p>紹介: {event.introduction}</p>
-            <p>開催日: {event.date}</p>
-          </Link>
-          {/* タグ表示部分 */}
-          {event.tags && event.tags.map((tag) => (
-            <Link key={tag.id} to={`/events/tag/${tag.name}`} className="mr-2 hover:underline">{tag.name}</Link>
-          ))}
-          {user && user.id !== event.user_id && (
-          <EventLikeButton eventId={event.id} className="py-2 px-4 bg-green-500 text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400" />
-        )}
-        </div>
-      ))}
+    <div>
+      <div className="relative">
+        <div className="pt-4 px-6">
+          {/* 検索バー */}
+          <div className="mx-auto justify-center flex">
+            <EventSearch onSearch={handleSearch} />
+          </div>
 
-      <br></br>
-      {/* モーダルを開くボタン */}
-      <button
-        onClick={() => setIsModalOpen(true)}
-        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 mb-4"
-      >
-        イベント作成
-      </button>
+          {/* グリッドレイアウト：スマホ1列、md以上で2列 */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {filteredEvents.map((event) => (
+              <div
+                key={event.id}
+                className="flex bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition"
+              >
+                {/* 左側：画像 */}
+                {event.image && (
+                  <Link to={`/events/${event.id}`} className="flex-shrink-0 w-32 h-32 md:w-40 md:h-40">
+                    <img
+                      src={event.image}
+                      alt={event.title}
+                      className="w-full h-full object-cover"
+                    />
+                  </Link>
+                )}
+
+                {/* 右側：テキスト情報 */}
+                <div className="flex flex-col justify-between p-2 flex-grow">
+                  <div>
+                    <Link to={`/events/${event.id}`} className="hover:underline">
+                      <h2 className="text-lg font-bold text-gray-800">{event.title}</h2>
+                    </Link>
+                    <p className="text-sm text-green-600 font-semibold mt-1">
+                      {event.date} @ {event.location}
+                    </p>
+                    <p className="text-sm text-gray-600 mt-1">{event.introduction}</p>
+
+                    {/* タグ */}
+                    <div className="flex flex-wrap gap-1 mt-2">
+                      {event.tags?.map((tag) => (
+                        <Link
+                          key={tag.id}
+                          to={`/events/tag/${tag.name}`}
+                          className="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded-full"
+                        >
+                          #{tag.name}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* 下部アクション */}
+                  <div className="mt-4 flex gap-2 items-center">
+                    {user && user.id !== event.user_id && (
+                      <EventLikeButton
+                        eventId={event.id}
+                        className="py-1 px-3 bg-green-500 text-white text-sm rounded hover:bg-green-600"
+                      />
+                    )}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+      {/* 作成 */}
+      <div className="fixed bottom-16 right-6 z-50">
+        <button
+          onClick={() => setIsModalOpen(true)}
+          className="bg-blue-500 text-white px-4 py-2 rounded shadow-lg hover:bg-blue-700 transition"
+        >
+          イベント作成
+        </button>
+      </div>
 
       {/* モーダル */}
       {isModalOpen && (
