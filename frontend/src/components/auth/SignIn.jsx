@@ -24,7 +24,7 @@ const SignIn = () => {
 
   return (
     <div
-      className="min-h-screen bg-cover bg-center bg-no-repeat flex items-center justify-center"
+      className="min-h-screen bg-cover bg-center bg-no-repeat flex items-center justify-center -my-16"
       style={{ backgroundImage: "url('/images/001.jpg')" }} // 画像パスは適宜変更
     >
       <div className="bg-white/20 backdrop-blur-md rounded-xl p-8 shadow-lg w-full max-w-md text-white">
