@@ -80,7 +80,7 @@ const EventPage = () => {
             {filteredEvents.map((event) => (
               <div
                 key={event.id}
-                className="flex bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition"
+                className="flex bg-orange-50 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition"
               >
                 {/* 左側：画像 */}
                 {event.image && (
