@@ -66,15 +66,6 @@ const ImageSlider = () => {
 
   return (
     <div className="slider-container">
-      <h2 className="slider-title">語ろ！つながろ！ハルカミライで！</h2>
-      <p className="slider-description">
-        「好き」がつながる。想いが残る。
-        『ハルカミライ履歴書』は、あなたの“好き”をカタチにして共有できるファンアプリ。
-        心に残った歌詞、ライブで感じた想い──
-        あなただけの物語を、履歴書のように綴ってみませんか？
-        オープンチャットでは、同じ想いを持つ仲間とつながることも。
-        ファンが集まり、つながり、ハルカミライの熱が広がっていく。
-      </p>
       <Swiper
         modules={[Autoplay]}
         slidesPerView={"auto"}
@@ -95,6 +86,17 @@ const ImageSlider = () => {
           </SwiperSlide>
         ))}
       </Swiper>
+        <div className="slider-content">
+        <h2 className="slider-title">語ろ！つながろ！ハルカミライで！</h2>
+        <p className="slider-description">
+          「好き」がつながる。想いが残る。
+          『ハルカミライ履歴書』は、あなたの“好き”をカタチにして共有できるファンアプリ。
+          心に残った歌詞、ライブで感じた想い──
+          あなただけの物語を、履歴書のように綴ってみませんか？
+          オープンチャットでは、同じ想いを持つ仲間とつながることも。
+          ファンが集まり、つながり、ハルカミライの熱が広がっていく。
+        </p>
+        </div>
       <Swiper
         modules={[Autoplay]}
         slidesPerView={"auto"}

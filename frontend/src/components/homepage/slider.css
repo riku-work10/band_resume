@@ -41,3 +41,7 @@
   align-items: center;
   max-width: 100%;
 }
+
+.slider-content {
+  margin: 90px 0px;
+}

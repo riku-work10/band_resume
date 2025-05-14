@@ -110,50 +110,6 @@ body {
   transform: translateY(-64px);
 }
 
-.content-section {
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2rem;
-  padding: 2rem;
-  box-sizing: border-box;
-  gap: 2rem;
-}
-
-.section-text {
-  flex: 1;
-  color: white;
-  font-size: 1.5rem;
-  line-height: 1.6;
-}
-
-.section-video {
-  flex: 1;
-  max-width: 100%;
-}
-
-.section-video iframe {
-  width: 100%;
-  border: none;
-  border-radius: 8px;
-}
-
-.content-section.reverse {
-  flex-direction: row-reverse;
-}
-
-.hero-section {
-  height: 100vh;
-  background-color: #f4a261;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  text-align: center;
-  padding: 2rem;
-}
-
 .hero-content h1 {
   font-size: 3rem;
   margin-bottom: 1rem;
@@ -169,6 +125,89 @@ body {
   width: 100%;
   border-radius: 12px;
 }
+
+.content-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4rem 2rem;
+  gap: 3rem;
+  color: white;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+}
+
+/* Reverse layout */
+.content-section.reverse {
+  flex-direction: row-reverse;
+}
+
+/* テキスト部分 */
+.section-text {
+  flex: 1;
+  min-width: 300px;
+}
+
+.section-text h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+.section-text p {
+  font-size: 1.2rem;
+  line-height: 1.8;
+}
+
+/* 動画部分 */
+.section-video {
+  flex: 1;
+  min-width: 300px;
+  display: flex;
+  justify-content: center;
+}
+
+.section-video video {
+  width: 100%;
+  max-width: 600px;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+}
+
+/* スマホなど幅が狭いデバイス対応 */
+@media (max-width: 768px) {
+  .content-section {
+    flex-direction: column;
+    padding: 2rem 1rem;
+    text-align: center;
+  }
+
+  .section-text h2 {
+    font-size: 2rem;
+  }
+
+  .section-text p {
+    font-size: 1rem;
+  }
+
+  .section-video {
+    margin-top: 1rem;
+  }
+}
+
+.hero-section {
+  height: 100vh;
+  background-color: #f4a261;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 2rem;
+}
+
 
 .final-logo-section {
   width: 100%;
