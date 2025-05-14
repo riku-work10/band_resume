@@ -12,7 +12,7 @@ const stars = Array.from({ length: 30 }, (_, i) => ({
 const LiveStagePage = () => {
   return (
     <div
-      className="relative w-full h-screen bg-black bg-cover bg-center overflow-hidden"
+      className="fixed inset-0 z-40 bg-black bg-cover bg-center overflow-hidden"
       // style={{
       //   backgroundImage:
       //     "url('https://www.musicman.co.jp/wp-content/uploads/2022/07/220702_tatewaki_2856-1560x1040.jpg')",
@@ -68,7 +68,7 @@ const LiveStagePage = () => {
       </div>
 
       {/* 底からの光（スポットライト風） */}
-      <div className="absolute bottom-0 w-full h-1/2 z-0 animate-pulse bg-gradient-to-t from-blue-700 via-transparent to-transparent opacity-30 blur-xl" />
+      <div className="absolute bottom-0 w-full h-1/2 z-0 animate-pulse bg-gradient-to-t from-yellow-600 via-transparent to-transparent opacity-30 blur-xl" />
     </div>
   );
 };
