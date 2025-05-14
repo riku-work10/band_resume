@@ -116,7 +116,6 @@ function FinalLogoSection() {
         alt="ロゴ"
         className="final-logo-img"
       />
-      <h2 className="final-logo-text">ハルカミライ履歴書</h2>
     </motion.section>
   );
 }
