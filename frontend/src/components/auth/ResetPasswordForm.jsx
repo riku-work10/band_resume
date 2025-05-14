@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import apiClient from '../../services/apiClient';
 import { Link } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 
 function ResetPasswordForm() {
   const [searchParams] = useSearchParams();
-
   const token = searchParams.get('token') || '';
   const client = searchParams.get('client') || '';
   const uid = searchParams.get('uid') || '';
+  const navigate = useNavigate();
 
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -40,6 +40,7 @@ function ResetPasswordForm() {
         }
       );
       setMessage('パスワードを変更しました。ログインしてください。');
+      navigate("/signin");
     } catch (error) {
       const errorMsg =
         error.response?.data?.errors?.full_messages?.join(', ') ||
@@ -49,29 +50,51 @@ function ResetPasswordForm() {
   };
 
   return (
-    <div>
-      <h2>パスワード再設定</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="password"
-          placeholder="新しいパスワード"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <input
-          type="password"
-          placeholder="パスワード確認"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          required
-        />
-        <button type="submit">パスワードを変更する</button>
-      </form>
-      {message && <p>{message}</p>}
-      <p>
-        <Link to="/signin">ログインページへ戻る</Link>
-      </p>
+    <div
+      className="min-h-screen bg-cover bg-center bg-no-repeat flex items-center justify-center"
+      style={{ backgroundImage: "url('/images/001.jpg')" }} // 背景画像は適宜変更
+    >
+      <div className="bg-white/20 backdrop-blur-md rounded-xl p-8 shadow-lg w-full max-w-md text-white">
+        <h2 className="text-2xl font-light text-center mb-6 tracking-widest">
+          パスワード再設定
+        </h2>
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <input
+            type="password"
+            placeholder="新しいパスワード"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            className="w-full px-4 py-2 border-b border-white bg-transparent placeholder-white focus:outline-none"
+          />
+          <input
+            type="password"
+            placeholder="パスワード確認"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            required
+            className="w-full px-4 py-2 border-b border-white bg-transparent placeholder-white focus:outline-none"
+          />
+          <button
+            type="submit"
+            className="w-full bg-stone-600 hover:bg-stone-700 text-white py-2 rounded-full transition-all"
+          >
+            パスワードを変更する
+          </button>
+        </form>
+
+        {message && (
+          <p className="mt-4 text-center text-sm text-white/90">{message}</p>
+        )}
+
+        <hr className="my-6 border-white/30" />
+
+        <div className="text-center text-sm">
+          <Link to="/signin" className="underline hover:text-cyan-200">
+            ログインページへ戻る
+          </Link>
+        </div>
+      </div>
     </div>
   );
 }
