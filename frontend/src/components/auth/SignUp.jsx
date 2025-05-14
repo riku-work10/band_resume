@@ -1,7 +1,8 @@
-import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/AuthContext";
+import GoogleLoginButton from "./GoogleLoginButton";
+import { Link } from "react-router-dom";
 
 const SignUp = () => {
   const { signup } = useAuth();
@@ -25,13 +26,17 @@ const SignUp = () => {
 
   return (
     <div>
-      <h2>Sign Up</h2>
+      <h2>新規登録</h2>
       <form onSubmit={handleSubmit}>
-        <input type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
-        <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
-        <input type="password" placeholder="Confirm Password" onChange={(e) => setPasswordConfirmation(e.target.value)} />
-        <button type="submit">Sign Up</button>
+        <input type="email" placeholder="メールアドレス" onChange={(e) => setEmail(e.target.value)} />
+        <input type="password" placeholder="パスワード" onChange={(e) => setPassword(e.target.value)} />
+        <input type="password" placeholder="パスワード（確認）" onChange={(e) => setPasswordConfirmation(e.target.value)} />
+        <button type="submit">登録</button>
       </form>
+      < GoogleLoginButton />
+      <p>
+        <Link to="/signin">ログインページへ</Link>
+      </p>
     </div>
   );
 };

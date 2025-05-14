@@ -20,7 +20,6 @@ const GoogleLoginButton = () => {
   return (
     <GoogleOAuthProvider clientId="49437462560-b5jq6g1612ajea8qe7plni1fjtjgoefs.apps.googleusercontent.com">
       <div>
-        <h2>Googleでログイン</h2>
         <GoogleLogin
           onSuccess={handleLoginSuccess}
           onError={() => {

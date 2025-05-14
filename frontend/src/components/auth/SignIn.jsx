@@ -26,9 +26,9 @@ const SignIn = () => {
     <div>
       <h2>ログイン</h2>
       <form onSubmit={handleSubmit}>
-        <input type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
-        <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
-        <button type="submit">Login</button>
+        <input type="email" placeholder="メールアドレス" onChange={(e) => setEmail(e.target.value)} />
+        <input type="password" placeholder="パスワード" onChange={(e) => setPassword(e.target.value)} />
+        <button type="submit">ログイン</button>
       </form>
       <p>
         <Link to="/password/forgot">パスワードをお忘れですか？</Link>
