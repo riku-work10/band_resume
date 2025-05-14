@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 
 const SignUp = () => {
   const { signup } = useAuth();
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
@@ -15,7 +16,7 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await signup(email, password, passwordConfirmation);
+      await signup(name, email, password, passwordConfirmation);
       alert("登録成功！");
       navigate("/top");
     } catch (err) {
@@ -28,6 +29,7 @@ const SignUp = () => {
     <div>
       <h2>新規登録</h2>
       <form onSubmit={handleSubmit}>
+        <input type="name" placeholder="ニックネーム" onChange={(e) => setName(e.target.value)} />
         <input type="email" placeholder="メールアドレス" onChange={(e) => setEmail(e.target.value)} />
         <input type="password" placeholder="パスワード" onChange={(e) => setPassword(e.target.value)} />
         <input type="password" placeholder="パスワード（確認）" onChange={(e) => setPasswordConfirmation(e.target.value)} />
