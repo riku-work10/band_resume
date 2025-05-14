@@ -6,9 +6,9 @@ import "./index.css";
 
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
+import AppRoutes from "./routes/AppRoutes";
 import { AuthProvider } from "./hooks/AuthContext";
 import IntroScreen from "./components/homepage/IntroScreen";
-import AppRoutes from "./routes/AppRoutes";
 
 const App = () => {
   const [showIntro, setShowIntro] = useState(true);

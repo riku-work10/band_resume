@@ -35,20 +35,20 @@ function HomePage() {
         title="自分だけのハルカミライ履歴書を作ろう！"
         content="「好きな曲、聞いてみたい曲、好きな歌詞、最高だったライブ」あなたのハルカミライを共有しよう！"
         bg="#2a9d8f"
-        UseUrl="/images/001.jpg"
+        UseUrl="https://i.gyazo.com/1f6342bfe3138d224aac225857546d85.mp4"
       />
       <Section
         title="ライブ情報セトリやMCを共有、あなただけのライブ参戦履歴"
         content="「あの時のライブのセトリなんだったけ？、いままで行ったライブまとめたい」あなただけのハルカミライ参戦履歴を作ってみてください！※ライブ情報の登録大歓迎です"
         bg="#264653"
-        UseUrl="/images/001.jpg"
+        UseUrl="https://i.gyazo.com/1f6342bfe3138d224aac225857546d85.mp4"
         reverse
       />
       <Section
         title="感動・興奮・余韻を共有しよう！"
         content="「セトリ神すぎた！、predawn初めて聞けた！、余韻がやばい、グッズかわいい！」あなたが思ったこと感じたことをなんでもチャットで共有しよう！"
         bg="#263333"
-        UseUrl="/images/001.jpg"
+        UseUrl="https://i.gyazo.com/1f6342bfe3138d224aac225857546d85.mp4"
       />
       <FinalLogoSection />
     </div>
@@ -87,16 +87,20 @@ function Section({ title, bg, UseUrl, reverse = false, content }) {
       </div>
 
       <div className="section-video">
-        <iframe
+        <video
           src={UseUrl}
-          title={title}
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        ></iframe>
+          autoPlay
+          muted
+          loop
+          playsInline
+          controls
+          style={{ width: "100%", maxWidth: "600px" }}
+        />
       </div>
     </motion.section>
   );
 }
+
 
 function FinalLogoSection() {
   return (
