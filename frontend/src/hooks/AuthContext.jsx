@@ -73,9 +73,10 @@ const signinWithGoogle = async (idToken) => {
 
 
   //新規登録
-  const signup = async (email, password, passwordConfirmation) => {
+  const signup = async (name, email, password, passwordConfirmation) => {
     try {
       await apiClient.post("/auth", {
+        name,
         email,
         password,
         password_confirmation: passwordConfirmation,
