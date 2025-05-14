@@ -1,6 +1,7 @@
-import React from 'react';
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
 import "./index.css";
+import React, { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 import Header from './components/layout/Header';
 import Footer from "./components/layout/Footer";
@@ -28,46 +29,70 @@ import ResetPasswordForm from './components/auth/ResetPasswordForm';
 import ForgotPasswordForm from './components/auth/ForgotPasswordForm';
 
 const App = () => {
+  const [showIntro, setShowIntro] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowIntro(false);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
-
     <AuthProvider>
       <BrowserRouter>
-      <div className="flex flex-col min-h-screen">
-        <Header />
-      <main className="flex-grow pt-16">
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/events" element={<EventPage />} />
-          <Route path="/events/:eventId" element={<EventShow />} />
-          <Route path="/resumes" element={<ResumePage />} />
-          <Route path="/resumes/:resumeId" element={<ResumesShow />} />
-          <Route path="/myresumes" element={<MyResumePage />} />
-          <Route path="/notification" element={<NotificationPage />} />
-          <Route path="/chat" element={<OpenChatPage />} />
-          <Route path="/top" element={<TopPage />} />
-          <Route path="/contact" element={<ContactPage />} />
-          <Route path="/privacypolicy" element={<PrivacyPolicyPage />} />
-          <Route path="/termspfservice" element={<TermsOfServicePage />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/signin" element={<SignIn />} />
-          <Route path="/mypage" element={<MyPage />} />
-          <Route path="/setlistCreate" element={<SetlistForm />} />
-          <Route path="/setlistEdit" element={<SetlistEditForm />} />
-          <Route path="/events/tag/:tagName" element={<TaggedEventsPage />} />
-          <Route path="/resumesectionitemcreateedit" element={<ResumesShowSectionItemCreateEdit />} />
-          <Route path="/password/forgot" element={<ForgotPasswordForm />} />
-          <Route path="/password/reset" element={<ResetPasswordForm />} />
-          
-        </Routes>
-      </main>
-        <footer className="h-16">
-          <Footer />
-        </footer>
-      </div>
-    </BrowserRouter>
+        <div className="flex flex-col min-h-screen">
+          <AnimatePresence>
+            {showIntro && (
+              <motion.div
+                className="intro-screen fixed inset-0 bg-black z-50 flex items-center justify-center"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 1 }}
+              >
+                <h1 className="intro-logo text-white text-4xl">ハルカミライ履歴書</h1>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {!showIntro && (
+            <>
+              <Header />
+              <main className="flex-grow pt-14">
+                <Routes>
+                  <Route path="/" element={<HomePage />} />
+                  <Route path="/events" element={<EventPage />} />
+                  <Route path="/events/:eventId" element={<EventShow />} />
+                  <Route path="/resumes" element={<ResumePage />} />
+                  <Route path="/resumes/:resumeId" element={<ResumesShow />} />
+                  <Route path="/myresumes" element={<MyResumePage />} />
+                  <Route path="/notification" element={<NotificationPage />} />
+                  <Route path="/chat" element={<OpenChatPage />} />
+                  <Route path="/top" element={<TopPage />} />
+                  <Route path="/contact" element={<ContactPage />} />
+                  <Route path="/privacypolicy" element={<PrivacyPolicyPage />} />
+                  <Route path="/termspfservice" element={<TermsOfServicePage />} />
+                  <Route path="/signup" element={<SignUp />} />
+                  <Route path="/signin" element={<SignIn />} />
+                  <Route path="/mypage" element={<MyPage />} />
+                  <Route path="/setlistCreate" element={<SetlistForm />} />
+                  <Route path="/setlistEdit" element={<SetlistEditForm />} />
+                  <Route path="/events/tag/:tagName" element={<TaggedEventsPage />} />
+                  <Route path="/resumesectionitemcreateedit" element={<ResumesShowSectionItemCreateEdit />} />
+                  <Route path="/password/forgot" element={<ForgotPasswordForm />} />
+                  <Route path="/password/reset" element={<ResetPasswordForm />} />
+                </Routes>
+              </main>
+              <footer className="h-16">
+                <Footer />
+              </footer>
+            </>
+          )}
+        </div>
+      </BrowserRouter>
     </AuthProvider>
-  )
+  );
 };
 
 export default App;
