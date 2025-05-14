@@ -34,7 +34,7 @@ const LoginHeader = () => {
           <ul className="space-y-2">
             <li><Link to="/contact" className="block" onClick={() => setIsOpen(false)}>お問い合わせ</Link></li>
             <li><Link to="/privacypolicy" className="block" onClick={() => setIsOpen(false)}>プライバシーポリシー</Link></li>
-            <li><Link to="/termspfservice" className="block" onClick={() => setIsOpen(false)}>利用規約</Link></li>
+            <li><Link to="/termsofservice" className="block" onClick={() => setIsOpen(false)}>利用規約</Link></li>
             <li><SignOutButtun /></li>
           </ul>
         </nav>

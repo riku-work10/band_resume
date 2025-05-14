@@ -28,7 +28,7 @@ const NotLoginHeader = () => {
             <li><Link to="/signup" className="block" onClick={() => setIsOpen(false)}>新規登録</Link></li>
             <li><Link to="/contact" className="block" onClick={() => setIsOpen(false)}>お問い合わせ</Link></li>
             <li><Link to="/privacypolicy" className="block" onClick={() => setIsOpen(false)}>プライバシーポリシー</Link></li>
-            <li><Link to="/termspfservice" className="block" onClick={() => setIsOpen(false)}>利用規約</Link></li>
+            <li><Link to="/termsofservice" className="block" onClick={() => setIsOpen(false)}>利用規約</Link></li>
           </ul>
         </nav>
       )}
