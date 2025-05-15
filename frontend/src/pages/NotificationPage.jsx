@@ -5,10 +5,9 @@ import { useNavigate } from "react-router-dom";
 
 const NotificationList = () => {
   const [notifications, setNotifications] = useState([]);
-  const navigate = useNavigate(); // useNavigateを使用してページ遷移
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // 通知データをAPIから最初に取得
     apiClient.get('/notifications')
       .then(response => {
         setNotifications(response.data);
@@ -16,9 +15,8 @@ const NotificationList = () => {
       .catch(error => {
         console.error("Error fetching notifications:", error);
       });
-      
-    // ActionCableでリアルタイム通知を受信
-    const cable = createConsumer(`${process.env.REACT_APP_API_URL}/cable`); // WebSocket接続
+
+    const cable = createConsumer(`${process.env.REACT_APP_API_URL}/cable`);
     const channel = cable.subscriptions.create(
       { channel: "NotificationChannel" },
       {
@@ -32,49 +30,51 @@ const NotificationList = () => {
       }
     );
 
-    // コンポーネントがアンマウントされたらチャンネルの購読を解除
     return () => {
       channel.unsubscribe();
     };
   }, []);
 
-  // 既読にする関数
   const handleReadNotification = async (notificationId, resumeId) => {
     try {
-      // まず通知を既読にする
       await apiClient.patch(`/notifications/${notificationId}/read`);
-      
-      // 通知を非表示にする（フロントで既読にする）
       setNotifications((prevNotifications) =>
         prevNotifications.map((notification) =>
           notification.id === notificationId
-            ? { ...notification, read: true } // 状態更新
+            ? { ...notification, read: true }
             : notification
         )
       );
-
-      // 通知をタッチしたらその投稿の詳細ページへ遷移
-      navigate(`/resumes/${resumeId}`); // ここで遷移
+      navigate(`/resumes/${resumeId}`);
     } catch (error) {
       console.error('既読にする処理でエラー:', error);
     }
   };
 
-  // すべて既読にする関数
   const handleReadAllNotifications = async () => {
     try {
-      await apiClient.patch('/notifications/read_all'); // APIで全部既読処理
-      setNotifications([]); // 通知リストを空に
+      await apiClient.patch('/notifications/read_all');
+      setNotifications([]);
     } catch (error) {
       console.error('すべての通知を既読にする処理でエラー:', error);
     }
   };
 
+  // 日付フォーマット関数
+  const formatDate = (isoString) => {
+    return new Date(isoString).toLocaleString('ja-JP', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+  };
+
   return (
     <div className="max-w-4xl mx-auto p-6">
-      <h2 className="text-2xl font-semibold mb-4">Notifications</h2>
-      
-      {/* すべて既読ボタン */}
+      <h2 className="text-2xl font-semibold mb-4">通知一覧</h2>
+
       {notifications.length > 0 && (
         <button
           onClick={handleReadAllNotifications}
@@ -86,19 +86,20 @@ const NotificationList = () => {
 
       <ul>
         {notifications
-          .filter((notification) => !notification.read) // 未読通知だけ表示
+          .filter((notification) => !notification.read)
           .map((notification) => (
             <li
               key={notification.id}
-              onClick={() => handleReadNotification(notification.id, notification.resume_id)} // 通知をクリックしたら投稿に遷移
+              onClick={() => handleReadNotification(notification.id, notification.resume_id)}
               className="bg-white p-4 mb-2 rounded-lg shadow-md cursor-pointer hover:bg-gray-100 transition-colors"
             >
               <div className="flex justify-between items-center">
-                <p className="text-lg text-gray-500">{notification.message}</p>
-                <span className="text-sm text-gray-500">{notification.created_at}</span>
+                <p className="text-lg text-gray-700">{notification.message}</p>
+                <span className="text-sm text-gray-500">
+                  {formatDate(notification.created_at)}
+                </span>
               </div>
-              
-              {/* 既読の場合の表示変更 */}
+
               {notification.read && (
                 <span className="text-sm text-green-500">（既読）</span>
               )}
