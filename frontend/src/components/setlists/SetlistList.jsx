@@ -1,6 +1,6 @@
 const SetlistList = ({ event }) => {
   return (
-    <div className="flex flex-col items-center mt-10">
+    <div className="flex flex-col items-center mt-6">
 
       {/* 通常の曲を表示 */}
       <ul className="space-y-2 text-center text-base">
@@ -15,7 +15,7 @@ const SetlistList = ({ event }) => {
       </ul>
 
       {/* アンコール区切り */}
-      <div className="my-6 text-lg font-medium">Encore</div>
+      <div className="mt-6 text-lg font-medium">Encore</div>
 
       {/* アンコール曲を表示 */}
       <ul className="space-y-2 text-center text-base">
