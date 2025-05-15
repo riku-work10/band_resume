@@ -63,30 +63,70 @@ const ResumePage = () => {
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
 
-  return (
-    <div className="pt-4">
-      <ResumeSearch onSearch={handleSearch} />
-      {filteredResumes.map((resume) => (
-        <div key={resume.id}>
-          <Link to={`/resumes/${resume.id}`} className="hover:underline">
-            {resume.profile_image && (
-              <img src={resume.profile_image} alt={resume.title} width="100" />
-            )}
-            <h2>{resume.title}</h2>
-            <p>年齢: {resume.age}歳</p>
-            <p>性別: {resume.gender}</p>
-            <p>場所: {resume.location}</p>
-            <p>紹介: {resume.introduction}</p>
-          </Link>
-          {user && user.id !== resume.user_id && (
-          <ResumeLikeButton resumeId={resume.id} className="py-2 px-4 bg-green-500 text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400" />
-        )}
+return (
+  <div className="pt-4 px-4">
+    <ResumeSearch onSearch={handleSearch} />
 
-          <hr />
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+      {filteredResumes.map((resume) => (
+        <div
+          key={resume.id}
+          className="relative flex flex-col sm:flex-row bg-orange-100 rounded-2xl shadow-lg border border-gray-200 overflow-hidden hover:shadow-xl transition"
+        >
+          {/* プロフィール画像 */}
+          {resume.profile_image && (
+            <div className="w-full sm:w-36 flex-shrink-0 sm:h-auto aspect-square sm:aspect-auto bg-gray-100">
+              <img
+                src={resume.profile_image}
+                alt={resume.title}
+                className="w-full h-full object-cover sm:rounded-l-2xl"
+              />
+            </div>
+          )}
+
+          {/* 情報エリア */}
+          <div className="flex flex-col justify-between p-4 flex-grow min-h-[150px]">
+            <div>
+              <Link to={`/resumes/${resume.id}`} className="hover:underline block">
+                {/* 名前 */}
+                <h2 className="text-lg font-semibold text-gray-900 mb-2 break-words">
+                  {resume.title}
+                </h2>
+
+                {/* 年齢・性別・場所 */}
+                <div className="flex flex-wrap text-sm text-gray-600 gap-x-4 gap-y-1 mb-3">
+                  <p>{resume.age}歳</p>
+                  <p>{resume.gender}</p>
+                  <p>{resume.location}</p>
+                </div>
+
+                {/* 紹介文 */}
+                <p className="text-sm text-gray-700 whitespace-pre-wrap break-words">
+                  {resume.introduction}
+                </p>
+              </Link>
+            </div>
+
+            {/* いいねボタン */}
+            {user && user.id !== resume.user_id && (
+              <div className="absolute bottom-4 right-4">
+                <ResumeLikeButton
+                  resumeId={resume.id}
+                  className="py-1 px-4 bg-emerald-500 text-white text-sm font-medium rounded-lg shadow hover:bg-emerald-600 transition"
+                />
+              </div>
+            )}
+          </div>
         </div>
       ))}
     </div>
-  );
+  </div>
+);
+
+
+
+
+
 };
 
 export default ResumePage;
