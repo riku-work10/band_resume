@@ -80,7 +80,7 @@ const EventPage = () => {
             {filteredEvents.map((event) => (
               <div
                 key={event.id}
-                className="flex bg-orange-50 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition"
+                className="relative flex bg-orange-100 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition"
               >
                 {/* 左側：画像 */}
                 {event.image && (
@@ -121,10 +121,12 @@ const EventPage = () => {
                   {/* 下部アクション */}
                   <div className="mt-4 flex gap-2 items-center">
                     {user && user.id !== event.user_id && (
-                      <EventLikeButton
-                        eventId={event.id}
-                        className="py-1 px-3 bg-green-500 text-white text-sm rounded hover:bg-green-600"
-                      />
+                      <div className="absolute bottom-3 right-3">
+                        <EventLikeButton
+                          eventId={event.id}
+                          className="py-1 px-3 bg-green-500 text-white text-sm rounded hover:bg-green-600"
+                        />
+                      </div>
                     )}
                   </div>
                 </div>

@@ -27,7 +27,7 @@ const ResumeLikeButton = ({ resumeId }) => {
 
   return (
     <button onClick={handleClick}>
-      {liked ? <MdFavorite /> : <MdFavoriteBorder /> }
+      {liked ? <MdFavorite className="text-red-500"/> : <MdFavoriteBorder className="text-gray-500"/> }
     </button>
   );
 };
