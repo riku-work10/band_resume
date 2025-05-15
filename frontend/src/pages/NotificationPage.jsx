@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { createConsumer } from "@rails/actioncable";
 import apiClient from "../services/apiClient";
 import { useNavigate } from "react-router-dom";
+import { MdNotificationsActive } from "react-icons/md"; 
 
 const NotificationList = () => {
   const [notifications, setNotifications] = useState([]);
@@ -9,23 +10,15 @@ const NotificationList = () => {
 
   useEffect(() => {
     apiClient.get('/notifications')
-      .then(response => {
-        setNotifications(response.data);
-      })
-      .catch(error => {
-        console.error("Error fetching notifications:", error);
-      });
+      .then(response => setNotifications(response.data))
+      .catch(error => console.error("Error fetching notifications:", error));
 
     const cable = createConsumer(`${process.env.REACT_APP_API_URL}/cable`);
     const channel = cable.subscriptions.create(
       { channel: "NotificationChannel" },
       {
         received(data) {
-          console.log(data);
-          setNotifications((prevNotifications) => [
-            ...prevNotifications,
-            data,
-          ]);
+          setNotifications((prev) => [...prev, data]);
         },
       }
     );
@@ -35,19 +28,15 @@ const NotificationList = () => {
     };
   }, []);
 
-  const handleReadNotification = async (notificationId, resumeId) => {
+  const handleReadNotification = async (id, resumeId) => {
     try {
-      await apiClient.patch(`/notifications/${notificationId}/read`);
-      setNotifications((prevNotifications) =>
-        prevNotifications.map((notification) =>
-          notification.id === notificationId
-            ? { ...notification, read: true }
-            : notification
-        )
+      await apiClient.patch(`/notifications/${id}/read`);
+      setNotifications((prev) =>
+        prev.map((n) => (n.id === id ? { ...n, read: true } : n))
       );
       navigate(`/resumes/${resumeId}`);
     } catch (error) {
-      console.error('既読にする処理でエラー:', error);
+      console.error('既読処理失敗:', error);
     }
   };
 
@@ -56,15 +45,14 @@ const NotificationList = () => {
       await apiClient.patch('/notifications/read_all');
       setNotifications([]);
     } catch (error) {
-      console.error('すべての通知を既読にする処理でエラー:', error);
+      console.error('一括既読処理失敗:', error);
     }
   };
 
-  // 日付フォーマット関数
   const formatDate = (isoString) => {
     return new Date(isoString).toLocaleString('ja-JP', {
       year: 'numeric',
-      month: 'long',
+      month: 'short',
       day: 'numeric',
       hour: '2-digit',
       minute: '2-digit',
@@ -72,40 +60,52 @@ const NotificationList = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
-      <h2 className="text-2xl font-semibold mb-4">通知一覧</h2>
-
-      {notifications.length > 0 && (
-        <button
-          onClick={handleReadAllNotifications}
-          className="bg-blue-500 text-white px-4 py-2 rounded-md mb-4 hover:bg-blue-600"
-        >
-          すべて既読にする
-        </button>
-      )}
-
-      <ul>
-        {notifications
-          .filter((notification) => !notification.read)
-          .map((notification) => (
-            <li
-              key={notification.id}
-              onClick={() => handleReadNotification(notification.id, notification.resume_id)}
-              className="bg-white p-4 mb-2 rounded-lg shadow-md cursor-pointer hover:bg-gray-100 transition-colors"
+    <div className="max-w-3xl mx-auto p-6">
+      <div className="bg-white rounded-xl shadow-md p-6">
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-2xl font-bold text-gray-800">通知一覧</h2>
+          {notifications.length > 0 && (
+            <button
+              onClick={handleReadAllNotifications}
+              className="text-sm bg-orange-400 hover:bg-orange-500 text-white px-3 py-1 rounded-md"
             >
-              <div className="flex justify-between items-center">
-                <p className="text-lg text-gray-700">{notification.message}</p>
-                <span className="text-sm text-gray-500">
-                  {formatDate(notification.created_at)}
-                </span>
-              </div>
+              すべて既読にする
+            </button>
+          )}
+        </div>
 
-              {notification.read && (
-                <span className="text-sm text-green-500">（既読）</span>
-              )}
-            </li>
-          ))}
-      </ul>
+        <ul className="space-y-4">
+  {notifications
+    .filter((n) => !n.read)
+    .map((n) => (
+      <li
+        key={n.id}
+        onClick={() => handleReadNotification(n.id, n.resume_id)}
+        className="flex items-start gap-3 bg-orange-50 hover:bg-orange-100 transition-all p-3 rounded-xl shadow-sm border border-orange-200 cursor-pointer"
+      >
+        {/* 左のアイコン */}
+        <div className="bg-orange-200 rounded-full p-2">
+          <MdNotificationsActive className="text-orange-600 text-xl" />
+        </div>
+
+        {/* メッセージ部分 */}
+        <div className="flex-1">
+          <p className="text-sm font-semibold text-gray-800 mb-1">{n.message}</p>
+
+          {n.comment_content && (
+            <p className="text-sm text-gray-600">{n.comment_content}</p>
+          )}
+        </div>
+
+        {/* 日時表示 */}
+        <span className="text-xs text-gray-400 whitespace-nowrap ml-2 mt-1">
+          {formatDate(n.created_at)}
+        </span>
+      </li>
+    ))}
+</ul>
+
+      </div>
     </div>
   );
 };
