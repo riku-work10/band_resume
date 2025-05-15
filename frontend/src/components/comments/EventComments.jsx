@@ -100,7 +100,7 @@ const EventComments = ({ eventId }) => {
           </p>
           <div className="flex space-x-4 ml-4">
           {user && user.id === comment.user_id && (
-            <div className="flex space-x-4 ml-4">
+            <div className="flex space-x-2 ml-4">
               <button
                 onClick={() => handleEdit(comment.id, comment.content)}
                 className="py-2 px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400">
@@ -116,7 +116,6 @@ const EventComments = ({ eventId }) => {
           </div>
         </div>
       ))}
-
       {user && (
         <form onSubmit={handleSubmit} className="mt-4">
           <textarea
@@ -127,15 +126,16 @@ const EventComments = ({ eventId }) => {
             rows="3"
             placeholder="コメントを入力..."
           />
-          <button
-            type="submit"
-            className="mt-2 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
-          >
-            投稿
-          </button>
+          <div className="mt-2 flex justify-end">
+            <button
+              type="submit"
+              className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+            >
+              投稿
+            </button>
+          </div>
         </form>
       )}
-
       {/* 編集モーダル */}
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <h4 className="text-xl font-semibold">コメント編集</h4>

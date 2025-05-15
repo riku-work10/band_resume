@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { MdDelete, MdEdit } from "react-icons/md";
 import { useAuth } from '../../hooks/AuthContext';
 import { deleteEvent, getEvent } from '../../services/apiLives';
 import EventEdit from './EventEdit';
 import EventComments from '../comments/EventComments';
 import EventLikeButton from '../likes/EventLikeButton';
 import SetlistList from '../setlists/SetlistList';
+import SetlistActionButton from './SetlistActionButton';
+import EventOwnerButtons from './EventOwnerButtons';
 
 const EventShow = () => {
   const { eventId } = useParams();
   const [event, setEvent] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const { user } = useAuth();
 
@@ -28,21 +29,16 @@ const EventShow = () => {
         setLoading(false);
       }
     };
-    
 
     fetchEvent();
   }, [eventId]);
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>{error}</div>;
-
-  //削除ボタン
   const handleDelete = async () => {
     setLoading(true);
     try {
-      await deleteEvent(eventId); // 履歴書削除
+      await deleteEvent(eventId);
       alert("削除しました");
-      navigate("/events")
+      navigate("/events");
     } catch (err) {
       setError('イベントの削除に失敗しました');
     } finally {
@@ -50,95 +46,95 @@ const EventShow = () => {
     }
   };
 
-  //セトリ作成フォームへ
-  const handleClickForm = () => {
-    navigate("/setlistCreate", {
-      state: { eventId }
-    });
-  };
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>{error}</div>;
 
-    //セトリ編集フォームへ
-  const handleClickEditForm = () => {
-    navigate("/setlistEdit", {
-      state: { event }
-    });
-  };
   return (
     <div>
-        {event ? (
-            <div className='mb-6'>
-              <div className="mb-6 flex flex-col sm:flex-row items-start space-y-4 sm:space-y-0 sm:space-x-6">
-                {/* 画像部分 */}
-                {event.image && (
-                  <img
-                    src={event.image}
-                    alt={event.title}
-                    className="w-24 h-24 object-cover rounded-full border-2 border-gray-300"
+      {event ? (
+        <div className="mb-6 mt-4 mx-4">
+          {/* イベントヘッダー */}
+          <div className="mb-6 flex flex-col sm:flex-row items-center sm:items-start justify-center text-center sm:text-left space-y-4 sm:space-y-0 sm:space-x-6 max-w-5xl mx-auto">
+            {/* イベント画像 */}
+            {event.image && (
+              <img
+                src={event.image}
+                alt={event.title}
+                className="w-auto max-h-40 object-contain rounded-xl border-2 border-gray-300"
+              />
+            )}
+
+            {/* タイトル・紹介文・ボタン */}
+            <div className="flex-1 max-w-5xl w-full">
+              <div className="flex justify-between items-start">
+                <h2 className="text-4xl font-extrabold mb-2">{event.title}</h2>
+
+                {user && user.id === event.user_id ? (
+                  <EventOwnerButtons
+                    onEdit={() => setIsEditModalOpen(true)}
+                    onDelete={handleDelete}
                   />
-                )}
-                {/* テキスト部分 */}
-                <div className="flex-1">
-                  <h2 className="text-xl font-bold">{event.title}</h2>
-                  {/* 場所とリンクを横並び */}
-                  <div className="flex space-x-4">
-                    <p>場所: {event.location}</p>
-                    <p>日時: {event.date}</p>
-                  </div>
-                  {/* 紹介文は大きめに表示 */}
-                  <p className="text-lg mt-2">{event.introduction}</p>
-                  {/* タグ表示部分 */}
-                  {event.tags && event.tags.map((tag) => (
-                    <Link key={tag.id} to={`/events/tag/${tag.name}`} className="mr-2 hover:underline">{tag.name}</Link>
-                  ))}
-                </div>
-                {/* ボタン部分 */}
-                <div className="flex space-x-4 mt-4 sm:mt-0">
-                {user && user.id === event.user_id && ( // ログインユーザーが作成者の場合
-                <div>
-                  <button
-                    className="py-2 px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                    onClick={() => setIsEditModalOpen(true)}>
-                    <MdEdit />
-                  </button>
-                  <button
-                    onClick={handleDelete}
-                    className="py-2 px-4 bg-red-500 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400">
-                    <MdDelete />
-                  </button>
-                </div>
-                 )}
-                {user && user.id !== event.user_id && (
-                  <EventLikeButton eventId={event.id} className="py-2 px-4 bg-green-500 text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400" />
-                )}
-                </div>
-              </div>
-                <SetlistList event={event}/>
-                {event.setlists && event.setlists.length > 0 ? (
-                <button
-                  onClick={handleClickEditForm}
-                  className="py-2 px-4 bg-yellow-500 text-white rounded-lg hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-400">
-                  セトリ編集
-                </button>
                 ) : (
-                <button
-                  onClick={handleClickForm}
-                  className="py-2 px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400">
-                  セトリ作成
-                </button>
-              )}
-          <EventComments eventId={eventId}/>
+                  user && (
+                    <EventLikeButton
+                      eventId={event.id}
+                      className="ml-2 py-2 px-4 bg-green-500 text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400"
+                    />
+                  )
+                )}
+              </div>
+
+              {/* 会場・日付 */}
+              <div className="flex justify-center sm:justify-start space-x-4 text-sm sm:text-base">
+                <p>＠会場名あああああ（{event.location}）</p>
+                <p>{event.date}</p>
+              </div>
+
+              {/* 紹介文 */}
+              <p className="text-lg mt-2">{event.introduction}</p>
+
+              {/* タグ */}
+              {event.tags &&
+                event.tags.map((tag) => (
+                  <Link
+                    key={tag.id}
+                    to={`/events/tag/${tag.name}`}
+                    className="mr-2 text-blue-400 hover:underline"
+                  >
+                    {tag.name}
+                  </Link>
+                ))}
             </div>
-        ) : (
-          <p>イベントを読み込み中...</p>
-        )}
-        {/* 編集モーダル */}
-        {isEditModalOpen && (
-          <EventEdit
+          </div>
+
+          {/* セットリストセクション */}
+          <div className="relative w-full mb-6 max-w-5xl mx-auto">
+            <h2 className="text-xl font-bold text-white text-center mb-4">セットリスト</h2>
+            <div className="absolute top-0 right-0">
+              <SetlistActionButton event={event} />
+            </div>
+            <div className="flex flex-col items-center">
+              <SetlistList event={event} />
+            </div>
+          </div>
+
+          {/* コメント */}
+          <div className="max-w-5xl mx-auto">
+            <EventComments eventId={eventId} />
+          </div>
+        </div>
+      ) : (
+        <p>イベントを読み込み中...</p>
+      )}
+
+      {/* 編集モーダル */}
+      {isEditModalOpen && (
+        <EventEdit
           event={event}
           onClose={() => setIsEditModalOpen(false)}
-            onUpdate={setEvent}
-            />
-          )}
+          onUpdate={setEvent}
+        />
+      )}
     </div>
   );
 };
