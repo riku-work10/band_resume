@@ -8,6 +8,7 @@ import EventComments from '../comments/EventComments';
 import EventLikeButton from '../likes/EventLikeButton';
 import SetlistList from '../setlists/SetlistList';
 import SetlistActionButton from './SetlistActionButton';
+import EventOwnerButtons from './EventOwnerButtons';
 
 const EventShow = () => {
   const { eventId } = useParams();
@@ -54,58 +55,59 @@ const EventShow = () => {
     <div>
         {event ? (
             <div className='mb-6'>
-              <div className="mb-6 flex flex-col sm:flex-row items-start space-y-4 sm:space-y-0 sm:space-x-6">
-                {/* 画像部分 */}
-                {event.image && (
-                  <img
-                    src={event.image}
-                    alt={event.title}
-                    className="w-24 h-24 object-cover rounded-full border-2 border-gray-300"
-                  />
-                )}
-                {/* テキスト部分 */}
-                <div className="flex-1">
-                  <h2 className="text-xl font-bold">{event.title}</h2>
-                  {/* 場所とリンクを横並び */}
-                  <div className="flex space-x-4">
-                    <p>場所: {event.location}</p>
-                    <p>日時: {event.date}</p>
-                  </div>
-                  {/* 紹介文は大きめに表示 */}
-                  <p className="text-lg mt-2">{event.introduction}</p>
-                  {/* タグ表示部分 */}
-                  {event.tags && event.tags.map((tag) => (
-                    <Link key={tag.id} to={`/events/tag/${tag.name}`} className="mr-2 hover:underline">{tag.name}</Link>
-                  ))}
-                </div>
-                {/* ボタン部分 */}
-                <div className="flex space-x-4 mt-4 sm:mt-0">
-                {user && user.id === event.user_id && ( // ログインユーザーが作成者の場合
-                <div>
-                  <button
-                    className="py-2 px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                    onClick={() => setIsEditModalOpen(true)}>
-                    <MdEdit />
-                  </button>
-                  <button
-                    onClick={handleDelete}
-                    className="py-2 px-4 bg-red-500 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400">
-                    <MdDelete />
-                  </button>
-                </div>
-                 )}
-                {user && user.id !== event.user_id && (
-                  <EventLikeButton eventId={event.id} className="py-2 px-4 bg-green-500 text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400" />
-                )}
+              
+<div className="mb-6 flex flex-col sm:flex-row items-center sm:items-start justify-center text-center sm:text-left space-y-4 sm:space-y-0 sm:space-x-6">
+  {/* テキスト部分 */}
+    {/* 画像部分 */}
+  {event.image && (
+    <img
+      src={event.image}
+      alt={event.title}
+      className="w-auto max-h-40 object-contain rounded-xl border-2 border-gray-300"
+    />
+  )}
+  <div className="flex-1 max-w-2xl">
+    <h2 className="text-4xl font-extrabold mb-2">{event.title}</h2>
+    <div className="flex justify-center sm:justify-start space-x-4 text-sm sm:text-base">
+      <p>＠会場名あああああ（{event.location}）</p>
+      <p>{event.date}</p>
+    </div>
+    <p className="text-lg mt-2">{event.introduction}</p>
+    {event.tags && event.tags.map((tag) => (
+      <Link
+        key={tag.id}
+        to={`/events/tag/${tag.name}`}
+        className="mr-2 text-blue-400 hover:underline"
+      >
+        {tag.name}
+      </Link>
+    ))}
+  </div>
+
+        {/* ボタン部分 */}
+        <div className="flex space-x-4 mt-2 sm:mt-0">
+        {user && user.id === event.user_id && (
+          <EventOwnerButtons
+            onEdit={() => setIsEditModalOpen(true)}
+            onDelete={handleDelete}
+          />
+        )}
+        {user && user.id !== event.user_id && (
+          <EventLikeButton
+            eventId={event.id}
+            className="py-2 px-4 bg-green-500 text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400"
+          />
+        )}
+      </div>
+      </div>
+
+              <div className="relative w-full mb-6">
+                <SetlistActionButton event={event} />
+                <div className="flex flex-col items-center max-w-2xl mx-auto">
+                  <h2 className="text-xl font-bold text-white mb-4">セットリスト</h2>
+                  <SetlistList event={event} />
                 </div>
               </div>
-<div className="relative w-full mb-6">
-  <SetlistActionButton event={event} />
-  <div className="flex flex-col items-center max-w-2xl mx-auto">
-    <h2 className="text-xl font-bold text-white mb-4">セットリスト</h2>
-    <SetlistList event={event} />
-  </div>
-</div>
           <EventComments eventId={eventId}/>
             </div>
         ) : (
