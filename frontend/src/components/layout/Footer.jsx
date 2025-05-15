@@ -9,7 +9,7 @@ const Footer = () => {
   if (!user) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 w-full bg-stone-600 text-white shadow-md z-50">
+    <div className="fixed bottom-0 left-0 w-full bg-stone-600 text-white shadow-md z-50 h-16">
       <LoginFooter />
     </div>
   );
