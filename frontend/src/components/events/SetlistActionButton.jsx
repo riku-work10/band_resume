@@ -1,4 +1,3 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const SetlistActionButton = ({ event }) => {
@@ -13,7 +12,7 @@ const SetlistActionButton = ({ event }) => {
   };
 
   return (
-    <div className="absolute top-0 right-4">
+    <div>
       {event.setlists && event.setlists.length > 0 ? (
         <button
           onClick={handleClickEditForm}
@@ -32,5 +31,6 @@ const SetlistActionButton = ({ event }) => {
     </div>
   );
 };
+
 
 export default SetlistActionButton;

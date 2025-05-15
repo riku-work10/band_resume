@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { MdDelete, MdEdit } from "react-icons/md";
 import { useAuth } from '../../hooks/AuthContext';
 import { deleteEvent, getEvent } from '../../services/apiLives';
 import EventEdit from './EventEdit';
@@ -15,7 +14,7 @@ const EventShow = () => {
   const [event, setEvent] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const { user } = useAuth();
 
@@ -30,97 +29,112 @@ const EventShow = () => {
         setLoading(false);
       }
     };
-    
 
     fetchEvent();
   }, [eventId]);
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>{error}</div>;
-
-  //削除ボタン
   const handleDelete = async () => {
     setLoading(true);
     try {
-      await deleteEvent(eventId); // 履歴書削除
+      await deleteEvent(eventId);
       alert("削除しました");
-      navigate("/events")
+      navigate("/events");
     } catch (err) {
       setError('イベントの削除に失敗しました');
     } finally {
       setLoading(false);
     }
   };
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>{error}</div>;
+
   return (
     <div>
-        {event ? (
-            <div className='mb-6'>
-              
-<div className="mb-6 flex flex-col sm:flex-row items-center sm:items-start justify-center text-center sm:text-left space-y-4 sm:space-y-0 sm:space-x-6">
-  {/* テキスト部分 */}
-    {/* 画像部分 */}
-  {event.image && (
-    <img
-      src={event.image}
-      alt={event.title}
-      className="w-auto max-h-40 object-contain rounded-xl border-2 border-gray-300"
-    />
-  )}
-  <div className="flex-1 max-w-2xl">
-    <h2 className="text-4xl font-extrabold mb-2">{event.title}</h2>
-    <div className="flex justify-center sm:justify-start space-x-4 text-sm sm:text-base">
-      <p>＠会場名あああああ（{event.location}）</p>
-      <p>{event.date}</p>
-    </div>
-    <p className="text-lg mt-2">{event.introduction}</p>
-    {event.tags && event.tags.map((tag) => (
-      <Link
-        key={tag.id}
-        to={`/events/tag/${tag.name}`}
-        className="mr-2 text-blue-400 hover:underline"
-      >
-        {tag.name}
-      </Link>
-    ))}
-  </div>
+      {event ? (
+        <div className="mb-6 mt-4 mx-4">
+          {/* イベントヘッダー */}
+          <div className="mb-6 flex flex-col sm:flex-row items-center sm:items-start justify-center text-center sm:text-left space-y-4 sm:space-y-0 sm:space-x-6 max-w-5xl mx-auto">
+            {/* イベント画像 */}
+            {event.image && (
+              <img
+                src={event.image}
+                alt={event.title}
+                className="w-auto max-h-40 object-contain rounded-xl border-2 border-gray-300"
+              />
+            )}
 
-        {/* ボタン部分 */}
-        <div className="flex space-x-4 mt-2 sm:mt-0">
-        {user && user.id === event.user_id && (
-          <EventOwnerButtons
-            onEdit={() => setIsEditModalOpen(true)}
-            onDelete={handleDelete}
-          />
-        )}
-        {user && user.id !== event.user_id && (
-          <EventLikeButton
-            eventId={event.id}
-            className="py-2 px-4 bg-green-500 text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400"
-          />
-        )}
-      </div>
-      </div>
+            {/* タイトル・紹介文・ボタン */}
+            <div className="flex-1 max-w-5xl w-full">
+              <div className="flex justify-between items-start">
+                <h2 className="text-4xl font-extrabold mb-2">{event.title}</h2>
 
-              <div className="relative w-full mb-6">
-                <SetlistActionButton event={event} />
-                <div className="flex flex-col items-center max-w-2xl mx-auto">
-                  <h2 className="text-xl font-bold text-white mb-4">セットリスト</h2>
-                  <SetlistList event={event} />
-                </div>
+                {user && user.id === event.user_id ? (
+                  <EventOwnerButtons
+                    onEdit={() => setIsEditModalOpen(true)}
+                    onDelete={handleDelete}
+                  />
+                ) : (
+                  user && (
+                    <EventLikeButton
+                      eventId={event.id}
+                      className="ml-2 py-2 px-4 bg-green-500 text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400"
+                    />
+                  )
+                )}
               </div>
-          <EventComments eventId={eventId}/>
+
+              {/* 会場・日付 */}
+              <div className="flex justify-center sm:justify-start space-x-4 text-sm sm:text-base">
+                <p>＠会場名あああああ（{event.location}）</p>
+                <p>{event.date}</p>
+              </div>
+
+              {/* 紹介文 */}
+              <p className="text-lg mt-2">{event.introduction}</p>
+
+              {/* タグ */}
+              {event.tags &&
+                event.tags.map((tag) => (
+                  <Link
+                    key={tag.id}
+                    to={`/events/tag/${tag.name}`}
+                    className="mr-2 text-blue-400 hover:underline"
+                  >
+                    {tag.name}
+                  </Link>
+                ))}
             </div>
-        ) : (
-          <p>イベントを読み込み中...</p>
-        )}
-        {/* 編集モーダル */}
-        {isEditModalOpen && (
-          <EventEdit
+          </div>
+
+          {/* セットリストセクション */}
+          <div className="relative w-full mb-6 max-w-5xl mx-auto">
+            <h2 className="text-xl font-bold text-white text-center mb-4">セットリスト</h2>
+            <div className="absolute top-0 right-0">
+              <SetlistActionButton event={event} />
+            </div>
+            <div className="flex flex-col items-center">
+              <SetlistList event={event} />
+            </div>
+          </div>
+
+          {/* コメント */}
+          <div className="max-w-5xl mx-auto">
+            <EventComments eventId={eventId} />
+          </div>
+        </div>
+      ) : (
+        <p>イベントを読み込み中...</p>
+      )}
+
+      {/* 編集モーダル */}
+      {isEditModalOpen && (
+        <EventEdit
           event={event}
           onClose={() => setIsEditModalOpen(false)}
-            onUpdate={setEvent}
-            />
-          )}
+          onUpdate={setEvent}
+        />
+      )}
     </div>
   );
 };
