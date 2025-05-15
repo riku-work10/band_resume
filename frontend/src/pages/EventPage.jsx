@@ -69,7 +69,7 @@ const EventPage = () => {
   return (
     <div>
       <div className="relative">
-        <div className="pt-4 px-6">
+        <div className="pt-4 px-6 mb-6">
           {/* 検索バー */}
           <div className="mx-auto justify-center flex">
             <EventSearch onSearch={handleSearch} />
@@ -136,7 +136,7 @@ const EventPage = () => {
         </div>
       </div>
       {/* 作成 */}
-      <div className="fixed bottom-16 right-6 z-50">
+      <div className="fixed bottom-24 right-6 z-50">
         <button
           onClick={() => setIsModalOpen(true)}
           className="bg-blue-500 text-white px-4 py-2 rounded shadow-lg hover:bg-blue-700 transition"
