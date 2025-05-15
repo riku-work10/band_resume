@@ -1,6 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import getCable from "../utils/cable";
 import apiClient from "../services/apiClient";
+import StarEffect from "../components/openchat/StarEffect";
+import "../components/openchat/OpenChat.css";
+import StarField from "../components/openchat/StarField";
 
 const OpenChatPage = () => {
   const [messages, setMessages] = useState([]);
@@ -135,84 +138,93 @@ const OpenChatPage = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-black text-white mt-4">
-      {/* メッセージエリア */}
-      <div className="flex-1 overflow-y-auto px-4 py-2 space-y-2">
-        {messages.map((msg) => {
-          const isMine = msg.user?.uid === uid;
-          return (
-            <div key={msg.id} className={`flex ${isMine ? "justify-end" : "justify-start"}`}>
-              <div
-                className={`px-4 py-2 rounded-lg max-w-[75%] break-words text-sm ${
-                  isMine ? "bg-blue-600 text-white" : "bg-gray-700 text-gray-100"
-                }`}
-              >
-                <span className="block text-xs opacity-70 mb-1">{msg.user?.name || "匿名"}</span>
-                {msg.content}
-                {isMine && (
-                  <div className="mt-1 flex gap-2 text-xs opacity-70">
-                    <button
-                      onClick={() => startEditMessage(msg)}
-                      className="text-blue-500 hover:text-blue-400"
-                    >
-                      編集
-                    </button>
-                    <button
-                      onClick={() => deleteMessage(msg.id)}
-                      className="text-red-500 hover:text-red-400"
-                    >
-                      削除
-                    </button>
-                  </div>
-                )}
-              </div>
-            </div>
-          );
-        })}
-        <div ref={bottomRef} />
-      </div>
+  <div className="relative flex flex-col h-screen bg-black text-white mt-4 overflow-hidden bg-dawn">
 
-      {/* 入力エリア */}
-      <div className="p-4 bg-gray-900 border-t border-gray-700 flex gap-2">
-        <input
-          type="text"
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              e.preventDefault();
-              editingMessage ? updateMessage() : sendMessage();
-            }
-          }}
-          placeholder="メッセージを入力"
-          className="flex-1 p-2 rounded bg-gray-800 border border-gray-600 text-white placeholder-gray-400 focus:outline-none"
-        />
-        {editingMessage ? (
-          <>
-            <button
-              onClick={updateMessage}
-              className="px-4 py-2 rounded bg-blue-600 hover:bg-blue-700 transition"
-            >
-              更新
-            </button>
-            <button
-              onClick={cancelEdit}
-              className="px-4 py-2 rounded bg-gray-600 hover:bg-gray-700 transition"
-            >
-              キャンセル
-            </button>
-          </>
-        ) : (
-          <button
-            onClick={sendMessage}
-            className="px-4 py-2 rounded bg-blue-600 hover:bg-blue-700 transition"
-          >
-            送信
-          </button>
-        )}
-      </div>
+    {/* メッセージエリア */}
+    <div className="flex-1 overflow-y-auto px-4 py-2 space-y-2 z-10 bg-dawn">
+    <StarEffect />
+    <StarField count={200} />
+      {messages.map((msg) => {
+        const isMine = msg.user?.uid === uid;
+        return (
+          <div key={msg.id} className={`flex ${isMine ? "justify-end" : "justify-start"}`}>
+<div
+  className={`px-4 py-2 rounded-lg max-w-[75%] break-words text-sm shadow-md backdrop-blur-sm ${
+    isMine
+      ? "bg-[#5aa7ce]/90 text-white" // 自分：少し濃い水色
+      : "bg-[#4a587a]/85 text-white" // 相手：より深めの群青
+  }`}
+>
+
+              <span className="block text-xs opacity-70 mb-1">{msg.user?.name || "匿名"}</span>
+              {msg.content}
+              {isMine && (
+                <div className="mt-1 flex gap-2 text-xs opacity-80">
+              <div className="mt-1 flex gap-2 text-xs opacity-90">
+  <button
+    onClick={() => startEditMessage(msg)}
+    className="text-orange-400 hover:text-orange-300"
+  >
+    編集
+  </button>
+  <button
+    onClick={() => deleteMessage(msg.id)}
+    className="text-red-400 hover:text-red-300"
+  >
+    削除
+  </button>
+</div>
+            </div>
+              )}
+            </div>
+          </div>
+        );
+      })}
+      <div ref={bottomRef} />
     </div>
-  );
+
+    {/* 入力エリア */}
+    <div className="p-4 bg-gray-900 border-t border-gray-700 flex gap-2 z-10">
+      <input
+        type="text"
+        value={content}
+        onChange={(e) => setContent(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            editingMessage ? updateMessage() : sendMessage();
+          }
+        }}
+        placeholder="メッセージを入力"
+        className="flex-1 p-2 rounded bg-gray-800 border border-gray-600 text-white placeholder-gray-400 focus:outline-none"
+      />
+      {editingMessage ? (
+        <>
+<button
+  onClick={updateMessage}
+  className="px-4 py-2 rounded bg-gradient-to-b from-orange-400 to-orange-500 text-white hover:brightness-110 transition"
+>
+  更新
+</button>
+
+<button
+  onClick={cancelEdit}
+  className="px-4 py-2 rounded bg-gradient-to-b from-gray-600 to-gray-700 text-white hover:brightness-110 transition"
+>
+  キャンセル
+</button>
+        </>
+      ) : (
+<button
+  onClick={sendMessage}
+  className="px-4 py-2 rounded bg-gradient-to-b from-orange-500 to-pink-500 text-white hover:brightness-110 transition"
+>
+  送信
+</button>
+      )}
+    </div>
+  </div>
+);
 };
 
 export default OpenChatPage;
