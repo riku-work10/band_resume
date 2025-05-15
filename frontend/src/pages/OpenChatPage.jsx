@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import getCable from "../utils/cable";
 import apiClient from "../services/apiClient";
-import StarEffect from "../components/openchat/StarEffect";
+// import StarEffect from "../components/openchat/StarEffect";
 import "../components/openchat/OpenChat.css";
 import StarField from "../components/openchat/StarField";
 
@@ -142,7 +142,7 @@ const OpenChatPage = () => {
 
     {/* メッセージエリア */}
     <div className="flex-1 overflow-y-auto px-4 py-2 space-y-2 z-10 bg-dawn">
-    <StarEffect />
+    {/* <StarEffect /> */}
     <StarField count={200} />
       {messages.map((msg) => {
         const isMine = msg.user?.uid === uid;
