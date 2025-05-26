@@ -7,6 +7,7 @@ import ResumeLikeButton from '../likes/ResumeLikeButton ';
 import { MdDelete, MdEdit } from "react-icons/md";
 import { useAuth } from '../../hooks/AuthContext';
 import ResumesShowSectionItemDetail from './ResumesShowSectionItemDetail';
+import ResumeShareButton from './ResumeShareButton';
 
 const ResumePageShow = () => {
   const { resumeId } = useParams(); // URLパラメータからIDを取得
@@ -124,6 +125,7 @@ const ResumePageShow = () => {
             onUpdate={setResume}
           />
         )}
+        <ResumeShareButton resumeId={resume.id} />
     </div>
   );
 };
