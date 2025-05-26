@@ -1,6 +1,8 @@
+import React from 'react';
+
 const ResumeShareButton = ({ resumeId }) => {
   const baseUrl = process.env.REACT_APP_VERCEL_URL || window.location.origin;
-  const shareUrl = `${baseUrl}/ogp/resumes/${resumeId}`;
+  const shareUrl = `${baseUrl}/resumes/${resumeId}`; // ← ogp用URL から 実ページに変更！
 
   const handleShare = () => {
     window.open(
