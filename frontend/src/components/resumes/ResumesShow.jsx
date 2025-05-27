@@ -125,7 +125,11 @@ const ResumePageShow = () => {
             onUpdate={setResume}
           />
         )}
-        <ResumeShareButton resumeId={resume.id} />
+        <ResumeShareButton
+          resumeId={resume.id}
+          title={resume.title}
+          introduction={resume.introduction}
+        />
     </div>
   );
 };
