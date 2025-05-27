@@ -2,27 +2,26 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title><%= @resume.title %> | Band Resume</title>
+  <title><%= h(@resume.title) %> | Band Resume</title>
 
   <!-- OGP -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="<%= @resume.title %>" />
-  <meta property="og:description" content="<%= @resume.introduction.truncate(100) %>" />
+  <meta property="og:title" content="<%= h(@resume.title) %>" />
+  <meta property="og:description" content="<%= h(@resume.introduction.to_s.truncate(100)) %>" />
   <meta property="og:image" content="https://bandresume.s3.ap-northeast-1.amazonaws.com/profile_images/default_ogp.jpg" />
   <meta property="og:url" content="https://band-resume.vercel.app/resumes/<%= @resume.id %>" />
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="<%= @resume.title %>" />
-  <meta name="twitter:description" content="<%= @resume.introduction.truncate(100) %>" />
+  <meta name="twitter:title" content="<%= h(@resume.title) %>" />
+  <meta name="twitter:description" content="<%= h(@resume.introduction.to_s.truncate(100)) %>" />
   <meta name="twitter:image" content="https://bandresume.s3.ap-northeast-1.amazonaws.com/profile_images/default_ogp.jpg" />
 
-  <!-- ユーザー用リダイレクト -->
-  <script>
-    window.location.href = "https://band-resume.vercel.app/resumes/<%= @resume.id %>";
-  </script>
+  <!-- meta refresh redirect (for non-JS clients like Twitter ignores it, browser respects it) -->
+  <meta http-equiv="refresh" content="1;url=https://band-resume.vercel.app/resumes/<%= @resume.id %>">
+
 </head>
 <body>
-  <p>Redirecting...</p>
+  <p>ページを移動します。<a href="https://band-resume.vercel.app/resumes/<%= @resume.id %>">こちらをクリック</a></p>
 </body>
 </html>
