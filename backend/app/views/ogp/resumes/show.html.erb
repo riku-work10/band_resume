@@ -1,20 +1,27 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="UTF-8">
+  <title><%= @resume.title %> | Band Resume</title>
 
+  <!-- OGP -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="<%= h(@resume.title) %>" />
-  <meta property="og:description" content="<%= h(@resume.introduction) %> #ハルカミライ履歴書" />
-  <meta property="og:url" content="<%= request.original_url %>" />
+  <meta property="og:title" content="<%= @resume.title %>" />
+  <meta property="og:description" content="<%= @resume.introduction.truncate(100) %>" />
+  <meta property="og:image" content="https://bandresume.s3.ap-northeast-1.amazonaws.com/profile_images/default_ogp.jpg" />
+  <meta property="og:url" content="https://band-resume.vercel.app/resumes/<%= @resume.id %>" />
 
+  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="<%= h(@resume.title) %>" />
-  <meta name="twitter:description" content="<%= h(@resume.introduction) %> #ハルカミライ履歴書" />
+  <meta name="twitter:title" content="<%= @resume.title %>" />
+  <meta name="twitter:description" content="<%= @resume.introduction.truncate(100) %>" />
+  <meta name="twitter:image" content="https://bandresume.s3.ap-northeast-1.amazonaws.com/profile_images/default_ogp.jpg" />
 
-  <title><%= h(@resume.title) %></title>
+  <script>
+    window.location.href = "https://band-resume.vercel.app/resumes/<%= @resume.id %>";
+  </script>
 </head>
 <body>
-  <p>このページはOGP表示専用です。</p>
+  <p>Redirecting...</p>
 </body>
 </html>

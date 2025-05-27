@@ -1,12 +1,10 @@
-import React from 'react';
-
 const ResumeShareButton = ({ resumeId }) => {
-  const baseUrl = process.env.REACT_APP_VERCEL_URL || window.location.origin;
-  const shareUrl = `${baseUrl}/resumes/${resumeId}`; // ← ogp用URL から 実ページに変更！
+  const baseUrl = process.env.REACT_APP_API_URL || window.location.origin;
+  const shareUrl = `${baseUrl}/ogp/resumes/${resumeId}`;
 
   const handleShare = () => {
     window.open(
-      `https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=私の履歴書です！`,
+      `https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=私の履歴書です！%20#ハルカミライ履歴書`,
       '_blank'
     );
   };
