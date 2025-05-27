@@ -5,7 +5,7 @@ const ResumeShareButton = ({ resumeId }) => {
   const handleShare = () => {
     // X（旧Twitter）のシェア用URLにリダイレクト
     window.open(
-      `https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=私の履歴書です！%20#ハルカミライ履歴書`,
+      `https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=#私の履歴書です！`,
       '_blank'
     );
   };
