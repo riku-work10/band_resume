@@ -2,9 +2,8 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
   root to: "health_check#index"
 
-  namespace :ogp do
-    get 'resumes/:id', to: 'resumes#show', as: :resume
-  end
+  get '/ogp/resumes/:id', to: 'ogp#resume', as: :ogp_resume
+
 
 
   namespace :api do
