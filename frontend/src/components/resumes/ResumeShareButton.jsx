@@ -1,13 +1,14 @@
 const ResumeShareButton = ({ resumeId }) => {
   // 共有URL：Render上のRailsでOGP付きHTMLを返すエンドポイント
-const shareUrl = `https://band-resume.onrender.com/ogp/resumes/${resumeId}`;
-const tweetText = encodeURIComponent("私の履歴書です！ #ハルカミライ履歴書");
+  const shareUrl = `https://band-resume.onrender.com/ogp/resumes/${resumeId}`;
 
-const handleShare = () => {
-  const twitterUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${tweetText}`;
-  window.open(twitterUrl, '_blank');
-};
-
+  const handleShare = () => {
+    // X（旧Twitter）のシェア用URLにリダイレクト
+    window.open(
+      `https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=%20%23ハルカミライ履歴書%20%23ハルカミライ`,
+      '_blank'
+    );
+  };
 
   return (
     <button
