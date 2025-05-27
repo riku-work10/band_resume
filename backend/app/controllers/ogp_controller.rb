@@ -3,6 +3,6 @@ class OgpController < ApplicationController
     @resume = Resume.find_by(id: params[:id])
     return render plain: "Not found", status: 404 unless @resume
 
-    render layout: false
+    render template: "ogp/resume", layout: false
   end
 end
