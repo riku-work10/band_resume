@@ -7,17 +7,17 @@
   <!-- OGP -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="<%= h(@resume.title) %>のハルカミライ履歴書" />
+  <meta property="og:description" content="<%= h(@resume.introduction.to_s.truncate(100)) %>" />
   <meta property="og:image" content="https://bandresume.s3.ap-northeast-1.amazonaws.com/profile_images/default_ogp.jpg" />
   <meta property="og:url" content="https://band-resume.onrender.com/ogp/resumes/<%= @resume.id %>" />
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="<%= h(@resume.title) %>のハルカミライ履歴書" />
+  <meta name="twitter:description" content="<%= h(@resume.introduction.to_s.truncate(100)) %>" />
   <meta name="twitter:image" content="https://bandresume.s3.ap-northeast-1.amazonaws.com/profile_images/default_ogp.jpg" />
-
-  <meta http-equiv="refresh" content="1;url=https://band-resume.vercel.app/resumes/<%= @resume.id %>">
 </head>
 <body>
-  <p>ページを移動します。<a href="https://band-resume.vercel.app/resumes/<%= @resume.id %>">こちらをクリック</a></p>
+  <p>このページはOGP専用です。</p>
 </body>
 </html>
