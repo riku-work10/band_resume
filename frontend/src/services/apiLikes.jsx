@@ -5,10 +5,10 @@ import apiClient from "./apiClient";
 export const fetchLikeStatus = async (resumeId) => {
   try {
     const response = await apiClient.get(`/resumes/${resumeId}/liked_by_current_user`);
-    return response.data.liked; // APIのレスポンスからいいね状態を取得
+    return response.data; // APIのレスポンスからいいね状態を取得
   } catch (error) {
     console.error('Failed to fetch like status:', error);
-    return false; // エラー時はデフォルトで false
+    return { liked: false, likes_count: 0 }; // エラー時はデフォルトで false
   }
 };
 
@@ -16,10 +16,10 @@ export const fetchLikeStatus = async (resumeId) => {
 export const likeResume = async (resumeId) => {
   try {
     const response = await apiClient.post(`/resumes/${resumeId}/resume_likes`);
-    return response.data.liked;
+    return response.data;
   } catch (error) {
     console.error('Failed to like the resume:', error);
-    return false;
+    return { liked: false, likes_count: 0 };
   }
 };
 
@@ -27,10 +27,10 @@ export const likeResume = async (resumeId) => {
 export const unlikeResume = async (resumeId) => {
   try {
     const response = await apiClient.delete(`/resumes/${resumeId}/resume_likes`);
-    return response.data.liked;
+    return response.data;
   } catch (error) {
     console.error('Failed to unlike the resume:', error);
-    return true; // エラー時に状態が変わらないようにする
+    return { liked: true, likes_count: 0 };// エラー時に状態が変わらないようにする
   }
 };
 
