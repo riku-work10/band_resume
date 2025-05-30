@@ -9,8 +9,10 @@ import Footer from "./components/layout/Footer";
 import AppRoutes from "./routes/AppRoutes";
 import { AuthProvider } from "./hooks/AuthContext";
 import IntroScreen from "./components/homepage/IntroScreen";
+import usePageTracking from "./hooks/usePageTracking";
 
 const App = () => {
+  usePageTracking();
   const [showIntro, setShowIntro] = useState(true);
 
   useEffect(() => {
