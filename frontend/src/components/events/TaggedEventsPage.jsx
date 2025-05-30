@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { getEventsByTag } from "../../services/apiLives";
+import { useAuth } from "../../hooks/AuthContext";
+import EventLikeButton from "../../components/likes/EventLikeButton";
 
 const TaggedEventsPage = () => {
-  const { tagName } = useParams(); // URLパラメータからタグ名を取得
+  const { tagName } = useParams();
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { user } = useAuth();
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -22,29 +24,68 @@ const TaggedEventsPage = () => {
     };
 
     fetchEvents();
-  }, [tagName]); // tagNameが変わるたびに再取得
+  }, [tagName]);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
 
   return (
-    <div>
-      <h1 className="text-2xl font-bold">{tagName} のイベント</h1>
-      <br />
+    <div className="pt-4 px-6 mb-6">
+      <h1 className="text-2xl font-bold mb-4">#{tagName} のイベント</h1>
       {events.length > 0 ? (
-        events.map((event) => (
-          <div key={event.id}>
-            <Link to={`/events/${event.id}`} className="hover:underline">
-              {event.image && <img src={event.image} alt={event.title} width="100" />}
-              <h2>{event.title}</h2>
-              <p>場所: {event.location}</p>
-              <p>紹介: {event.introduction}</p>
-              <p>開催日: {event.date}</p>
-            </Link>
-          </div>
-        ))
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {events.map((event) => (
+            <div
+              key={event.id}
+              className="relative flex bg-orange-100 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition"
+            >
+              {event.image && (
+                <Link to={`/events/${event.id}`} className="flex-shrink-0 w-32 h-32 md:w-40 md:h-40">
+                  <img
+                    src={event.image}
+                    alt={event.title}
+                    className="w-full h-full object-cover"
+                  />
+                </Link>
+              )}
+
+              <div className="flex flex-col justify-between p-2 flex-grow">
+                <div>
+                  <Link to={`/events/${event.id}`} className="hover:underline">
+                    <h2 className="text-lg font-bold text-gray-800">{event.title}</h2>
+                  </Link>
+                  <p className="text-sm text-green-600 font-semibold mt-1">
+                    {event.date} @ {event.location}
+                  </p>
+                  <p className="text-sm text-gray-600 mt-1">{event.introduction}</p>
+
+                  <div className="flex flex-wrap gap-1 mt-2">
+                    {event.tags?.map((tag) => (
+                      <Link
+                        key={tag.id}
+                        to={`/events/tag/${tag.name}`}
+                        className="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded-full"
+                      >
+                        #{tag.name}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+
+                {user && user.id !== event.user_id && (
+                  <div className="absolute bottom-3 right-3">
+                    <EventLikeButton
+                      eventId={event.id}
+                      className="py-1 px-3 bg-green-500 text-white text-sm rounded hover:bg-green-600"
+                    />
+                  </div>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
       ) : (
-        <p>このタグに該当するイベントはありません</p>
+        <p>このタグに該当するイベントはありません。</p>
       )}
     </div>
   );
