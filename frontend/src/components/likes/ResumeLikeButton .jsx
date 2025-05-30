@@ -1,33 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import { fetchLikeStatus, likeResume, unlikeResume } from '../../services/apiLikes';
-import { MdFavorite, MdFavoriteBorder  } from "react-icons/md";
+import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 
-const ResumeLikeButton = ({ resumeId }) => {
+const ResumeLikeButton = ({ resumeId, textColor = 'text-black' }) => {
   const [liked, setLiked] = useState(false);
+  const [likesCount, setLikesCount] = useState(0);
 
   useEffect(() => {
-    // 初回レンダリング時に現在のいいね状態を取得
     const getLikeStatus = async () => {
-      const status = await fetchLikeStatus(resumeId);
-      setLiked(status);  //statusにはresponse.data.likedが格納（true/false）
+      const data = await fetchLikeStatus(resumeId);
+      setLiked(data.liked);
+      setLikesCount(data.likes_count);
     };
-
     getLikeStatus();
   }, [resumeId]);
 
   const handleClick = async () => {
-    if (liked) {  //likedには初期レンダリング時の状態(true/false）
-      const newStatus = await unlikeResume(resumeId);
-      setLiked(newStatus);  //newStatusにはresponse.data.likedが格納（true/false）
+    if (liked) {
+      const data = await unlikeResume(resumeId);
+      setLiked(data.liked);
+      setLikesCount(data.likes_count);
     } else {
-      const newStatus = await likeResume(resumeId);
-      setLiked(newStatus);
+      const data = await likeResume(resumeId);
+      setLiked(data.liked);
+      setLikesCount(data.likes_count);
     }
   };
 
   return (
-    <button onClick={handleClick}>
-      {liked ? <MdFavorite className="text-red-500"/> : <MdFavoriteBorder className="text-gray-500"/> }
+    <button onClick={handleClick} className="flex items-center space-x-1">
+      {liked ? <MdFavorite className="text-red-500" /> : <MdFavoriteBorder className="text-gray-500" />}
+      {likesCount > 0 && <span className={textColor}>{likesCount}</span>}
     </button>
   );
 };

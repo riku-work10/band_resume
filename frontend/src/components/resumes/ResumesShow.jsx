@@ -106,7 +106,7 @@ const ResumePageShow = () => {
                 </div>
                  )}
                 {user && user.id !== resume.user_id && (
-                  <ResumeLikeButton resumeId={resume.id} className="py-2 px-4 bg-green-500 text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400" />
+                  <ResumeLikeButton resumeId={resume.id} textColor="text-white" className="py-2 px-4 bg-green-500 text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400" />
                 )}
                 </div>
               </div>

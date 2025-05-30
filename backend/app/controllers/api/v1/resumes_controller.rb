@@ -42,8 +42,9 @@ class Api::V1::ResumesController < ApplicationController
   def liked_by_current_user
     resume = Resume.find(params[:id])
     liked = current_api_v1_user.liked_resumes.exists?(resume.id)
+    likes_count = resume.resume_likes.count
 
-    render json: { liked: liked }
+    render json: { liked: liked, likes_count: likes_count }
   end
 
   def my_liked_resumes
