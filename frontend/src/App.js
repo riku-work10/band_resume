@@ -9,10 +9,9 @@ import Footer from "./components/layout/Footer";
 import AppRoutes from "./routes/AppRoutes";
 import { AuthProvider } from "./hooks/AuthContext";
 import IntroScreen from "./components/homepage/IntroScreen";
-import usePageTracking from "./hooks/usePageTracking";
+import PageTracker from "./hooks/PageTracker";
 
 const App = () => {
-  usePageTracking();
   const [showIntro, setShowIntro] = useState(true);
 
   useEffect(() => {
@@ -25,6 +24,7 @@ const App = () => {
   return (
     <AuthProvider>
       <BrowserRouter>
+      <PageTracker />
         <div className="flex flex-col min-h-screen">
           <AnimatePresence>
             {showIntro && <IntroScreen />}

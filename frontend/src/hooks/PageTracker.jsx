@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
-export default function usePageTracking() {
+export default function PageTracker() {
   const location = useLocation();
 
   useEffect(() => {
@@ -11,4 +11,6 @@ export default function usePageTracking() {
       page_path: location.pathname + location.search,
     });
   }, [location]);
+
+  return null; // 表示しない
 }
