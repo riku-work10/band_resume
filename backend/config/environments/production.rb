@@ -93,7 +93,7 @@ config.action_cable.allowed_request_origins = [
   'https://harukamirai-resume.com'
 ]
 config.action_mailer.default_url_options = {
-  host: 'api.harukamirai-resume.com'
+  host: 'api.harukamirai-resume.com',
   protocol: 'https'
 }
   config.action_mailer.delivery_method = :smtp
