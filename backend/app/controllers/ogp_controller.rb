@@ -8,7 +8,7 @@ class OgpController < ActionController::Base
       render template: "ogp/resume", layout: false
     else
       # 人間ユーザーならReact側に即リダイレクト
-      redirect_to "https://band-resume.vercel.app/resumes/#{@resume.id}", allow_other_host: true
+      redirect_to "#{ENV['VERCEL_URL']}/resumes/#{@resume.id}", allow_other_host: true
     end
   end
 
