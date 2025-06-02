@@ -87,15 +87,15 @@ Rails.application.configure do
   # ]
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
-  config.action_cable.url = 'wss://band-resume.onrender.com/cable'
-  config.action_cable.allowed_request_origins = [
-  'https://band-resume.onrender.com',
-  'https://band-resume.vercel.app'
+  config.action_cable.url = 'wss://api.harukamirai-resume.com/cable'
+config.action_cable.allowed_request_origins = [
+  'https://api.harukamirai-resume.com',
+  'https://harukamirai-resume.com'
 ]
-  config.action_mailer.default_url_options = {
-    host: 'band-resume.onrender.com',
-    protocol: 'https'
-  }
+config.action_mailer.default_url_options = {
+  host: 'api.harukamirai-resume.com'
+  protocol: 'https'
+}
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
