@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       post 'snsauth/googleauth', to: 'snsauth#googleauth'
       get 's3/presigned_url', to: 's3#presigned_url'
+      delete 's3/delete_object', to: 's3#delete_object'
       resources :notifications, only: [:index, :update] do
         member do
           patch :read
