@@ -1,6 +1,6 @@
 const ResumeShareButton = ({ resumeId, title, introduction }) => {
-  // URLエンコード（特に日本語や # に注意）
-  const shareUrl = `https://band-resume.onrender.com/ogp/resumes/${resumeId}`;
+  const baseUrl = process.env.REACT_APP_API_URL;
+  const shareUrl = `${baseUrl}/ogp/resumes/${resumeId}`;
   const tweetText = `${introduction}\n#ハルカミライ履歴書 #ハルカミライ`;
 
   const handleShare = () => {
