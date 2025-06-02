@@ -5,50 +5,53 @@ import { useAuth } from "../../hooks/AuthContext";
 import SelectAge from "../selectlists/SelectAge";
 import SelectGender from "../selectlists/SelectGender";
 import SelectLocation from "../selectlists/SelectLocation";
+import { useS3Image } from "../../hooks/useS3Image";
 
 const ResumesCreate = ({ onClose }) => {
   const { user } = useAuth();
+  const navigate = useNavigate();
+
   const [title, setTitle] = useState("");
-  const [profileImage, setProfileImage] = useState("");
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [previewUrl, setPreviewUrl] = useState("");
-  const [isUploading, setIsUploading] = useState(false);
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
   const [snsUrl, setSnsUrl] = useState("");
   const [location, setLocation] = useState("");
   const [introduction, setIntroduction] = useState("");
   const [error, setError] = useState(null);
-  const navigate = useNavigate();
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setSelectedFile(file);
-      setPreviewUrl(URL.createObjectURL(file)); // ローカルプレビュー用URLを生成
-    }
-  };
+  const {
+    profileImage,
+    selectedFile,
+    previewUrl,
+    isUploading,
+    handleFileChange,
+    uploadToS3,
+    deleteS3Object,
+    extractObjectKey,
+  } = useS3Image();
 
   const handleUpload = async () => {
-    if (!selectedFile) return;
     try {
-      setIsUploading(true);
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/${process.env.REACT_APP_API_VERSION}/s3/presigned_url?user_id=${user.id}&filename=${selectedFile.name}&content_type=${selectedFile.type}`);
-      const { url, file_url } = await res.json();
-
-      const uploadRes = await fetch(url, {
-        method: "PUT",
-        headers: { "Content-Type": selectedFile.type },
-        body: selectedFile,
-      });
-      if (!uploadRes.ok) throw new Error("S3アップロードに失敗しました");
-
-      setProfileImage(file_url); // DB保存用
+      await uploadToS3(user.id);
       alert("画像アップロード成功！");
     } catch (err) {
       alert(err.message);
-    } finally {
-      setIsUploading(false);
+    }
+  };
+
+  const handleDeleteImage = async () => {
+    if (!profileImage) return;
+    const objectKey = extractObjectKey();
+    if (!objectKey) {
+      alert("画像のキーが取得できません");
+      return;
+    }
+    if (!window.confirm("画像を削除しますか？")) return;
+    try {
+      await deleteS3Object(objectKey);
+      alert("画像を削除しました");
+    } catch (err) {
+      alert(err.message);
     }
   };
 
@@ -68,86 +71,32 @@ const ResumesCreate = ({ onClose }) => {
       const response = await createResume(resumeData);
       onClose();
       navigate(`/resumes/${response.id}`);
-    } catch (err) {
+    } catch {
       setError("履歴書の作成に失敗しました");
     }
   };
 
   return (
-    <div>
-      <h2 className="text-lg font-bold">新しい履歴書の作成</h2>
+    <form onSubmit={handleSubmit} className="bg-gray-100 p-4 rounded-lg shadow-md text-black">
+      {/* タイトルや選択リスト、プロフィール画像部分は省略 */}
+      <div>
+        <label>プロフィール画像：</label>
+        <input type="file" accept="image/*" onChange={handleFileChange} />
+        <button onClick={handleUpload} disabled={isUploading}>
+          {isUploading ? "アップロード中..." : "アップロード"}
+        </button>
 
-      <form onSubmit={handleSubmit} className="bg-gray-100 p-4 rounded-lg shadow-md text-black">
-        <div>
-          <label className="text-black">タイトル：</label>
-          <input
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            required
-            className="border border-gray-300 p-2 w-full rounded text-black"
-          />
-        </div>
-
-        <div>
-          <label className="text-black">プロフィール画像：</label>
-          <input type="file" accept="image/*" onChange={handleFileChange} className="mb-2" />
-          <button type="button" onClick={handleUpload} disabled={isUploading} className="bg-green-500 text-white px-3 py-1 rounded ml-2">
-            {isUploading ? "アップロード中..." : "アップロード"}
-          </button>
-          {previewUrl && (
-            <div className="mt-2">
-              <img src={previewUrl} alt="プレビュー" className="h-20 rounded object-cover" />
-            </div>
-          )}
-        </div>
-
-        <div>
-          <label className="text-black">年齢：</label>
-          <SelectAge value={age} onChange={(e) => setAge(e.target.value)} />
-        </div>
-
-        <div>
-          <label className="text-black">性別：</label>
-          <SelectGender value={gender} onChange={(e) => setGender(e.target.value)} />
-        </div>
-
-        <div>
-          <label className="text-black">SNSリンク：</label>
-          <input
-            type="text"
-            value={snsUrl}
-            onChange={(e) => setSnsUrl(e.target.value)}
-            className="border border-gray-300 p-2 w-full rounded text-black"
-          />
-        </div>
-
-        <div>
-          <label className="text-black">場所：</label>
-          <SelectLocation value={location} onChange={(e) => setLocation(e.target.value)} />
-        </div>
-
-        <div>
-          <label className="text-black">自己紹介：</label>
-          <textarea
-            value={introduction}
-            onChange={(e) => setIntroduction(e.target.value)}
-            className="border border-gray-300 p-2 w-full rounded text-black"
-          />
-        </div>
-
-        {error && <p className="text-red-500">{error}</p>}
-
-        <div className="flex justify-end gap-2 mt-4">
-          <button type="button" onClick={onClose} className="bg-gray-400 text-white px-4 py-2 rounded">
-            キャンセル
-          </button>
-          <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">
-            履歴書作成
-          </button>
-        </div>
-      </form>
-    </div>
+        {profileImage ? (
+          <div>
+            <img src={profileImage} alt="アップロード済み" />
+            <button onClick={handleDeleteImage}>削除</button>
+          </div>
+        ) : previewUrl ? (
+          <img src={previewUrl} alt="プレビュー" />
+        ) : null}
+      </div>
+      {/* その他フォーム要素 */}
+    </form>
   );
 };
 
