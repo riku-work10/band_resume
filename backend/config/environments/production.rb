@@ -90,7 +90,7 @@ Rails.application.configure do
   config.action_cable.url = 'wss://api.harukamirai-resume.com/cable'
 config.action_cable.allowed_request_origins = [
   'https://api.harukamirai-resume.com',
-  'https://harukamirai-resume.com'
+  'https://www.harukamirai-resume.com'
 ]
 config.action_mailer.default_url_options = {
   host: 'api.harukamirai-resume.com',
