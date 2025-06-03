@@ -20,10 +20,9 @@ class Api::V1::S3Controller < ApplicationController
  def delete_object
   object_key = CGI.unescape(params[:object_key])  # URLデコードする
 
-  Rails.logger.info("S3削除対象キー: #{object_key}")
-
   s3 = Aws::S3::Resource.new(region: ENV['AWS_REGION'])
   bucket = s3.bucket(ENV['S3_BUCKET_NAME'])
+  # 対象オブジェクトを読み込む
   obj = bucket.object(object_key)
 
   if obj.exists?
