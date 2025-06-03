@@ -18,7 +18,7 @@ const ResumesCreate = ({ onClose }) => {
     isUploading,
     uploadImage,
     deleteImage,
-  } = useS3Upload(user.id);
+  } = useS3Upload(user.id, "resumes");
 
   const [title, setTitle] = useState("");
   const [age, setAge] = useState("");

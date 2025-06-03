@@ -16,7 +16,7 @@ const ResumeEdit = ({ resume, onClose, onUpdate }) => {
     isUploading,
     uploadImage,
     deleteImage,
-  } = useS3Upload(user.id, resume?.profile_image || "");
+  } = useS3Upload(user.id, "resumes", resume?.profile_image || "");
 
   const [title, setTitle] = useState("");
   const [previewUrl, setPreviewUrl] = useState("");
