@@ -101,6 +101,7 @@ const ResumePageShow = () => {
                     className="py-2 px-4 bg-red-500 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400">
                     <MdDelete />
                   </button>
+                  <ResumeShareButton resumeId={resume.id} title={resume.title} introduction={resume.introduction} />
                 </div>
                  )}
                 {user && user.id !== resume.user_id && (
@@ -123,11 +124,6 @@ const ResumePageShow = () => {
             onUpdate={setResume}
           />
         )}
-        <ResumeShareButton
-          resumeId={resume.id}
-          title={resume.title}
-          introduction={resume.introduction}
-        />
     </div>
   );
 };
