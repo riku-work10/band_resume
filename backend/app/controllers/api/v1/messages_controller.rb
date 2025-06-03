@@ -2,8 +2,13 @@ class Api::V1::MessagesController < ApplicationController
   before_action :authenticate_api_v1_user!
 
   def index
-    messages = Message.includes(:user).order(created_at: :asc)
-    render json: messages.as_json(include: { user: { only: [:id, :email, :uid, :name] } })
+    messages = Message.includes(:user)
+                      .order(created_at: :desc)
+                      .limit(100)
+                      .reverse # フロントで時系列に表示するため
+    render json: messages.as_json(
+      include: { user: { only: [:id, :email, :uid, :name] } }
+    )
   end
 
   private
