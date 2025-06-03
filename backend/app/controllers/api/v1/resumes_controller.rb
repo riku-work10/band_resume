@@ -56,6 +56,6 @@ class Api::V1::ResumesController < ApplicationController
   private
 
   def resume_params
-    params.require(:resume).permit(:user_id, :title, :profile_image, :age, :gender, :sns_url, :location, :introduction)
+    params.require(:resume).permit(:user_id, :title, :profile_image, :age, :gender, :sns_url, :location, :introduction, :playlist_url)
   end
 end

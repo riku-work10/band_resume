@@ -81,13 +81,25 @@ const ResumePageShow = () => {
                     <p>場所: {resume.location}</p>
                   {resume.sns_url && (
                     <a
-                      href={`https://x.com/${resume.sns_url.replace('@', '')}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center text-blue-500 hover:underline gap-1"
+                    href={`https://x.com/${resume.sns_url.replace('@', '')}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center text-blue-500 hover:underline gap-1"
                     >
                       <FaXTwitter className="text-black bg-white p- text-xl hover:bg-gray-200 transition" />
                     </a>
+                  )}
+                  {resume.playlist_url && (
+                  <div className="">
+                    <a
+                      href={resume.playlist_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-500 hover:underline"
+                    >
+                    私のプレイリスト
+                    </a>
+                  </div>
                   )}
                   </div>
                   {/* 紹介文は大きめに表示 */}

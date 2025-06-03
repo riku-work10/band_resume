@@ -25,6 +25,7 @@ const ResumeEdit = ({ resume, onClose, onUpdate }) => {
   const [snsUrl, setSnsUrl] = useState("");
   const [location, setLocation] = useState("");
   const [introduction, setIntroduction] = useState("");
+  const [playlistUrl, setPlaylistUrl] = useState("");
   const [error, setError] = useState(null);
 
   // resumeが変わったらフォーム初期化（画像はuseS3Uploadの初期値でセットされるためプレビューにセット）
@@ -37,6 +38,7 @@ const ResumeEdit = ({ resume, onClose, onUpdate }) => {
       setSnsUrl(resume.sns_url || "");
       setLocation(resume.location || "");
       setIntroduction(resume.introduction || "");
+      setPlaylistUrl(resume.playlist_url || "");
     }
   }, [resume]);
 
@@ -70,6 +72,7 @@ const ResumeEdit = ({ resume, onClose, onUpdate }) => {
         sns_url: snsUrl,
         location,
         introduction,
+        playlist_url: playlistUrl,
       };
       const updatedResume = await putResume(resume.id, updatedResumeData);
       onUpdate(updatedResume);
@@ -162,6 +165,17 @@ const ResumeEdit = ({ resume, onClose, onUpdate }) => {
             <p className="text-xs text-gray-500 mt-1">
               「@example」の形式で入力してください（URLは自動で生成されます）
             </p>
+          </div>
+
+          <div>
+            <label className="text-black">プレイリストURL：</label>
+            <input
+              type="url"
+              value={playlistUrl}
+              onChange={(e) => setPlaylistUrl(e.target.value)}
+              placeholder="共有したいプレイリストのURL"
+              className="border border-gray-300 p-2 w-full rounded text-black"
+            />
           </div>
 
           <div className="mb-4">
