@@ -151,13 +151,17 @@ const ResumeEdit = ({ resume, onClose, onUpdate }) => {
           </div>
 
           <div className="mb-4">
-            <label className="text-black">SNSリンク：</label>
+            <label className="text-black">Xのユーザー名：</label>
             <input
               type="text"
               value={snsUrl}
               onChange={(e) => setSnsUrl(e.target.value)}
               className="border border-gray-300 p-2 w-full rounded"
+              placeholder="@example"
             />
+            <p className="text-xs text-gray-500 mt-1">
+              「@example」の形式で入力してください（URLは自動で生成されます）
+            </p>
           </div>
 
           <div className="mb-4">

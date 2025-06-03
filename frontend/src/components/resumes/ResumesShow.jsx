@@ -86,7 +86,7 @@ const ResumePageShow = () => {
                       rel="noopener noreferrer"
                       className="flex items-center text-blue-500 hover:underline gap-1"
                     >
-                      <FaXTwitter className="text-black bg-white p- text-xl" />
+                      <FaXTwitter className="text-black bg-white p- text-xl hover:bg-gray-200 transition" />
                     </a>
                   )}
                   </div>
