@@ -17,7 +17,7 @@ const EditProfile = ({ setIsEditing }) => {
     isUploading,
     uploadImage,
     deleteImage,
-  } = useS3Upload(user.id, user.image || "");
+  } = useS3Upload(user.id, "profile", user.image || "");
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];

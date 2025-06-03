@@ -24,7 +24,7 @@ const EventCreate = ({ onClose }) => {
     isUploading,
     uploadImage,
     deleteImage,
-  } = useS3Upload(user.id, "");
+  } = useS3Upload(user.id, "event", "");
 
   const handleSubmit = async (e) => {
     e.preventDefault();

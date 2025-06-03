@@ -1,19 +1,24 @@
 import { useState } from "react";
 
-export const useS3Upload = (userId, initialProfileImage = "") => {
+export const useS3Upload = (userId, folder = "common", initialProfileImage = "") => {
   const [profileImage, setProfileImage] = useState(initialProfileImage);
   const [selectedFile, setSelectedFile] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
 
   // S3アップロード関数
-  const uploadImage = async () => {
+   const uploadImage = async () => {
     if (!selectedFile) return;
     try {
       setIsUploading(true);
 
+      // ユニークなファイル名生成
+      const ext = selectedFile.name.split(".").pop();
+      const uniqueName = `${folder}/${userId}_${Date.now()}.${ext}`;
+
       const res = await fetch(
-        `${process.env.REACT_APP_API_URL}/api/${process.env.REACT_APP_API_VERSION}/s3/presigned_url?user_id=${userId}&filename=${selectedFile.name}&content_type=${selectedFile.type}`
+        `${process.env.REACT_APP_API_URL}/api/${process.env.REACT_APP_API_VERSION}/s3/presigned_url?user_id=${userId}&filename=${uniqueName}&content_type=${selectedFile.type}`
       );
+
       const { url, file_url } = await res.json();
 
       const uploadRes = await fetch(url, {

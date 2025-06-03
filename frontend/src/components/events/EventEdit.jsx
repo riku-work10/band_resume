@@ -24,7 +24,7 @@ const EventEdit = ({ event, onClose, onUpdate }) => {
     isUploading,
     uploadImage,
     deleteImage,
-  } = useS3Upload(user.id, event?.image || '');
+  } = useS3Upload(user.id, "event", event?.image || '');
 
   useEffect(() => {
     if (event) {
