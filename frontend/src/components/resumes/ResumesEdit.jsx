@@ -117,24 +117,24 @@ const ResumeEdit = ({ resume, onClose, onUpdate }) => {
             >
               {isUploading ? "アップロード中..." : "画像アップロード"}
             </button>
-            <button
-              type="button"
-              onClick={deleteImage}
-              disabled={!profileImage}
-              className="bg-red-500 text-white px-3 py-1 rounded ml-2"
-            >
-              画像削除
-            </button>
 
-            {previewUrl && (
-              <div className="mt-2">
-                <img
-                  src={previewUrl}
-                  alt="プロフィール画像プレビュー"
-                  className="h-20 rounded object-cover"
-                />
-              </div>
-            )}
+            <div className="mt-2 flex items-center gap-2">
+              <img
+                src={previewUrl || "https://bandresume.s3.ap-northeast-1.amazonaws.com/profile_images/default_ogp.jpg"}
+                alt="プロフィール画像プレビュー"
+                className="h-20 rounded object-cover"
+              />
+              {previewUrl && (
+                <button
+                  type="button"
+                  onClick={deleteImage}
+                  disabled={!profileImage}
+                  className="bg-red-500 text-white px-3 py-1 rounded"
+                >
+                  画像削除
+                </button>
+              )}
+            </div>
           </div>
 
           <div className="mb-4">

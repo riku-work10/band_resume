@@ -100,13 +100,13 @@ const ResumesCreate = ({ onClose }) => {
             {isUploading ? "アップロード中..." : "アップロード"}
           </button>
 
-          {profileImage && (
             <div className="mt-2 flex items-center gap-2">
               <img
-                src={profileImage}
+                src={profileImage || "https://bandresume.s3.ap-northeast-1.amazonaws.com/profile_images/default_ogp.jpg"}
                 alt="アップロード済み画像"
                 className="h-20 rounded object-cover"
-              />
+                />
+                {profileImage && (
               <button
                 type="button"
                 onClick={handleDeleteClick}
@@ -114,8 +114,8 @@ const ResumesCreate = ({ onClose }) => {
               >
                 削除
               </button>
-            </div>
           )}
+          </div>
         </div>
 
         <div>
