@@ -5,20 +5,28 @@ import { useAuth } from "../../hooks/AuthContext";
 import SelectAge from "../selectlists/SelectAge";
 import SelectGender from "../selectlists/SelectGender";
 import SelectLocation from "../selectlists/SelectLocation";
+import { useS3Upload } from "../../hooks/useS3Upload";
 
 const ResumesCreate = ({ onClose }) => {
   const { user } = useAuth();
+  const navigate = useNavigate();
+
+  const {
+    profileImage,
+    selectedFile,
+    setSelectedFile,
+    isUploading,
+    uploadImage,
+    deleteImage,
+  } = useS3Upload(user.id);
+
   const [title, setTitle] = useState("");
-  const [profileImage, setProfileImage] = useState("");
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [isUploading, setIsUploading] = useState(false);
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
   const [snsUrl, setSnsUrl] = useState("");
   const [location, setLocation] = useState("");
   const [introduction, setIntroduction] = useState("");
   const [error, setError] = useState(null);
-  const navigate = useNavigate();
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -27,75 +35,12 @@ const ResumesCreate = ({ onClose }) => {
     }
   };
 
-  const handleUpload = async () => {
-    if (!selectedFile) return;
-    try {
-      setIsUploading(true);
-      const res = await fetch(
-        `${process.env.REACT_APP_API_URL}/api/${process.env.REACT_APP_API_VERSION}/s3/presigned_url?user_id=${user.id}&filename=${selectedFile.name}&content_type=${selectedFile.type}`
-      );
-      const { url, file_url } = await res.json();
-
-      const uploadRes = await fetch(url, {
-        method: "PUT",
-        headers: { "Content-Type": selectedFile.type },
-        body: selectedFile,
-      });
-      if (!uploadRes.ok) throw new Error("S3アップロードに失敗しました");
-
-      setProfileImage(file_url); // DB保存用
-      setSelectedFile(null); // アップロードしたらファイル選択をクリア
-      alert("画像アップロード成功！");
-    } catch (err) {
-      alert(err.message);
-    } finally {
-      setIsUploading(false);
-    }
+  const handleUploadClick = () => {
+    uploadImage().catch(() => {});
   };
 
-  // S3オブジェクト削除関数
-  const deleteS3Object = async (objectKey) => {
-    const url = new URL(
-      `${process.env.REACT_APP_API_URL}/api/${process.env.REACT_APP_API_VERSION}/s3/delete_object`
-    );
-    url.searchParams.append("object_key", objectKey);
-
-    const res = await fetch(url.toString(), {
-      method: "DELETE",
-    });
-
-    if (!res.ok) {
-      const errorData = await res.json();
-      throw new Error(errorData.error || "画像削除に失敗しました");
-    }
-
-    return true;
-  };
-
-  // 画像削除ハンドラー
-  const handleDeleteImage = async () => {
-    if (!profileImage) return;
-
-    const bucketUrl = `https://${process.env.REACT_APP_S3_BUCKET}.s3.${process.env.REACT_APP_AWS_REGION}.amazonaws.com/`;
-    const objectKey = profileImage.startsWith(bucketUrl)
-      ? profileImage.substring(bucketUrl.length)
-      : null;
-
-    if (!objectKey) {
-      alert("画像のキーが取得できません");
-      return;
-    }
-
-    if (!window.confirm("画像を削除しますか？")) return;
-
-    try {
-      await deleteS3Object(objectKey);
-      setProfileImage("");
-      setSelectedFile(null);
-      alert("画像を削除しました");
-    } catch (err) {
-      alert(err.message);
-    }
+  const handleDeleteClick = () => {
+    deleteImage();
   };
 
   const handleSubmit = async (e) => {
@@ -148,29 +93,29 @@ const ResumesCreate = ({ onClose }) => {
           />
           <button
             type="button"
-            onClick={handleUpload}
+            onClick={handleUploadClick}
             disabled={isUploading || !selectedFile}
             className="bg-green-500 text-white px-3 py-1 rounded ml-2"
           >
             {isUploading ? "アップロード中..." : "アップロード"}
           </button>
 
-          {profileImage && (
             <div className="mt-2 flex items-center gap-2">
               <img
-                src={profileImage}
+                src={profileImage || "https://bandresume.s3.ap-northeast-1.amazonaws.com/profile_images/default_ogp.jpg"}
                 alt="アップロード済み画像"
                 className="h-20 rounded object-cover"
-              />
+                />
+                {profileImage && (
               <button
                 type="button"
-                onClick={handleDeleteImage}
+                onClick={handleDeleteClick}
                 className="bg-red-500 text-white px-2 py-1 rounded"
               >
                 削除
               </button>
-            </div>
           )}
+          </div>
         </div>
 
         <div>

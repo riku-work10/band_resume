@@ -62,13 +62,11 @@ const ResumePageShow = () => {
             <div className='mb-6'>
               <div className="mb-6 flex flex-col sm:flex-row items-start space-y-4 sm:space-y-0 sm:space-x-6">
                 {/* 画像部分 */}
-                {resume.profile_image && (
                   <img
-                    src={resume.profile_image}
+                    src={resume.profile_image || "https://bandresume.s3.ap-northeast-1.amazonaws.com/profile_images/default_ogp.jpg"}
                     alt={resume.title}
                     className="w-24 h-24 object-cover rounded-full border-2 border-gray-300"
                   />
-                )}
                 {/* テキスト部分 */}
                 <div className="flex-1">
                   <h2 className="text-xl font-bold">{resume.title}</h2>
@@ -103,6 +101,7 @@ const ResumePageShow = () => {
                     className="py-2 px-4 bg-red-500 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400">
                     <MdDelete />
                   </button>
+                  <ResumeShareButton resumeId={resume.id} title={resume.title} introduction={resume.introduction} />
                 </div>
                  )}
                 {user && user.id !== resume.user_id && (
@@ -125,11 +124,6 @@ const ResumePageShow = () => {
             onUpdate={setResume}
           />
         )}
-        <ResumeShareButton
-          resumeId={resume.id}
-          title={resume.title}
-          introduction={resume.introduction}
-        />
     </div>
   );
 };
