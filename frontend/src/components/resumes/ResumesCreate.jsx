@@ -26,6 +26,7 @@ const ResumesCreate = ({ onClose }) => {
   const [snsUrl, setSnsUrl] = useState("");
   const [location, setLocation] = useState("");
   const [introduction, setIntroduction] = useState("");
+  const [playlistUrl, setPlaylistUrl] = useState("");
   const [error, setError] = useState(null);
 
   const handleFileChange = (e) => {
@@ -55,6 +56,7 @@ const ResumesCreate = ({ onClose }) => {
         sns_url: snsUrl,
         location,
         introduction,
+        playlist_url: playlistUrl,
       };
       const response = await createResume(resumeData);
       onClose();
@@ -118,6 +120,7 @@ const ResumesCreate = ({ onClose }) => {
           </div>
         </div>
 
+
         <div>
           <label className="text-black">年齢：</label>
           <SelectAge value={age} onChange={(e) => setAge(e.target.value)} />
@@ -132,15 +135,25 @@ const ResumesCreate = ({ onClose }) => {
         </div>
 
         <div>
-          <label className="text-black">SNSリンク：</label>
+          <label className="text-black">Xユーザー名（@から入力）：</label>
           <input
             type="text"
             value={snsUrl}
             onChange={(e) => setSnsUrl(e.target.value)}
+            placeholder="@example"
             className="border border-gray-300 p-2 w-full rounded text-black"
           />
         </div>
-
+        <div>
+          <label className="text-black">プレイリストURL：</label>
+          <input
+            type="url"
+            value={playlistUrl}
+            onChange={(e) => setPlaylistUrl(e.target.value)}
+            placeholder="共有したいプレイリストのURL"
+            className="border border-gray-300 p-2 w-full rounded text-black"
+          />
+        </div>
         <div>
           <label className="text-black">場所：</label>
           <SelectLocation
