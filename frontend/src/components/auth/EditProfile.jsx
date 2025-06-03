@@ -4,6 +4,7 @@ import { useAuth } from "../../hooks/AuthContext";
 import { useS3Upload } from "../../hooks/useS3Upload";
 
 const EditProfile = ({ setIsEditing }) => {
+  const defaultProfileImage = "https://bandresume.s3.ap-northeast-1.amazonaws.com/profile_images/%E3%83%9E%E3%82%A4%E3%83%9A%E3%83%BC%E3%82%B8%E3%83%87%E3%83%95%E3%82%A9%E3%83%AB%E3%83%88.png";
   const { user, setUser } = useAuth();
   const [name, setName] = useState(user.name || "");
   const [email, setEmail] = useState(user.email || "");
@@ -57,13 +58,13 @@ const EditProfile = ({ setIsEditing }) => {
       {error && <p className="text-red-600 mb-4">{error}</p>}
 
       {/* 画像プレビューと削除ボタン */}
-      {profileImage && (
-        <div className="flex items-center mb-4 gap-4">
-          <img
-            src={profileImage}
-            alt="profile"
-            className="w-32 h-32 object-cover rounded"
-          />
+      <div className="flex flex-col items-center mb-6">
+        <img
+          src={profileImage || defaultProfileImage}
+          alt="profile"
+          className="w-32 h-32 object-cover rounded mb-3"
+        />
+        {profileImage && (
           <button
             type="button"
             onClick={handleDeleteClick}
@@ -71,33 +72,33 @@ const EditProfile = ({ setIsEditing }) => {
           >
             画像削除
           </button>
-        </div>
-      )}
+        )}
+      </div>
 
       <form onSubmit={handleSubmit}>
         {/* ファイル選択＆アップロード */}
-<div className="flex flex-wrap items-center gap-4 mb-6">
-  <input
-    type="file"
-    accept="image/*"
-    onChange={handleFileChange}
-    className="border border-gray-300 rounded px-2 py-1 flex-shrink"
-    style={{ minWidth: 0 }} // flexboxで縮まるように安全対策
-  />
-  <button
-    type="button"
-    onClick={handleUploadClick}
-    disabled={isUploading || !selectedFile}
-    className={`px-4 py-2 rounded text-white ${
-      isUploading || !selectedFile
-        ? "bg-gray-400 cursor-not-allowed"
-        : "bg-green-500 hover:bg-green-700"
-    }`}
-    style={{ minWidth: "120px" }} // ボタン幅を固定か最小値に設定
-  >
-    {isUploading ? "アップロード中..." : "アップロード"}
-  </button>
-</div>
+        <div className="flex flex-wrap items-center gap-4 mb-6">
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleFileChange}
+            className="border border-gray-300 rounded px-2 py-1 flex-shrink"
+            style={{ minWidth: 0 }} // flexboxで縮まるように安全対策
+          />
+          <button
+            type="button"
+            onClick={handleUploadClick}
+            disabled={isUploading || !selectedFile}
+            className={`px-4 py-2 rounded text-white ${
+              isUploading || !selectedFile
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-green-500 hover:bg-green-700"
+            }`}
+            style={{ minWidth: "120px" }} // ボタン幅を固定か最小値に設定
+          >
+            {isUploading ? "アップロード中..." : "アップロード"}
+          </button>
+        </div>
 
         {/* 名前入力 */}
         <div className="mb-4">
