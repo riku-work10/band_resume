@@ -74,15 +74,13 @@ return (
           className="relative flex flex-col sm:flex-row bg-orange-100 rounded-2xl shadow-lg border border-gray-200 overflow-hidden hover:shadow-xl transition"
         >
           {/* プロフィール画像 */}
-          {resume.profile_image && (
             <div className="w-full sm:w-36 flex-shrink-0 sm:h-auto aspect-square sm:aspect-auto bg-gray-100">
               <img
-                src={resume.profile_image}
+                src={resume.profile_image || "https://bandresume.s3.ap-northeast-1.amazonaws.com/profile_images/default_ogp.jpg"}
                 alt={resume.title}
                 className="w-full h-full object-cover sm:rounded-l-2xl"
               />
             </div>
-          )}
 
           {/* 情報エリア */}
           <div className="flex flex-col justify-between p-4 flex-grow min-h-[150px]">

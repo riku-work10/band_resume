@@ -83,15 +83,13 @@ const EventPage = () => {
                 className="relative flex bg-orange-100 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition"
               >
                 {/* 左側：画像 */}
-                {event.image && (
                   <Link to={`/events/${event.id}`} className="flex-shrink-0 w-32 h-32 md:w-40 md:h-40">
                     <img
-                      src={event.image}
+                      src={event.image || "https://bandresume.s3.ap-northeast-1.amazonaws.com/profile_images/default_ogp.jpg"}
                       alt={event.title}
                       className="w-full h-full object-cover"
                     />
                   </Link>
-                )}
 
                 {/* 右側：テキスト情報 */}
                 <div className="flex flex-col justify-between p-2 flex-grow">

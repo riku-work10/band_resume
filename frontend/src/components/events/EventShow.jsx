@@ -56,13 +56,11 @@ const EventShow = () => {
           {/* イベントヘッダー */}
           <div className="mb-6 flex flex-col sm:flex-row items-center sm:items-start justify-center text-center sm:text-left space-y-4 sm:space-y-0 sm:space-x-6 max-w-5xl mx-auto">
             {/* イベント画像 */}
-            {event.image && (
               <img
-                src={event.image}
+                src={event.image || "https://bandresume.s3.ap-northeast-1.amazonaws.com/profile_images/default_ogp.jpg"}
                 alt={event.title}
                 className="w-auto max-h-40 object-contain rounded-xl border-2 border-gray-300"
               />
-            )}
 
             {/* タイトル・紹介文・ボタン */}
             <div className="flex-1 max-w-5xl w-full">
