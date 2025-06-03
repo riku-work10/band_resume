@@ -19,7 +19,7 @@ Rails.application.routes.draw do
           patch :read_all
         end
       end
-      resources :messages, only: [:index, :create, :update, :destroy]
+      resources :messages, only: [:index]
       resources :users, only: [:create, :show, :update, :destroy]
       resources :resumes do
         resources :resume_comments, only: [:index, :create, :destroy, :update]
