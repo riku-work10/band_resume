@@ -8,6 +8,7 @@ import { MdDelete, MdEdit } from "react-icons/md";
 import { useAuth } from '../../hooks/AuthContext';
 import ResumesShowSectionItemDetail from './ResumesShowSectionItemDetail';
 import ResumeShareButton from './ResumeShareButton';
+import { FaXTwitter } from "react-icons/fa6";
 
 const ResumePageShow = () => {
   const { resumeId } = useParams(); // URLパラメータからIDを取得
@@ -78,11 +79,16 @@ const ResumePageShow = () => {
                   {/* 場所とリンクを横並び */}
                   <div className="flex space-x-4">
                     <p>場所: {resume.location}</p>
-                    {resume.sns_url && (
-                      <a href={resume.sns_url} target="_blank" rel="noopener noreferrer" className="text-blue-500">
-                        SNSリンク
-                      </a>
-                    )}
+                  {resume.sns_url && (
+                    <a
+                      href={`https://x.com/${resume.sns_url.replace('@', '')}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center text-blue-500 hover:underline gap-1"
+                    >
+                      <FaXTwitter className="text-black bg-white p- text-xl" />
+                    </a>
+                  )}
                   </div>
                   {/* 紹介文は大きめに表示 */}
                   <p className="text-lg mt-2">{resume.introduction}</p>

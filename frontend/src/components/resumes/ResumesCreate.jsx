@@ -132,11 +132,12 @@ const ResumesCreate = ({ onClose }) => {
         </div>
 
         <div>
-          <label className="text-black">SNSリンク：</label>
+          <label className="text-black">Xユーザー名（@から入力）：</label>
           <input
             type="text"
             value={snsUrl}
             onChange={(e) => setSnsUrl(e.target.value)}
+            placeholder="@example"
             className="border border-gray-300 p-2 w-full rounded text-black"
           />
         </div>
