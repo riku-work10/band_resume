@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-export const useS3Upload = (userId) => {
-  const [profileImage, setProfileImage] = useState("");
+export const useS3Upload = (userId, initialProfileImage = "") => {
+  const [profileImage, setProfileImage] = useState(initialProfileImage);
   const [selectedFile, setSelectedFile] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
 
