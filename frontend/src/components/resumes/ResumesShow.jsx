@@ -73,12 +73,18 @@ const ResumePageShow = () => {
                   <h2 className="text-xl font-bold">{resume.title}</h2>
                   {/* 年齢と性別を横並び */}
                   <div className="flex space-x-4">
-                    <p>年齢: {resume.age}歳</p>
-                    <p>性別: {resume.gender}</p>
+                    {resume.age && (
+                      <p>年齢: {resume.age}歳</p>
+                    )}
+                    {resume.gender && (
+                      <p>性別: {resume.gender}</p>
+                    )}
                   </div>
                   {/* 場所とリンクを横並び */}
                   <div className="flex space-x-4">
+                  {resume.location && (
                     <p>場所: {resume.location}</p>
+                  )}
                   {resume.sns_url && (
                     <a
                     href={`https://x.com/${resume.sns_url.replace('@', '')}`}
