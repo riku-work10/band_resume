@@ -40,50 +40,65 @@ const OpenChatPage = () => {
 
   useEffect(() => {
     if (!token || !client || !uid) return;
-  
+
     let reconnectAttempts = 0;
     const maxReconnectAttempts = 5;
-  
+
     const cable = getCable(token, uid, client);
-  
+
     const createSubscription = () => {
       cableRef.current = cable.subscriptions.create(
         { channel: "ChatChannel" },
         {
           connected() {
             console.log("✅ Connected to ChatChannel");
-            reconnectAttempts = 0; // 成功したらリセット
+            reconnectAttempts = 0;
           },
           disconnected() {
             console.log("⚠️ Disconnected from ChatChannel");
-  
+
             if (reconnectAttempts < maxReconnectAttempts) {
-              const timeout = Math.min(3000 * (reconnectAttempts + 1), 10000); // だんだん待ち時間延ばす
+              const timeout = Math.min(3000 * (reconnectAttempts + 1), 10000);
               setTimeout(() => {
                 console.log(`🔄 Reconnecting... (attempt ${reconnectAttempts + 1})`);
                 reconnectAttempts++;
-                createSubscription(); // 再度購読
+                createSubscription();
               }, timeout);
             } else {
               console.log("❌ Reconnect limit reached. Giving up.");
             }
           },
           received: (data) => {
-            setMessages((prev) => [...prev, data.message]);
+            if (data.action === "edit") {
+              setMessages((prev) =>
+                prev.map((msg) =>
+                  msg.id === data.message_id
+                    ? { ...msg, content: data.new_content }
+                    : msg
+                )
+              );
+            } else if (data.action === "delete") {
+              setMessages((prev) =>
+                prev.filter((msg) => msg.id !== data.message_id)
+              );
+            } else if (data.message) {
+              setMessages((prev) => [...prev, data.message]);
+            }
           },
         }
       );
     };
-  
+
     createSubscription();
-  
+
     return () => {
       if (cableRef.current) {
         cableRef.current.unsubscribe();
       }
-      cable.disconnect(); // 念のため切断
+      cable.disconnect();
     };
   }, [token, client, uid]);
+
   
 
   const sendMessage = () => {
@@ -107,35 +122,21 @@ const OpenChatPage = () => {
     setContent(""); // 入力欄をクリア
   };
 
-  const updateMessage = async () => {
+  const updateMessage = () => {
     if (!content.trim() || !editingMessage) return;
 
-    try {
-      const res = await apiClient.put(`/messages/${editingMessage.id}`, {
-        message: { content },
-      });
+    cableRef.current.perform("edit_message", {
+      message_id: editingMessage.id,
+      new_content: content,
+    });
 
-      // メッセージを更新
-      setMessages((prev) =>
-        prev.map((msg) =>
-          msg.id === res.data.id ? { ...msg, content: res.data.content } : msg
-        )
-      );
-
-      cancelEdit(); // 編集をキャンセル
-    } catch (err) {
-      console.error("メッセージの更新に失敗しました:", err);
-    }
+    cancelEdit(); // ローカル編集状態をリセット
   };
 
-  // メッセージ削除の処理
-  const deleteMessage = async (messageId) => {
-    try {
-      await apiClient.delete(`/messages/${messageId}`);
-      setMessages((prev) => prev.filter((msg) => msg.id !== messageId));
-    } catch (err) {
-      console.error("メッセージの削除に失敗しました:", err);
-    }
+  const deleteMessage = (messageId) => {
+    cableRef.current.perform("delete_message", {
+      message_id: messageId,
+    });
   };
 
 return (
