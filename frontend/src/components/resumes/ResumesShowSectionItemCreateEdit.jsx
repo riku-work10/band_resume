@@ -16,7 +16,7 @@ const ResumesShowSectionItemCreateEdit = () => {
         {/* ヘッダー */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8">
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4 sm:mb-0">
-            履歴書内容作成/編集
+          {resume.resume_sections.length > 0 ? "履歴書内容の編集" : "履歴書内容の作成"}
           </h1>
           <div className="flex flex-col sm:flex-row gap-3">
             <button 
