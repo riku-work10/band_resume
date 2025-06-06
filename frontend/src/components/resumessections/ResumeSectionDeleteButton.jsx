@@ -1,27 +1,24 @@
-import React from 'react';
-import apiClient from '../../services/apiClient';
 import { MdDelete } from "react-icons/md";
+import apiClient from '../../services/apiClient';
 
 export const ResumeSectionDeleteButton = ({ resumeSectionsList, setResumeSectionsList, resumeSection, resumeId }) => {
-  //タスクカードを削除する
   const resumeSectionDeleteButton = async (sectionId) => {
     try {
-      const response = await apiClient.delete(`resumes/${resumeId}/resume_sections/${resumeSection.id}`);  // タスクの削除リクエスト
-      console.log(response.data.message);  // 成功メッセージ
-
-      // タスクを削除した後、リストからそのタスクを削除
-      setResumeSectionsList(resumeSectionsList.filter((section) => section.id !== sectionId));  // タスクリストを更新
+      const response = await apiClient.delete(`resumes/${resumeId}/resume_sections/${resumeSection.id}`);
+      console.log(response.data.message);
+      setResumeSectionsList(resumeSectionsList.filter((section) => section.id !== sectionId));
     } catch (error) {
-      console.error('Error deleting task:', error);
+      console.error('Error deleting section:', error);
     }
   };
-  
+
   return (
-    <div>
-      <button 
-        onClick={() => resumeSectionDeleteButton(resumeSection.id)} 
-       className="py-2 px-4 bg-red-500 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400">
-        <MdDelete />
-      </button>
-    </div>
-  )};
+    <button 
+      onClick={() => resumeSectionDeleteButton(resumeSection.id)} 
+      className="p-2 bg-red-700 hover:bg-red-800 text-white rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-red-500"
+      title="セクションを削除"
+    >
+      <MdDelete size={18} />
+    </button>
+  );
+};

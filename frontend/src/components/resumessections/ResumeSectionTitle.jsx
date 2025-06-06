@@ -2,58 +2,65 @@ import React, { useState } from 'react';
 import apiClient from '../../services/apiClient';
 
 export const ResumeSectionTitle = ({ resumeSectionsList, setResumeSectionsList, resumeSection, resumeId }) => {
-const [isClick, setIsClick] = useState(false)
-const [inputResumeSectionTitle, setInputResumeSectionTitle] = useState(resumeSection.title || "タイトル")
+  const [isEditing, setIsEditing] = useState(false);
+  const [inputTitle, setInputTitle] = useState(resumeSection.title || '');
 
+  const handleChange = (e) => {
+    setInputTitle(e.target.value);
+  };
 
-const hundleSubmit = async (e) => {
-  e.preventDefault();  //フォームでエンターを押してもページが更新されないようにする
+  const saveTitle = async () => {
+    try {
+      const trimmedTitle = inputTitle.trim();
+      const response = await apiClient.put(`resumes/${resumeId}/resume_sections/${resumeSection.id}`, {
+        resume_section: {
+          title: trimmedTitle,
+        },
+      });
+      setResumeSectionsList(resumeSectionsList.map(section =>
+        section.id === resumeSection.id ? response.data : section
+      ));
+    } catch (error) {
+      console.error("Error updating section title:", error);
+    } finally {
+      setIsEditing(false);
+    }
+  };
 
-  try {
-    const response = await apiClient.put(`resumes/${resumeId}/resume_sections/${resumeSection.id}`, {
-      resume_section: {
-        title: inputResumeSectionTitle,
-      },
-    });
-    // 成功したら、更新されたタスクをリストに反映
-    setResumeSectionsList(resumeSectionsList.map(section => 
-      section.id === resumeSection.id ? response.data : section
-    ));
-    setIsClick(false);  // 編集モード終了
-  } catch (error) {
-    console.error("Error updating task:", error);
-  }
-};
+  const handleBlur = () => {
+    saveTitle();
+  };
 
-const handleClick = () => {
-  setIsClick(true);
-};
-
-const handleChange = (e) => {
-  setInputResumeSectionTitle(e.target.value)
-};
-
-//inputタブからマウスを外したときにクリックしたら呼び出されるもの
-const handleBlur = () => {
-  setIsClick(false)
-};
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    saveTitle();
+  };
 
   return (
-    <div onClick={handleClick} className='taskCardTitleInputArea'>
-      {isClick ? 
-      (<form onSubmit={hundleSubmit}>
-        <input 
-        className='taskCardTitleInput'
-        type="text"
-        autoFocus
-        onChange={handleChange}
-        onBlur={handleBlur}
-        value={inputResumeSectionTitle}
-        placeholder='aaa'
-        maxLength={10}/>
-      </form>) : 
-      (<h3 className='inputResumeSectionTitleText'>
-        {inputResumeSectionTitle}
-      </h3>)}
+    <div className="w-full">
+      {isEditing ? (
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            value={inputTitle}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            autoFocus
+            maxLength={20}
+            placeholder="セクションタイトルを入力"
+            className="w-full bg-stone-800 text-white placeholder-stone-400 border border-stone-600 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-600 transition"
+          />
+        </form>
+      ) : (
+        <div
+          onClick={() => setIsEditing(true)}
+          className={`w-full bg-stone-800 border border-stone-600 rounded-lg px-4 py-2 cursor-pointer hover:bg-stone-700 transition ${
+            inputTitle ? 'text-white' : 'text-stone-400 italic'
+          }`}
+        >
+          {inputTitle || 'セクションタイトルを入力'}
+        </div>
+      )}
     </div>
-  )};
+  );
+};
