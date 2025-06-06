@@ -1,0 +1,127 @@
+export const ALBUM_SONGS = {
+  "センスオブワンダー": [
+    { id: 1, title: "君にしか" },
+    { id: 2, title: "カントリーロード" },
+    { id: 3, title: "いつかきっと出会う" },
+    { id: 4, title: "ラブソング" },
+    { id: 5, title: "21世紀" },
+    { id: 6, title: "みどり" },
+    { id: 7, title: "アストロビスタ" },
+    { id: 8, title: "ヨーロービル、朝" },
+    { id: 9, title: "春のテーマ" },
+    { id: 10, title: "ウルトラマリン" }
+  ],
+  "星屑の歌": [
+    { id: 11, title: "predawn" },
+    { id: 12, title: "俺達が呼んでいる" },
+    { id: 13, title: "ファイト‼" },
+    { id: 14, title: "Mayday" },
+    { id: 15, title: "君は何処へも行けない" },
+    { id: 16, title: "October's" },
+    { id: 17, title: "宇宙飛行士" },
+    { id: 18, title: "パレード" }
+  ],
+  "永遠の花": [
+    { id: 29, title: "星世界航行曲" },
+    { id: 30, title: "幸せになろうよ" },
+    { id: 31, title: "心" },
+    { id: 32, title: "俺よ勇敢に行け" },
+    { id: 33, title: "Tough to be a Hugh" },
+    { id: 34, title: "世界を終わらせて" },
+    { id: 35, title: "ゆめにみえきし" },
+    { id: 36, title: "エース" },
+    { id: 37, title: "冬のマーチ" },
+    { id: 38, title: "QUATTRO YOUTH" },
+    { id: 39, title: "それいけステアーズ" },
+    { id: 40, title: "僕らは街を光らせた" }
+  ],
+  "THE BAND STAR": [
+    { id: 19, title: "THE BAND STAR" },
+    { id: 20, title: "夏のまほろ" },
+    { id: 21, title: "優しく飛んでゆけ" },
+    { id: 22, title: "100億年先のずっと先まで" },
+    { id: 23, title: "ろくでもねえ" },
+    { id: 24, title: "フュージョン" },
+    { id: 25, title: "PEAK'D YELLOW" },
+    { id: 26, title: "ピンクムーン" },
+    { id: 27, title: "プレーメン" },
+    { id: 28, title: "友達" }
+  ],
+  "ニューマニア": [
+    { id: 41, title: "つばさ" },
+    { id: 42, title: "フルアイビール" },
+    { id: 43, title: "明け星フューチャー" },
+    { id: 44, title: "いつでもどこにでもあって" },
+    { id: 45, title: "光インザファミリー" },
+    { id: 46, title: "地図" },
+    { id: 47, title: "アワーライフ(ニューマニアver.)" },
+    { id: 48, title: "青春讃歌" },
+    { id: 49, title: "ハッシャダイの丘" },
+    { id: 50, title: "To Bring BACK MEMORIES" },
+    { id: 51, title: "飛空船「ジュブナイル号」" },
+    { id: 52, title: "ライダース" },
+    { id: 53, title: "ベターハーフ" },
+    { id: 54, title: "赤青緑で白いうた" }
+  ],
+  "生きるとは鼻くそくらいの希望を持つことだ": [
+    { id: 55, title: "さらば" },
+    { id: 56, title: "The Landolt C" },
+    { id: 57, title: "第六感とテレパシー" },
+    { id: 58, title: "サニーブルース" },
+    { id: 59, title: "すっからかん" },
+    { id: 60, title: "陽光" },
+    { id: 61, title: "YAEN" },
+    { id: 62, title: "友と君へ" },
+    { id: 63, title: "K・O・M・A・T・S・U" },
+    { id: 64, title: "心の真ん中を叩けば" },
+    { id: 65, title: "ラストベット" },
+    { id: 66, title: "涙はどこから来るのだろう" },
+    { id: 67, title: "僕たちの悲しみはどこへ行く" }
+  ],
+  "symbol": [
+    { id: 68, title: "ラブソング" },
+    { id: 69, title: "unconditional" },
+    { id: 70, title: "ヨーロービル、朝" },
+    { id: 71, title: "symbol" }
+  ],
+  "それいけステアーズ": [
+    { id: 72, title: "それいけステアーズ" },
+    { id: 73, title: "デイドリーム" },
+    { id: 74, title: "春はあけぼの" }
+  ],
+  "世界を終わらせて": [
+    { id: 75, title: "世界を終わらせて" },
+    { id: 76, title: "QUATTRO YOUTH" }
+  ],
+  "PEAK'D YELLOW": [
+    { id: 77, title: "PEAK'D YELLOW" },
+    { id: 78, title: "君と僕にしか出来ない事がある" },
+    { id: 79, title: "これさえあればいい" }
+  ],
+  "ドーナツ船-EP": [
+    { id: 80, title: "光インザファミリー" },
+    { id: 81, title: "ヨーローホー" },
+    { id: 82, title: "裸足になれるはず" },
+    { id: 83, title: "ベターハーフ" }
+  ],
+  "Symbol 2（CD1）": [
+    { id: 84, title: "Symbol 2" },
+    { id: 85, title: "みんなにもよろしく" },
+    { id: 86, title: "満・地球の出" },
+    { id: 87, title: "オンゴール" },
+    { id: 88, title: "BOYSISM" }
+  ],
+  "Symbol 2（CD2）": [
+    { id: 89, title: "ハローグッバイ" },
+    { id: 90, title: "燦拍子" },
+    { id: 91, title: "遥" },
+    { id: 92, title: "シクリッドと秘密" },
+    { id: 93, title: "風に吹かれて" },
+    { id: 94, title: "city" },
+    { id: 95, title: "革命前夜" },
+    { id: 96, title: "unconditional" }
+  ],
+  "その他": [
+    { id: 97, title: "to be continued" }
+  ]
+};
