@@ -1,9 +1,6 @@
 import React from 'react';
+import { MdAdd } from "react-icons/md";
 import apiClient from '../../services/apiClient';
-
-//フォームで入力した内容をnewTaskDataでオブジェクトを作成（textとかtitleとか入れる）
-//→そのデータをバックに送信
-//→レスポンスのデータをsetTaskCardsListで更新
 
 export const AddResumeSectionButton = ({ resumeSectionsList, setResumeSectionsList, resumeId }) => {
   const addResumeSection = async () => {
@@ -11,16 +8,26 @@ export const AddResumeSectionButton = ({ resumeSectionsList, setResumeSectionsLi
       title: null,
       position: null 
     };
-    // タスクを POST で Rails API に送信
-    apiClient.post(`resumes/${resumeId}/resume_sections`, { resume_section: newResumeSectionData })
-      .then((response) => {
-        setResumeSectionsList ([...resumeSectionsList, response.data]);  // 新しいタスクをリストに追加
-      })
-      .catch(error => console.error('Error adding task:', error));
+    
+    try {
+      const response = await apiClient.post(`resumes/${resumeId}/resume_sections`, { 
+        resume_section: newResumeSectionData 
+      });
+      setResumeSectionsList([...resumeSectionsList, response.data]);
+    } catch (error) {
+      console.error('Error adding section:', error);
+    }
   };
 
   return (
-    <div className='addTaskCardButtonArea'>
-      <button className='addTaskCardButton' onClick={addResumeSection}>+</button>
+    <div className="flex justify-center">
+      <button 
+        className="flex items-center gap-2 px-6 py-3 bg-orange-600 hover:bg-orange-700 text-white rounded-lg font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-amber-500" 
+        onClick={addResumeSection}
+      >
+        <MdAdd size={20} />
+        セクションを追加
+      </button>
     </div>
-  )};
+  );
+};

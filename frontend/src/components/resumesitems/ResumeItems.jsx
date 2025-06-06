@@ -1,40 +1,37 @@
 import React from 'react';
-import { DragDropContext, Droppable} from "react-beautiful-dnd"
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import apiClient from '../../services/apiClient';
 import { ResumeItem } from './ResumeItem';
 
-
-const reorder = (itemList, startIndex, endIndex ) => {
-    //タスクを並びかえる
-    const remove = itemList.splice(startIndex, 1);
-    itemList.splice(endIndex, 0, remove[0]);
+const reorder = (itemList, startIndex, endIndex) => {
+  const remove = itemList.splice(startIndex, 1);
+  itemList.splice(endIndex, 0, remove[0]);
 }
 
 export const ResumeItems = ({ itemList, setItemList, resumeSection, resumeId }) => {
-
   const handleDragEnd = async (result) => {
-    reorder(itemList, result.source.index, result.destination.index)  //result.source.indexはつかんだ元の位置　//result.destination.indexはドロップした位置
-    setItemList(itemList)  //taskCardsListが入れ替えた配列だ！
+    if (!result.destination) return;
+    
+    reorder(itemList, result.source.index, result.destination.index);
+    setItemList([...itemList]);  // 配列のコピーをセット
 
     const reorderedResumeitem = itemList.map((item, index) => ({
       ...item,
-      position: index  // 新しい位置（index）を position として設定
+      position: index
     }));
-    console.log(reorderedResumeitem)
-    setItemList(reorderedResumeitem)
+
+    setItemList(reorderedResumeitem);
 
     try {
-      // 並べ替えた順番をバックエンドに送信
       await apiClient.put(`resumes/${resumeId}/resume_sections/${resumeSection.id}/resume_items/update_position`, {
-        items: reorderedResumeitem.map(item => ({  //itemsの部分はバックエンドで設定した名前に変更ね！
+        items: reorderedResumeitem.map(item => ({
           id: item.id,
-          position: item.position  // 新しい position を送信
+          position: item.position
         }))
       });
-
-      console.log('Task positions updated successfully');
+      console.log('Item positions updated successfully');
     } catch (error) {
-      console.error('Error updating task positions:', error);
+      console.error('Error updating item positions:', error);
     }
   }
 
@@ -42,21 +39,22 @@ export const ResumeItems = ({ itemList, setItemList, resumeSection, resumeId }) 
     <div>
       <DragDropContext onDragEnd={handleDragEnd}>
         <Droppable droppableId="droppable">
-          {(provided) => 
-          <div {...provided.droppableProps} ref={provided.innerRef}>
-            {itemList.map((item, index) => (
-            <div key={item.id}>
-              <ResumeItem
-              index={index}
-              item={item}
-              itemList={itemList} 
-              setItemList={setItemList}
-              />
+          {(provided) => (
+            <div {...provided.droppableProps} ref={provided.innerRef} className="space-y-2">
+              {itemList.map((item, index) => (
+                <ResumeItem
+                  key={item.id}
+                  index={index}
+                  item={item}
+                  itemList={itemList} 
+                  setItemList={setItemList}
+                />
+              ))}
+              {provided.placeholder}
             </div>
-            ))}
-            {provided.placeholder}
-          </div>}
+          )}
         </Droppable>
       </DragDropContext>
     </div>
-  );};
+  );
+};
