@@ -69,7 +69,7 @@ class Api::V1::ResumeItemsController < ApplicationController
   end
 
   def resume_item_params
-    params.require(:resume_item).permit(:content, :position)
+    params.require(:resume_item).permit(:content, :position, :song_title)
   end
 end
 

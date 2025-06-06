@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_06_03_110732) do
+ActiveRecord::Schema[7.1].define(version: 2025_06_06_033525) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -91,6 +91,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_06_03_110732) do
     t.bigint "resume_section_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "song_title"
     t.index ["resume_section_id"], name: "index_resume_items_on_resume_section_id"
   end
 
