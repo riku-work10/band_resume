@@ -43,35 +43,35 @@ const SetlistEditForm = () => {
   
     try {
       // 本番曲の更新（タイトルが空なら削除扱い）
-      for (let i = 0; i < songs.length; i++) {
-        const song = songs[i];
-        const updatedOrder = i + 1;
-
+      for (const song of songs) {
         if (song.id) {
           await apiClient.put(`/events/${event.id}/setlists/${song.id}`, {
-            setlist: { title: song.title, order: updatedOrder },
+            setlist: { title: song.title, order: song.order },
           });
         } else if (song.title.trim() !== "") {
           await apiClient.post(`/events/${event.id}/setlists`, {
-            setlist: { title: song.title, order: updatedOrder },
+            setlist: { title: song.title, order: song.order },
           });
         }
       }
+  
       // アンコール曲の更新（タイトルが空なら削除扱い）
-      for (let i = 0; i < encoreSongs.length; i++) {
-        const encoreSong = encoreSongs[i];
-        const updatedOrder = `En-${i + 1}`;
+      for (const encoreSong of encoreSongs) {
+        const formattedOrder = String(encoreSong.order).startsWith("En-")
+          ? encoreSong.order
+          : `En-${encoreSong.order}`;
 
         if (encoreSong.id) {
           await apiClient.put(`/events/${event.id}/setlists/${encoreSong.id}`, {
-            setlist: { title: encoreSong.title, order: updatedOrder },
+            setlist: { title: encoreSong.title, order: formattedOrder },
           });
         } else if (encoreSong.title.trim() !== "") {
           await apiClient.post(`/events/${event.id}/setlists`, {
-            setlist: { title: encoreSong.title, order: updatedOrder },
+            setlist: { title: encoreSong.title, order: formattedOrder },
           });
         }
       }
+  
       // 更新後のイベントページにリダイレクト
       navigate(`/events/${event.id}`);
     } catch (error) {
