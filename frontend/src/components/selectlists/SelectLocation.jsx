@@ -1,5 +1,3 @@
-import React from "react";
-
 const prefectures = [
   "北海道", "青森県", "岩手県", "宮城県", "秋田県", "山形県", "福島県",
   "茨城県", "栃木県", "群馬県", "埼玉県", "千葉県", "東京都", "神奈川県",
@@ -12,7 +10,11 @@ const prefectures = [
 
 const SelectLocation = ({ value, onChange }) => {
   return (
-    <select value={value} onChange={onChange} className="border border-gray-300 p-2 w-full rounded  text-white">
+    <select
+      value={value}
+      onChange={onChange}
+      className="w-full border border-stone-600 bg-stone-900 text-white p-2 rounded"
+    >
       <option value="">都道府県を選択</option>
       {prefectures.map((pref) => (
         <option key={pref} value={pref}>
