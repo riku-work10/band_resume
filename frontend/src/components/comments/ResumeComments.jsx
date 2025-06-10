@@ -1,4 +1,3 @@
-// src/components/ResumeComments.jsx
 import React, { useState, useEffect } from "react";
 import apiClient from "../../services/apiClient";
 import { useAuth } from "../../hooks/AuthContext";
@@ -14,7 +13,8 @@ const ResumeComments = ({ resumeId }) => {
   // コメント一覧を取得
   useEffect(() => {
     apiClient
-      .get(`/resumes/${resumeId}/resume_comments`)
+      .get(`/resumes/${
+        resumeId}/resume_comments`)
       .then((response) => {
         setComments(response.data || []);
       })
@@ -91,14 +91,13 @@ const ResumeComments = ({ resumeId }) => {
   };
 
   return (
-    <div>
-      <h3 className="text-2xl font-semibold">コメント</h3>
+    <div className="text-white">
+      <h3 className="text-2xl font-semibold mb-4">コメント</h3>
       {comments.map((comment) => (
-        <div key={comment.id} className="border-b border-gray-300 py-4 flex justify-between items-center">
-          <p className="text-lg flex-1">
+        <div key={comment.id} className="border-b border-stone-600 py-4 flex justify-between items-center">
+          <p className="text-lg flex-1 text-white">
             <strong>{comment.user.name}</strong>: {comment.content}
           </p>
-          <div className="flex space-x-4 ml-4">
           {user && user.id === comment.user_id && (
             <div className="flex space-x-4 ml-4">
               <button
@@ -114,7 +113,6 @@ const ResumeComments = ({ resumeId }) => {
             </div>
           )}
           </div>
-        </div>
       ))}
 
       {user && (
@@ -123,13 +121,13 @@ const ResumeComments = ({ resumeId }) => {
             value={content}
             onChange={(e) => setContent(e.target.value)}
             required
-            className="w-full p-2 border border-gray-300 rounded-lg"
+            className="w-full p-2 border border-stone-600 bg-stone-800 text-white rounded-lg"
             rows="3"
             placeholder="コメントを入力..."
           />
           <button
             type="submit"
-            className="mt-2 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+            className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
           >
             投稿
           </button>
@@ -138,26 +136,26 @@ const ResumeComments = ({ resumeId }) => {
 
       {/* 編集モーダル */}
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <h4 className="text-xl font-semibold">コメント編集</h4>
+        <h4 className="text-xl font-semibold mb-2 text-black">コメント編集</h4>
         <form onSubmit={handleEditSubmit}>
           <textarea
             value={content}
             onChange={(e) => setContent(e.target.value)}
             required
-            className="w-full p-2 border border-gray-300 rounded-lg"
+            className="w-full p-2 border border-stone-600 bg-stone-800 text-white rounded-lg"
             rows="3"
           />
           <div className="mt-4 flex justify-end gap-4">
             <button
               type="button"
               onClick={() => setIsModalOpen(false)}
-              className="bg-gray-500 text-white px-4 py-2 rounded-lg"
+              className="bg-stone-500 hover:bg-stone-600 text-white px-4 py-2 rounded-lg"
             >
               キャンセル
             </button>
             <button
               type="submit"
-              className="bg-blue-500 text-white px-4 py-2 rounded-lg"
+              className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
             >
               更新
             </button>

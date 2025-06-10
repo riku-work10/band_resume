@@ -89,9 +89,11 @@ const EventPage = () => {
                   <Link to={`/events/${event.id}`} className="hover:underline text-stone-100 font-semibold text-lg">
                     {event.title}
                   </Link>
-                  <p className="text-stone-400 mt-1 text-sm">
-                    {event.date} @ {event.location}
-                  </p>
+                  {/* {event.location && event.date ()} */}
+                  <div className="flex text-stone-400 mt-1 text-sm">
+                  {event.location && (<p> in {event.location}</p>)}
+                  {event.date && (<p className='ml-1'> @ {event.date} </p>)}
+                  </div>
                   <p className="text-stone-300 mt-2 text-sm">{event.introduction}</p>
 
                   {/* タグ */}
