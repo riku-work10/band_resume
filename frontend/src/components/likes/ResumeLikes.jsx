@@ -50,27 +50,11 @@ const ResumeLikes = () => {
                   className="w-full h-36 object-cover rounded-md mb-2"
                 />
               )}
-              <h2 className="text-lg font-semibold">{resume.title}</h2>
-              <p className="text-sm text-stone-200">年齢: {resume.age}歳</p>
+              <h2 className="text-lg font-semibold">{}の履歴書</h2>
+              <p className="text-sm text-stone-200">年齢: {resume.age}</p>
               <p className="text-sm text-stone-200">性別: {resume.gender}</p>
               <p className="text-sm text-stone-200">場所: {resume.location}</p>
               <p className="text-sm text-stone-300 truncate">{resume.introduction}</p>
-
-              {resume.sns_url && (
-                <span
-                  onClick={(e) => e.stopPropagation()}
-                  className="text-orange-400 text-sm mt-2 inline-block"
-                >
-                  <a
-                    href={resume.sns_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    SNSリンク
-                  </a>
-                </span>
-              )}
             </Link>
           ))}
         </div>

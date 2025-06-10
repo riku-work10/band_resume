@@ -1,4 +1,3 @@
-import React from 'react';
 import { MdDelete, MdEdit } from "react-icons/md";
 
 const EventOwnerButtons = ({ onEdit, onDelete }) => {

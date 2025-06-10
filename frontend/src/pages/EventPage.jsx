@@ -129,9 +129,9 @@ const EventPage = () => {
       <div className="fixed bottom-24 right-6 z-50">
         <button
           onClick={() => setIsModalOpen(true)}
-          className="bg-orange-600 text-white px-5 py-2 rounded shadow-lg hover:bg-orange-700 transition"
+          className="bg-orange-600 text-white px-5 py-2 rounded shadow-lg hover:bg-orange-700 transition text-2xl"
         >
-          イベント作成
+          投稿
         </button>
       </div>
 

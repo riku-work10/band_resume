@@ -90,7 +90,7 @@ const ResumePage = () => {
                   <Link to={`/resumes/${resume.id}`} className="hover:underline block">
                     {/* タイトル */}
                     <h2 className="text-lg font-semibold text-stone-100 mb-2 break-words">
-                      {user.name}の履歴書
+                      {}の履歴書
                     </h2>
 
                     {/* 年齢・性別・場所 */}

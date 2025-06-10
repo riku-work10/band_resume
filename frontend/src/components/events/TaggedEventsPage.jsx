@@ -31,7 +31,7 @@ const TaggedEventsPage = () => {
 
   return (
     <div className="pt-4 px-6 mb-6">
-      <h1 className="text-2xl font-bold mb-4">#{tagName} のイベント</h1>
+      <h1 className="text-2xl font-bold mb-4 ">{tagName}</h1>
       {events.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {events.map((event) => (

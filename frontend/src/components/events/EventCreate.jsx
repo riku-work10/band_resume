@@ -61,7 +61,7 @@ const EventCreate = ({ onClose }) => {
         ref={modalRef}
         className="bg-stone-800 text-white max-h-[calc(100vh-30px)] w-full max-w-lg rounded-xl shadow-lg overflow-y-auto p-6"
       >
-        <h2 className="text-xl font-bold mb-4">新しいイベントの作成</h2>
+        <h2 className="text-xl font-bold mb-4">ライブ情報の作成</h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* タイトル */}

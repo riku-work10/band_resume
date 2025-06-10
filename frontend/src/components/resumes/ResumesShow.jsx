@@ -79,7 +79,7 @@ const ResumePageShow = () => {
                 {/* ②③④の縦並びエリア */}
                 <div className="flex-1 space-y-3">
                   {/* ②名前 */}
-                  <h2 className="text-2xl font-bold text-stone-100">{user.name}</h2>
+                  <h2 className="text-2xl font-bold text-stone-100">{}</h2>
                   
                   {/* ③年齢、性別、場所を横並び */}
                   <div className="flex space-x-6">
