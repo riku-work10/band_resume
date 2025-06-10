@@ -19,7 +19,6 @@ const ResumeEdit = ({ resume, onClose, onUpdate }) => {
     deleteImage,
   } = useS3Upload(user.id, "resumes", resume?.profile_image || "");
 
-  const [title, setTitle] = useState("");
   const [previewUrl, setPreviewUrl] = useState("");
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
@@ -31,7 +30,6 @@ const ResumeEdit = ({ resume, onClose, onUpdate }) => {
 
   useEffect(() => {
     if (resume) {
-      setTitle(resume.title);
       setPreviewUrl(resume.profile_image || "");
       setAge(resume.age || "");
       setGender(resume.gender || "");
@@ -64,7 +62,6 @@ const ResumeEdit = ({ resume, onClose, onUpdate }) => {
     try {
       const updatedResumeData = {
         user_id: user.id,
-        title,
         profile_image: profileImage,
         age,
         gender,
@@ -90,19 +87,9 @@ const ResumeEdit = ({ resume, onClose, onUpdate }) => {
         className="bg-stone-800 text-white max-h-[calc(100vh-30px)] overflow-y-auto w-full max-w-xl mx-4 rounded-2xl shadow-xl p-6"
         onClick={(e) => e.stopPropagation()}
       >
-        <h2 className="text-xl font-bold mb-4">履歴書の編集</h2>
+        <h2 className="text-xl font-bold mb-4">{user.name}の履歴書編集</h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block mb-1">タイトル：</label>
-            <input
-              type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              required
-              className="w-full p-2 rounded bg-stone-700 text-white border border-stone-600 focus:outline-none"
-            />
-          </div>
 
           <div>
             <label className="block mb-1">プロフィール画像：</label>
@@ -156,13 +143,18 @@ const ResumeEdit = ({ resume, onClose, onUpdate }) => {
           </div>
 
           <div>
+            <label className="block mb-1">場所：</label>
+            <SelectLocation value={location} onChange={(e) => setLocation(e.target.value)} />
+          </div>
+
+          <div>
             <label className="block mb-1">Xユーザー名（@から入力）：</label>
             <input
               type="text"
               value={snsUrl}
               onChange={(e) => setSnsUrl(e.target.value)}
               placeholder="@example"
-              className="w-full p-2 rounded bg-stone-700 text-white border border-stone-600 focus:outline-none"
+              className="w-full border border-stone-600 bg-stone-900 text-white p-2 rounded"
             />
           </div>
 
@@ -173,21 +165,17 @@ const ResumeEdit = ({ resume, onClose, onUpdate }) => {
               value={playlistUrl}
               onChange={(e) => setPlaylistUrl(e.target.value)}
               placeholder="共有したいプレイリストのURL"
-              className="w-full p-2 rounded bg-stone-700 text-white border border-stone-600 focus:outline-none"
+              className="w-full border border-stone-600 bg-stone-900 text-white p-2 rounded"
             />
           </div>
 
-          <div>
-            <label className="block mb-1">場所：</label>
-            <SelectLocation value={location} onChange={(e) => setLocation(e.target.value)} />
-          </div>
 
           <div>
             <label className="block mb-1">自己紹介：</label>
             <textarea
               value={introduction}
               onChange={(e) => setIntroduction(e.target.value)}
-              className="w-full p-2 rounded bg-stone-700 text-white border border-stone-600 focus:outline-none"
+              className="w-full border border-stone-600 bg-stone-900 text-white p-2 rounded"
             />
           </div>
 
