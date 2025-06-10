@@ -1,0 +1,26 @@
+.arc-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  height: 150px;
+  color: white;
+  font-size: 2rem;
+}
+
+.arc-letter {
+  position: absolute;
+  transform-origin: bottom center;
+  bottom: 0;
+  font-weight: bold;
+  font-family: "serif";
+  letter-spacing: 0.1em;
+}
+
+.arc-label {
+  position: absolute;
+  top: 70px;
+  text-align: center;
+  font-size: 1.2rem;
+  color: white;
+}

@@ -9,6 +9,7 @@ import { useAuth } from '../../hooks/AuthContext';
 import ResumesShowSectionItemDetail from './ResumesShowSectionItemDetail';
 import ResumeShareButton from './ResumeShareButton';
 import { FaXTwitter } from "react-icons/fa6";
+import HarukamiraiTitle from './HarukamiraiTitle';
 
 const ResumePageShow = () => {
   const { resumeId } = useParams(); // URLパラメータからIDを取得
@@ -61,6 +62,7 @@ const ResumePageShow = () => {
     <div>
         {resume ? (
             <div className='mb-6'>
+              <HarukamiraiTitle />
               <div className="mb-6 flex flex-col sm:flex-row items-start space-y-4 sm:space-y-0 sm:space-x-6">
                 {/* 画像部分 */}
                   <img
@@ -70,7 +72,7 @@ const ResumePageShow = () => {
                   />
                 {/* テキスト部分 */}
                 <div className="flex-1">
-                  <h2 className="text-xl font-bold">{user.name}の履歴書</h2>
+                  <h2 className="text-xl font-bold">{user.name}</h2>
                   {/* 年齢と性別を横並び */}
                   <div className="flex space-x-4">
                     {resume.age && (
@@ -108,8 +110,6 @@ const ResumePageShow = () => {
                   </div>
                   )}
                   </div>
-                  {/* 紹介文は大きめに表示 */}
-                  <p className="text-lg mt-2">{resume.introduction}</p>
                 </div>
                 {/* ボタン部分 */}
                 <div className="flex space-x-4 mt-4 sm:mt-0">
