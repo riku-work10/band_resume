@@ -192,15 +192,30 @@ const initialEncoreSongs = event.setlists
   const albums = Object.entries(ALBUM_SONGS);
 
   return (
+    <div>
+      <header className="flex justify-between items-center my-6 max-w-6xl mx-auto">
+  <h1 className="text-4xl font-bold text-stone-100">セットリスト編集</h1>
+  <div className="flex gap-3">
+    <button
+      type="button"
+      onClick={() => navigate(-1)}
+      className="bg-stone-600 hover:bg-stone-500 text-white px-4 py-2 rounded-md"
+    >
+      戻る
+    </button>
+    <button
+      type="button"
+      onClick={handleSubmit}
+      className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md font-semibold"
+    >
+      セットリスト更新
+    </button>
+  </div>
+</header>
     <form
       onSubmit={handleSubmit}
       className="max-w-6xl mx-auto p-6 grid grid-cols-1 md:grid-cols-2 gap-8 min-h-[80vh] bg-stone-800 rounded-lg shadow-lg text-stone-100"
     >
-      <header className="col-span-full mb-6">
-        <h1 className="text-4xl font-bold text-orange-500 border-b-4 border-orange-600 pb-2">
-          セットリスト編集
-        </h1>
-      </header>
 
       <section>
         <h2 className="text-3xl font-bold border-b border-stone-700 pb-2 mb-4">本番曲</h2>
@@ -262,6 +277,7 @@ const initialEncoreSongs = event.setlists
         </p>
       </section>
     </form>
+    </div>
   );
 };
 

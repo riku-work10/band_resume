@@ -167,93 +167,88 @@ const OpenChatPage = () => {
   };
 
 return (
-<div className="relative flex flex-col h-screen bg-black text-white overflow-hidden bg-dawn">
+  <div className="relative flex flex-col h-screen bg-black text-white overflow-hidden bg-dawn">
+    <div className="flex-1 overflow-y-auto px-4 py-2 space-y-2 z-10 bg-dawn">
+      <StarField count={200} />
+        {messages.map((msg) => {
+          const isMine = msg.user?.uid === uid;
+          return (
+            <div key={msg.id} className={`flex ${isMine ? "justify-end" : "justify-start"}`}>
+              <div
+                className={`px-4 py-2 rounded-xl max-w-[75%] text-sm shadow-lg backdrop-blur-sm border border-stone-500/40 ${
+                  isMine ? "bg-orange-600/90 text-white" : "bg-stone-600/90 text-white"
+                }`}
+              >
+                <span className="block text-xs opacity-70 mb-1">{msg.user?.name || "匿名"}</span>
 
-  {/* メッセージエリア */}
-  <div className="flex-1 overflow-y-auto px-4 py-2 space-y-2 z-10 bg-dawn">
-  {/* <StarEffect /> */}
-  <StarField count={200} />
-    {messages.map((msg) => {
-      const isMine = msg.user?.uid === uid;
-      return (
-        <div key={msg.id} className={`flex ${isMine ? "justify-end" : "justify-start"}`}>
-        <div
-          className={`px-4 py-2 rounded-lg max-w-[75%] break-words text-sm shadow-md backdrop-blur-sm ${
-            isMine
-              ? "bg-[#5aa7ce]/90 text-white" // 自分：少し濃い水色
-              : "bg-[#4a587a]/85 text-white" // 相手：より深めの群青
-          }`}
-        >
-            <span className="block text-xs opacity-70 mb-1">{msg.user?.name || "匿名"}</span>
-            {msg.content}
-              {isMine && (
-                <div className="flex justify-end mt-1">
-                  <div className="flex gap-2 text-sm opacity-80">
-                    <button
-                      onClick={() => startEditMessage(msg)}
-                      className="text-orange-400 hover:text-orange-300 transition"
-                      title="編集"
-                    >
-                      <MdEdit size={18} />
-                    </button>
-                    <button
-                      onClick={() => deleteMessage(msg.id)}
-                      className="text-red-400 hover:text-red-300 transition"
-                      title="削除"
-                    >
-                      <MdDelete size={18} />
-                    </button>
-                  </div>
+                <div className="flex items-center gap-2">
+                  <span className="whitespace-pre-wrap break-words">{msg.content}</span>
+
+                  {isMine && (
+                    <div className="flex gap-2 ml-2">
+                      <button
+                        onClick={() => startEditMessage(msg)}
+                        className="text-blue-400 hover:text-blue-300 transition"
+                        title="編集"
+                      >
+                        <MdEdit size={18} />
+                      </button>
+                      <button
+                        onClick={() => deleteMessage(msg.id)}
+                        className="text-red-400 hover:text-red-300 transition"
+                        title="削除"
+                      >
+                        <MdDelete size={18} />
+                      </button>
+                    </div>
+                  )}
                 </div>
-              )}
-          </div>
-        </div>
-      );
-    })}
-    <div ref={bottomRef} />
-  </div>
+              </div>
+            </div>
+          );
+        })}
+      <div ref={bottomRef} />
+    </div>
 
-  {/* 入力エリア */}
-  <div className="p-4 bg-gray-900 border-t border-gray-700 flex gap-2 z-10">
-    <input
-      type="text"
-      value={content}
-      onChange={(e) => setContent(e.target.value)}
-      onKeyDown={(e) => {
-        if (e.key === "Enter") {
-          e.preventDefault();
-          editingMessage ? updateMessage() : sendMessage();
-        }
-      }}
-      placeholder="メッセージを入力"
-      className="flex-1 p-2 rounded bg-gray-800 border border-gray-600 text-white placeholder-gray-400 focus:outline-none"
-    />
-    {editingMessage ? (
-      <>
-        <button
-          onClick={updateMessage}
-          className="px-4 py-2 rounded bg-gradient-to-b from-orange-400 to-orange-500 text-white hover:brightness-110 transition"
-        >
-          更新
-        </button>
-
-        <button
-          onClick={cancelEdit}
-          className="px-4 py-2 rounded bg-gradient-to-b from-gray-600 to-gray-700 text-white hover:brightness-110 transition"
-        >
-          キャンセル
-        </button>
-      </>
-        ) : (
+    <div className="p-4 bg-stone-900 border-t border-stone-600 flex gap-2 z-10">
+      <input
+        type="text"
+        value={content}
+        onChange={(e) => setContent(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            editingMessage ? updateMessage() : sendMessage();
+          }
+        }}
+        placeholder="メッセージを入力"
+        className="flex-1 p-2 rounded bg-stone-800 border border-stone-600 text-white placeholder-stone-400 focus:outline-none"
+      />
+      {editingMessage ? (
+        <>
+          <button
+            onClick={updateMessage}
+            className="px-4 py-2 rounded bg-gradient-to-b from-orange-600 to-orange-500 text-white hover:brightness-110 transition"
+          >
+            更新
+          </button>
+          <button
+            onClick={cancelEdit}
+            className="px-4 py-2 rounded bg-gradient-to-b from-stone-600 to-stone-700 text-white hover:brightness-110 transition"
+          >
+            キャンセル
+          </button>
+        </>
+      ) : (
         <button
           onClick={sendMessage}
-          className="px-4 py-2 rounded bg-gradient-to-b from-orange-500 to-pink-500 text-white hover:brightness-110 transition"
+          className="px-4 py-2 rounded bg-gradient-to-b from-orange-500 to-orange-600 text-white hover:brightness-110 transition"
         >
           送信
         </button>
-              )}
-      </div>
+      )}
     </div>
+  </div>
   );
 };
 

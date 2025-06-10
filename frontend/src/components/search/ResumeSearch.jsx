@@ -28,7 +28,13 @@ const ResumeSearch = ({ onSearch }) => {
   const handleAgeChange = (type, value) => {
     if (type === "min") setMinAge(value);
     if (type === "max") setMaxAge(value);
-    onSearch(query, type === "min" ? value : minAge, type === "max" ? value : maxAge, selectedGenders, selectedLocations);
+    onSearch(
+      query,
+      type === "min" ? value : minAge,
+      type === "max" ? value : maxAge,
+      selectedGenders,
+      selectedLocations
+    );
   };
 
   const handleCheckboxChange = (type, value) => {
@@ -38,62 +44,72 @@ const ResumeSearch = ({ onSearch }) => {
     if (type === "gender") setSelectedGenders(updateSelection);
     if (type === "location") setSelectedLocations(updateSelection);
 
-    onSearch(query, minAge, maxAge,
+    onSearch(
+      query,
+      minAge,
+      maxAge,
       type === "gender" ? updateSelection(selectedGenders) : selectedGenders,
       type === "location" ? updateSelection(selectedLocations) : selectedLocations
     );
   };
 
   return (
-    <div className="mb-4 flex items-center gap-4 flex-wrap">
-      {/* テキスト検索 */}
+    <div className="mb-4 flex items-center gap-4 flex-wrap text-stone-100">
+      {/* 検索 */}
       <input
         type="text"
         placeholder="履歴書を検索..."
         value={query}
         onChange={handleChange}
-        className="p-2 border rounded w-40 text-white"
+        className="p-2 bg-stone-800 border border-stone-600 rounded w-40 text-stone-100 placeholder-stone-400"
       />
 
-      {/* 年齢範囲フィルタ */}
+      {/* 年齢範囲 */}
       <div className="flex items-center gap-2">
-        <h3 className="text-white">年齢</h3>
+        <h3 className="text-stone-300">年齢</h3>
         <input
           type="number"
           placeholder="最小"
           value={minAge}
           onChange={(e) => handleAgeChange("min", e.target.value)}
-          className="p-1 border rounded w-20 text-white"
+          className="p-1 bg-stone-800 border border-stone-600 rounded text-stone-100 w-20 placeholder-stone-500"
         />
-        <span className="text-white">~</span>
+        <span className="text-stone-400">~</span>
         <input
           type="number"
           placeholder="最大"
           value={maxAge}
           onChange={(e) => handleAgeChange("max", e.target.value)}
-          className="p-1 border rounded w-20 text-white"
+          className="p-1 bg-stone-800 border border-stone-600 rounded text-stone-100 w-20 placeholder-stone-500"
         />
       </div>
 
-      {/* 性別フィルタ（プルダウン + チェックボックス） */}
+      {/* 性別選択 */}
       <div className="relative">
         <button
           onClick={() => setIsGenderDropdownOpen(!isGenderDropdownOpen)}
-          className="px-4 py-2 bg-gray-200 text-black rounded-lg focus:outline-none w-40 text-left"
+          className="px-4 py-2 bg-stone-700 text-stone-100 rounded-lg focus:outline-none w-40 text-left hover:bg-stone-600 transition"
         >
           性別を選択 ▼
         </button>
 
         {isGenderDropdownOpen && (
-          <div className="absolute mt-1 w-40 bg-white border rounded-lg shadow-lg p-2 z-10">
+          <div className="absolute mt-1 w-40 bg-stone-800 border border-stone-600 rounded-lg shadow-lg p-2 z-10">
             {availableGenders.map((gender) => (
-              <label key={gender} className="block px-2 py-1 text-black whitespace-nowrap">
+              <label
+                key={gender}
+                className={`block px-2 py-1 rounded whitespace-nowrap cursor-pointer ${
+                  selectedGenders.includes(gender)
+                    ? "bg-orange-600 text-white font-medium"
+                    : "text-stone-200 hover:bg-stone-700"
+                }`}
+              >
                 <input
                   type="checkbox"
                   value={gender}
                   checked={selectedGenders.includes(gender)}
                   onChange={() => handleCheckboxChange("gender", gender)}
-                  className="mr-2"
+                  className="mr-2 accent-orange-500"
                 />
                 {gender}
               </label>
@@ -102,25 +118,32 @@ const ResumeSearch = ({ onSearch }) => {
         )}
       </div>
 
-      {/* 場所フィルタ（プルダウン + チェックボックス） */}
+      {/* 場所選択 */}
       <div className="relative">
         <button
           onClick={() => setIsLocationDropdownOpen(!isLocationDropdownOpen)}
-          className="px-4 py-2 bg-gray-200 text-black rounded-lg focus:outline-none w-40 text-left"
+          className="px-4 py-2 bg-stone-700 text-stone-100 rounded-lg focus:outline-none w-40 text-left hover:bg-stone-600 transition"
         >
           場所を選択 ▼
         </button>
 
         {isLocationDropdownOpen && (
-          <div className="absolute mt-1 w-40 bg-white border rounded-lg shadow-lg p-2 z-10 max-h-60 overflow-y-auto">
+          <div className="absolute mt-1 w-40 bg-stone-800 border border-stone-600 rounded-lg shadow-lg p-2 z-10 max-h-60 overflow-y-auto">
             {availableLocations.map((location) => (
-              <label key={location} className="block px-2 py-1 text-black whitespace-nowrap">
+              <label
+                key={location}
+                className={`block px-2 py-1 rounded whitespace-nowrap cursor-pointer ${
+                  selectedLocations.includes(location)
+                    ? "bg-orange-600 text-white font-medium"
+                    : "text-stone-200 hover:bg-stone-700"
+                }`}
+              >
                 <input
                   type="checkbox"
                   value={location}
                   checked={selectedLocations.includes(location)}
                   onChange={() => handleCheckboxChange("location", location)}
-                  className="mr-2"
+                  className="mr-2 accent-orange-500"
                 />
                 {location}
               </label>

@@ -11,7 +11,7 @@ const ResumesShowSectionItemCreateEdit = () => {
   }
 
   return (
-    <div className="min-h-screen bg-stone-900 text-white">
+    <div className="min-h-screen bg-black text-white">
       <div className="max-w-6xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
         {/* ヘッダー */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8">

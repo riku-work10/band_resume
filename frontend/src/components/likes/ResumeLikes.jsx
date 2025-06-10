@@ -39,9 +39,9 @@ const ResumeLikes = () => {
         <div className="flex space-x-6 snap-x snap-mandatory">
           {likedResumes.map((resume) => (
             <Link
-              to={`/resumes/${resume.id}`}  // 詳細ページのルートに合わせて変更
+              to={`/resumes/${resume.id}`}
               key={resume.id}
-              className="snap-start flex-shrink-0 w-64 bg-gray-800 text-white rounded-lg shadow-lg p-4 transform transition-transform hover:scale-105 hover:bg-gray-700"
+              className="snap-start flex-shrink-0 w-64 bg-stone-700 text-stone-100 rounded-lg shadow-lg p-4 transform transition-transform hover:scale-105 hover:bg-stone-600"
             >
               {resume.profile_image && (
                 <img
@@ -51,16 +51,15 @@ const ResumeLikes = () => {
                 />
               )}
               <h2 className="text-lg font-semibold">{resume.title}</h2>
-              <p className="text-sm text-gray-300">年齢: {resume.age}歳</p>
-              <p className="text-sm text-gray-300">性別: {resume.gender}</p>
-              <p className="text-sm text-gray-300">場所: {resume.location}</p>
-              <p className="text-sm text-gray-400 truncate">{resume.introduction}</p>
+              <p className="text-sm text-stone-200">年齢: {resume.age}歳</p>
+              <p className="text-sm text-stone-200">性別: {resume.gender}</p>
+              <p className="text-sm text-stone-200">場所: {resume.location}</p>
+              <p className="text-sm text-stone-300 truncate">{resume.introduction}</p>
 
-              {/* SNSリンクは別でクリックできるように止める */}
               {resume.sns_url && (
                 <span
                   onClick={(e) => e.stopPropagation()}
-                  className="text-blue-400 text-sm mt-2 inline-block"
+                  className="text-orange-400 text-sm mt-2 inline-block"
                 >
                   <a
                     href={resume.sns_url}

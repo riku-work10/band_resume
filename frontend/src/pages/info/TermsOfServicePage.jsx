@@ -1,6 +1,6 @@
 const TermsOfServicePage = () => {
   return (
-    <div className="bg-gray-100 text-gray-800 p-6 rounded-lg shadow-md max-w-4xl mx-auto mt-4">
+    <div className="bg-gray-100 text-stone-800 p-6 rounded-lg shadow-md max-w-4xl mx-auto my-2">
       {/* 利用規約 */}
       <section className="mb-8">
         <p className="mb-4">
@@ -52,7 +52,7 @@ const TermsOfServicePage = () => {
         <h3 className="text-xl font-semibold text-orange-400 mb-2">第10条（準拠法・管轄裁判所）</h3>
         <p className="mb-4">本規約の解釈には日本法が適用され、紛争が生じた場合、当サービスの所在地を管轄する裁判所を専属的合意管轄裁判所とします。</p>
 
-        <p className="text-right text-gray-600">2025年3月15日制定</p>
+        <p className="text-right text-gray-600">2025年6月15日制定</p>
       </section>
     </div>
   );
