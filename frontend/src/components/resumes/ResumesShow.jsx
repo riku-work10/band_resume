@@ -74,7 +74,7 @@ const ResumePageShow = () => {
                   {/* 年齢と性別を横並び */}
                   <div className="flex space-x-4">
                     {resume.age && (
-                      <p>年齢: {resume.age}歳</p>
+                      <p>年齢: {resume.age}</p>
                     )}
                     {resume.gender && (
                       <p>性別: {resume.gender}</p>

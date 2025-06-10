@@ -84,8 +84,8 @@ const EventShow = () => {
 
               {/* 会場・日付 */}
               <div className="flex justify-center sm:justify-start space-x-4 text-sm sm:text-base">
-                <p>＠会場名あああああ（{event.location}）</p>
-                <p>{event.date}</p>
+                {event.location && (<p>in {event.location}</p>) }
+                {event.date && (<p>@ {event.date}</p>)}
               </div>
 
               {/* 紹介文 */}
