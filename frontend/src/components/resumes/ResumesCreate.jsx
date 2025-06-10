@@ -21,7 +21,6 @@ const ResumesCreate = ({ onClose }) => {
     deleteImage,
   } = useS3Upload(user.id, "resumes");
 
-  const [title, setTitle] = useState("");
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
   const [snsUrl, setSnsUrl] = useState("");
@@ -48,7 +47,6 @@ const ResumesCreate = ({ onClose }) => {
     try {
       const resumeData = {
         user_id: user.id,
-        title,
         profile_image: profileImage,
         age,
         gender,
@@ -75,19 +73,9 @@ const ResumesCreate = ({ onClose }) => {
         className="bg-stone-800 dark:bg-stone-800 text-white max-h-[calc(100vh-30px)] overflow-y-auto w-full max-w-xl mx-4 rounded-2xl shadow-xl p-6"
         onClick={(e) => e.stopPropagation()}
       >
-        <h2 className="text-xl font-bold mb-4">新しい履歴書の作成</h2>
+        <h2 className="text-xl font-bold mb-4">{user.name}の履歴書作成</h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block mb-1">タイトル：</label>
-            <input
-              type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              required
-              className="w-full p-2 rounded bg-stone-700 text-white border border-stone-600 focus:outline-none"
-            />
-          </div>
 
           <div>
             <label className="block mb-1">プロフィール画像：</label>
@@ -141,6 +129,11 @@ const ResumesCreate = ({ onClose }) => {
           </div>
 
           <div>
+            <label className="block mb-1">場所：</label>
+            <SelectLocation value={location} onChange={(e) => setLocation(e.target.value)} />
+          </div>
+
+          <div>
             <label className="block mb-1">Xユーザー名（@から入力）：</label>
             <input
               type="text"
@@ -162,10 +155,6 @@ const ResumesCreate = ({ onClose }) => {
             />
           </div>
 
-          <div>
-            <label className="block mb-1">場所：</label>
-            <SelectLocation value={location} onChange={(e) => setLocation(e.target.value)} />
-          </div>
 
           <div>
             <label className="block mb-1">自己紹介：</label>

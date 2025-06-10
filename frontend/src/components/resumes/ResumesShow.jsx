@@ -70,7 +70,7 @@ const ResumePageShow = () => {
                   />
                 {/* テキスト部分 */}
                 <div className="flex-1">
-                  <h2 className="text-xl font-bold">{resume.title}</h2>
+                  <h2 className="text-xl font-bold">{user.name}の履歴書</h2>
                   {/* 年齢と性別を横並び */}
                   <div className="flex space-x-4">
                     {resume.age && (
