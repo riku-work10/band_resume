@@ -95,14 +95,14 @@ const ResumePage = () => {
 
                     {/* 年齢・性別・場所 */}
                     <div className="flex flex-wrap text-sm text-stone-300 gap-x-4 gap-y-1 mb-3">
-                      <p>{resume.age}歳</p>
-                      <p>{resume.gender}</p>
-                      <p>{resume.location}</p>
+                      {resume.age && ( <p>年齢：{resume.age}</p> )}
+                      {resume.gender && ( <p>性別：{resume.gender}</p> )}
+                      {resume.location && ( <p>現在地：{resume.location}</p> )}
                     </div>
 
                     {/* 紹介文 */}
                     <p className="text-sm text-stone-200 whitespace-pre-wrap break-words">
-                      {resume.introduction}
+                      {resume.introduction && ( <p>{resume.introduction}</p> )}
                     </p>
                   </Link>
                 </div>
