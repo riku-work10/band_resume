@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import ReactDOM from "react-dom";
 import { useAuth } from "../../hooks/AuthContext";
 import { putResume } from "../../services/apiResumes";
 import SelectAge from "../selectlists/SelectAge";
@@ -28,7 +29,6 @@ const ResumeEdit = ({ resume, onClose, onUpdate }) => {
   const [playlistUrl, setPlaylistUrl] = useState("");
   const [error, setError] = useState(null);
 
-  // resumeが変わったらフォーム初期化（画像はuseS3Uploadの初期値でセットされるためプレビューにセット）
   useEffect(() => {
     if (resume) {
       setTitle(resume.title);
@@ -42,7 +42,6 @@ const ResumeEdit = ({ resume, onClose, onUpdate }) => {
     }
   }, [resume]);
 
-  // selectedFileが変わったらプレビュー更新
   useEffect(() => {
     if (selectedFile) {
       setPreviewUrl(URL.createObjectURL(selectedFile));
@@ -82,132 +81,129 @@ const ResumeEdit = ({ resume, onClose, onUpdate }) => {
     }
   };
 
-  return (
+  const modalContent = (
     <div
-      className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
+      className="fixed inset-0 bg-black bg-opacity-50 z-[9999] flex items-center justify-center"
       onClick={onClose}
     >
       <div
-        className="bg-white p-6 rounded-lg shadow-lg w-96"
+        className="bg-stone-800 text-white max-h-[calc(100vh-30px)] overflow-y-auto w-full max-w-xl mx-4 rounded-2xl shadow-xl p-6"
         onClick={(e) => e.stopPropagation()}
       >
-        <h2 className="text-lg font-bold mb-4 text-black">履歴書の編集</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label className="text-black">タイトル：</label>
+        <h2 className="text-xl font-bold mb-4">履歴書の編集</h2>
+
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="block mb-1">タイトル：</label>
             <input
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               required
-              className="border border-gray-300 p-2 w-full rounded"
+              className="w-full p-2 rounded bg-stone-700 text-white border border-stone-600 focus:outline-none"
             />
           </div>
 
-          <div className="mb-4">
-            <label className="text-black">プロフィール画像：</label>
+          <div>
+            <label className="block mb-1">プロフィール画像：</label>
             <input
               type="file"
               accept="image/*"
               onChange={handleFileChange}
-              className="mb-2"
+              className="mb-2 w-full text-white"
             />
-            <button
-              type="button"
-              onClick={uploadImage}
-              disabled={isUploading || !selectedFile}
-              className="bg-green-500 text-white px-3 py-1 rounded"
-            >
-              {isUploading ? "アップロード中..." : "画像アップロード"}
-            </button>
-
-            <div className="mt-2 flex items-center gap-2">
-              <img
-                src={previewUrl || "https://bandresume.s3.ap-northeast-1.amazonaws.com/profile_images/default_ogp.jpg"}
-                alt="プロフィール画像プレビュー"
-                className="h-20 rounded object-cover"
-              />
-              {previewUrl && (
+            <div className="flex gap-2">
+              <button
+                type="button"
+                onClick={uploadImage}
+                disabled={isUploading || !selectedFile}
+                className={`px-4 py-2 rounded ${
+                  isUploading || !selectedFile
+                    ? "bg-stone-500 cursor-not-allowed"
+                    : "bg-green-600 hover:bg-green-700"
+                }`}
+              >
+                {isUploading ? "アップロード中..." : "アップロード"}
+              </button>
+              {profileImage && (
                 <button
                   type="button"
                   onClick={deleteImage}
-                  disabled={!profileImage}
-                  className="bg-red-500 text-white px-3 py-1 rounded"
+                  className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded"
                 >
-                  画像削除
+                  削除
                 </button>
               )}
             </div>
-          </div>
-
-          <div className="mb-4">
-            <label className="text-black">年齢：</label>
-            <SelectAge value={age} onChange={(e) => setAge(e.target.value)} />
-          </div>
-
-          <div className="mb-4">
-            <label className="text-black">性別：</label>
-            <SelectGender
-              value={gender}
-              onChange={(e) => setGender(e.target.value)}
+            <img
+              src={
+                previewUrl ||
+                "https://bandresume.s3.ap-northeast-1.amazonaws.com/profile_images/default_ogp.jpg"
+              }
+              alt="アップロード済み画像"
+              className="mt-2 h-24 w-24 object-cover rounded"
             />
           </div>
 
-          <div className="mb-4">
-            <label className="text-black">Xのユーザー名：</label>
+          <div>
+            <label className="block mb-1">年齢：</label>
+            <SelectAge value={age} onChange={(e) => setAge(e.target.value)} />
+          </div>
+
+          <div>
+            <label className="block mb-1">性別：</label>
+            <SelectGender value={gender} onChange={(e) => setGender(e.target.value)} />
+          </div>
+
+          <div>
+            <label className="block mb-1">Xユーザー名（@から入力）：</label>
             <input
               type="text"
               value={snsUrl}
               onChange={(e) => setSnsUrl(e.target.value)}
-              className="border border-gray-300 p-2 w-full rounded"
               placeholder="@example"
+              className="w-full p-2 rounded bg-stone-700 text-white border border-stone-600 focus:outline-none"
             />
-            <p className="text-xs text-gray-500 mt-1">
-              「@example」の形式で入力してください（URLは自動で生成されます）
-            </p>
           </div>
 
           <div>
-            <label className="text-black">プレイリストURL：</label>
+            <label className="block mb-1">プレイリストURL：</label>
             <input
               type="url"
               value={playlistUrl}
               onChange={(e) => setPlaylistUrl(e.target.value)}
               placeholder="共有したいプレイリストのURL"
-              className="border border-gray-300 p-2 w-full rounded text-black"
+              className="w-full p-2 rounded bg-stone-700 text-white border border-stone-600 focus:outline-none"
             />
           </div>
 
-          <div className="mb-4">
-            <label className="text-black">場所：</label>
-            <SelectLocation
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
-            />
+          <div>
+            <label className="block mb-1">場所：</label>
+            <SelectLocation value={location} onChange={(e) => setLocation(e.target.value)} />
           </div>
 
-          <div className="mb-4">
-            <label className="text-black">自己紹介：</label>
+          <div>
+            <label className="block mb-1">自己紹介：</label>
             <textarea
               value={introduction}
               onChange={(e) => setIntroduction(e.target.value)}
-              className="border border-gray-300 p-2 w-full rounded"
+              className="w-full p-2 rounded bg-stone-700 text-white border border-stone-600 focus:outline-none"
             />
           </div>
 
-          {error && <p className="text-red-500">{error}</p>}
+          {error && <p className="text-red-500 text-sm">{error}</p>}
 
-          <div className="flex justify-end gap-2 mt-4">
+          <div className="flex justify-end gap-2 pt-4">
             <button
               type="button"
               onClick={onClose}
-              className="bg-gray-400 text-white px-4 py-2 rounded"
+              className="bg-stone-600 hover:bg-stone-700 text-white px-4 py-2 rounded"
             >
               キャンセル
             </button>
             <button
               type="submit"
-              className="bg-blue-500 text-white px-4 py-2 rounded"
+              className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"
             >
               更新する
             </button>
@@ -216,6 +212,8 @@ const ResumeEdit = ({ resume, onClose, onUpdate }) => {
       </div>
     </div>
   );
+
+  return ReactDOM.createPortal(modalContent, document.body);
 };
 
 export default ResumeEdit;
