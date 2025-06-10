@@ -154,7 +154,7 @@ const ResumeEdit = ({ resume, onClose, onUpdate }) => {
               value={snsUrl}
               onChange={(e) => setSnsUrl(e.target.value)}
               placeholder="@example"
-              className="w-full p-2 rounded bg-stone-700 text-white border border-stone-600 focus:outline-none"
+              className="w-full border border-stone-600 bg-stone-900 text-white p-2 rounded"
             />
           </div>
 
@@ -165,7 +165,7 @@ const ResumeEdit = ({ resume, onClose, onUpdate }) => {
               value={playlistUrl}
               onChange={(e) => setPlaylistUrl(e.target.value)}
               placeholder="共有したいプレイリストのURL"
-              className="w-full p-2 rounded bg-stone-700 text-white border border-stone-600 focus:outline-none"
+              className="w-full border border-stone-600 bg-stone-900 text-white p-2 rounded"
             />
           </div>
 
@@ -175,7 +175,7 @@ const ResumeEdit = ({ resume, onClose, onUpdate }) => {
             <textarea
               value={introduction}
               onChange={(e) => setIntroduction(e.target.value)}
-              className="w-full p-2 rounded bg-stone-700 text-white border border-stone-600 focus:outline-none"
+              className="w-full border border-stone-600 bg-stone-900 text-white p-2 rounded"
             />
           </div>
 

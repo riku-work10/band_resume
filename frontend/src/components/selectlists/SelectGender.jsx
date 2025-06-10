@@ -5,7 +5,7 @@ const SelectGender = ({ value, onChange }) => {
     <select
       value={value}
       onChange={onChange}
-      className="w-full p-2 rounded bg-stone-700 text-white border border-stone-600 focus:outline-none"
+      className="w-full border border-stone-600 bg-stone-900 text-white p-2 rounded"
     >
       <option value="">性別を選択</option>
       {genderOptions.map((gender) => (
