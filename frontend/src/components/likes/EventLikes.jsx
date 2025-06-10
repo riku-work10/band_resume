@@ -39,9 +39,9 @@ const EventLikes = () => {
         <div className="flex space-x-6 snap-x snap-mandatory">
           {likedevents.map((event) => (
             <Link
-              to={`/events/${event.id}`}  // イベント詳細ページへのルーティング（要設定）
+              to={`/events/${event.id}`}
               key={event.id}
-              className="snap-start flex-shrink-0 w-64 bg-gray-800 text-white rounded-lg shadow-lg p-4 transform transition-transform hover:scale-105 hover:bg-gray-700"
+              className="snap-start flex-shrink-0 w-64 bg-stone-700 text-stone-100 rounded-lg shadow-lg p-4 transform transition-transform hover:scale-105 hover:bg-stone-600"
             >
               {event.image && (
                 <img
@@ -51,9 +51,9 @@ const EventLikes = () => {
                 />
               )}
               <h2 className="text-lg font-semibold">{event.title}</h2>
-              <p className="text-sm text-gray-300">日時: {event.date}</p>
-              <p className="text-sm text-gray-300">場所: {event.location}</p>
-              <p className="text-sm text-gray-400 truncate">{event.introduction}</p>
+              <p className="text-sm text-stone-200">日時: {event.date}</p>
+              <p className="text-sm text-stone-200">場所: {event.location}</p>
+              <p className="text-sm text-stone-300 truncate">{event.introduction}</p>
             </Link>
           ))}
         </div>

@@ -38,64 +38,70 @@ const EventSearch = ({ onSearch }) => {
     if (type === "tag") setSelectedTags(updateSelection);
     if (type === "location") setSelectedLocations(updateSelection);
 
-    onSearch(query, startDate, closeDate,
+    onSearch(
+      query,
+      startDate,
+      closeDate,
       type === "tag" ? updateSelection(selectedTags) : selectedTags,
       type === "location" ? updateSelection(selectedLocations) : selectedLocations
     );
   };
 
   return (
-    <div className="mb-4 flex items-center gap-4 flex-wrap">
-      {/* テキスト検索 */}
+    <div className="mb-4 flex items-center gap-4 flex-wrap text-stone-100">
+      {/* 検索入力 */}
       <input
         type="text"
-        placeholder="履歴書を検索..."
+        placeholder="イベントを検索..."
         value={query}
         onChange={handleChange}
-        className="p-2 border rounded w-40 text-white"
+        className="p-2 bg-stone-800 border border-stone-600 rounded w-40 text-stone-100 placeholder-stone-400"
       />
 
       {/* 日付範囲フィルタ */}
       <div className="flex items-center gap-2">
-        <h3 className="text-white">日付</h3>
+        <h3 className="text-stone-300">日付</h3>
         <input
           type="date"
-          placeholder="前"
           value={startDate}
           onChange={(e) => handleAgeChange("start", e.target.value)}
-          className="p-1 border rounded w-34 text-white"
+          className="p-1 bg-stone-800 border border-stone-600 rounded text-stone-100"
         />
-        <span className="text-white">~</span>
+        <span className="text-stone-400">~</span>
         <input
           type="date"
-          placeholder="後"
           value={closeDate}
           onChange={(e) => handleAgeChange("close", e.target.value)}
-          className="p-1 border rounded w-34 text-white"
+          className="p-1 bg-stone-800 border border-stone-600 rounded text-stone-100"
         />
       </div>
 
-
-
-      {/* タグフィルタ（プルダウン + チェックボックス） */}
+      {/* タグ選択 */}
       <div className="relative">
         <button
           onClick={() => setIsTagDropdownOpen(!isTagDropdownOpen)}
-          className="px-4 py-2 bg-gray-200 text-black rounded-lg focus:outline-none w-40 text-left"
+          className="px-4 py-2 bg-stone-700 text-stone-100 rounded-lg focus:outline-none w-40 text-left hover:bg-stone-600 transition"
         >
           タグを選択 ▼
         </button>
 
         {isTagDropdownOpen && (
-          <div className="absolute mt-1 w-40 bg-white border rounded-lg shadow-lg p-2 z-10">
+          <div className="absolute mt-1 w-40 bg-stone-800 border border-stone-600 rounded-lg shadow-lg p-2 z-10">
             {availableTags.map((tag) => (
-              <label key={tag} className="block px-2 py-1 text-black whitespace-nowrap">
+              <label
+                key={tag}
+                className={`block px-2 py-1 rounded whitespace-nowrap cursor-pointer ${
+                  selectedTags.includes(tag)
+                    ? "bg-orange-600 text-white font-medium"
+                    : "text-stone-200 hover:bg-stone-700"
+                }`}
+              >
                 <input
                   type="checkbox"
                   value={tag}
                   checked={selectedTags.includes(tag)}
                   onChange={() => handleCheckboxChange("tag", tag)}
-                  className="mr-2"
+                  className="mr-2 accent-orange-500"
                 />
                 {tag}
               </label>
@@ -104,25 +110,32 @@ const EventSearch = ({ onSearch }) => {
         )}
       </div>
 
-      {/* 場所フィルタ（プルダウン + チェックボックス） */}
+      {/* 場所選択 */}
       <div className="relative">
         <button
           onClick={() => setIsLocationDropdownOpen(!isLocationDropdownOpen)}
-          className="px-4 py-2 bg-gray-200 text-black rounded-lg focus:outline-none w-40 text-left"
+          className="px-4 py-2 bg-stone-700 text-stone-100 rounded-lg focus:outline-none w-40 text-left hover:bg-stone-600 transition"
         >
           場所を選択 ▼
         </button>
 
         {isLocationDropdownOpen && (
-          <div className="absolute mt-1 w-40 bg-white border rounded-lg shadow-lg p-2 z-10 max-h-60 overflow-y-auto">
+          <div className="absolute mt-1 w-40 bg-stone-800 border border-stone-600 rounded-lg shadow-lg p-2 z-10 max-h-60 overflow-y-auto">
             {availableLocations.map((location) => (
-              <label key={location} className="block px-2 py-1 text-black whitespace-nowrap">
+              <label
+                key={location}
+                className={`block px-2 py-1 rounded whitespace-nowrap cursor-pointer ${
+                  selectedLocations.includes(location)
+                    ? "bg-orange-600 text-white font-medium"
+                    : "text-stone-200 hover:bg-stone-700"
+                }`}
+              >
                 <input
                   type="checkbox"
                   value={location}
                   checked={selectedLocations.includes(location)}
                   onChange={() => handleCheckboxChange("location", location)}
-                  className="mr-2"
+                  className="mr-2 accent-orange-500"
                 />
                 {location}
               </label>

@@ -2,7 +2,7 @@ import React from "react";
 
 const Contact = () => {
   return (
-    <div className="flex flex-col items-center mt-4">
+    <div className="flex flex-col items-center my-2">
       <div className="w-full max-w-3xl">
         <div className="relative w-full" style={{ paddingTop: "160%" }}>
           <iframe
