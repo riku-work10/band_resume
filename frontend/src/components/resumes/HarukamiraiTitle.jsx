@@ -1,4 +1,4 @@
-import '../../css/HarukamiraiTitle.css';
+import './HarukamiraiTitle.css';
 
 const HarukamiraiTitle = () => {
   const title = "ハルカミライ";
