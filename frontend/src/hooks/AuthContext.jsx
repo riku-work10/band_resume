@@ -30,6 +30,7 @@ export const AuthProvider = ({ children }) => {
       setUser(res.data.data);
     } catch (err) {
       console.error('ユーザー情報の取得に失敗しました:', err);
+      throw err;
     }
   };
 
@@ -86,6 +87,7 @@ const signinWithGoogle = async (idToken) => {
       await signin(email, password);
     } catch (err) {
       console.error("サインアップに失敗しました:", err);
+      throw err;
     }
   };
 
