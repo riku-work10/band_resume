@@ -9,6 +9,7 @@ import { useAuth } from '../../hooks/AuthContext';
 import ResumesShowSectionItemDetail from './ResumesShowSectionItemDetail';
 import ResumeShareButton from './ResumeShareButton';
 import { FaXTwitter } from "react-icons/fa6";
+import HarukamiraiTitle from './HarukamiraiTitle';
 
 const ResumePageShow = () => {
   const { resumeId } = useParams(); // URLパラメータからIDを取得
@@ -18,6 +19,9 @@ const ResumePageShow = () => {
   const navigate = useNavigate(); 
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const { user } = useAuth();
+  const [showControls, setShowControls] = useState(true);
+  const isOwnResume = resume && user && user.id === resume.user_id;
+  
 
   useEffect(() => {
     const fetchResume = async () => {
@@ -34,8 +38,8 @@ const ResumePageShow = () => {
     fetchResume(); // データ取得を実行
   }, [resumeId]);
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>{error}</div>;
+  if (loading) return <div className="bg-black text-stone-100 min-h-screen p-4">Loading...</div>;
+  if (error) return <div className="bg-black text-stone-100 min-h-screen p-4">{error}</div>;
 
   //削除ボタン
   const handleDelete = async () => {
@@ -57,99 +61,168 @@ const ResumePageShow = () => {
     })
   }
 
-  return (
-    <div>
-        {resume ? (
-            <div className='mb-6'>
-              <div className="mb-6 flex flex-col sm:flex-row items-start space-y-4 sm:space-y-0 sm:space-x-6">
-                {/* 画像部分 */}
-                  <img
-                    src={resume.profile_image || "https://bandresume.s3.ap-northeast-1.amazonaws.com/profile_images/default_ogp.jpg"}
-                    alt={resume.title}
-                    className="w-24 h-24 object-cover rounded-full border-2 border-gray-300"
-                  />
-                {/* テキスト部分 */}
-                <div className="flex-1">
-                  <h2 className="text-xl font-bold">{user.name}の履歴書</h2>
-                  {/* 年齢と性別を横並び */}
-                  <div className="flex space-x-4">
-                    {resume.age && (
-                      <p>年齢: {resume.age}</p>
-                    )}
-                    {resume.gender && (
-                      <p>性別: {resume.gender}</p>
-                    )}
-                  </div>
-                  {/* 場所とリンクを横並び */}
-                  <div className="flex space-x-4">
-                  {resume.location && (
-                    <p>場所: {resume.location}</p>
-                  )}
-                  {resume.sns_url && (
-                    <a
-                    href={`https://x.com/${resume.sns_url.replace('@', '')}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center text-blue-500 hover:underline gap-1"
-                    >
-                      <FaXTwitter className="text-black bg-white p- text-xl hover:bg-gray-200 transition" />
-                    </a>
-                  )}
-                  {resume.playlist_url && (
-                  <div className="">
-                    <a
-                      href={resume.playlist_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-500 hover:underline"
-                    >
-                    私のプレイリスト
-                    </a>
-                  </div>
-                  )}
-                  </div>
-                  {/* 紹介文は大きめに表示 */}
-                  <p className="text-lg mt-2">{resume.introduction}</p>
-                </div>
-                {/* ボタン部分 */}
-                <div className="flex space-x-4 mt-4 sm:mt-0">
-                {user && user.id === resume.user_id && ( // ログインユーザーが作成者の場合
-                <div>
-                  <button
-                    className="py-2 px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                    onClick={() => setIsEditModalOpen(true)}>
-                    <MdEdit />
-                  </button>
-                  <button
-                    onClick={handleDelete}
-                    className="py-2 px-4 bg-red-500 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400">
-                    <MdDelete />
-                  </button>
-                  <ResumeShareButton resumeId={resume.id} title={resume.title} introduction={resume.introduction} />
-                </div>
-                 )}
-                {user && user.id !== resume.user_id && (
-                  <ResumeLikeButton resumeId={resume.id} textColor="text-white" className="py-2 px-4 bg-green-500 text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400" />
-                )}
-                </div>
-              </div>
-              <ResumesShowSectionItemDetail resume={resume}/>
-              {resume.resume_sections.length > 0 ? (<button onClick={CreateEditButton}>履歴書内容の編集</button>) : ((<button onClick={CreateEditButton}>履歴書内容の作成</button>))}
-              <ResumeComments resumeId={resumeId}/>
-            </div>
-        ) : (
-          <p>履歴書を読み込み中...</p>
+return (
+  <div className="relative bg-black text-stone-100 min-h-screen px-4 pt-8 pb-6 md:px-0">
+    {resume ? (
+<div
+  className={`max-w-5xl mx-auto ${
+    (!showControls || !isOwnResume) ? 'flex flex-col items-center justify-center min-h-[70vh] gap-8 py-8' : ''
+  }`}
+>
+
+        {/* ← 戻る（左上固定） */}
+        {showControls && (
+          <button
+            onClick={() => navigate(-1)}
+            className="absolute top-4 left-4 inline-flex items-center px-4 py-2 bg-stone-700 text-white rounded hover:bg-stone-600 transition z-10"
+          >
+            ← 戻る
+          </button>
         )}
-        {/* 編集モーダル */}
-        {isEditModalOpen && (
-          <ResumeEdit
-            resume={resume}
-            onClose={() => setIsEditModalOpen(false)}
-            onUpdate={setResume}
+
+        {/* 表示/非表示トグル（右上固定） */}
+        <button
+          onClick={() => setShowControls(!showControls)}
+          className="absolute top-4 right-4 px-4 py-2 bg-gray-700 text-white rounded hover:bg-gray-600 transition z-10"
+        >
+          {showControls ? 'プレビュー' : 'プレビュー解除'}
+        </button>
+
+        {/* タイトル */}
+          <HarukamiraiTitle />
+
+      {/* メイン情報と写真 */}
+      <div
+        className={`flex flex-col md:flex-row ${
+          showControls ? 'items-start' : 'items-center justify-center'
+        } space-y-6 md:space-y-0 ${showControls ? 'md:space-x-6' : 'gap-6'}`}
+      >
+        {/* プロフィール画像 */}
+        <div className="flex-shrink-0 mx-auto md:mx-0">
+          <img
+            src={
+              resume.profile_image ||
+              'https://bandresume.s3.ap-northeast-1.amazonaws.com/profile_images/default_ogp.jpg'
+            }
+            alt={resume.title}
+            className="w-24 h-24 md:w-32 md:h-32 object-cover rounded-full border-2 border-stone-600"
           />
+        </div>
+
+        {/* ユーザー情報 */}
+        <div className="flex-1 space-y-3 text-center md:text-left">
+          <h2 className="text-xl md:text-2xl font-bold text-stone-100">{resume.user.name}</h2>
+
+          <div className="flex justify-center md:justify-start space-x-4 md:space-x-6 text-stone-300 text-sm md:text-base">
+            {resume.age && <p>年齢: {resume.age}</p>}
+            {resume.gender && <p>性別: {resume.gender}</p>}
+            {resume.location && <p>場所: {resume.location}</p>}
+          </div>
+
+          <div className="flex justify-center md:justify-start space-x-4 md:space-x-6 items-center text-sm md:text-base">
+            {resume.sns_url && (
+              <div className="flex items-center space-x-2">
+                <span className="text-stone-300">SNS:</span>
+                <a
+                  href={`https://x.com/${resume.sns_url.replace('@', '')}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center text-blue-400 hover:text-blue-300 transition"
+                >
+                  <FaXTwitter className="text-white bg-black p-1 text-xl md:text-2xl hover:bg-stone-800 transition rounded" />
+                </a>
+              </div>
+            )}
+            {resume.playlist_url && (
+              <div className="flex items-center space-x-2">
+                <span className="text-stone-300">プレイリスト:</span>
+                <a
+                  href={resume.playlist_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-400 hover:text-blue-300 transition"
+                >
+                  私のプレイリスト
+                </a>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* ボタン群 */}
+        {showControls && (
+          <div className="flex-shrink-0 flex justify-center md:block space-x-3 mt-4 md:mt-0">
+            {user && user.id === resume.user_id ? (
+              <div className="flex flex-col md:flex-row space-y-3 md:space-y-0 md:space-x-3">
+                <button
+                  className="py-2 px-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition flex items-center justify-center"
+                  onClick={() => setIsEditModalOpen(true)}
+                >
+                  <MdEdit className="mr-1" />
+                  編集
+                </button>
+                <button
+                  onClick={handleDelete}
+                  className="py-2 px-4 bg-red-600 text-white rounded-lg hover:bg-red-700 transition flex items-center justify-center"
+                >
+                  <MdDelete className="mr-1" />
+                  削除
+                </button>
+                <ResumeShareButton
+                  resumeId={resume.id}
+                  title={resume.title}
+                  introduction={resume.introduction}
+                />
+              </div>
+            ) : (
+              <ResumeLikeButton
+                resumeId={resume.id}
+                textColor="text-white"
+                className="py-2 px-4 bg-green-600 text-white rounded-lg hover:bg-green-700 transition"
+              />
+            )}
+          </div>
         )}
+      </div>
+
+      {/* 詳細セクション */}
+      <div className="relative w-full">
+        <ResumesShowSectionItemDetail resume={resume} />
+        {showControls && user && user.id === resume.user_id &&(
+          <div className="absolute top-0 right-0">
+            <button
+              onClick={CreateEditButton}
+              className="py-2 px-4 bg-orange-500 text-white rounded-lg hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-400 transition font-medium"
+            >
+              {resume.resume_sections.length > 0 ? '履歴書内容の編集' : '履歴書内容の作成'}
+            </button>
+          </div>
+        )}
+      </div>
+
+      {/* コメント */}
+      {showControls && (
+  <div className="w-full">
+    <ResumeComments resumeId={resumeId} />
+  </div>
+)}
     </div>
-  );
+  ) : (
+    <p className="bg-black text-stone-100 min-h-screen p-4">履歴書を読み込み中...</p>
+  )}
+
+  {/* 編集モーダル */}
+  {isEditModalOpen && (
+    <ResumeEdit
+      resume={resume}
+      onClose={() => setIsEditModalOpen(false)}
+      userName={resume.user.name}
+      onUpdate={setResume}
+    />
+  )}
+</div>
+);
 };
 
 export default ResumePageShow;
+

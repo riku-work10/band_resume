@@ -78,7 +78,7 @@ const EventEdit = ({ event, onClose, onUpdate }) => {
         className="bg-stone-900 text-white p-6 rounded-lg shadow-lg w-full max-w-xl max-h-[calc(100vh-30px)] overflow-y-auto relative"
         onClick={(e) => e.stopPropagation()}
       >
-        <h2 className="text-lg font-bold mb-4">イベントの編集</h2>
+        <h2 className="text-lg font-bold mb-4">ライブ情報の編集</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block mb-1">タイトル：</label>

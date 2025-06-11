@@ -33,7 +33,6 @@ const Mypage = () => {
                   className="absolute top-2 right-2 text-xl cursor-pointer"
                   onClick={() => setIsEditing(false)}
                 >
-                  ×
                 </span>
                 <EditProfile setIsEditing={setIsEditing} />
               </div>
