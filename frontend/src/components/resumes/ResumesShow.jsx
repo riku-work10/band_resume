@@ -60,44 +60,37 @@ const ResumePageShow = () => {
   }
 
 return (
-  <div className="bg-black text-stone-100 min-h-screen px-4 py-6 md:px-0">
-  {resume ? (
-    <div
-      className={`max-w-5xl mx-auto ${
-        !showControls ? 'flex flex-col items-center justify-center min-h-[70vh] gap-8 py-8' : ''
-      }`}
-    >
-      {/* タイトル */}
-      <div className="mb-6">
-        {/* HarukamiraiTitle内のスタイルは別途修正必要 */}
-        <HarukamiraiTitle />
-      </div>
-
-      {/* 表示/非表示切り替えボタン */}
-      <div className="mb-4 text-center">
-        <button
-          onClick={() => setShowControls(!showControls)}
-          className="px-4 py-2 bg-gray-700 text-white rounded hover:bg-gray-600 transition"
-        >
-          {showControls ? 'UIを非表示にする' : 'UIを表示する'}
-        </button>
-      </div>
-
-      {/* ← 戻る */}
-      {showControls && (
-        <div className="mb-4">
+  <div className="relative bg-black text-stone-100 min-h-screen px-4 pt-8 pb-6 md:px-0">
+    {resume ? (
+      <div
+        className={`max-w-5xl mx-auto ${
+          !showControls ? 'flex flex-col items-center justify-center min-h-[70vh] gap-8 py-8' : ''
+        }`}
+      >
+        {/* ← 戻る（左上固定） */}
+        {showControls && (
           <button
             onClick={() => navigate(-1)}
-            className="inline-flex items-center px-4 py-2 bg-stone-700 text-white rounded hover:bg-stone-600 transition"
+            className="absolute top-4 left-4 inline-flex items-center px-4 py-2 bg-stone-700 text-white rounded hover:bg-stone-600 transition z-10"
           >
             ← 戻る
           </button>
-        </div>
-      )}
+        )}
+
+        {/* 表示/非表示トグル（右上固定） */}
+        <button
+          onClick={() => setShowControls(!showControls)}
+          className="absolute top-4 right-4 px-4 py-2 bg-gray-700 text-white rounded hover:bg-gray-600 transition z-10"
+        >
+          {showControls ? 'プレビュー' : 'プレビュー解除'}
+        </button>
+
+        {/* タイトル */}
+          <HarukamiraiTitle />
 
       {/* メイン情報と写真 */}
       <div
-        className={`mb-6 flex flex-col md:flex-row ${
+        className={`flex flex-col md:flex-row ${
           showControls ? 'items-start' : 'items-center justify-center'
         } space-y-6 md:space-y-0 ${showControls ? 'md:space-x-6' : 'gap-6'}`}
       >

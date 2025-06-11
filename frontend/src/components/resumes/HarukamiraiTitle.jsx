@@ -5,8 +5,8 @@ const HarukamiraiTitle = () => {
   return (
     <div className="arc-wrapper">
       {title.split("").map((char, index) => {
-        const radius = 110;
-        const angleDeg = (index - (title.length - 1) / 2) * 18;
+        const radius = 100;
+        const angleDeg = (index - (title.length - 1) / 2) * 15;
         const angleRad = (angleDeg * Math.PI) / 180;
         const x = radius * Math.sin(angleRad);
         const y = radius * Math.cos(angleRad);
@@ -16,7 +16,7 @@ const HarukamiraiTitle = () => {
             className="arc-letter"
             style={{
               transform: `translate(${x}px, ${-y}px) rotate(${angleDeg}deg)`,
-              fontSize: '3rem',
+              fontSize: '2.5rem',
               textShadow: '2px 2px 4px rgba(0,0,0,0.8)'
             }}
           >
