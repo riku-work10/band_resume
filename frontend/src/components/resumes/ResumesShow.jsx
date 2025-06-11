@@ -20,6 +20,8 @@ const ResumePageShow = () => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const { user } = useAuth();
   const [showControls, setShowControls] = useState(true);
+  const isOwnResume = resume && user && user.id === resume.user_id;
+  
 
   useEffect(() => {
     const fetchResume = async () => {
@@ -62,11 +64,12 @@ const ResumePageShow = () => {
 return (
   <div className="relative bg-black text-stone-100 min-h-screen px-4 pt-8 pb-6 md:px-0">
     {resume ? (
-      <div
-        className={`max-w-5xl mx-auto ${
-          !showControls ? 'flex flex-col items-center justify-center min-h-[70vh] gap-8 py-8' : ''
-        }`}
-      >
+<div
+  className={`max-w-5xl mx-auto ${
+    (!showControls || !isOwnResume) ? 'flex flex-col items-center justify-center min-h-[70vh] gap-8 py-8' : ''
+  }`}
+>
+
         {/* ← 戻る（左上固定） */}
         {showControls && (
           <button
@@ -185,7 +188,7 @@ return (
       {/* 詳細セクション */}
       <div className="relative w-full">
         <ResumesShowSectionItemDetail resume={resume} />
-        {showControls && (
+        {showControls && user && user.id === resume.user_id &&(
           <div className="absolute top-0 right-0">
             <button
               onClick={CreateEditButton}
