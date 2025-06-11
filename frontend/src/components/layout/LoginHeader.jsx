@@ -3,69 +3,87 @@ import { Link, useLocation } from "react-router-dom";
 import SignOutButtun from "../auth/SignOutButtun";
 import GetPageName from "../../hooks/GetPageName";
 import { MdClose, MdOutlineMenu, MdHome, MdNotifications } from "react-icons/md";
+import NotificationPage from "../../pages/NotificationPage";
 
 const LoginHeader = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [showNotificationModal, setShowNotificationModal] = useState(false);
   const location = useLocation();
-  const menuRef = useRef(null);  // ここでメニュー領域のrefを作成
+  const menuRef = useRef(null);
+  const modalRef = useRef(null);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
-        setIsOpen(false);  // メニュー外クリックで閉じる
+        setIsOpen(false);
+      }
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        setShowNotificationModal(false);
       }
     };
 
-    if (isOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside);
-    }
-
-    // クリーンアップ
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [isOpen]);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   return (
     <header>
       <div className="flex justify-between items-center">
-        {/* ロゴ */}
         <div className="flex-1">
           <Link to="/top" className={`text-lg font-bold ${location.pathname === "/top" ? "text-orange-500" : ""}`}>
-            <MdHome className="text-xl"/>
+            <MdHome className="text-xl" />
           </Link>
         </div>
-        {/* ページタイトル */}
         <div className="flex-1 text-center">
           <p className="text-lg font-semibold">{GetPageName()}</p>
         </div>
-        {/*（通知 & ハンバーガーメニュー） */}
         <div className="flex-1 flex justify-end items-center space-x-4">
-          <Link to="/notification" className="block" onClick={() => setIsOpen(false)}>
+          <button
+            className="block text-white"
+            onClick={() => setShowNotificationModal(true)}
+          >
             <MdNotifications className="text-xl" />
-          </Link>
-          <button className="text-white focus:outline-none z-50" onClick={() => setIsOpen(!isOpen)}>
+          </button>
+          <button className="text-white z-50" onClick={() => setIsOpen(!isOpen)}>
             {isOpen ? <MdClose className="text-xl" /> : <MdOutlineMenu className="text-xl" />}
           </button>
         </div>
       </div>
 
-      {/* メニューリスト */}
+      {/* メニュー */}
       {isOpen && (
         <nav
-          ref={menuRef}  // ここでrefをつける
-          className="menu-container absolute top-16 right-0 w-1/8 bg-stone-700 p-4 shadow-lg rounded-l-lg"
+          ref={menuRef}
+          className="absolute top-16 right-0 w-1/8 bg-stone-700 p-4 shadow-lg rounded-l-lg"
         >
           <ul className="space-y-2">
-            <li><Link to="/contact" className="block" onClick={() => setIsOpen(false)}>お問い合わせ</Link></li>
-            <li><Link to="/privacypolicy" className="block" onClick={() => setIsOpen(false)}>プライバシーポリシー</Link></li>
-            <li><Link to="/termsofservice" className="block" onClick={() => setIsOpen(false)}>利用規約</Link></li>
+            <li><Link to="/contact" onClick={() => setIsOpen(false)}>お問い合わせ</Link></li>
+            <li><Link to="/privacypolicy" onClick={() => setIsOpen(false)}>プライバシーポリシー</Link></li>
+            <li><Link to="/termsofservice" onClick={() => setIsOpen(false)}>利用規約</Link></li>
             <li><SignOutButtun /></li>
           </ul>
         </nav>
       )}
+
+      {/* 通知モーダル */}
+{showNotificationModal && (
+  <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div
+      ref={modalRef}
+      className="bg-stone-800 text-stone-100 rounded-lg max-w-3xl w-full mx-4 max-h-[90vh] overflow-y-auto shadow-xl p-6 border border-stone-600"
+    >
+      <div className="flex justify-end mb-4">
+        <button
+          onClick={() => setShowNotificationModal(false)}
+          className="p-2 rounded-full hover:bg-stone-700 transition-colors focus:outline-none"
+        >
+          <MdClose className="text-2xl text-stone-300" />
+        </button>
+      </div>
+      <NotificationPage />
+    </div>
+  </div>
+)}
     </header>
   );
 };
