@@ -201,7 +201,11 @@ return (
       </div>
 
       {/* コメント */}
-      {showControls && <ResumeComments resumeId={resumeId} />}
+      {showControls && (
+  <div className="w-full">
+    <ResumeComments resumeId={resumeId} />
+  </div>
+)}
     </div>
   ) : (
     <p className="bg-black text-stone-100 min-h-screen p-4">履歴書を読み込み中...</p>
