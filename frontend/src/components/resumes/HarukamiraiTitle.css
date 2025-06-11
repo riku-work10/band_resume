@@ -3,9 +3,8 @@
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  height: 150px;
+  height: 220px;
   color: white;
-  font-size: 2rem;
 }
 
 .arc-letter {
@@ -19,8 +18,13 @@
 
 .arc-label {
   position: absolute;
-  top: 70px;
+  top: 120px;
+  left: 50%;
+  transform: translateX(-50%);
   text-align: center;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
+  font-weight: bold;
   color: white;
+  white-space: nowrap;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
 }

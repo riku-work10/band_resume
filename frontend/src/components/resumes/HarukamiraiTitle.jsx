@@ -5,7 +5,7 @@ const HarukamiraiTitle = () => {
   return (
     <div className="arc-wrapper">
       {title.split("").map((char, index) => {
-        const radius = 120; // アーチの半径を少し大きく
+        const radius = 110;
         const angleDeg = (index - (title.length - 1) / 2) * 18;
         const angleRad = (angleDeg * Math.PI) / 180;
         const x = radius * Math.sin(angleRad);
@@ -16,7 +16,7 @@ const HarukamiraiTitle = () => {
             className="arc-letter"
             style={{
               transform: `translate(${x}px, ${-y}px) rotate(${angleDeg}deg)`,
-              fontSize: '2.5rem',
+              fontSize: '3rem',
               textShadow: '2px 2px 4px rgba(0,0,0,0.8)'
             }}
           >
@@ -24,9 +24,7 @@ const HarukamiraiTitle = () => {
           </span>
         );
       })}
-      <div className="arc-label" style={{ fontSize: '1.8rem', fontWeight: 'bold', textShadow: '2px 2px 4px rgba(0,0,0,0.8)' }}>
-        履歴書
-      </div>
+      <div className="arc-label">履歴書</div>
     </div>
   );
 };
