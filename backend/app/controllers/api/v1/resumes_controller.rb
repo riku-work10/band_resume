@@ -3,16 +3,26 @@ class Api::V1::ResumesController < ApplicationController
 
   def index
     if params[:user_id]
-      resumes = Resume.where(user_id: params[:user_id])  # user_id に基づいて履歴書を取得
+      resumes = Resume.where(user_id: params[:user_id])
     else
-      resumes = Resume.all  # user_id がない場合は全ての履歴書を取得
+      resumes = Resume.all
     end
-    render json: resumes
+
+    render json: resumes.as_json(include: :user)
   end
 
   def show
     resume = Resume.find(params[:id])
-    render json: resume.as_json(include: { resume_sections: { include: :resume_items } })
+    render json: resume.as_json(include: {
+      user: { only: [:id, :name, :email] },
+      resume_sections: { include: :resume_items }
+    })
+  end
+
+  def my_liked_resumes
+    liked_resumes = current_api_v1_user.liked_resumes
+
+    render json: liked_resumes.as_json(include: :user)
   end
 
   def create
@@ -25,18 +35,18 @@ class Api::V1::ResumesController < ApplicationController
   end
 
   def update
-    resume = Resume.find(params[:id])  # 指定されたIDで Resume を検索
-    if resume.update(resume_params)  # パラメータで指定された内容で Resume を更新
+    resume = Resume.find(params[:id])
+    if resume.update(resume_params)
       render json: resume.as_json(include: { resume_sections: { include: :resume_items } })
     else
-      render json: { errors: resume.errors.full_messages }, status: :unprocessable_entity  # 更新失敗時にエラーメッセージを返す
+      render json: { errors: resume.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
   def destroy
     resume = Resume.find(params[:id])
     resume.destroy
-    head :no_content  #HTTPステータスコードの204を返すという意味
+    head :no_content
   end
 
   def liked_by_current_user
@@ -45,12 +55,6 @@ class Api::V1::ResumesController < ApplicationController
     likes_count = resume.resume_likes.count
 
     render json: { liked: liked, likes_count: likes_count }
-  end
-
-  def my_liked_resumes
-    liked_resumes = current_api_v1_user.liked_resumes
-
-    render json: liked_resumes
   end
 
   private

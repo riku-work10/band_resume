@@ -73,7 +73,7 @@ const ResumesCreate = ({ onClose }) => {
         className="bg-stone-800 dark:bg-stone-800 text-white max-h-[calc(100vh-30px)] overflow-y-auto w-full max-w-xl mx-4 rounded-2xl shadow-xl p-6"
         onClick={(e) => e.stopPropagation()}
       >
-        <h2 className="text-xl font-bold mb-4">{user.name}の履歴書作成</h2>
+        <h2 className="text-xl font-bold mb-4">履歴書作成</h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
 

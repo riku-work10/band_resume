@@ -7,7 +7,7 @@ import SelectGender from "../selectlists/SelectGender";
 import SelectLocation from "../selectlists/SelectLocation";
 import { useS3Upload } from "../../hooks/useS3Upload";
 
-const ResumeEdit = ({ resume, onClose, onUpdate }) => {
+const ResumeEdit = ({ resume, onClose, onUpdate, userName }) => {
   const { user } = useAuth();
 
   const {
@@ -87,7 +87,7 @@ const ResumeEdit = ({ resume, onClose, onUpdate }) => {
         className="bg-stone-800 text-white max-h-[calc(100vh-30px)] overflow-y-auto w-full max-w-xl mx-4 rounded-2xl shadow-xl p-6"
         onClick={(e) => e.stopPropagation()}
       >
-        <h2 className="text-xl font-bold mb-4">{user.name}の履歴書編集</h2>
+        <h2 className="text-xl font-bold mb-4">{userName}の履歴書編集</h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
 

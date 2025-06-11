@@ -4,6 +4,7 @@ import { getResumes } from "../services/apiResumes";
 import ResumeSearch from "../components/search/ResumeSearch";
 import { useAuth } from "../hooks/AuthContext";
 import ResumeLikeButton from '../components/likes/ResumeLikeButton ';
+import ResumesCreate from "../components/resumes/ResumesCreate";
 
 const ResumePage = () => {
   const [resumes, setResumes] = useState([]);
@@ -11,6 +12,7 @@ const ResumePage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { user } = useAuth();
+  const [isModalOpen, setIsModalOpen] = useState(false); 
 
   useEffect(() => {
     const fetchResumes = async () => {
@@ -90,7 +92,7 @@ const ResumePage = () => {
                   <Link to={`/resumes/${resume.id}`} className="hover:underline block">
                     {/* タイトル */}
                     <h2 className="text-lg font-semibold text-stone-100 mb-2 break-words">
-                      {}の履歴書
+                      {resume.user.name}の履歴書
                     </h2>
 
                     {/* 年齢・性別・場所 */}
@@ -122,7 +124,25 @@ const ResumePage = () => {
           ))}
         </div>
       </div>
-    </div>
+       {/* ✅ 固定表示の「履歴書作成」ボタン */}
+      {user && (
+        <button
+          onClick={() => setIsModalOpen(true)}
+          className="fixed bottom-20 right-6 z-50 bg-orange-600 hover:bg-orange-700 text-xl text-white font-bold py-3 px-6 rounded-full shadow-lg"
+        >
+          履歴書作成
+        </button>
+      )}
+
+      {/* ✅ モーダル */}
+      {isModalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+            <ResumesCreate onClose={() => setIsModalOpen(false)} />
+          </div>
+        </div>
+      )}
+    </div>    
   );
 };
 

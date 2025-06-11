@@ -50,7 +50,7 @@ const ResumeLikes = () => {
                   className="w-full h-36 object-cover rounded-md mb-2"
                 />
               )}
-              <h2 className="text-lg font-semibold">{}の履歴書</h2>
+              <h2 className="text-lg font-semibold">{resume.user.name}の履歴書</h2>
               <p className="text-sm text-stone-200">年齢: {resume.age}</p>
               <p className="text-sm text-stone-200">性別: {resume.gender}</p>
               <p className="text-sm text-stone-200">場所: {resume.location}</p>
