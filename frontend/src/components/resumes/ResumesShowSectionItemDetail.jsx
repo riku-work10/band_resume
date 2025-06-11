@@ -1,6 +1,6 @@
 const ResumesShowSectionItemDetail = ({ resume }) => {
   return (
-    <div className="space-y-12 px-6 py-10 bg-black min-h-screen">
+    <div className="space-y-12 px-6 py-10 bg-black min-h-[300px]">
       {resume.resume_sections.map((section) => {
         const songTitles = section.resume_items
           .map((item) => item.song_title?.trim())
