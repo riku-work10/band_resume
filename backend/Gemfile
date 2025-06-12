@@ -48,6 +48,10 @@ group :development do
   # gem "spring"
 end
 
+group :test do
+  gem 'simplecov', require: false
+end
+
 # 追加したgemたち
 #フロントとのAPI通信用
 gem "rack-cors"
