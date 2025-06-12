@@ -11,8 +11,8 @@ class Api::V1::SnsauthController < DeviseTokenAuth::OmniauthCallbacksController
       google_image = payload['picture']
 
       @user = User.find_or_initialize_by(email: google_email)
-      @user.name = google_name
-      @user.image = google_image
+      @user.name = google_name if @user.name.blank?
+      @user.image = google_image if @user.image.blank?
       @user.provider = 'google_oauth2'
       @user.uid = payload['sub']
 
