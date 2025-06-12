@@ -21,7 +21,7 @@ import ResumesShowSectionItemCreateEdit from '../components/resumes/ResumesShowS
 import ResetPasswordForm from '../components/auth/ResetPasswordForm';
 import ForgotPasswordForm from '../components/auth/ForgotPasswordForm';
 
-const AppRoutes1 = () => (
+const AppRoutesver1 = () => (
   <Routes>
     <Route path="/" element={<HomePage />} />
     <Route path="/events" element={<EventPage />} />
@@ -47,4 +47,4 @@ const AppRoutes1 = () => (
   </Routes>
 );
 
-export default AppRoutes1;
+export default AppRoutesver1;

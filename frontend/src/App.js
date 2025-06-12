@@ -6,10 +6,10 @@ import "./index.css";
 
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
-import AppRoutes from "./routes/AppRoutes";
 import { AuthProvider } from "./hooks/AuthContext";
 import IntroScreen from "./components/homepage/IntroScreen";
 import PageTracker from "./hooks/PageTracker";
+import AppRoutesver1 from "./routes/AppRoutesver1";
 
 const App = () => {
   const [showIntro, setShowIntro] = useState(true);
@@ -34,7 +34,7 @@ const App = () => {
             <>
               <Header />
               <main className="flex-grow pt-14">
-                <AppRoutes />
+                <AppRoutesver1 />
               </main>
               <footer className="h-16">
                 <Footer />
