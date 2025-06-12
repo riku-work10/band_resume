@@ -9,7 +9,7 @@ class Notification < ApplicationRecord
       message: message,
       resume_title: resume_title,
       comment_content: content,
-      resume_id: resume,  # resume_idを追加
+      resume_id: resume, # resume_idを追加
       read: false
     )
   end

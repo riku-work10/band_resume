@@ -43,12 +43,12 @@ DeviseTokenAuth.setup do |config|
 
   # Makes it possible to change the headers names
   config.headers_names = {
-    :'authorization' => 'Authorization',
-    :'access-token' => 'access-token',
-    :'client' => 'client',
-    :'expiry' => 'expiry',
-    :'uid' => 'uid',
-    :'token-type' => 'token-type'
+    authorization: 'Authorization',
+    'access-token': 'access-token',
+    client: 'client',
+    expiry: 'expiry',
+    uid: 'uid',
+    'token-type': 'token-type'
   }
 
   # Makes it possible to use custom uid column
@@ -63,5 +63,5 @@ DeviseTokenAuth.setup do |config|
   # devise confirmable module. If you want to use devise confirmable module and
   # send email, set it to true. (This is a setting for compatibility)
   # config.send_confirmation_email = true
-  config.default_password_reset_url = "#{ENV['VERCEL_URL']}/password/reset"
+  config.default_password_reset_url = "#{ENV.fetch('VERCEL_URL', nil)}/password/reset"
 end

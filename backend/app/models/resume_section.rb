@@ -3,5 +3,4 @@ class ResumeSection < ApplicationRecord
   belongs_to :resume
 
   validates :position, presence: true, numericality: { only_integer: true }
-
 end

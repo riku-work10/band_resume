@@ -1,4 +1,4 @@
-require "active_support/core_ext/integer/time"
+require 'active_support/core_ext/integer/time'
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
@@ -45,17 +45,17 @@ Rails.application.configure do
   config.force_ssl = true
 
   # Log to STDOUT by default
-  config.logger = ActiveSupport::Logger.new(STDOUT)
-    .tap  { |logger| logger.formatter = ::Logger::Formatter.new }
-    .then { |logger| ActiveSupport::TaggedLogging.new(logger) }
+  config.logger = ActiveSupport::Logger.new($stdout)
+                                       .tap  { |logger| logger.formatter = Logger::Formatter.new }
+                                       .then { |logger| ActiveSupport::TaggedLogging.new(logger) }
 
   # Prepend all log lines with the following tags.
-  config.log_tags = [ :request_id ]
+  config.log_tags = [:request_id]
 
   # "info" includes generic and useful information about system operation, but avoids logging too much
   # information to avoid inadvertent exposure of personally identifiable information (PII). If you
   # want to log everything, set the level to "debug".
-  config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "info")
+  config.log_level = ENV.fetch('RAILS_LOG_LEVEL', 'info')
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
@@ -88,14 +88,14 @@ Rails.application.configure do
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
   config.action_cable.url = 'wss://api.harukamirai-resume.com/cable'
-config.action_cable.allowed_request_origins = [
-  'https://api.harukamirai-resume.com',
-  'https://www.harukamirai-resume.com'
-]
-config.action_mailer.default_url_options = {
-  host: 'api.harukamirai-resume.com',
-  protocol: 'https'
-}
+  config.action_cable.allowed_request_origins = [
+    'https://api.harukamirai-resume.com',
+    'https://www.harukamirai-resume.com'
+  ]
+  config.action_mailer.default_url_options = {
+    host: 'api.harukamirai-resume.com',
+    protocol: 'https'
+  }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
@@ -103,10 +103,9 @@ config.action_mailer.default_url_options = {
     address: 'smtp.gmail.com',
     port: 587,
     domain: 'gmail.com',
-    user_name: ENV['GMAIL_USERNAME'],
-    password: ENV['GMAIL_PASSWORD'],
+    user_name: ENV.fetch('GMAIL_USERNAME', nil),
+    password: ENV.fetch('GMAIL_PASSWORD', nil),
     authentication: 'plain',
     enable_starttls_auto: true
   }
-
 end
