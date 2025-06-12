@@ -1,6 +1,6 @@
-require_relative "boot"
+require_relative 'boot'
 
-require "rails/all"
+require 'rails/all'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -14,7 +14,7 @@ module App
     # Please, add to the `ignore` list any other `lib` subdirectories that do
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
     # Common ones are `templates`, `generators`, or `middleware`, for example.
-    config.autoload_lib(ignore: %w(assets tasks))
+    config.autoload_lib(ignore: %w[assets tasks])
 
     # Configuration for the application, engines, and railties goes here.
     #
@@ -28,7 +28,7 @@ module App
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
 
-    #デプロイ時に実装
+    # デプロイ時に実装
     config.api_only = true # これはもともとある記述
 
     config.generators do |g|
@@ -41,8 +41,8 @@ module App
     config.time_zone = 'Tokyo'
     config.active_record.default_timezone = :local
 
-    #認証関係追加後記載
-    config.i18n.default_locale = :ja #日本語化！
+    # 認証関係追加後記載
+    config.i18n.default_locale = :ja # 日本語化！
 
     config.session_store :cookie_store, key: '_interslice_session'
     config.middleware.use ActionDispatch::Cookies # Required for all session management
@@ -52,12 +52,12 @@ module App
       allow do
         # 今回はRailsのポートが3000番、Reactのポートが8000番にするので、Reactのリクエストを許可するためにlocalhost:8000を設定
         # 本番環境も関わってくるから環境変数で設定してあげること！
-        origins ENV['VERCEL_URL']
+        origins ENV.fetch('VERCEL_URL', nil)
         resource '*',
-                 :headers => :any,
+                 headers: :any,
                  # この一文で、渡される、'access-token'、'uid'、'client'というheaders情報を用いてログイン状態を維持する。
-                 :expose => ['access-token', 'expiry', 'token-type', 'uid', 'client'],
-                 :methods => [:get, :post, :options, :delete, :put]
+                 expose: %w[access-token expiry token-type uid client],
+                 methods: %i[get post options delete put]
       end
     end
   end

@@ -7,11 +7,11 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins ENV['VERCEL_URL']
+    origins ENV.fetch('VERCEL_URL', nil)
 
-    resource "*",
-      headers: :any,
-      expose: ['access-token', 'expiry', 'token-type', 'uid', 'client'], # 認証ヘッダー  reactからリクエストを受け入れられるようにする
-      methods: [:get, :post, :put, :patch, :delete, :options, :head]
+    resource '*',
+             headers: :any,
+             expose: %w[access-token expiry token-type uid client], # 認証ヘッダー  reactからリクエストを受け入れられるようにする
+             methods: %i[get post put patch delete options head]
   end
 end

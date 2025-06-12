@@ -7,10 +7,9 @@ class ApplicationController < ActionController::API
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :email, :password, :password_confirmation])
-    devise_parameter_sanitizer.permit(:sign_in, keys: [:email, :password])
+    devise_parameter_sanitizer.permit(:sign_up, keys: %i[name email password password_confirmation])
+    devise_parameter_sanitizer.permit(:sign_in, keys: %i[email password])
   end
-
 
   private
 
@@ -19,9 +18,9 @@ class ApplicationController < ActionController::API
     params.merge!(params[:session].to_unsafe_h)
     params.delete(:session) # session キーを削除
   end
-   def fix_registration_params
+
+  def fix_registration_params
     params.merge!(params[:registration].to_unsafe_h)
     params.delete(:registration) # registration キーを削除
   end
-
 end
