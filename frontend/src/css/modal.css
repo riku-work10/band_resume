@@ -5,11 +5,11 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);  /* 半透明の背景 */
+  background: rgba(0, 0, 0, 0.5); /* 半透明の背景 */
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;  /* 他の要素より前面に表示 */
+  z-index: 1000; /* 他の要素より前面に表示 */
 }
 
 /* モーダルコンテンツ */

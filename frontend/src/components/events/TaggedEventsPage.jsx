@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
-import { getEventsByTag } from "../../services/apiLives";
-import { useAuth } from "../../hooks/AuthContext";
-import EventLikeButton from "../../components/likes/EventLikeButton";
+import React, { useState, useEffect } from 'react';
+import { useParams, Link } from 'react-router-dom';
+import { getEventsByTag } from '../../services/apiLives';
+import { useAuth } from '../../hooks/AuthContext';
+import EventLikeButton from '../likes/EventLikeButton';
 
-const TaggedEventsPage = () => {
+function TaggedEventsPage() {
   const { tagName } = useParams();
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -17,7 +17,7 @@ const TaggedEventsPage = () => {
         const data = await getEventsByTag(tagName);
         setEvents(data);
       } catch (err) {
-        setError("イベントの取得に失敗しました");
+        setError('イベントの取得に失敗しました');
       } finally {
         setLoading(false);
       }
@@ -40,12 +40,11 @@ const TaggedEventsPage = () => {
               className="relative flex bg-orange-100 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition"
             >
               {event.image && (
-                <Link to={`/events/${event.id}`} className="flex-shrink-0 w-32 h-32 md:w-40 md:h-40">
-                  <img
-                    src={event.image}
-                    alt={event.title}
-                    className="w-full h-full object-cover"
-                  />
+                <Link
+                  to={`/events/${event.id}`}
+                  className="flex-shrink-0 w-32 h-32 md:w-40 md:h-40"
+                >
+                  <img src={event.image} alt={event.title} className="w-full h-full object-cover" />
                 </Link>
               )}
 
@@ -89,6 +88,6 @@ const TaggedEventsPage = () => {
       )}
     </div>
   );
-};
+}
 
 export default TaggedEventsPage;

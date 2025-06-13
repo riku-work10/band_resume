@@ -12,7 +12,7 @@
   transform-origin: bottom center;
   bottom: 0;
   font-weight: bold;
-  font-family: "serif";
+  font-family: 'serif';
   letter-spacing: 0.1em;
 }
 
@@ -26,5 +26,5 @@
   font-weight: bold;
   color: white;
   white-space: nowrap;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
 }

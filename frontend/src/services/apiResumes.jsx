@@ -1,7 +1,6 @@
 import apiClient from './apiClient';
 
-
-//履歴書一覧を取得する
+// 履歴書一覧を取得する
 export const getResumes = async () => {
   try {
     const response = await apiClient.get(`/resumes`);
@@ -41,7 +40,7 @@ export const createResume = async (resumeData) => {
   }
 };
 
-//履歴書を削除する
+// 履歴書を削除する
 export const ResumeDelete = async (id) => {
   try {
     await apiClient.delete(`/resumes/${id}`); // apiClientを使用
@@ -50,7 +49,7 @@ export const ResumeDelete = async (id) => {
   }
 };
 
-//自分の履歴書のみ取得
+// 自分の履歴書のみ取得
 export const getResumesByUserId = async (userId) => {
   try {
     const response = await apiClient.get(`/resumes?user_id=${userId}`);

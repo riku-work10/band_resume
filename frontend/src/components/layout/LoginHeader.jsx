@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, useLocation } from "react-router-dom";
-import SignOutButtun from "../auth/SignOutButtun";
-import GetPageName from "../../hooks/GetPageName";
-import { MdClose, MdOutlineMenu, MdHome, MdNotifications } from "react-icons/md";
-import NotificationPage from "../../pages/NotificationPage";
+import { Link, useLocation } from 'react-router-dom';
+import { MdClose, MdOutlineMenu, MdHome, MdNotifications } from 'react-icons/md';
+import SignOutButtun from '../auth/SignOutButtun';
+import GetPageName from '../../hooks/GetPageName';
+import NotificationPage from '../../pages/NotificationPage';
 
-const LoginHeader = () => {
+function LoginHeader() {
   const [isOpen, setIsOpen] = useState(false);
   const [showNotificationModal, setShowNotificationModal] = useState(false);
   const location = useLocation();
@@ -22,15 +22,18 @@ const LoginHeader = () => {
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
   return (
     <header>
       <div className="flex justify-between items-center">
         <div className="flex-1">
-          <Link to="/top" className={`text-lg font-bold ${location.pathname === "/top" ? "text-orange-500" : ""}`}>
+          <Link
+            to="/top"
+            className={`text-lg font-bold ${location.pathname === '/top' ? 'text-orange-500' : ''}`}
+          >
             <MdHome className="text-xl" />
           </Link>
         </div>
@@ -38,10 +41,7 @@ const LoginHeader = () => {
           <p className="text-lg font-semibold">{GetPageName()}</p>
         </div>
         <div className="flex-1 flex justify-end items-center space-x-4">
-          <button
-            className="block text-white"
-            onClick={() => setShowNotificationModal(true)}
-          >
+          <button className="block text-white" onClick={() => setShowNotificationModal(true)}>
             <MdNotifications className="text-xl" />
           </button>
           <button className="text-white z-50" onClick={() => setIsOpen(!isOpen)}>
@@ -57,35 +57,49 @@ const LoginHeader = () => {
           className="absolute top-16 right-0 w-1/8 bg-stone-700 p-4 shadow-lg rounded-l-lg"
         >
           <ul className="space-y-2">
-            <li><Link to="/contact" onClick={() => setIsOpen(false)}>お問い合わせ</Link></li>
-            <li><Link to="/privacypolicy" onClick={() => setIsOpen(false)}>プライバシーポリシー</Link></li>
-            <li><Link to="/termsofservice" onClick={() => setIsOpen(false)}>利用規約</Link></li>
-            <li><SignOutButtun /></li>
+            <li>
+              <Link to="/contact" onClick={() => setIsOpen(false)}>
+                お問い合わせ
+              </Link>
+            </li>
+            <li>
+              <Link to="/privacypolicy" onClick={() => setIsOpen(false)}>
+                プライバシーポリシー
+              </Link>
+            </li>
+            <li>
+              <Link to="/termsofservice" onClick={() => setIsOpen(false)}>
+                利用規約
+              </Link>
+            </li>
+            <li>
+              <SignOutButtun />
+            </li>
           </ul>
         </nav>
       )}
 
       {/* 通知モーダル */}
-{showNotificationModal && (
-  <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-    <div
-      ref={modalRef}
-      className="bg-stone-800 text-stone-100 rounded-lg max-w-3xl w-full mx-4 max-h-[90vh] overflow-y-auto shadow-xl p-6 border border-stone-600"
-    >
-      <div className="flex justify-end mb-4">
-        <button
-          onClick={() => setShowNotificationModal(false)}
-          className="p-2 rounded-full hover:bg-stone-700 transition-colors focus:outline-none"
-        >
-          <MdClose className="text-2xl text-stone-300" />
-        </button>
-      </div>
-      <NotificationPage />
-    </div>
-  </div>
-)}
+      {showNotificationModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div
+            ref={modalRef}
+            className="bg-stone-800 text-stone-100 rounded-lg max-w-3xl w-full mx-4 max-h-[90vh] overflow-y-auto shadow-xl p-6 border border-stone-600"
+          >
+            <div className="flex justify-end mb-4">
+              <button
+                onClick={() => setShowNotificationModal(false)}
+                className="p-2 rounded-full hover:bg-stone-700 transition-colors focus:outline-none"
+              >
+                <MdClose className="text-2xl text-stone-300" />
+              </button>
+            </div>
+            <NotificationPage />
+          </div>
+        </div>
+      )}
     </header>
   );
-};
+}
 
 export default LoginHeader;

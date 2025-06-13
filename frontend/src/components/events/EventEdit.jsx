@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../hooks/AuthContext';
-import SelectLocation from "../selectlists/SelectLocation";
+import SelectLocation from '../selectlists/SelectLocation';
 import { putEvent } from '../../services/apiLives';
-import TagSelect from '../selectlists/TagSelect'; 
+import TagSelect from '../selectlists/TagSelect';
 import { useS3Upload } from '../../hooks/useS3Upload';
 
-const EventEdit = ({ event, onClose, onUpdate }) => {
+function EventEdit({ event, onClose, onUpdate }) {
   const { user } = useAuth();
-  const defaultImage = "https://bandresume.s3.ap-northeast-1.amazonaws.com/profile_images/default_ogp.jpg";
+  const defaultImage =
+    'https://bandresume.s3.ap-northeast-1.amazonaws.com/profile_images/default_ogp.jpg';
 
   const [title, setTitle] = useState('');
   const [date, setDate] = useState('');
@@ -23,7 +24,7 @@ const EventEdit = ({ event, onClose, onUpdate }) => {
     isUploading,
     uploadImage,
     deleteImage,
-  } = useS3Upload(user.id, "event", event?.image || '');
+  } = useS3Upload(user.id, 'event', event?.image || '');
 
   useEffect(() => {
     if (event) {
@@ -31,7 +32,7 @@ const EventEdit = ({ event, onClose, onUpdate }) => {
       setDate(event.date || '');
       setLocation(event.location || '');
       setIntroduction(event.introduction || '');
-      setSelectedTags(event.tags ? event.tags.map(tag => tag.name) : []);
+      setSelectedTags(event.tags ? event.tags.map((tag) => tag.name) : []);
     }
   }, [event]);
 
@@ -111,11 +112,11 @@ const EventEdit = ({ event, onClose, onUpdate }) => {
                 disabled={isUploading || !selectedFile}
                 className={`px-4 py-2 rounded text-white min-w-[120px] ${
                   isUploading || !selectedFile
-                    ? "bg-stone-600 cursor-not-allowed"
-                    : "bg-green-600 hover:bg-green-700"
+                    ? 'bg-stone-600 cursor-not-allowed'
+                    : 'bg-green-600 hover:bg-green-700'
                 }`}
               >
-                {isUploading ? "アップロード中..." : "アップロード"}
+                {isUploading ? 'アップロード中...' : 'アップロード'}
               </button>
             </div>
             {image && (
@@ -180,6 +181,6 @@ const EventEdit = ({ event, onClose, onUpdate }) => {
       </div>
     </div>
   );
-};
+}
 
 export default EventEdit;

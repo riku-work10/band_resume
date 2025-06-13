@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 import apiClient from '../../services/apiClient';
 
-export const ResumeSectionTitle = ({ resumeSectionsList, setResumeSectionsList, resumeSection, resumeId }) => {
+export function ResumeSectionTitle({
+  resumeSectionsList,
+  setResumeSectionsList,
+  resumeSection,
+  resumeId,
+}) {
   const [isEditing, setIsEditing] = useState(false);
   const [inputTitle, setInputTitle] = useState(resumeSection.title || '');
 
@@ -12,16 +17,21 @@ export const ResumeSectionTitle = ({ resumeSectionsList, setResumeSectionsList, 
   const saveTitle = async () => {
     try {
       const trimmedTitle = inputTitle.trim();
-      const response = await apiClient.put(`resumes/${resumeId}/resume_sections/${resumeSection.id}`, {
-        resume_section: {
-          title: trimmedTitle,
+      const response = await apiClient.put(
+        `resumes/${resumeId}/resume_sections/${resumeSection.id}`,
+        {
+          resume_section: {
+            title: trimmedTitle,
+          },
         },
-      });
-      setResumeSectionsList(resumeSectionsList.map(section =>
-        section.id === resumeSection.id ? response.data : section
-      ));
+      );
+      setResumeSectionsList(
+        resumeSectionsList.map((section) =>
+          section.id === resumeSection.id ? response.data : section,
+        ),
+      );
     } catch (error) {
-      console.error("Error updating section title:", error);
+      console.error('Error updating section title:', error);
     } finally {
       setIsEditing(false);
     }
@@ -63,4 +73,4 @@ export const ResumeSectionTitle = ({ resumeSectionsList, setResumeSectionsList, 
       )}
     </div>
   );
-};
+}

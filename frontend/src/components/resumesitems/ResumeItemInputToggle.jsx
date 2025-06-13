@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
+import { MdMusicNote, MdEdit } from 'react-icons/md';
 import { ResumeItemAddInput } from './ResumeItemAddInput';
-import { MdMusicNote, MdEdit } from "react-icons/md";
 import { ResumeItemSongSelector } from './ResumeItemSongSelector';
 
-export const ResumeItemInputToggle = ({ itemList, setItemList, resumeSection, resumeId }) => {
+export function ResumeItemInputToggle({ itemList, setItemList, resumeSection, resumeId }) {
   const [inputMode, setInputMode] = useState('text');
   const [inputText, setInputText] = useState('');
 
@@ -60,4 +60,4 @@ export const ResumeItemInputToggle = ({ itemList, setItemList, resumeSection, re
       )}
     </div>
   );
-};
+}

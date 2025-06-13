@@ -1,24 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import { MdFavorite, MdFavoriteBorder  } from "react-icons/md";
+import { MdFavorite, MdFavoriteBorder } from 'react-icons/md';
 import { fetchLikeStatusEvent, likeEvent, unlikeEvent } from '../../services/apiLikes';
 
-const EventLikeButton = ({ eventId }) => {
+function EventLikeButton({ eventId }) {
   const [liked, setLiked] = useState(false);
 
   useEffect(() => {
     // 初回レンダリング時に現在のいいね状態を取得
     const getLikeStatus = async () => {
       const status = await fetchLikeStatusEvent(eventId);
-      setLiked(status);  //statusにはresponse.data.likedが格納（true/false）
+      setLiked(status); // statusにはresponse.data.likedが格納（true/false）
     };
 
     getLikeStatus();
   }, [eventId]);
 
   const handleClick = async () => {
-    if (liked) {  //likedには初期レンダリング時の状態(true/false）
+    if (liked) {
+      // likedには初期レンダリング時の状態(true/false）
       const newStatus = await unlikeEvent(eventId);
-      setLiked(newStatus);  //newStatusにはresponse.data.likedが格納（true/false）
+      setLiked(newStatus); // newStatusにはresponse.data.likedが格納（true/false）
     } else {
       const newStatus = await likeEvent(eventId);
       setLiked(newStatus);
@@ -27,9 +28,13 @@ const EventLikeButton = ({ eventId }) => {
 
   return (
     <button onClick={handleClick}>
-     {liked ? <MdFavorite className="text-red-500"/> : <MdFavoriteBorder className="text-gray-500"/> }
+      {liked ? (
+        <MdFavorite className="text-red-500" />
+      ) : (
+        <MdFavoriteBorder className="text-gray-500" />
+      )}
     </button>
   );
-};
+}
 
 export default EventLikeButton;

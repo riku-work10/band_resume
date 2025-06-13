@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { getResumes } from "../services/apiResumes";
-import ResumeSearch from "../components/search/ResumeSearch";
-import { useAuth } from "../hooks/AuthContext";
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { getResumes } from '../services/apiResumes';
+import ResumeSearch from '../components/search/ResumeSearch';
+import { useAuth } from '../hooks/AuthContext';
 import ResumeLikeButton from '../components/likes/ResumeLikeButton ';
-import ResumesCreate from "../components/resumes/ResumesCreate";
+import ResumesCreate from '../components/resumes/ResumesCreate';
 
-const ResumePage = () => {
+function ResumePage() {
   const [resumes, setResumes] = useState([]);
   const [filteredResumes, setFilteredResumes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { user } = useAuth();
-  const [isModalOpen, setIsModalOpen] = useState(false); 
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchResumes = async () => {
@@ -22,7 +22,7 @@ const ResumePage = () => {
         setFilteredResumes(data);
         setLoading(false);
       } catch (err) {
-        setError("履歴書の取得に失敗しました");
+        setError('履歴書の取得に失敗しました');
         setLoading(false);
       }
     };
@@ -35,13 +35,13 @@ const ResumePage = () => {
 
     if (query) {
       filtered = filtered.filter((resume) =>
-        resume.title.toLowerCase().includes(query.toLowerCase())
+        resume.title.toLowerCase().includes(query.toLowerCase()),
       );
     }
 
     if (minAge || maxAge) {
       filtered = filtered.filter((resume) => {
-        const age = resume.age;
+        const { age } = resume;
         return (!minAge || age >= minAge) && (!maxAge || age <= maxAge);
       });
     }
@@ -79,7 +79,7 @@ const ResumePage = () => {
                 <img
                   src={
                     resume.profile_image ||
-                    "https://bandresume.s3.ap-northeast-1.amazonaws.com/profile_images/default_ogp.jpg"
+                    'https://bandresume.s3.ap-northeast-1.amazonaws.com/profile_images/default_ogp.jpg'
                   }
                   alt={resume.title}
                   className="w-full h-full object-cover sm:rounded-l-2xl"
@@ -97,14 +97,14 @@ const ResumePage = () => {
 
                     {/* 年齢・性別・場所 */}
                     <div className="flex flex-wrap text-sm text-stone-300 gap-x-4 gap-y-1 mb-3">
-                      {resume.age && ( <p>年齢：{resume.age}</p> )}
-                      {resume.gender && ( <p>性別：{resume.gender}</p> )}
-                      {resume.location && ( <p>現在地：{resume.location}</p> )}
+                      {resume.age && <p>年齢：{resume.age}</p>}
+                      {resume.gender && <p>性別：{resume.gender}</p>}
+                      {resume.location && <p>現在地：{resume.location}</p>}
                     </div>
 
                     {/* 紹介文 */}
                     <p className="text-sm text-stone-200 whitespace-pre-wrap break-words">
-                      {resume.introduction && ( <p>{resume.introduction}</p> )}
+                      {resume.introduction && <p>{resume.introduction}</p>}
                     </p>
                   </Link>
                 </div>
@@ -124,7 +124,7 @@ const ResumePage = () => {
           ))}
         </div>
       </div>
-       {/* ✅ 固定表示の「履歴書作成」ボタン */}
+      {/* ✅ 固定表示の「履歴書作成」ボタン */}
       {user && (
         <button
           onClick={() => setIsModalOpen(true)}
@@ -142,8 +142,8 @@ const ResumePage = () => {
           </div>
         </div>
       )}
-    </div>    
+    </div>
   );
-};
+}
 
 export default ResumePage;

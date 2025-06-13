@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
-const StarField = ({ count = 150 }) => {
+function StarField({ count = 150 }) {
   const [stars, setStars] = useState([]);
 
   useEffect(() => {
@@ -50,6 +50,6 @@ const StarField = ({ count = 150 }) => {
       `}</style>
     </div>
   );
-};
+}
 
 export default StarField;

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import apiClient from '../../services/apiClient';
-import { Link } from "react-router-dom";
 
 function ForgotPasswordForm() {
   const [email, setEmail] = useState('');
@@ -26,9 +26,7 @@ function ForgotPasswordForm() {
       style={{ backgroundImage: "url('/images/001.jpg')" }} // 適宜画像パスを変更
     >
       <div className="bg-white/20 backdrop-blur-md rounded-xl p-8 shadow-lg w-full max-w-md text-white">
-        <h2 className="text-2xl font-light text-center mb-6 tracking-widest">
-          パスワードリセット
-        </h2>
+        <h2 className="text-2xl font-light text-center mb-6 tracking-widest">パスワードリセット</h2>
         <form onSubmit={handleSubmit} className="space-y-6">
           <input
             type="email"
@@ -46,9 +44,7 @@ function ForgotPasswordForm() {
           </button>
         </form>
 
-        {message && (
-          <p className="mt-4 text-center text-sm text-white/90">{message}</p>
-        )}
+        {message && <p className="mt-4 text-center text-sm text-white/90">{message}</p>}
 
         <hr className="my-6 border-white/30" />
 

@@ -1,6 +1,6 @@
-const genderOptions = ["男", "女", "秘密", "その他"];
+const genderOptions = ['男', '女', '秘密', 'その他'];
 
-const SelectGender = ({ value, onChange }) => {
+function SelectGender({ value, onChange }) {
   return (
     <select
       value={value}
@@ -15,6 +15,6 @@ const SelectGender = ({ value, onChange }) => {
       ))}
     </select>
   );
-};
+}
 
 export default SelectGender;

@@ -1,24 +1,23 @@
-import { useState } from "react";
-import { useAuth } from "../../hooks/AuthContext";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
-import GoogleLoginButton from "./GoogleLoginButton";
+import { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import { useAuth } from '../../hooks/AuthContext';
+import GoogleLoginButton from './GoogleLoginButton';
 
-const SignIn = () => {
+function SignIn() {
   const { signin } = useAuth();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await signin(email, password);
-      alert("ログイン成功！");
-      navigate("/top");
+      alert('ログイン成功！');
+      navigate('/top');
     } catch (err) {
       console.error(err);
-      alert("ログイン失敗");
+      alert('ログイン失敗');
     }
   };
 
@@ -67,6 +66,6 @@ const SignIn = () => {
       </div>
     </div>
   );
-};
+}
 
 export default SignIn;

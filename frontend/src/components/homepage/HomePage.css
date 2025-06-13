@@ -183,7 +183,7 @@ body {
 
 .hero-section {
   height: 100vh;
-  background-color: #FF8D44;
+  background-color: #ff8d44;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -191,7 +191,6 @@ body {
   text-align: center;
   padding: 2rem;
 }
-
 
 .final-logo-section {
   width: 100%;

@@ -1,37 +1,37 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-export const useS3Upload = (userId, folder = "common", initialProfileImage = "") => {
+export const useS3Upload = (userId, folder = 'common', initialProfileImage = '') => {
   const [profileImage, setProfileImage] = useState(initialProfileImage);
   const [selectedFile, setSelectedFile] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
 
   // S3アップロード関数
-   const uploadImage = async () => {
+  const uploadImage = async () => {
     if (!selectedFile) return;
     try {
       setIsUploading(true);
 
       // ユニークなファイル名生成
-      const ext = selectedFile.name.split(".").pop();
+      const ext = selectedFile.name.split('.').pop();
       const uniqueName = `${folder}/${userId}_${Date.now()}.${ext}`;
 
       const res = await fetch(
-        `${process.env.REACT_APP_API_URL}/api/${process.env.REACT_APP_API_VERSION}/s3/presigned_url?user_id=${userId}&filename=${uniqueName}&content_type=${selectedFile.type}`
+        `${process.env.REACT_APP_API_URL}/api/${process.env.REACT_APP_API_VERSION}/s3/presigned_url?user_id=${userId}&filename=${uniqueName}&content_type=${selectedFile.type}`,
       );
 
       const { url, file_url } = await res.json();
 
       const uploadRes = await fetch(url, {
-        method: "PUT",
-        headers: { "Content-Type": selectedFile.type },
+        method: 'PUT',
+        headers: { 'Content-Type': selectedFile.type },
         body: selectedFile,
       });
 
-      if (!uploadRes.ok) throw new Error("S3アップロードに失敗しました");
+      if (!uploadRes.ok) throw new Error('S3アップロードに失敗しました');
 
       setProfileImage(file_url);
       setSelectedFile(null);
-      alert("画像アップロード成功！");
+      alert('画像アップロード成功！');
       return file_url;
     } catch (err) {
       alert(err.message);
@@ -51,28 +51,28 @@ export const useS3Upload = (userId, folder = "common", initialProfileImage = "")
       : null;
 
     if (!objectKey) {
-      alert("画像のキーが取得できません");
+      alert('画像のキーが取得できません');
       return;
     }
 
-    if (!window.confirm("画像を削除しますか？")) return;
+    if (!window.confirm('画像を削除しますか？')) return;
 
     try {
       const url = new URL(
-        `${process.env.REACT_APP_API_URL}/api/${process.env.REACT_APP_API_VERSION}/s3/delete_object`
+        `${process.env.REACT_APP_API_URL}/api/${process.env.REACT_APP_API_VERSION}/s3/delete_object`,
       );
-      url.searchParams.append("object_key", objectKey);
+      url.searchParams.append('object_key', objectKey);
 
-      const res = await fetch(url.toString(), { method: "DELETE" });
+      const res = await fetch(url.toString(), { method: 'DELETE' });
 
       if (!res.ok) {
         const errorData = await res.json();
-        throw new Error(errorData.error || "画像削除に失敗しました");
+        throw new Error(errorData.error || '画像削除に失敗しました');
       }
 
-      setProfileImage("");
+      setProfileImage('');
       setSelectedFile(null);
-      alert("画像を削除しました");
+      alert('画像を削除しました');
     } catch (err) {
       alert(err.message);
     }

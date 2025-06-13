@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import apiClient from '../../services/apiClient';
 import { useAuth } from '../../hooks/AuthContext';
 
-const ResumeLikes = () => {
+function ResumeLikes() {
   const { user } = useAuth();
   const [likedResumes, setLikedResumes] = useState([]);
 
@@ -13,7 +13,7 @@ const ResumeLikes = () => {
         const response = await apiClient.get('/resumes/my_liked_resumes');
         setLikedResumes(response.data);
       } catch (error) {
-        console.error("いいねした履歴書の取得に失敗しました", error);
+        console.error('いいねした履歴書の取得に失敗しました', error);
       }
     };
 
@@ -61,6 +61,6 @@ const ResumeLikes = () => {
       </div>
     </div>
   );
-};
+}
 
 export default ResumeLikes;

@@ -1,6 +1,6 @@
 import apiClient from './apiClient';
 
-//タグ付きのイベント一覧を取得
+// タグ付きのイベント一覧を取得
 export const getEvents = async () => {
   try {
     const response = await apiClient.get(`/events`);
@@ -10,7 +10,7 @@ export const getEvents = async () => {
   }
 };
 
-//特定のイベントを取得
+// 特定のイベントを取得
 export const getEvent = async (id) => {
   try {
     const response = await apiClient.get(`/events/${id}`);
@@ -20,7 +20,7 @@ export const getEvent = async (id) => {
   }
 };
 
-//特定のタグが付いたイベントを取得
+// 特定のタグが付いたイベントを取得
 export const getEventsByTag = async (tagName) => {
   try {
     const response = await apiClient.get(`/events/tagged_events`, {
@@ -32,7 +32,7 @@ export const getEventsByTag = async (tagName) => {
   }
 };
 
-//イベントを新規作成（タグを含む）
+// イベントを新規作成（タグを含む）
 export const createEvent = async (eventData, tagNames) => {
   try {
     const response = await apiClient.post(`/events`, {
@@ -45,7 +45,7 @@ export const createEvent = async (eventData, tagNames) => {
   }
 };
 
-//特定のイベントを更新（タグも更新）
+// 特定のイベントを更新（タグも更新）
 export const putEvent = async (eventId, eventData, tagNames) => {
   try {
     const response = await apiClient.put(`/events/${eventId}`, {
@@ -58,7 +58,7 @@ export const putEvent = async (eventId, eventData, tagNames) => {
   }
 };
 
-//イベントを削除
+// イベントを削除
 export const deleteEvent = async (id) => {
   try {
     await apiClient.delete(`/events/${id}`);

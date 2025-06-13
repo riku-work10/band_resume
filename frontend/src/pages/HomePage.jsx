@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
-import "../components/homepage/HomePage.css";
-import ImageSlider from "../components/homepage/ImageSlider";
+import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import '../components/homepage/HomePage.css';
+import ImageSlider from '../components/homepage/ImageSlider';
 
 function HomePage() {
   return (
@@ -12,15 +12,15 @@ function HomePage() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 1 }}
       >
-        <img
-          src="/images/001.jpg"
-          alt="Hero"
-          className="hero-image"
-        />
+        <img src="/images/001.jpg" alt="Hero" className="hero-image" />
         <div className="hero-logo">ハルカミライ履歴書</div>
         <div className="hero-buttons">
-          <Link to="/signup"><button className="hero-btn">新規登録</button></Link>
-          <Link to="/signin"><button className="hero-btn secondary">ログイン</button></Link>
+          <Link to="/signup">
+            <button className="hero-btn">新規登録</button>
+          </Link>
+          <Link to="/signin">
+            <button className="hero-btn secondary">ログイン</button>
+          </Link>
         </div>
         <div className="scroll-indicator">
           <span>SCROLL</span>
@@ -74,7 +74,7 @@ function HeroSection() {
 function Section({ title, bg, UseUrl, reverse = false, content }) {
   return (
     <motion.section
-      className={`content-section ${reverse ? "reverse" : ""}`}
+      className={`content-section ${reverse ? 'reverse' : ''}`}
       style={{ backgroundColor: bg }}
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -94,13 +94,12 @@ function Section({ title, bg, UseUrl, reverse = false, content }) {
           loop
           playsInline
           controls
-          style={{ width: "100%", maxWidth: "600px" }}
+          style={{ width: '100%', maxWidth: '600px' }}
         />
       </div>
     </motion.section>
   );
 }
-
 
 function FinalLogoSection() {
   return (
@@ -111,11 +110,7 @@ function FinalLogoSection() {
       transition={{ duration: 1 }}
       viewport={{ once: true, amount: 0.5 }}
     >
-      <img
-        src="/images/ハルカミライ履歴書.jpg"
-        alt="ロゴ"
-        className="final-logo-img"
-      />
+      <img src="/images/ハルカミライ履歴書.jpg" alt="ロゴ" className="final-logo-img" />
     </motion.section>
   );
 }

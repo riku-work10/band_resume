@@ -1,6 +1,6 @@
-import { MdDelete, MdEdit } from "react-icons/md";
+import { MdDelete, MdEdit } from 'react-icons/md';
 
-const EventOwnerButtons = ({ onEdit, onDelete }) => {
+function EventOwnerButtons({ onEdit, onDelete }) {
   return (
     <div className="flex space-x-2">
       <button
@@ -17,6 +17,6 @@ const EventOwnerButtons = ({ onEdit, onDelete }) => {
       </button>
     </div>
   );
-};
+}
 
 export default EventOwnerButtons;

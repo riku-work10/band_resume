@@ -1,23 +1,63 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-const ResumeSearch = ({ onSearch }) => {
-  const [query, setQuery] = useState("");
-  const [minAge, setMinAge] = useState("");
-  const [maxAge, setMaxAge] = useState("");
+function ResumeSearch({ onSearch }) {
+  const [query, setQuery] = useState('');
+  const [minAge, setMinAge] = useState('');
+  const [maxAge, setMaxAge] = useState('');
   const [selectedGenders, setSelectedGenders] = useState([]);
   const [selectedLocations, setSelectedLocations] = useState([]);
   const [isGenderDropdownOpen, setIsGenderDropdownOpen] = useState(false);
   const [isLocationDropdownOpen, setIsLocationDropdownOpen] = useState(false);
 
-  const availableGenders = ["男", "女", "秘密", "その他"];
+  const availableGenders = ['男', '女', '秘密', 'その他'];
   const availableLocations = [
-    "北海道", "青森県", "岩手県", "宮城県", "秋田県", "山形県", "福島県",
-    "茨城県", "栃木県", "群馬県", "埼玉県", "千葉県", "東京都", "神奈川県",
-    "新潟県", "富山県", "石川県", "福井県", "山梨県", "長野県", "岐阜県",
-    "静岡県", "愛知県", "三重県", "滋賀県", "京都府", "大阪府", "兵庫県",
-    "奈良県", "和歌山県", "鳥取県", "島根県", "岡山県", "広島県", "山口県",
-    "徳島県", "香川県", "愛媛県", "高知県", "福岡県", "佐賀県", "長崎県",
-    "熊本県", "大分県", "宮崎県", "鹿児島県", "沖縄県"
+    '北海道',
+    '青森県',
+    '岩手県',
+    '宮城県',
+    '秋田県',
+    '山形県',
+    '福島県',
+    '茨城県',
+    '栃木県',
+    '群馬県',
+    '埼玉県',
+    '千葉県',
+    '東京都',
+    '神奈川県',
+    '新潟県',
+    '富山県',
+    '石川県',
+    '福井県',
+    '山梨県',
+    '長野県',
+    '岐阜県',
+    '静岡県',
+    '愛知県',
+    '三重県',
+    '滋賀県',
+    '京都府',
+    '大阪府',
+    '兵庫県',
+    '奈良県',
+    '和歌山県',
+    '鳥取県',
+    '島根県',
+    '岡山県',
+    '広島県',
+    '山口県',
+    '徳島県',
+    '香川県',
+    '愛媛県',
+    '高知県',
+    '福岡県',
+    '佐賀県',
+    '長崎県',
+    '熊本県',
+    '大分県',
+    '宮崎県',
+    '鹿児島県',
+    '沖縄県',
   ];
 
   const handleChange = (e) => {
@@ -26,14 +66,14 @@ const ResumeSearch = ({ onSearch }) => {
   };
 
   const handleAgeChange = (type, value) => {
-    if (type === "min") setMinAge(value);
-    if (type === "max") setMaxAge(value);
+    if (type === 'min') setMinAge(value);
+    if (type === 'max') setMaxAge(value);
     onSearch(
       query,
-      type === "min" ? value : minAge,
-      type === "max" ? value : maxAge,
+      type === 'min' ? value : minAge,
+      type === 'max' ? value : maxAge,
       selectedGenders,
-      selectedLocations
+      selectedLocations,
     );
   };
 
@@ -41,15 +81,15 @@ const ResumeSearch = ({ onSearch }) => {
     const updateSelection = (prev) =>
       prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value];
 
-    if (type === "gender") setSelectedGenders(updateSelection);
-    if (type === "location") setSelectedLocations(updateSelection);
+    if (type === 'gender') setSelectedGenders(updateSelection);
+    if (type === 'location') setSelectedLocations(updateSelection);
 
     onSearch(
       query,
       minAge,
       maxAge,
-      type === "gender" ? updateSelection(selectedGenders) : selectedGenders,
-      type === "location" ? updateSelection(selectedLocations) : selectedLocations
+      type === 'gender' ? updateSelection(selectedGenders) : selectedGenders,
+      type === 'location' ? updateSelection(selectedLocations) : selectedLocations,
     );
   };
 
@@ -71,7 +111,7 @@ const ResumeSearch = ({ onSearch }) => {
           type="number"
           placeholder="最小"
           value={minAge}
-          onChange={(e) => handleAgeChange("min", e.target.value)}
+          onChange={(e) => handleAgeChange('min', e.target.value)}
           className="p-1 bg-stone-800 border border-stone-600 rounded text-stone-100 w-20 placeholder-stone-500"
         />
         <span className="text-stone-400">~</span>
@@ -79,7 +119,7 @@ const ResumeSearch = ({ onSearch }) => {
           type="number"
           placeholder="最大"
           value={maxAge}
-          onChange={(e) => handleAgeChange("max", e.target.value)}
+          onChange={(e) => handleAgeChange('max', e.target.value)}
           className="p-1 bg-stone-800 border border-stone-600 rounded text-stone-100 w-20 placeholder-stone-500"
         />
       </div>
@@ -100,15 +140,15 @@ const ResumeSearch = ({ onSearch }) => {
                 key={gender}
                 className={`block px-2 py-1 rounded whitespace-nowrap cursor-pointer ${
                   selectedGenders.includes(gender)
-                    ? "bg-orange-600 text-white font-medium"
-                    : "text-stone-200 hover:bg-stone-700"
+                    ? 'bg-orange-600 text-white font-medium'
+                    : 'text-stone-200 hover:bg-stone-700'
                 }`}
               >
                 <input
                   type="checkbox"
                   value={gender}
                   checked={selectedGenders.includes(gender)}
-                  onChange={() => handleCheckboxChange("gender", gender)}
+                  onChange={() => handleCheckboxChange('gender', gender)}
                   className="mr-2 accent-orange-500"
                 />
                 {gender}
@@ -134,15 +174,15 @@ const ResumeSearch = ({ onSearch }) => {
                 key={location}
                 className={`block px-2 py-1 rounded whitespace-nowrap cursor-pointer ${
                   selectedLocations.includes(location)
-                    ? "bg-orange-600 text-white font-medium"
-                    : "text-stone-200 hover:bg-stone-700"
+                    ? 'bg-orange-600 text-white font-medium'
+                    : 'text-stone-200 hover:bg-stone-700'
                 }`}
               >
                 <input
                   type="checkbox"
                   value={location}
                   checked={selectedLocations.includes(location)}
-                  onChange={() => handleCheckboxChange("location", location)}
+                  onChange={() => handleCheckboxChange('location', location)}
                   className="mr-2 accent-orange-500"
                 />
                 {location}
@@ -153,6 +193,6 @@ const ResumeSearch = ({ onSearch }) => {
       </div>
     </div>
   );
-};
+}
 
 export default ResumeSearch;

@@ -1,42 +1,36 @@
-import React, { useState, useEffect } from "react";
-import ReactDOM from "react-dom";
-import { useAuth } from "../../hooks/AuthContext";
-import { putResume } from "../../services/apiResumes";
-import SelectAge from "../selectlists/SelectAge";
-import SelectGender from "../selectlists/SelectGender";
-import SelectLocation from "../selectlists/SelectLocation";
-import { useS3Upload } from "../../hooks/useS3Upload";
+import React, { useState, useEffect } from 'react';
+import ReactDOM from 'react-dom';
+import { useAuth } from '../../hooks/AuthContext';
+import { putResume } from '../../services/apiResumes';
+import SelectAge from '../selectlists/SelectAge';
+import SelectGender from '../selectlists/SelectGender';
+import SelectLocation from '../selectlists/SelectLocation';
+import { useS3Upload } from '../../hooks/useS3Upload';
 
 const ResumeEdit = ({ resume, onClose, onUpdate, userName }) => {
   const { user } = useAuth();
 
-  const {
-    profileImage,
-    selectedFile,
-    setSelectedFile,
-    isUploading,
-    uploadImage,
-    deleteImage,
-  } = useS3Upload(user.id, "resumes", resume?.profile_image || "");
+  const { profileImage, selectedFile, setSelectedFile, isUploading, uploadImage, deleteImage } =
+    useS3Upload(user.id, 'resumes', resume?.profile_image || '');
 
-  const [previewUrl, setPreviewUrl] = useState("");
-  const [age, setAge] = useState("");
-  const [gender, setGender] = useState("");
-  const [snsUrl, setSnsUrl] = useState("");
-  const [location, setLocation] = useState("");
-  const [introduction, setIntroduction] = useState("");
-  const [playlistUrl, setPlaylistUrl] = useState("");
+  const [previewUrl, setPreviewUrl] = useState('');
+  const [age, setAge] = useState('');
+  const [gender, setGender] = useState('');
+  const [snsUrl, setSnsUrl] = useState('');
+  const [location, setLocation] = useState('');
+  const [introduction, setIntroduction] = useState('');
+  const [playlistUrl, setPlaylistUrl] = useState('');
   const [error, setError] = useState(null);
 
   useEffect(() => {
     if (resume) {
-      setPreviewUrl(resume.profile_image || "");
-      setAge(resume.age || "");
-      setGender(resume.gender || "");
-      setSnsUrl(resume.sns_url || "");
-      setLocation(resume.location || "");
-      setIntroduction(resume.introduction || "");
-      setPlaylistUrl(resume.playlist_url || "");
+      setPreviewUrl(resume.profile_image || '');
+      setAge(resume.age || '');
+      setGender(resume.gender || '');
+      setSnsUrl(resume.sns_url || '');
+      setLocation(resume.location || '');
+      setIntroduction(resume.introduction || '');
+      setPlaylistUrl(resume.playlist_url || '');
     }
   }, [resume]);
 
@@ -46,7 +40,7 @@ const ResumeEdit = ({ resume, onClose, onUpdate, userName }) => {
     } else if (profileImage) {
       setPreviewUrl(profileImage);
     } else {
-      setPreviewUrl("");
+      setPreviewUrl('');
     }
   }, [selectedFile, profileImage]);
 
@@ -74,7 +68,7 @@ const ResumeEdit = ({ resume, onClose, onUpdate, userName }) => {
       onUpdate(updatedResume);
       onClose();
     } catch {
-      setError("履歴書の更新に失敗しました");
+      setError('履歴書の更新に失敗しました');
     }
   };
 
@@ -90,7 +84,6 @@ const ResumeEdit = ({ resume, onClose, onUpdate, userName }) => {
         <h2 className="text-xl font-bold mb-4">{userName}の履歴書編集</h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-
           <div>
             <label className="block mb-1">プロフィール画像：</label>
             <input
@@ -106,11 +99,11 @@ const ResumeEdit = ({ resume, onClose, onUpdate, userName }) => {
                 disabled={isUploading || !selectedFile}
                 className={`px-4 py-2 rounded ${
                   isUploading || !selectedFile
-                    ? "bg-stone-500 cursor-not-allowed"
-                    : "bg-green-600 hover:bg-green-700"
+                    ? 'bg-stone-500 cursor-not-allowed'
+                    : 'bg-green-600 hover:bg-green-700'
                 }`}
               >
-                {isUploading ? "アップロード中..." : "アップロード"}
+                {isUploading ? 'アップロード中...' : 'アップロード'}
               </button>
               {profileImage && (
                 <button
@@ -125,7 +118,7 @@ const ResumeEdit = ({ resume, onClose, onUpdate, userName }) => {
             <img
               src={
                 previewUrl ||
-                "https://bandresume.s3.ap-northeast-1.amazonaws.com/profile_images/default_ogp.jpg"
+                'https://bandresume.s3.ap-northeast-1.amazonaws.com/profile_images/default_ogp.jpg'
               }
               alt="アップロード済み画像"
               className="mt-2 h-24 w-24 object-cover rounded"
@@ -168,7 +161,6 @@ const ResumeEdit = ({ resume, onClose, onUpdate, userName }) => {
               className="w-full border border-stone-600 bg-stone-900 text-white p-2 rounded"
             />
           </div>
-
 
           <div>
             <label className="block mb-1">自己紹介：</label>

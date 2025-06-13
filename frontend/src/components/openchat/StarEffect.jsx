@@ -1,7 +1,7 @@
-import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
 
-const StarEffect = () => {
+function StarEffect() {
   const [stars, setStars] = useState([]);
 
   const random = (min, max) => Math.random() * (max - min) + min;
@@ -40,28 +40,26 @@ const StarEffect = () => {
           }}
           animate={{
             opacity: 1,
-            y: "100vh",
-            x: star.isMeteor ? "100vw" : 0,
+            y: '100vh',
+            x: star.isMeteor ? '100vw' : 0,
             scale: 1.2,
           }}
           transition={{
             duration: star.duration,
-            ease: "easeInOut",
+            ease: 'easeInOut',
           }}
-          className={`absolute rounded-full ${
-            star.isMeteor ? "bg-orange-400" : "bg-white"
-          }`}
+          className={`absolute rounded-full ${star.isMeteor ? 'bg-orange-400' : 'bg-white'}`}
           style={{
             width: star.size,
             height: star.size,
             left: `${star.left}%`,
-            top: "-10px",
-            boxShadow: "0 0 6px 2px white",
+            top: '-10px',
+            boxShadow: '0 0 6px 2px white',
           }}
         />
       ))}
     </div>
   );
-};
+}
 
 export default StarEffect;
