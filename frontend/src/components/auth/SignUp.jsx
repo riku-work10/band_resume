@@ -1,26 +1,25 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../hooks/AuthContext";
-import GoogleLoginButton from "./GoogleLoginButton";
-import { Link } from "react-router-dom";
+import { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import { useAuth } from '../../hooks/AuthContext';
+import GoogleLoginButton from './GoogleLoginButton';
 
-const SignUp = () => {
+function SignUp() {
   const { signup } = useAuth();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordConfirmation, setPasswordConfirmation] = useState("");
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await signup(name, email, password, passwordConfirmation);
-      alert("登録成功！");
-      navigate("/top");
+      alert('登録成功！');
+      navigate('/top');
     } catch (err) {
       console.error(err);
-      alert("登録に失敗しました");
+      alert('登録に失敗しました');
     }
   };
 
@@ -73,9 +72,9 @@ const SignUp = () => {
             ログインページへ
           </Link>
         </div>
+      </div>
     </div>
-  </div>
   );
-};
+}
 
 export default SignUp;

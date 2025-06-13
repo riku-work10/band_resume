@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .taskCard {
-  width:  250px;
+  width: 250px;
   padding: 10px 25px;
   margin: 10px 1%;
   background-color: rgb(228, 228, 228);
@@ -42,19 +42,19 @@
   margin-top: 10px;
   background-color: white;
   border-radius: 5px;
-  box-shadow: 1px 1px 1px 1px rgb(75,75,75);
+  box-shadow: 1px 1px 1px 1px rgb(75, 75, 75);
 }
 
 .taskText {
-margin-left: 12px;
-color: black;
+  margin-left: 12px;
+  color: black;
 }
 
 .taskTrashButton {
-margin-right: 9px;
-border: none;
-cursor: pointer;
-color: black;
+  margin-right: 9px;
+  border: none;
+  cursor: pointer;
+  color: black;
 }
 
 .taskCardsArea {
@@ -89,7 +89,7 @@ color: black;
   justify-content: space-between;
 }
 
-.taskCardDeleteButton{
+.taskCardDeleteButton {
   border: none;
   background-color: rgb(228, 228, 228);
   cursor: pointer;

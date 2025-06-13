@@ -1,8 +1,8 @@
-import React from "react";
-import LoginFooter from "./LoginFooter";
+import React from 'react';
+import LoginFooter from './LoginFooter';
 import { useAuth } from '../../hooks/AuthContext';
 
-const Footer = () => {
+function Footer() {
   const { user } = useAuth();
 
   // ログインしていない場合は何も表示しない
@@ -13,6 +13,6 @@ const Footer = () => {
       <LoginFooter />
     </div>
   );
-};
+}
 
 export default Footer;

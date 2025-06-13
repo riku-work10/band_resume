@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { BrowserRouter } from "react-router-dom";
-import { AnimatePresence } from "framer-motion";
+import React, { useEffect, useState } from 'react';
+import { BrowserRouter } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
 
-import "./index.css";
+import './index.css';
 
-import Header from "./components/layout/Header";
-import Footer from "./components/layout/Footer";
-import AppRoutes from "./routes/AppRoutes";
-import { AuthProvider } from "./hooks/AuthContext";
-import IntroScreen from "./components/homepage/IntroScreen";
-import PageTracker from "./hooks/PageTracker";
+import Header from './components/layout/Header';
+import Footer from './components/layout/Footer';
+import AppRoutes from './routes/AppRoutes';
+import { AuthProvider } from './hooks/AuthContext';
+import IntroScreen from './components/homepage/IntroScreen';
+import PageTracker from './hooks/PageTracker';
 
-const App = () => {
+function App() {
   const [showIntro, setShowIntro] = useState(true);
 
   useEffect(() => {
@@ -24,11 +24,9 @@ const App = () => {
   return (
     <AuthProvider>
       <BrowserRouter>
-      <PageTracker />
+        <PageTracker />
         <div className="flex flex-col min-h-screen">
-          <AnimatePresence>
-            {showIntro && <IntroScreen />}
-          </AnimatePresence>
+          <AnimatePresence>{showIntro && <IntroScreen />}</AnimatePresence>
 
           {!showIntro && (
             <>
@@ -45,6 +43,6 @@ const App = () => {
       </BrowserRouter>
     </AuthProvider>
   );
-};
+}
 
 export default App;

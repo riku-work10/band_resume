@@ -1,14 +1,14 @@
-import { ResumeSections } from "../resumessections/ResumeSections";
 import { useLocation, useNavigate } from 'react-router-dom';
+import { ResumeSections } from '../resumessections/ResumeSections';
 
-const ResumesShowSectionItemCreateEdit = () => {
+function ResumesShowSectionItemCreateEdit() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { resume } = location.state || {}; 
-  
+  const { resume } = location.state || {};
+
   const closebutton = () => {
-    navigate(`/resumes/${resume.id}`)
-  }
+    navigate(`/resumes/${resume.id}`);
+  };
 
   return (
     <div className="min-h-screen bg-black text-white">
@@ -16,16 +16,16 @@ const ResumesShowSectionItemCreateEdit = () => {
         {/* ヘッダー */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8">
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4 sm:mb-0">
-          {resume.resume_sections.length > 0 ? "履歴書内容の編集" : "履歴書内容の作成"}
+            {resume.resume_sections.length > 0 ? '履歴書内容の編集' : '履歴書内容の作成'}
           </h1>
           <div className="flex flex-col sm:flex-row gap-3">
-            <button 
+            <button
               onClick={closebutton}
               className="px-6 py-2 bg-green-700 hover:bg-green-800 text-white rounded-lg font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-green-500"
             >
               保存
             </button>
-            <button 
+            <button
               onClick={closebutton}
               className="px-6 py-2 bg-stone-600 hover:bg-stone-700 text-white rounded-lg font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-stone-500"
             >
@@ -35,10 +35,10 @@ const ResumesShowSectionItemCreateEdit = () => {
         </div>
 
         {/* メインコンテンツ */}
-        <ResumeSections resumeId={resume.id} resume={resume}/>
+        <ResumeSections resumeId={resume.id} resume={resume} />
       </div>
     </div>
   );
-};
+}
 
 export default ResumesShowSectionItemCreateEdit;

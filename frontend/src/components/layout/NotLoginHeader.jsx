@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, useLocation } from "react-router-dom";
-import { MdClose, MdOutlineMenu, MdHome } from "react-icons/md";
+import { Link, useLocation } from 'react-router-dom';
+import { MdClose, MdOutlineMenu, MdHome } from 'react-icons/md';
 
-const NotLoginHeader = () => {
+function NotLoginHeader() {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
-  const menuRef = useRef(null);  // メニューのref
+  const menuRef = useRef(null); // メニューのref
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -15,13 +15,13 @@ const NotLoginHeader = () => {
     };
 
     if (isOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener('mousedown', handleClickOutside);
     } else {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     }
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [isOpen]);
 
@@ -30,7 +30,10 @@ const NotLoginHeader = () => {
       <div className="flex justify-between items-center">
         {/* ロゴ */}
         <div className="flex-1 flex justify-start items-center space-x-4">
-          <Link to="/" className={`text-lg font-bold ${location.pathname === "/" ? "text-orange-500" : ""}`}>
+          <Link
+            to="/"
+            className={`text-lg font-bold ${location.pathname === '/' ? 'text-orange-500' : ''}`}
+          >
             <MdHome className="text-xl" />
           </Link>
         </div>
@@ -45,20 +48,40 @@ const NotLoginHeader = () => {
       {/* メニューリスト */}
       {isOpen && (
         <nav
-          ref={menuRef}  // ref をつける
+          ref={menuRef} // ref をつける
           className="menu-container absolute top-12 right-0 w-1/8 bg-stone-700 p-4 shadow-lg rounded-l-lg"
         >
           <ul className="space-y-2">
-            <li><Link to="/signin" className="block" onClick={() => setIsOpen(false)}>ログイン</Link></li>
-            <li><Link to="/signup" className="block" onClick={() => setIsOpen(false)}>新規登録</Link></li>
-            <li><Link to="/contact" className="block" onClick={() => setIsOpen(false)}>お問い合わせ</Link></li>
-            <li><Link to="/privacypolicy" className="block" onClick={() => setIsOpen(false)}>プライバシーポリシー</Link></li>
-            <li><Link to="/termsofservice" className="block" onClick={() => setIsOpen(false)}>利用規約</Link></li>
+            <li>
+              <Link to="/signin" className="block" onClick={() => setIsOpen(false)}>
+                ログイン
+              </Link>
+            </li>
+            <li>
+              <Link to="/signup" className="block" onClick={() => setIsOpen(false)}>
+                新規登録
+              </Link>
+            </li>
+            <li>
+              <Link to="/contact" className="block" onClick={() => setIsOpen(false)}>
+                お問い合わせ
+              </Link>
+            </li>
+            <li>
+              <Link to="/privacypolicy" className="block" onClick={() => setIsOpen(false)}>
+                プライバシーポリシー
+              </Link>
+            </li>
+            <li>
+              <Link to="/termsofservice" className="block" onClick={() => setIsOpen(false)}>
+                利用規約
+              </Link>
+            </li>
           </ul>
         </nav>
       )}
     </header>
   );
-};
+}
 
 export default NotLoginHeader;

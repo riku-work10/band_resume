@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, Link, useNavigate } from 'react-router-dom';
 import apiClient from '../../services/apiClient';
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 
 function ResetPasswordForm() {
   const [searchParams] = useSearchParams();
@@ -37,14 +35,13 @@ function ResetPasswordForm() {
             client,
             uid,
           },
-        }
+        },
       );
       setMessage('パスワードを変更しました。ログインしてください。');
-      navigate("/signin");
+      navigate('/signin');
     } catch (error) {
       const errorMsg =
-        error.response?.data?.errors?.full_messages?.join(', ') ||
-        '変更に失敗しました。';
+        error.response?.data?.errors?.full_messages?.join(', ') || '変更に失敗しました。';
       setMessage(errorMsg);
     }
   };
@@ -55,9 +52,7 @@ function ResetPasswordForm() {
       style={{ backgroundImage: "url('/images/001.jpg')" }} // 背景画像は適宜変更
     >
       <div className="bg-white/20 backdrop-blur-md rounded-xl p-8 shadow-lg w-full max-w-md text-white">
-        <h2 className="text-2xl font-light text-center mb-6 tracking-widest">
-          パスワード再設定
-        </h2>
+        <h2 className="text-2xl font-light text-center mb-6 tracking-widest">パスワード再設定</h2>
         <form onSubmit={handleSubmit} className="space-y-6">
           <input
             type="password"
@@ -83,9 +78,7 @@ function ResetPasswordForm() {
           </button>
         </form>
 
-        {message && (
-          <p className="mt-4 text-center text-sm text-white/90">{message}</p>
-        )}
+        {message && <p className="mt-4 text-center text-sm text-white/90">{message}</p>}
 
         <hr className="my-6 border-white/30" />
 

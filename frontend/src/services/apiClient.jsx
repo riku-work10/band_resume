@@ -17,8 +17,8 @@ apiClient.interceptors.request.use((config) => {
   // トークンがあればヘッダーに追加
   if (token && client && uid) {
     config.headers['access-token'] = token;
-    config.headers['client'] = client;
-    config.headers['uid'] = uid;
+    config.headers.client = client;
+    config.headers.uid = uid;
   }
 
   return config;

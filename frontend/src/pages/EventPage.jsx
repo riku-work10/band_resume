@@ -6,7 +6,7 @@ import EventLikeButton from '../components/likes/EventLikeButton';
 import { useAuth } from '../hooks/AuthContext';
 import EventSearch from '../components/search/EventSearch';
 
-const EventPage = () => {
+function EventPage() {
   const [events, setEvents] = useState([]);
   const [filteredEvents, setFilteredEvents] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -33,18 +33,18 @@ const EventPage = () => {
     let filtered = events;
     if (query) {
       filtered = filtered.filter((event) =>
-        event.title.toLowerCase().includes(query.toLowerCase())
+        event.title.toLowerCase().includes(query.toLowerCase()),
       );
     }
     if (startDate || closeDate) {
       filtered = filtered.filter((event) => {
-        const date = event.date;
+        const { date } = event;
         return (!startDate || date >= startDate) && (!closeDate || date <= closeDate);
       });
     }
     if (selectedTags.length > 0) {
       filtered = filtered.filter((event) =>
-        event.tags.some((tag) => selectedTags.includes(tag.name))
+        event.tags.some((tag) => selectedTags.includes(tag.name)),
       );
     }
     if (selectedLocations.length > 0) {
@@ -76,7 +76,7 @@ const EventPage = () => {
                 <img
                   src={
                     event.image ||
-                    "https://bandresume.s3.ap-northeast-1.amazonaws.com/profile_images/default_ogp.jpg"
+                    'https://bandresume.s3.ap-northeast-1.amazonaws.com/profile_images/default_ogp.jpg'
                   }
                   alt={event.title}
                   className="w-full h-full object-cover"
@@ -86,13 +86,16 @@ const EventPage = () => {
               {/* 右側：テキスト情報 */}
               <div className="flex flex-col justify-between p-4 flex-grow">
                 <div>
-                  <Link to={`/events/${event.id}`} className="hover:underline text-stone-100 font-semibold text-lg">
+                  <Link
+                    to={`/events/${event.id}`}
+                    className="hover:underline text-stone-100 font-semibold text-lg"
+                  >
                     {event.title}
                   </Link>
                   {/* {event.location && event.date ()} */}
                   <div className="flex text-stone-400 mt-1 text-sm">
-                  {event.location && (<p> in {event.location}</p>)}
-                  {event.date && (<p className='ml-1'> @ {event.date} </p>)}
+                    {event.location && <p> in {event.location}</p>}
+                    {event.date && <p className="ml-1"> @ {event.date} </p>}
                   </div>
                   <p className="text-stone-300 mt-2 text-sm">{event.introduction}</p>
 
@@ -145,6 +148,6 @@ const EventPage = () => {
       )}
     </div>
   );
-};
+}
 
 export default EventPage;

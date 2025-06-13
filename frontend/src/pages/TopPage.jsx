@@ -1,5 +1,5 @@
-import { motion } from "framer-motion";
-import FloatingLyrics from "../components/toppage/FloatingLyrics";
+import { motion } from 'framer-motion';
+import FloatingLyrics from '../components/toppage/FloatingLyrics';
 
 const stars = Array.from({ length: 30 }, (_, i) => ({
   id: i,
@@ -9,7 +9,7 @@ const stars = Array.from({ length: 30 }, (_, i) => ({
   delay: Math.random() * 3,
 }));
 
-const LiveStagePage = () => {
+function LiveStagePage() {
   return (
     <div
       className="fixed inset-0 z-40 bg-black bg-cover bg-center overflow-hidden"
@@ -41,7 +41,7 @@ const LiveStagePage = () => {
             duration: 2,
             repeat: Infinity,
             delay: star.delay,
-            ease: "easeInOut",
+            ease: 'easeInOut',
           }}
         />
       ))}
@@ -71,6 +71,6 @@ const LiveStagePage = () => {
       <div className="absolute bottom-0 w-full h-1/2 z-0 animate-pulse bg-gradient-to-t from-yellow-600 via-transparent to-transparent opacity-30 blur-xl" />
     </div>
   );
-};
+}
 
 export default LiveStagePage;

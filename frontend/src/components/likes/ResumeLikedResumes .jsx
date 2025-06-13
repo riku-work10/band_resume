@@ -1,8 +1,8 @@
-//つかってないよねこれ？
+// つかってないよねこれ？
 import React, { useEffect, useState } from 'react';
 import apiClient from '../../services/apiClient';
 
-const ResumeLikedResumes = ({ userId }) => {
+function ResumeLikedResumes({ userId }) {
   const [likedResumes, setLikedResumes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -43,6 +43,6 @@ const ResumeLikedResumes = ({ userId }) => {
       )}
     </div>
   );
-};
+}
 
 export default ResumeLikedResumes;

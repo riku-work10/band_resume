@@ -1,14 +1,14 @@
 import { useNavigate } from 'react-router-dom';
 
-const SetlistActionButton = ({ event }) => {
+function SetlistActionButton({ event }) {
   const navigate = useNavigate();
 
   const handleClickEditForm = () => {
-    navigate("/setlistEdit", { state: { event } });
+    navigate('/setlistEdit', { state: { event } });
   };
 
   const handleClickForm = () => {
-    navigate("/setlistCreate", { state: { eventId: event.id } });
+    navigate('/setlistCreate', { state: { eventId: event.id } });
   };
 
   return (
@@ -30,7 +30,6 @@ const SetlistActionButton = ({ event }) => {
       )}
     </div>
   );
-};
-
+}
 
 export default SetlistActionButton;

@@ -9,7 +9,7 @@ import SetlistList from '../setlists/SetlistList';
 import SetlistActionButton from './SetlistActionButton';
 import EventOwnerButtons from './EventOwnerButtons';
 
-const EventShow = () => {
+function EventShow() {
   const { eventId } = useParams();
   const [event, setEvent] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -37,8 +37,8 @@ const EventShow = () => {
     setLoading(true);
     try {
       await deleteEvent(eventId);
-      alert("削除しました");
-      navigate("/events");
+      alert('削除しました');
+      navigate('/events');
     } catch (err) {
       setError('イベントの削除に失敗しました');
     } finally {
@@ -56,11 +56,14 @@ const EventShow = () => {
           {/* イベントヘッダー */}
           <div className="mb-6 flex flex-col sm:flex-row items-center sm:items-start justify-center text-center sm:text-left space-y-4 sm:space-y-0 sm:space-x-6 max-w-5xl mx-auto">
             {/* イベント画像 */}
-              <img
-                src={event.image || "https://bandresume.s3.ap-northeast-1.amazonaws.com/profile_images/default_ogp.jpg"}
-                alt={event.title}
-                className="w-auto max-h-40 object-contain rounded-xl border-2 border-gray-300"
-              />
+            <img
+              src={
+                event.image ||
+                'https://bandresume.s3.ap-northeast-1.amazonaws.com/profile_images/default_ogp.jpg'
+              }
+              alt={event.title}
+              className="w-auto max-h-40 object-contain rounded-xl border-2 border-gray-300"
+            />
 
             {/* タイトル・紹介文・ボタン */}
             <div className="flex-1 max-w-5xl w-full">
@@ -84,8 +87,8 @@ const EventShow = () => {
 
               {/* 会場・日付 */}
               <div className="flex justify-center sm:justify-start space-x-4 text-sm sm:text-base">
-                {event.location && (<p>in {event.location}</p>) }
-                {event.date && (<p>@ {event.date}</p>)}
+                {event.location && <p>in {event.location}</p>}
+                {event.date && <p>@ {event.date}</p>}
               </div>
 
               {/* 紹介文 */}
@@ -127,14 +130,10 @@ const EventShow = () => {
 
       {/* 編集モーダル */}
       {isEditModalOpen && (
-        <EventEdit
-          event={event}
-          onClose={() => setIsEditModalOpen(false)}
-          onUpdate={setEvent}
-        />
+        <EventEdit event={event} onClose={() => setIsEditModalOpen(false)} onUpdate={setEvent} />
       )}
     </div>
   );
-};
+}
 
 export default EventShow;

@@ -1,26 +1,27 @@
-import React, { useState, useEffect } from "react";
-import { createConsumer } from "@rails/actioncable";
-import apiClient from "../services/apiClient";
-import { useNavigate } from "react-router-dom";
-import { MdNotificationsActive } from "react-icons/md";
+import React, { useState, useEffect } from 'react';
+import { createConsumer } from '@rails/actioncable';
+import { useNavigate } from 'react-router-dom';
+import { MdNotificationsActive } from 'react-icons/md';
+import apiClient from '../services/apiClient';
 
-const NotificationList = () => {
+function NotificationList() {
   const [notifications, setNotifications] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    apiClient.get('/notifications')
-      .then(response => setNotifications(response.data))
-      .catch(error => console.error("Error fetching notifications:", error));
+    apiClient
+      .get('/notifications')
+      .then((response) => setNotifications(response.data))
+      .catch((error) => console.error('Error fetching notifications:', error));
 
     const cable = createConsumer(`${process.env.REACT_APP_API_URL}/cable`);
     const channel = cable.subscriptions.create(
-      { channel: "NotificationChannel" },
+      { channel: 'NotificationChannel' },
       {
         received(data) {
           setNotifications((prev) => [...prev, data]);
         },
-      }
+      },
     );
 
     return () => {
@@ -31,9 +32,7 @@ const NotificationList = () => {
   const handleReadNotification = async (id, resumeId) => {
     try {
       await apiClient.patch(`/notifications/${id}/read`);
-      setNotifications((prev) =>
-        prev.map((n) => (n.id === id ? { ...n, read: true } : n))
-      );
+      setNotifications((prev) => prev.map((n) => (n.id === id ? { ...n, read: true } : n)));
       navigate(`/resumes/${resumeId}`);
     } catch (error) {
       console.error('既読処理失敗:', error);
@@ -59,7 +58,7 @@ const NotificationList = () => {
     });
   };
 
-  const unreadNotifications = notifications.filter(n => !n.read);
+  const unreadNotifications = notifications.filter((n) => !n.read);
 
   return (
     <div className="bg-stone-900 rounded-xl shadow-md p-6 border border-stone-700">
@@ -90,9 +89,7 @@ const NotificationList = () => {
               </div>
               <div className="flex-1">
                 <p className="text-sm font-semibold text-stone-100 mb-1">{n.message}</p>
-                {n.comment_content && (
-                  <p className="text-sm text-stone-300">{n.comment_content}</p>
-                )}
+                {n.comment_content && <p className="text-sm text-stone-300">{n.comment_content}</p>}
               </div>
               <span className="text-xs text-stone-400 whitespace-nowrap ml-2 mt-1">
                 {formatDate(n.created_at)}
@@ -103,6 +100,6 @@ const NotificationList = () => {
       )}
     </div>
   );
-};
+}
 
 export default NotificationList;

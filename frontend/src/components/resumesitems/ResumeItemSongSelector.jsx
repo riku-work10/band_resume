@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import apiClient from '../../services/apiClient';
 import { ALBUM_SONGS } from '../selectlists/songData';
 
-export const ResumeItemSongSelector = ({ itemList, setItemList, resumeSection, resumeId }) => {
+export function ResumeItemSongSelector({ itemList, setItemList, resumeSection, resumeId }) {
   const [expandedAlbums, setExpandedAlbums] = useState(new Set());
   const albums = Object.keys(ALBUM_SONGS);
 
@@ -18,12 +18,15 @@ export const ResumeItemSongSelector = ({ itemList, setItemList, resumeSection, r
 
   const handleSongSelect = async (song) => {
     try {
-      const response = await apiClient.post(`resumes/${resumeId}/resume_sections/${resumeSection.id}/resume_items`, {
-        resume_item: {
-          content: '',
-          song_title: song.title,
-        }
-      });
+      const response = await apiClient.post(
+        `resumes/${resumeId}/resume_sections/${resumeSection.id}/resume_items`,
+        {
+          resume_item: {
+            content: '',
+            song_title: song.title,
+          },
+        },
+      );
       setItemList([...itemList, response.data]);
     } catch (error) {
       console.error('Error adding song:', error);
@@ -34,14 +37,19 @@ export const ResumeItemSongSelector = ({ itemList, setItemList, resumeSection, r
     <div className="w-full">
       <div className="space-y-2">
         {albums.map((album) => (
-          <div key={album} className="border border-stone-600 rounded-lg overflow-hidden bg-stone-700">
+          <div
+            key={album}
+            className="border border-stone-600 rounded-lg overflow-hidden bg-stone-700"
+          >
             {/* アルバム名ヘッダー */}
             <button
               onClick={() => handleAlbumToggle(album)}
               className="w-full px-4 py-3 text-left hover:bg-stone-600 transition-colors flex items-center justify-between text-white border-b border-stone-600"
             >
               <span className="font-medium">{album}</span>
-              <span className={`transform transition-transform ${expandedAlbums.has(album) ? 'rotate-90' : ''}`}>
+              <span
+                className={`transform transition-transform ${expandedAlbums.has(album) ? 'rotate-90' : ''}`}
+              >
                 ▶
               </span>
             </button>
@@ -68,4 +76,4 @@ export const ResumeItemSongSelector = ({ itemList, setItemList, resumeSection, r
       </div>
     </div>
   );
-};
+}

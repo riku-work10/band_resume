@@ -1,6 +1,6 @@
-import apiClient from "./apiClient";
+import apiClient from './apiClient';
 
-//履歴書
+// 履歴書
 // いいね状態を取得するAPIリクエスト
 export const fetchLikeStatus = async (resumeId) => {
   try {
@@ -30,11 +30,11 @@ export const unlikeResume = async (resumeId) => {
     return response.data;
   } catch (error) {
     console.error('Failed to unlike the resume:', error);
-    return { liked: true, likes_count: 0 };// エラー時に状態が変わらないようにする
+    return { liked: true, likes_count: 0 }; // エラー時に状態が変わらないようにする
   }
 };
 
-//イベント
+// イベント
 // いいね状態を取得するAPIリクエスト
 export const fetchLikeStatusEvent = async (eventId) => {
   try {

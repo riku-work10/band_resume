@@ -1,8 +1,8 @@
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../hooks/AuthContext";
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../hooks/AuthContext';
 
-const GoogleLoginButton = () => {
+function GoogleLoginButton() {
   const navigate = useNavigate();
   const { signinWithGoogle } = useAuth();
 
@@ -10,10 +10,10 @@ const GoogleLoginButton = () => {
     const idToken = credentialResponse.credential;
     try {
       await signinWithGoogle(idToken);
-      alert("Googleログイン成功！");
-      navigate("/top");
+      alert('Googleログイン成功！');
+      navigate('/top');
     } catch (error) {
-      alert("Googleログインに失敗しました");
+      alert('Googleログインに失敗しました');
     }
   };
 
@@ -29,6 +29,6 @@ const GoogleLoginButton = () => {
       </div>
     </GoogleOAuthProvider>
   );
-};
+}
 
 export default GoogleLoginButton;

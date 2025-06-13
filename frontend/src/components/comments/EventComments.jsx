@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
-import apiClient from "../../services/apiClient";
-import { useAuth } from "../../hooks/AuthContext";
-import { MdDelete, MdEdit } from "react-icons/md";
+import React, { useState, useEffect } from 'react';
+import { MdDelete, MdEdit } from 'react-icons/md';
+import apiClient from '../../services/apiClient';
+import { useAuth } from '../../hooks/AuthContext';
 
-const EventComments = ({ eventId }) => {
+function EventComments({ eventId }) {
   const [comments, setComments] = useState([]);
-  const [content, setContent] = useState("");
+  const [content, setContent] = useState('');
   const { user } = useAuth();
   const [editCommentId, setEditCommentId] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -17,7 +17,7 @@ const EventComments = ({ eventId }) => {
         setComments(response.data || []);
       })
       .catch((error) => {
-        console.error("コメントの取得に失敗しました", error);
+        console.error('コメントの取得に失敗しました', error);
       });
   }, [eventId]);
 
@@ -28,9 +28,9 @@ const EventComments = ({ eventId }) => {
         content,
       });
       setComments([...comments, response.data]);
-      setContent("");
+      setContent('');
     } catch (error) {
-      console.error("コメントの投稿に失敗しました", error);
+      console.error('コメントの投稿に失敗しました', error);
     }
   };
 
@@ -39,7 +39,7 @@ const EventComments = ({ eventId }) => {
       await apiClient.delete(`/events/${eventId}/event_comments/${commentId}`);
       setComments(comments.filter((comment) => comment.id !== commentId));
     } catch (error) {
-      console.error("コメントの削除に失敗しました", error);
+      console.error('コメントの削除に失敗しました', error);
     }
   };
 
@@ -56,18 +56,18 @@ const EventComments = ({ eventId }) => {
         content,
       });
       const updatedComments = comments.map((comment) =>
-        comment.id === editCommentId ? response.data : comment
+        comment.id === editCommentId ? response.data : comment,
       );
       setComments(updatedComments);
-      setContent("");
+      setContent('');
       setEditCommentId(null);
       setIsModalOpen(false);
     } catch (error) {
-      console.error("コメントの編集に失敗しました", error);
+      console.error('コメントの編集に失敗しました', error);
     }
   };
 
-  const Modal = ({ isOpen, onClose, children }) => {
+  function Modal({ isOpen, onClose, children }) {
     if (!isOpen) return null;
 
     return (
@@ -86,7 +86,7 @@ const EventComments = ({ eventId }) => {
         </div>
       </div>
     );
-  };
+  }
 
   return (
     <div className="text-white">
@@ -169,6 +169,6 @@ const EventComments = ({ eventId }) => {
       </Modal>
     </div>
   );
-};
+}
 
 export default EventComments;

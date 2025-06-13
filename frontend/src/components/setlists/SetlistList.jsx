@@ -1,14 +1,15 @@
-const SetlistList = ({ event }) => {
+function SetlistList({ event }) {
   return (
     <div className="flex flex-col items-center mt-6">
-
       {/* 通常の曲を表示 */}
       <ul className="space-y-2 text-center text-base">
         {event.setlists
-          .filter((setlist) => !String(setlist.order).toLowerCase().includes("en")) // Encoreを含まない曲
+          .filter((setlist) => !String(setlist.order).toLowerCase().includes('en')) // Encoreを含まない曲
           .map((setlist) => (
             <li key={setlist.id} className="tracking-wide">
-              <span className="font-semibold">{setlist.order < 10 ? `0${setlist.order}` : setlist.order}.</span>{' '}
+              <span className="font-semibold">
+                {setlist.order < 10 ? `0${setlist.order}` : setlist.order}.
+              </span>{' '}
               {setlist.title}
             </li>
           ))}
@@ -20,15 +21,15 @@ const SetlistList = ({ event }) => {
       {/* アンコール曲を表示 */}
       <ul className="space-y-2 text-center text-base">
         {event.setlists
-          .filter((setlist) => String(setlist.order).toLowerCase().includes("en")) // Encoreを含む曲
+          .filter((setlist) => String(setlist.order).toLowerCase().includes('en')) // Encoreを含む曲
           .map((setlist) => (
-              <li key={setlist.id}>
-                {setlist.order}. {setlist.title}
-              </li>
+            <li key={setlist.id}>
+              {setlist.order}. {setlist.title}
+            </li>
           ))}
       </ul>
     </div>
   );
-};
+}
 
 export default SetlistList;

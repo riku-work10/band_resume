@@ -1,18 +1,18 @@
-import React, { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../hooks/AuthContext";
-import { useS3Upload } from "../../hooks/useS3Upload";
-import SelectLocation from "../selectlists/SelectLocation";
-import TagSelect from "../selectlists/TagSelect";
-import { createEvent } from "../../services/apiLives";
+import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../hooks/AuthContext';
+import { useS3Upload } from '../../hooks/useS3Upload';
+import SelectLocation from '../selectlists/SelectLocation';
+import TagSelect from '../selectlists/TagSelect';
+import { createEvent } from '../../services/apiLives';
 
-const EventCreate = ({ onClose }) => {
+function EventCreate({ onClose }) {
   const modalRef = useRef(null);
   const { user } = useAuth();
-  const [title, setTitle] = useState("");
-  const [date, setDate] = useState("");
-  const [location, setLocation] = useState("");
-  const [introduction, setIntroduction] = useState("");
+  const [title, setTitle] = useState('');
+  const [date, setDate] = useState('');
+  const [location, setLocation] = useState('');
+  const [introduction, setIntroduction] = useState('');
   const [tags, setTags] = useState([]);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
@@ -24,7 +24,7 @@ const EventCreate = ({ onClose }) => {
     isUploading,
     uploadImage,
     deleteImage,
-  } = useS3Upload(user.id, "event", "");
+  } = useS3Upload(user.id, 'event', '');
 
   useEffect(() => {
     const handleOutsideClick = (e) => {
@@ -32,8 +32,8 @@ const EventCreate = ({ onClose }) => {
         onClose();
       }
     };
-    document.addEventListener("mousedown", handleOutsideClick);
-    return () => document.removeEventListener("mousedown", handleOutsideClick);
+    document.addEventListener('mousedown', handleOutsideClick);
+    return () => document.removeEventListener('mousedown', handleOutsideClick);
   }, [onClose]);
 
   const handleSubmit = async (e) => {
@@ -51,7 +51,7 @@ const EventCreate = ({ onClose }) => {
       onClose();
       navigate(`/events/${response.id}`);
     } catch (err) {
-      setError("イベントの作成に失敗しました");
+      setError('イベントの作成に失敗しました');
     }
   };
 
@@ -80,7 +80,10 @@ const EventCreate = ({ onClose }) => {
           <div>
             <label className="block font-semibold mb-1">イベント画像：</label>
             <img
-              src={eventImage || "https://bandresume.s3.ap-northeast-1.amazonaws.com/profile_images/default_ogp.jpg"}
+              src={
+                eventImage ||
+                'https://bandresume.s3.ap-northeast-1.amazonaws.com/profile_images/default_ogp.jpg'
+              }
               alt="イベント画像プレビュー"
               className="mb-2 w-32 h-32 object-cover rounded border border-stone-700"
             />
@@ -100,11 +103,11 @@ const EventCreate = ({ onClose }) => {
                 disabled={isUploading || !selectedFile}
                 className={`px-4 py-2 rounded text-white min-w-[120px] ${
                   isUploading || !selectedFile
-                    ? "bg-stone-500 cursor-not-allowed"
-                    : "bg-green-600 hover:bg-green-700"
+                    ? 'bg-stone-500 cursor-not-allowed'
+                    : 'bg-green-600 hover:bg-green-700'
                 }`}
               >
-                {isUploading ? "アップロード中..." : "アップロード"}
+                {isUploading ? 'アップロード中...' : 'アップロード'}
               </button>
             </div>
             {eventImage && (
@@ -176,6 +179,6 @@ const EventCreate = ({ onClose }) => {
       </div>
     </div>
   );
-};
+}
 
 export default EventCreate;

@@ -1,25 +1,20 @@
-import { useState, useEffect, useRef } from "react";
-import apiClient from "../../services/apiClient";
-import { useAuth } from "../../hooks/AuthContext";
-import { useS3Upload } from "../../hooks/useS3Upload";
+import { useState, useEffect, useRef } from 'react';
+import apiClient from '../../services/apiClient';
+import { useAuth } from '../../hooks/AuthContext';
+import { useS3Upload } from '../../hooks/useS3Upload';
 
-const EditProfile = ({ setIsEditing }) => {
+function EditProfile({ setIsEditing }) {
   const modalRef = useRef(null);
 
-  const defaultProfileImage = "https://bandresume.s3.ap-northeast-1.amazonaws.com/profile_images/%E3%83%9E%E3%82%A4%E3%83%9A%E3%83%BC%E3%82%B8%E3%83%87%E3%83%95%E3%82%A9%E3%83%AB%E3%83%88.png";
+  const defaultProfileImage =
+    'https://bandresume.s3.ap-northeast-1.amazonaws.com/profile_images/%E3%83%9E%E3%82%A4%E3%83%9A%E3%83%BC%E3%82%B8%E3%83%87%E3%83%95%E3%82%A9%E3%83%AB%E3%83%88.png';
   const { user, setUser } = useAuth();
-  const [name, setName] = useState(user.name || "");
-  const [email, setEmail] = useState(user.email || "");
-  const [error, setError] = useState("");
+  const [name, setName] = useState(user.name || '');
+  const [email, setEmail] = useState(user.email || '');
+  const [error, setError] = useState('');
 
-  const {
-    profileImage,
-    selectedFile,
-    setSelectedFile,
-    isUploading,
-    uploadImage,
-    deleteImage,
-  } = useS3Upload(user.id, "profile", user.image || "");
+  const { profileImage, selectedFile, setSelectedFile, isUploading, uploadImage, deleteImage } =
+    useS3Upload(user.id, 'profile', user.image || '');
 
   // 外側クリックでモーダルを閉じる
   useEffect(() => {
@@ -28,8 +23,8 @@ const EditProfile = ({ setIsEditing }) => {
         setIsEditing(false);
       }
     };
-    document.addEventListener("mousedown", handleOutsideClick);
-    return () => document.removeEventListener("mousedown", handleOutsideClick);
+    document.addEventListener('mousedown', handleOutsideClick);
+    return () => document.removeEventListener('mousedown', handleOutsideClick);
   }, [setIsEditing]);
 
   const handleFileChange = (e) => {
@@ -52,10 +47,10 @@ const EditProfile = ({ setIsEditing }) => {
     try {
       const res = await apiClient.put(`/users/${user.id}`, { user: updatedUser });
       setUser(res.data);
-      alert("プロフィールが更新されました");
+      alert('プロフィールが更新されました');
       setIsEditing(false);
     } catch (err) {
-      setError("更新に失敗しました");
+      setError('更新に失敗しました');
       console.error(err);
     }
   };
@@ -114,15 +109,14 @@ const EditProfile = ({ setIsEditing }) => {
                 disabled={isUploading || !selectedFile}
                 className={`px-4 py-2 rounded text-white ${
                   isUploading || !selectedFile
-                    ? "bg-stone-500 cursor-not-allowed"
-                    : "bg-green-600 hover:bg-green-700"
+                    ? 'bg-stone-500 cursor-not-allowed'
+                    : 'bg-green-600 hover:bg-green-700'
                 }`}
-                style={{ minWidth: "120px" }}
+                style={{ minWidth: '120px' }}
               >
-                {isUploading ? "アップロード中..." : "アップロード"}
+                {isUploading ? 'アップロード中...' : 'アップロード'}
               </button>
             </div>
-
 
             {/* 更新ボタン */}
             <button
@@ -136,6 +130,6 @@ const EditProfile = ({ setIsEditing }) => {
       </div>
     </div>
   );
-};
+}
 
 export default EditProfile;

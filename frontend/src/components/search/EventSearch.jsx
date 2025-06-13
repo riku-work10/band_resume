@@ -1,23 +1,63 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-const EventSearch = ({ onSearch }) => {
-  const [query, setQuery] = useState("");
-  const [startDate, setStartDate] = useState("");
-  const [closeDate, setCloseDate] = useState("");
+function EventSearch({ onSearch }) {
+  const [query, setQuery] = useState('');
+  const [startDate, setStartDate] = useState('');
+  const [closeDate, setCloseDate] = useState('');
   const [selectedTags, setSelectedTags] = useState([]);
   const [selectedLocations, setSelectedLocations] = useState([]);
   const [isTagDropdownOpen, setIsTagDropdownOpen] = useState(false);
   const [isLocationDropdownOpen, setIsLocationDropdownOpen] = useState(false);
 
-  const availableTags = ["フェス", "ワンマン", "対バン", "ツアー"];
+  const availableTags = ['フェス', 'ワンマン', '対バン', 'ツアー'];
   const availableLocations = [
-    "北海道", "青森県", "岩手県", "宮城県", "秋田県", "山形県", "福島県",
-    "茨城県", "栃木県", "群馬県", "埼玉県", "千葉県", "東京都", "神奈川県",
-    "新潟県", "富山県", "石川県", "福井県", "山梨県", "長野県", "岐阜県",
-    "静岡県", "愛知県", "三重県", "滋賀県", "京都府", "大阪府", "兵庫県",
-    "奈良県", "和歌山県", "鳥取県", "島根県", "岡山県", "広島県", "山口県",
-    "徳島県", "香川県", "愛媛県", "高知県", "福岡県", "佐賀県", "長崎県",
-    "熊本県", "大分県", "宮崎県", "鹿児島県", "沖縄県"
+    '北海道',
+    '青森県',
+    '岩手県',
+    '宮城県',
+    '秋田県',
+    '山形県',
+    '福島県',
+    '茨城県',
+    '栃木県',
+    '群馬県',
+    '埼玉県',
+    '千葉県',
+    '東京都',
+    '神奈川県',
+    '新潟県',
+    '富山県',
+    '石川県',
+    '福井県',
+    '山梨県',
+    '長野県',
+    '岐阜県',
+    '静岡県',
+    '愛知県',
+    '三重県',
+    '滋賀県',
+    '京都府',
+    '大阪府',
+    '兵庫県',
+    '奈良県',
+    '和歌山県',
+    '鳥取県',
+    '島根県',
+    '岡山県',
+    '広島県',
+    '山口県',
+    '徳島県',
+    '香川県',
+    '愛媛県',
+    '高知県',
+    '福岡県',
+    '佐賀県',
+    '長崎県',
+    '熊本県',
+    '大分県',
+    '宮崎県',
+    '鹿児島県',
+    '沖縄県',
   ];
 
   const handleChange = (e) => {
@@ -26,24 +66,30 @@ const EventSearch = ({ onSearch }) => {
   };
 
   const handleAgeChange = (type, value) => {
-    if (type === "start") setStartDate(value);
-    if (type === "close") setCloseDate(value);
-    onSearch(query, type === "start" ? value : startDate, type === "close" ? value : closeDate, selectedTags, selectedLocations);
+    if (type === 'start') setStartDate(value);
+    if (type === 'close') setCloseDate(value);
+    onSearch(
+      query,
+      type === 'start' ? value : startDate,
+      type === 'close' ? value : closeDate,
+      selectedTags,
+      selectedLocations,
+    );
   };
 
   const handleCheckboxChange = (type, value) => {
     const updateSelection = (prev) =>
       prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value];
 
-    if (type === "tag") setSelectedTags(updateSelection);
-    if (type === "location") setSelectedLocations(updateSelection);
+    if (type === 'tag') setSelectedTags(updateSelection);
+    if (type === 'location') setSelectedLocations(updateSelection);
 
     onSearch(
       query,
       startDate,
       closeDate,
-      type === "tag" ? updateSelection(selectedTags) : selectedTags,
-      type === "location" ? updateSelection(selectedLocations) : selectedLocations
+      type === 'tag' ? updateSelection(selectedTags) : selectedTags,
+      type === 'location' ? updateSelection(selectedLocations) : selectedLocations,
     );
   };
 
@@ -64,14 +110,14 @@ const EventSearch = ({ onSearch }) => {
         <input
           type="date"
           value={startDate}
-          onChange={(e) => handleAgeChange("start", e.target.value)}
+          onChange={(e) => handleAgeChange('start', e.target.value)}
           className="p-1 bg-stone-800 border border-stone-600 rounded text-stone-100"
         />
         <span className="text-stone-400">~</span>
         <input
           type="date"
           value={closeDate}
-          onChange={(e) => handleAgeChange("close", e.target.value)}
+          onChange={(e) => handleAgeChange('close', e.target.value)}
           className="p-1 bg-stone-800 border border-stone-600 rounded text-stone-100"
         />
       </div>
@@ -92,15 +138,15 @@ const EventSearch = ({ onSearch }) => {
                 key={tag}
                 className={`block px-2 py-1 rounded whitespace-nowrap cursor-pointer ${
                   selectedTags.includes(tag)
-                    ? "bg-orange-600 text-white font-medium"
-                    : "text-stone-200 hover:bg-stone-700"
+                    ? 'bg-orange-600 text-white font-medium'
+                    : 'text-stone-200 hover:bg-stone-700'
                 }`}
               >
                 <input
                   type="checkbox"
                   value={tag}
                   checked={selectedTags.includes(tag)}
-                  onChange={() => handleCheckboxChange("tag", tag)}
+                  onChange={() => handleCheckboxChange('tag', tag)}
                   className="mr-2 accent-orange-500"
                 />
                 {tag}
@@ -126,15 +172,15 @@ const EventSearch = ({ onSearch }) => {
                 key={location}
                 className={`block px-2 py-1 rounded whitespace-nowrap cursor-pointer ${
                   selectedLocations.includes(location)
-                    ? "bg-orange-600 text-white font-medium"
-                    : "text-stone-200 hover:bg-stone-700"
+                    ? 'bg-orange-600 text-white font-medium'
+                    : 'text-stone-200 hover:bg-stone-700'
                 }`}
               >
                 <input
                   type="checkbox"
                   value={location}
                   checked={selectedLocations.includes(location)}
-                  onChange={() => handleCheckboxChange("location", location)}
+                  onChange={() => handleCheckboxChange('location', location)}
                   className="mr-2 accent-orange-500"
                 />
                 {location}
@@ -145,6 +191,6 @@ const EventSearch = ({ onSearch }) => {
       </div>
     </div>
   );
-};
+}
 
 export default EventSearch;

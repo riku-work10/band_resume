@@ -1,14 +1,12 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-const tags = ["フェス", "ワンマン", "対バン", "ツアー"];
+const tags = ['フェス', 'ワンマン', '対バン', 'ツアー'];
 
-const TagSelect = ({ value, onChange }) => {
+function TagSelect({ value, onChange }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleToggleTag = (tag) => {
-    const updatedTags = value.includes(tag)
-      ? value.filter((t) => t !== tag)
-      : [...value, tag];
+    const updatedTags = value.includes(tag) ? value.filter((t) => t !== tag) : [...value, tag];
     onChange(updatedTags);
   };
 
@@ -33,8 +31,8 @@ const TagSelect = ({ value, onChange }) => {
                 onClick={() => handleToggleTag(tag)}
                 className={`px-4 py-2 rounded transition-colors ${
                   isSelected
-                    ? "bg-orange-500 text-white hover:bg-orange-600"
-                    : "bg-stone-700 text-white hover:bg-stone-600"
+                    ? 'bg-orange-500 text-white hover:bg-orange-600'
+                    : 'bg-stone-700 text-white hover:bg-stone-600'
                 }`}
               >
                 {tag}
@@ -45,6 +43,6 @@ const TagSelect = ({ value, onChange }) => {
       )}
     </div>
   );
-};
+}
 
 export default TagSelect;

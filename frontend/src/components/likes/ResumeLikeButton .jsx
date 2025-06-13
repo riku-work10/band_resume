@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { MdFavorite, MdFavoriteBorder } from 'react-icons/md';
 import { fetchLikeStatus, likeResume, unlikeResume } from '../../services/apiLikes';
-import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 
-const ResumeLikeButton = ({ resumeId, textColor = 'text-black' }) => {
+function ResumeLikeButton({ resumeId, textColor = 'text-black' }) {
   const [liked, setLiked] = useState(false);
   const [likesCount, setLikesCount] = useState(0);
 
@@ -29,10 +29,14 @@ const ResumeLikeButton = ({ resumeId, textColor = 'text-black' }) => {
 
   return (
     <button onClick={handleClick} className="flex items-center space-x-1">
-      {liked ? <MdFavorite className="text-red-500" /> : <MdFavoriteBorder className="text-gray-500" />}
+      {liked ? (
+        <MdFavorite className="text-red-500" />
+      ) : (
+        <MdFavoriteBorder className="text-gray-500" />
+      )}
       {likesCount > 0 && <span className={textColor}>{likesCount}</span>}
     </button>
   );
-};
+}
 
 export default ResumeLikeButton;

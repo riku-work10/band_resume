@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-const PrivacyPolicyPage = () => {
+function PrivacyPolicyPage() {
   return (
     <div className="bg-gray-100 text-stone-800 p-6 rounded-lg shadow-md max-w-4xl mx-auto my-2">
       {/* プライバシーポリシー */}
@@ -10,9 +10,7 @@ const PrivacyPolicyPage = () => {
         </p>
 
         <h3 className="text-xl font-semibold text-orange-400 mb-2">第1条（個人情報の取得）</h3>
-        <p className="mb-4">
-          本サービスでは、以下の個人情報を取得します：
-        </p>
+        <p className="mb-4">本サービスでは、以下の個人情報を取得します：</p>
         <ul className="list-disc ml-6 mb-4">
           <li>ユーザー名（ニックネーム、ペンネームを含む）</li>
           <li>メールアドレス</li>
@@ -22,9 +20,7 @@ const PrivacyPolicyPage = () => {
         </ul>
 
         <h3 className="text-xl font-semibold text-orange-400 mb-2">第2条（個人情報の利用目的）</h3>
-        <p className="mb-4">
-          取得した個人情報は以下の目的に使用します：
-        </p>
+        <p className="mb-4">取得した個人情報は以下の目的に使用します：</p>
         <ul className="list-disc ml-6 mb-4">
           <li>ユーザー認証、サービス提供</li>
           <li>履歴書作成、管理、改善のため</li>
@@ -53,10 +49,13 @@ const PrivacyPolicyPage = () => {
 
         <h3 className="text-xl font-semibold text-orange-400 mb-2">第6条（Cookieの使用）</h3>
         <p className="mb-4">
-          本サービスは、Google Analyticsなどのツールを使用して、アクセス解析を行うためにCookieを利用しています。
+          本サービスは、Google
+          Analyticsなどのツールを使用して、アクセス解析を行うためにCookieを利用しています。
         </p>
 
-        <h3 className="text-xl font-semibold text-orange-400 mb-2">第7条（プライバシーポリシーの変更）</h3>
+        <h3 className="text-xl font-semibold text-orange-400 mb-2">
+          第7条（プライバシーポリシーの変更）
+        </h3>
         <p className="mb-4">
           本ポリシーは、法令改正やサービス内容の変更に応じて適宜見直しを行います。変更がある場合は、公式ウェブサイト上で告知します。
         </p>
@@ -70,6 +69,6 @@ const PrivacyPolicyPage = () => {
       </section>
     </div>
   );
-};
+}
 
 export default PrivacyPolicyPage;

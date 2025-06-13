@@ -1,10 +1,10 @@
-import ResumesCreate from "../components/resumes/ResumesCreate";
-import React, { useState, useEffect } from "react";
-import { useAuth } from "../hooks/AuthContext";
-import { Link } from "react-router-dom";
-import { getResumesByUserId } from "../services/apiResumes";
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import ResumesCreate from '../components/resumes/ResumesCreate';
+import { useAuth } from '../hooks/AuthContext';
+import { getResumesByUserId } from '../services/apiResumes';
 
-const MyResumePage = () => {
+function MyResumePage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { user } = useAuth();
   const [resumes, setResumes] = useState([]);
@@ -18,7 +18,7 @@ const MyResumePage = () => {
         const data = await getResumesByUserId(user.id);
         setResumes(data);
       } catch (err) {
-        setError("履歴書の取得に失敗しました");
+        setError('履歴書の取得に失敗しました');
       } finally {
         setLoading(false);
       }
@@ -49,7 +49,7 @@ const MyResumePage = () => {
                   <img
                     src={
                       resume.profile_image ||
-                      "https://bandresume.s3.ap-northeast-1.amazonaws.com/profile_images/default_ogp.jpg"
+                      'https://bandresume.s3.ap-northeast-1.amazonaws.com/profile_images/default_ogp.jpg'
                     }
                     alt={resume.title}
                     className="w-full h-full object-cover sm:rounded-l-2xl"
@@ -97,6 +97,6 @@ const MyResumePage = () => {
       )}
     </div>
   );
-};
+}
 
 export default MyResumePage;

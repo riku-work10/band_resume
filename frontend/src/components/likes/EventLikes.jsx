@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import apiClient from '../../services/apiClient';
-import { useAuth } from "../../hooks/AuthContext";
+import { useAuth } from '../../hooks/AuthContext';
 
-const EventLikes = () => {
+function EventLikes() {
   const { user } = useAuth();
   const [likedevents, setLikedEvents] = useState([]);
 
@@ -13,7 +13,7 @@ const EventLikes = () => {
         const response = await apiClient.get('/events/my_liked_events');
         setLikedEvents(response.data);
       } catch (error) {
-        console.error("いいねしたイベントの取得に失敗しました", error);
+        console.error('いいねしたイベントの取得に失敗しました', error);
       }
     };
 
@@ -60,6 +60,6 @@ const EventLikes = () => {
       </div>
     </div>
   );
-};
+}
 
 export default EventLikes;
