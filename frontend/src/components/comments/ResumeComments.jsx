@@ -78,6 +78,14 @@ function ResumeComments({ resumeId }) {
     }
   };
 
+  const handleKeyDown = (e, onSubmit) => {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    onSubmit(e); // 通常のフォーム送信関数を呼び出す
+  }
+};
+
+
   // モーダルコンポーネント
   function Modal({ isOpen, onClose, children }) {
     if (!isOpen) return null;
@@ -132,6 +140,7 @@ function ResumeComments({ resumeId }) {
           <textarea
             value={content}
             onChange={(e) => setContent(e.target.value)}
+            onKeyDown={(e) => handleKeyDown(e, handleSubmit)}
             required
             className="w-full p-2 border border-stone-600 bg-stone-800 text-white rounded-lg"
             rows="3"
@@ -168,6 +177,7 @@ function ResumeComments({ resumeId }) {
             <button
               type="submit"
               className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+              onKeyDown={(e) => handleKeyDown(e, handleSubmit)}
             >
               更新
             </button>
