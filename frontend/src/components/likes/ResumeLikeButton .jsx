@@ -30,9 +30,9 @@ function ResumeLikeButton({ resumeId, textColor = 'text-black' }) {
   return (
     <button onClick={handleClick} className="flex items-center space-x-1">
       {liked ? (
-        <MdFavorite className="text-red-500" />
+        <MdFavorite className="text-red-500 text-2xl" />
       ) : (
-        <MdFavoriteBorder className="text-gray-500" />
+        <MdFavoriteBorder className="text-gray-500 text-2xl" />
       )}
       {likesCount > 0 && <span className={textColor}>{likesCount}</span>}
     </button>

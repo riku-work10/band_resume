@@ -29,9 +29,9 @@ function EventLikeButton({ eventId }) {
   return (
     <button onClick={handleClick}>
       {liked ? (
-        <MdFavorite className="text-red-500" />
+        <MdFavorite className="text-red-500 text-2xl" />
       ) : (
-        <MdFavoriteBorder className="text-gray-500" />
+        <MdFavoriteBorder className="text-gray-500 text-2xl" />
       )}
     </button>
   );
