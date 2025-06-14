@@ -70,21 +70,20 @@ function EventShow() {
               <div className="flex justify-between items-start">
                 <h2 className="text-4xl font-extrabold mb-2">{event.title}</h2>
 
-                {user && user.id === event.user_id ? (
-                  <EventOwnerButtons
-                    onEdit={() => setIsEditModalOpen(true)}
-                    onDelete={handleDelete}
-                  />
-                ) : (
-                  user && (
-                    <EventLikeButton
-                      eventId={event.id}
-                      className="ml-2 py-2 px-4 bg-green-500 text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400"
+                <div className="flex items-center space-x-2">
+                  {user && user.id === event.user_id && (
+                    <EventOwnerButtons
+                      onEdit={() => setIsEditModalOpen(true)}
+                      onDelete={handleDelete}
                     />
-                  )
-                )}
-              </div>
+                  )}
 
+                  <EventLikeButton
+                    eventId={event.id}
+                    className="ml-2 py-2 px-4 bg-green-500 text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400"
+                  />
+                </div>
+              </div>
               {/* 会場・日付 */}
               <div className="flex justify-center sm:justify-start space-x-4 text-sm sm:text-base">
                 {event.location && <p>in {event.location}</p>}

@@ -115,12 +115,10 @@ function EventPage() {
 
                 {/* 下部アクション */}
                 <div className="mt-4 flex justify-end items-center relative">
-                  {user && user.id !== event.user_id && (
                     <EventLikeButton
                       eventId={event.id}
                       className="py-1 px-3 bg-orange-600 text-white text-sm rounded hover:bg-orange-700 transition"
                     />
-                  )}
                 </div>
               </div>
             </div>
