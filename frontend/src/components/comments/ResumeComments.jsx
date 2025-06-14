@@ -5,39 +5,31 @@ import { useAuth } from '../../hooks/AuthContext';
 
 function ResumeComments({ resumeId }) {
   const [comments, setComments] = useState([]);
-  const [content, setContent] = useState('');
-  const { user } = useAuth();
+  const [newContent, setNewContent] = useState('');
   const [editCommentId, setEditCommentId] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false); // モーダルの開閉状態を管理
+  const [editContent, setEditContent] = useState('');
+  const { user } = useAuth();
 
-  // コメント一覧を取得
   useEffect(() => {
     apiClient
       .get(`/resumes/${resumeId}/resume_comments`)
-      .then((response) => {
-        setComments(response.data || []);
-      })
-      .catch((error) => {
-        console.error('コメントの取得に失敗しました', error);
-      });
+      .then((response) => setComments(response.data || []))
+      .catch((error) => console.error('コメントの取得に失敗しました', error));
   }, [resumeId]);
 
-  // コメントを投稿
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await apiClient.post(`/resumes/${resumeId}/resume_comments`, {
-        content,
+        content: newContent,
       });
-
       setComments([...comments, response.data]);
-      setContent('');
+      setNewContent('');
     } catch (error) {
       console.error('コメントの投稿に失敗しました', error);
     }
   };
 
-  // コメント削除
   const handleDelete = async (commentId) => {
     try {
       await apiClient.delete(`/resumes/${resumeId}/resume_comments/${commentId}`);
@@ -47,55 +39,35 @@ function ResumeComments({ resumeId }) {
     }
   };
 
-  // コメント編集
   const handleEdit = (commentId, currentContent) => {
     setEditCommentId(commentId);
-    setContent(currentContent);
-    setIsModalOpen(true); // 編集モーダルを開く
+    setEditContent(currentContent);
   };
 
-  // 編集フォームの送信
   const handleEditSubmit = async (e) => {
     e.preventDefault();
-
     try {
       const response = await apiClient.put(
         `/resumes/${resumeId}/resume_comments/${editCommentId}`,
-        {
-          content,
-        },
+        { content: editContent }
       );
-
-      const updatedComments = comments.map((comment) =>
-        comment.id === editCommentId ? response.data : comment,
+      const updated = comments.map((comment) =>
+        comment.id === editCommentId ? response.data : comment
       );
-      setComments(updatedComments);
-      setContent('');
+      setComments(updated);
       setEditCommentId(null);
-      setIsModalOpen(false); // 編集後にモーダルを閉じる
+      setEditContent('');
     } catch (error) {
       console.error('コメントの編集に失敗しました', error);
     }
   };
 
-  // モーダルコンポーネント
-  function Modal({ isOpen, onClose, children }) {
-    if (!isOpen) return null;
-
-    return (
-      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-        <div
-          className="bg-white p-6 rounded-lg shadow-lg w-96"
-          onClick={(e) => e.stopPropagation()}
-        >
-          <button onClick={onClose} className="absolute top-2 right-2 text-xl font-bold">
-            ×
-          </button>
-          {children}
-        </div>
-      </div>
-    );
-  }
+  const handleKeyDown = (e, onSubmit) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      onSubmit(e);
+    }
+  };
 
   return (
     <div className="text-white">
@@ -103,25 +75,55 @@ function ResumeComments({ resumeId }) {
       {comments.map((comment) => (
         <div
           key={comment.id}
-          className="border-b border-stone-600 py-4 flex justify-between items-center"
+          className="border-b border-stone-600 py-4"
         >
-          <p className="text-lg flex-1 text-white">
-            <strong>{comment.user.name}</strong>: {comment.content}
-          </p>
-          {user && user.id === comment.user_id && (
-            <div className="flex space-x-4 ml-4">
-              <button
-                onClick={() => handleEdit(comment.id, comment.content)}
-                className="py-2 px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
-              >
-                <MdEdit />
-              </button>
-              <button
-                onClick={() => handleDelete(comment.id)}
-                className="py-2 px-4 bg-red-500 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400"
-              >
-                <MdDelete />
-              </button>
+          {editCommentId === comment.id ? (
+            <form onSubmit={handleEditSubmit}>
+              <textarea
+                value={editContent}
+                onChange={(e) => setEditContent(e.target.value)}
+                onKeyDown={(e) => handleKeyDown(e, handleEditSubmit)}
+                required
+                className="w-full p-2 border border-stone-600 bg-stone-800 text-white rounded-lg"
+                rows="3"
+              />
+              <div className="flex justify-end space-x-2 mt-2">
+                <button
+                  type="button"
+                  onClick={() => setEditCommentId(null)}
+                  className="bg-stone-500 hover:bg-stone-600 text-white px-4 py-1 rounded"
+                >
+                  キャンセル
+                </button>
+                <button
+                  type="submit"
+                  className="bg-blue-500 hover:bg-blue-700 text-white px-4 py-1 rounded"
+                >
+                  更新
+                </button>
+              </div>
+            </form>
+          ) : (
+            <div className="flex justify-between items-start">
+              <p className="text-lg flex-1 text-white">
+                <strong>{comment.user.name}</strong>: {comment.content}
+              </p>
+              {user && user.id === comment.user_id && (
+                <div className="flex space-x-2 ml-4">
+                  <button
+                    onClick={() => handleEdit(comment.id, comment.content)}
+                    className="py-2 px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-700"
+                  >
+                    <MdEdit />
+                  </button>
+                  <button
+                    onClick={() => handleDelete(comment.id)}
+                    className="py-2 px-4 bg-red-500 text-white rounded-lg hover:bg-red-700"
+                  >
+                    <MdDelete />
+                  </button>
+                </div>
+              )}
             </div>
           )}
         </div>
@@ -130,8 +132,9 @@ function ResumeComments({ resumeId }) {
       {user && (
         <form onSubmit={handleSubmit} className="mt-4">
           <textarea
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
+            value={newContent}
+            onChange={(e) => setNewContent(e.target.value)}
+            onKeyDown={(e) => handleKeyDown(e, handleSubmit)}
             required
             className="w-full p-2 border border-stone-600 bg-stone-800 text-white rounded-lg"
             rows="3"
@@ -139,41 +142,12 @@ function ResumeComments({ resumeId }) {
           />
           <button
             type="submit"
-            className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+            className="mt-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
           >
             投稿
           </button>
         </form>
       )}
-
-      {/* 編集モーダル */}
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <h4 className="text-xl font-semibold mb-2 text-black">コメント編集</h4>
-        <form onSubmit={handleEditSubmit}>
-          <textarea
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            required
-            className="w-full p-2 border border-stone-600 bg-stone-800 text-white rounded-lg"
-            rows="3"
-          />
-          <div className="mt-4 flex justify-end gap-4">
-            <button
-              type="button"
-              onClick={() => setIsModalOpen(false)}
-              className="bg-stone-500 hover:bg-stone-600 text-white px-4 py-2 rounded-lg"
-            >
-              キャンセル
-            </button>
-            <button
-              type="submit"
-              className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
-            >
-              更新
-            </button>
-          </div>
-        </form>
-      </Modal>
     </div>
   );
 }
