@@ -124,27 +124,21 @@ function OpenChatPage() {
     setContent('');
   };
 
-  const updateMessage = async () => {
-    if (!content.trim() || !editingMessage) return;
+const updateMessage = () => {
+  if (!content.trim() || !editingMessage) return;
 
-    if (containsProhibitedWord(content)) {
-      alert('不適切な表現が含まれています。修正してください。');
-      return;
-    }
+  if (containsProhibitedWord(content)) {
+    alert('不適切な表現が含まれています。修正してください。');
+    return;
+  }
 
-    try {
-      const res = await apiClient.put(`/messages/${editingMessage.id}`, {
-        message: { content },
-      });
+  cableRef.current.perform('edit_message', {
+    message_id: editingMessage.id,
+    new_content: content,
+  });
 
-      setMessages((prev) =>
-        prev.map((msg) => (msg.id === res.data.id ? { ...msg, content: res.data.content } : msg)),
-      );
-      cancelEdit();
-    } catch (err) {
-      console.error('メッセージの更新に失敗しました:', err);
-    }
-  };
+  cancelEdit();
+};
 
   const deleteMessage = (messageId) => {
     cableRef.current.perform('delete_message', {
