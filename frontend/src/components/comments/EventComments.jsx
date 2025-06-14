@@ -6,10 +6,11 @@ import { useAuth } from '../../hooks/AuthContext';
 function EventComments({ eventId }) {
   const [comments, setComments] = useState([]);
   const [content, setContent] = useState('');
-  const { user } = useAuth();
   const [editCommentId, setEditCommentId] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editContent, setEditContent] = useState('');
+  const { user } = useAuth();
 
+  // コメント取得
   useEffect(() => {
     apiClient
       .get(`/events/${eventId}/event_comments`)
@@ -21,6 +22,7 @@ function EventComments({ eventId }) {
       });
   }, [eventId]);
 
+  // コメント投稿
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -34,6 +36,7 @@ function EventComments({ eventId }) {
     }
   };
 
+  // コメント削除
   const handleDelete = async (commentId) => {
     try {
       await apiClient.delete(`/events/${eventId}/event_comments/${commentId}`);
@@ -43,57 +46,36 @@ function EventComments({ eventId }) {
     }
   };
 
+  // 編集開始
   const handleEdit = (commentId, currentContent) => {
     setEditCommentId(commentId);
-    setContent(currentContent);
-    setIsModalOpen(true);
+    setEditContent(currentContent);
   };
 
+  // 編集送信
   const handleEditSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await apiClient.put(`/events/${eventId}/event_comments/${editCommentId}`, {
-        content,
+        content: editContent,
       });
       const updatedComments = comments.map((comment) =>
-        comment.id === editCommentId ? response.data : comment,
+        comment.id === editCommentId ? response.data : comment
       );
       setComments(updatedComments);
-      setContent('');
       setEditCommentId(null);
-      setIsModalOpen(false);
+      setEditContent('');
     } catch (error) {
       console.error('コメントの編集に失敗しました', error);
     }
   };
 
-    const handleKeyDown = (e, onSubmit) => {
-  if (e.key === 'Enter' && !e.shiftKey) {
-    e.preventDefault();
-    onSubmit(e); // 通常のフォーム送信関数を呼び出す
-  }
-};
-
-  function Modal({ isOpen, onClose, children }) {
-    if (!isOpen) return null;
-
-    return (
-      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-        <div
-          className="relative bg-stone-100 dark:bg-stone-800 text-black dark:text-white p-6 rounded-lg shadow-lg w-96"
-          onClick={(e) => e.stopPropagation()}
-        >
-          <button
-            onClick={onClose}
-            className="absolute top-2 right-2 text-xl font-bold text-black dark:text-white"
-          >
-            ×
-          </button>
-          {children}
-        </div>
-      </div>
-    );
-  }
+  const handleKeyDown = (e, onSubmit) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      onSubmit(e);
+    }
+  };
 
   return (
     <div className="text-white">
@@ -102,25 +84,55 @@ function EventComments({ eventId }) {
       {comments.map((comment) => (
         <div
           key={comment.id}
-          className="border-b border-stone-600 py-4 flex justify-between items-center"
+          className="border-b border-stone-600 py-4"
         >
-          <p className="text-lg flex-1 text-white">
-            <strong>{comment.user.name}</strong>: {comment.content}
-          </p>
-          {user && user.id === comment.user_id && (
-            <div className="flex space-x-2 ml-4">
-              <button
-                onClick={() => handleEdit(comment.id, comment.content)}
-                className="py-2 px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
-              >
-                <MdEdit />
-              </button>
-              <button
-                onClick={() => handleDelete(comment.id)}
-                className="py-2 px-4 bg-red-500 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400"
-              >
-                <MdDelete />
-              </button>
+          {editCommentId === comment.id ? (
+            <form onSubmit={handleEditSubmit}>
+              <textarea
+                value={editContent}
+                onChange={(e) => setEditContent(e.target.value)}
+                onKeyDown={(e) => handleKeyDown(e, handleEditSubmit)}
+                required
+                className="w-full p-2 border border-stone-600 bg-stone-800 text-white rounded-lg"
+                rows="3"
+              />
+              <div className="mt-2 flex justify-end space-x-2">
+                <button
+                  type="button"
+                  onClick={() => setEditCommentId(null)}
+                  className="bg-stone-500 text-white px-4 py-2 rounded-lg hover:bg-stone-600"
+                >
+                  キャンセル
+                </button>
+                <button
+                  type="submit"
+                  className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+                >
+                  更新
+                </button>
+              </div>
+            </form>
+          ) : (
+            <div className="flex justify-between items-center">
+              <p className="text-lg flex-1">
+                <strong>{comment.user.name}</strong>: {comment.content}
+              </p>
+              {user && user.id === comment.user_id && (
+                <div className="flex space-x-2 ml-4">
+                  <button
+                    onClick={() => handleEdit(comment.id, comment.content)}
+                    className="py-2 px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-700"
+                  >
+                    <MdEdit />
+                  </button>
+                  <button
+                    onClick={() => handleDelete(comment.id)}
+                    className="py-2 px-4 bg-red-500 text-white rounded-lg hover:bg-red-700"
+                  >
+                    <MdDelete />
+                  </button>
+                </div>
+              )}
             </div>
           )}
         </div>
@@ -147,35 +159,6 @@ function EventComments({ eventId }) {
           </div>
         </form>
       )}
-
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <h4 className="text-xl font-semibold mb-2">コメント編集</h4>
-        <form onSubmit={handleEditSubmit}>
-          <textarea
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            required
-            className="w-full p-2 border border-stone-600 bg-stone-800 text-white rounded-lg"
-            rows="3"
-          />
-          <div className="mt-4 flex justify-end gap-4">
-            <button
-              type="button"
-              onClick={() => setIsModalOpen(false)}
-              className="bg-stone-500 hover:bg-stone-600 text-white px-4 py-2 rounded-lg"
-            >
-              キャンセル
-            </button>
-            <button
-              type="submit"
-              onKeyDown={(e) => handleKeyDown(e, handleSubmit)}
-              className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
-            >
-              更新
-            </button>
-          </div>
-        </form>
-      </Modal>
     </div>
   );
 }
