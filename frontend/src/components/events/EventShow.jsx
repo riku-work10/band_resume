@@ -17,6 +17,7 @@ function EventShow() {
   const navigate = useNavigate();
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const { user } = useAuth();
+  const [isPreview, setIsPreview] = useState(false);
 
   useEffect(() => {
     const fetchEvent = async () => {
@@ -50,12 +51,27 @@ function EventShow() {
   if (error) return <div>{error}</div>;
 
   return (
-    <div>
+    <div className="relative pt-16">
+      {/* ✅ 左上：戻るボタン */}
+      <button
+        onClick={() => navigate(-1)}
+        className="absolute top-4 left-4 inline-flex items-center px-4 py-2 bg-stone-700 text-white rounded hover:bg-stone-600 transition z-10"
+      >
+        ← 戻る
+      </button>
+
+      {/* ✅ 右上：プレビューボタン */}
+      <button
+        onClick={() => setIsPreview(!isPreview)}
+        className="absolute top-4 right-4 px-4 py-2 bg-gray-700 text-white rounded hover:bg-gray-600 transition z-10"
+      >
+        {isPreview ? '通常表示' : 'プレビュー'}
+      </button>
+
       {event ? (
         <div className="mb-6 mt-4 mx-4">
           {/* イベントヘッダー */}
           <div className="mb-6 flex flex-col sm:flex-row items-center sm:items-start justify-center text-center sm:text-left space-y-4 sm:space-y-0 sm:space-x-6 max-w-5xl mx-auto">
-            {/* イベント画像 */}
             <img
               src={
                 event.image ||
@@ -65,36 +81,34 @@ function EventShow() {
               className="w-auto max-h-40 object-contain rounded-xl border-2 border-gray-300"
             />
 
-            {/* タイトル・紹介文・ボタン */}
             <div className="flex-1 max-w-5xl w-full">
               <div className="flex justify-between items-start">
                 <h2 className="text-4xl font-extrabold mb-2">{event.title}</h2>
 
-                {user && user.id === event.user_id ? (
-                  <EventOwnerButtons
-                    onEdit={() => setIsEditModalOpen(true)}
-                    onDelete={handleDelete}
-                  />
-                ) : (
-                  user && (
+                {/* ✅ プレビュー中はボタン非表示 */}
+                {!isPreview && (
+                  <div className="flex items-center space-x-2">
+                    {user && user.id === event.user_id && (
+                      <EventOwnerButtons
+                        onEdit={() => setIsEditModalOpen(true)}
+                        onDelete={handleDelete}
+                      />
+                    )}
                     <EventLikeButton
                       eventId={event.id}
                       className="ml-2 py-2 px-4 bg-green-500 text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400"
                     />
-                  )
+                  </div>
                 )}
               </div>
 
-              {/* 会場・日付 */}
               <div className="flex justify-center sm:justify-start space-x-4 text-sm sm:text-base">
                 {event.location && <p>in {event.location}</p>}
                 {event.date && <p>@ {event.date}</p>}
               </div>
 
-              {/* 紹介文 */}
               <p className="text-lg mt-2">{event.introduction}</p>
 
-              {/* タグ */}
               {event.tags &&
                 event.tags.map((tag) => (
                   <Link
@@ -108,21 +122,28 @@ function EventShow() {
             </div>
           </div>
 
-          {/* セットリストセクション */}
+          {/* セットリスト */}
           <div className="relative w-full mb-6 max-w-5xl mx-auto">
             <h2 className="text-xl font-bold text-white text-center mb-4">セットリスト</h2>
-            <div className="absolute top-0 right-0">
-              <SetlistActionButton event={event} />
-            </div>
+
+            {/* ✅ プレビュー中は非表示 */}
+            {!isPreview && (
+              <div className="absolute top-0 right-0">
+                <SetlistActionButton event={event} />
+              </div>
+            )}
+
             <div className="flex flex-col items-center">
               <SetlistList event={event} />
             </div>
           </div>
 
-          {/* コメント */}
-          <div className="max-w-5xl mx-auto">
-            <EventComments eventId={eventId} />
-          </div>
+          {/* ✅ プレビュー中はコメント非表示 */}
+          {!isPreview && (
+            <div className="max-w-5xl mx-auto">
+              <EventComments eventId={eventId} />
+            </div>
+          )}
         </div>
       ) : (
         <p>イベントを読み込み中...</p>
