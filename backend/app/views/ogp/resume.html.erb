@@ -2,19 +2,19 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>無題 | Band Resume</title>
+<title><%= h(@resume.title.presence || 'ハルカミライ履歴書') %> | Band Resume</title>
 
   <!-- OGP -->
   <meta property="og:type" content="website" />
-<meta property="og:title" content="無題のハルカミライ履歴書" />
-  <meta property="og:description" content="これは固定の説明文です。最大100文字程度を目安に入力してください。" />
+  <meta property="og:title" content="<%= h(@resume.title.presence || 'ハルカミライ履歴書') %>のハルカミライ履歴書" />
+  <meta property="og:description" content="<%= h(@resume.introduction.to_s.truncate(100)) %>" />
   <meta property="og:image" content="https://bandresume.s3.ap-northeast-1.amazonaws.com/profile_images/default_ogp.jpg" />
-  <meta property="og:url" content="<%= "#{ENV['RENDER_URL']}/ogp/resumes/#{@resume&.id || 'unknown'}" %>" />
+  <meta property="og:url" content="<%= "#{ENV['RENDER_URL']}/ogp/resumes/#{@resume.id}" %>" />
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="無題のハルカミライ履歴書" />
-  <meta name="twitter:description" content="これは固定の説明文です。最大100文字程度を目安に入力してください。" />
+  <meta name="twitter:title" content="<%= h(@resume.title.presence || 'ハルカミライ履歴書') %>のハルカミライ履歴書" />
+  <meta name="twitter:description" content="<%= h(@resume.introduction.to_s.truncate(100)) %>" />
   <meta name="twitter:image" content="https://bandresume.s3.ap-northeast-1.amazonaws.com/profile_images/default_ogp.jpg" />
 </head>
 <body>
