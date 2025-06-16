@@ -5,7 +5,7 @@ class OgpController < ApplicationController
 
     if bot_request?(request.user_agent)
       # botならOGP付きHTMLを表示（metaタグが必要）
-      render template: 'ogp/resume', layout: false
+      render template: 'ogp/resume', layout: false, content_type: 'text/html'
     else
       # 人間ユーザーならReact側に即リダイレクト
       redirect_to "#{ENV.fetch('VERCEL_URL', nil)}/resumes/#{@resume.id}", allow_other_host: true
