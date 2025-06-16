@@ -18,6 +18,8 @@ function OpenChatPage() {
   const [editingMessage, setEditingMessage] = useState(null); // 編集用のメッセージ
   const cableRef = useRef(null);
   const bottomRef = useRef(null);
+  const [isComposing, setIsComposing] = useState(false);
+
 
   const token = localStorage.getItem('access-token');
   const client = localStorage.getItem('client');
@@ -195,8 +197,10 @@ const updateMessage = () => {
           type="text"
           value={content}
           onChange={(e) => setContent(e.target.value)}
+          onCompositionStart={() => setIsComposing(true)}
+          onCompositionEnd={() => setIsComposing(false)}
           onKeyDown={(e) => {
-            if (e.key === 'Enter') {
+            if (e.key === 'Enter' && !isComposing) {
               e.preventDefault();
               editingMessage ? updateMessage() : sendMessage();
             }
