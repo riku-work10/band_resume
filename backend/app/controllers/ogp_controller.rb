@@ -5,7 +5,7 @@ class OgpController < ApplicationController
 
     if bot_request?(request.user_agent)
       # botならOGP付きHTMLを表示（metaタグが必要）
-      render template: 'ogp/resume', layout: false, content_type: 'text/html'
+      render template: 'ogp/resume', layout: false
     else
       # 人間ユーザーならReact側に即リダイレクト
       redirect_to "#{ENV.fetch('VERCEL_URL', nil)}/resumes/#{@resume.id}", allow_other_host: true
@@ -20,7 +20,6 @@ class OgpController < ApplicationController
       Twitterbot facebookexternalhit Slackbot
       Discordbot LinkedInBot TelegramBot WhatsApp
     ]
-    Rails.logger.info "[OGP] User-Agent: #{user_agent}"
     bot_keywords.any? { |keyword| user_agent.to_s.include?(keyword) }
   end
 end

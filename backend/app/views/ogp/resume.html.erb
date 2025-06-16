@@ -9,7 +9,7 @@
   <meta property="og:title" content="<%= h(@resume.title) %>のハルカミライ履歴書" />
   <meta property="og:description" content="<%= h(@resume.introduction.to_s.truncate(100)) %>" />
   <meta property="og:image" content="https://bandresume.s3.ap-northeast-1.amazonaws.com/profile_images/default.png" />
-  <meta property="og:url" content="https://api.harukamirai-resume.com/ogp/resumes/<%= @resume.id %>" />
+  <meta property="og:url" content="<%= "#{ENV['RENDER_URL']}/ogp/resumes/#{@resume.id}" %>" />
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
