@@ -6,9 +6,11 @@ import { AddResumeSectionButton } from './AddResumeSectionButton';
 import { useAuth } from '../../hooks/AuthContext';
 import { InitializeResumeSections } from './InitializeResumeSections';
 
-const reorder = (resumeSectionsList, startIndex, endIndex) => {
-  const remove = resumeSectionsList.splice(startIndex, 1);
-  resumeSectionsList.splice(endIndex, 0, remove[0]);
+const reorder = (list, startIndex, endIndex) => {
+  const result = Array.from(list);
+  const [removed] = result.splice(startIndex, 1);
+  result.splice(endIndex, 0, removed);
+  return result;
 };
 
 export function ResumeSections({ resumeId, resume }) {
@@ -18,18 +20,14 @@ export function ResumeSections({ resumeId, resume }) {
   const handleDragEnd = async (result) => {
     if (!result.destination) return;
 
-    reorder(resumeSectionsList, result.source.index, result.destination.index);
-    setResumeSectionsList([...resumeSectionsList]);
+    const newOrder = reorder(resumeSectionsList, result.source.index, result.destination.index);
+    const reordered = newOrder.map((section, index) => ({ ...section, position: index }));
 
-    const reorderedResumeSections = resumeSectionsList.map((section, index) => ({
-      ...section,
-      position: index,
-    }));
-    setResumeSectionsList(reorderedResumeSections);
+    setResumeSectionsList(reordered);
 
     try {
       await apiClient.put(`/resumes/${resumeId}/resume_sections/update_position`, {
-        sections: reorderedResumeSections.map((section) => ({
+        sections: reordered.map((section) => ({
           id: section.id,
           position: section.position,
         })),
@@ -65,7 +63,7 @@ export function ResumeSections({ resumeId, resume }) {
                 />
               ))}
               {provided.placeholder}
-              {user && user.id === resume.user_id && (
+              {user?.id === resume.user_id && (
                 <AddResumeSectionButton
                   resumeSectionsList={resumeSectionsList}
                   setResumeSectionsList={setResumeSectionsList}
