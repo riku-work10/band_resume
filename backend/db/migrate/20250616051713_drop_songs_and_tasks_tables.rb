@@ -1,7 +1,7 @@
 class DropSongsAndTasksTables < ActiveRecord::Migration[7.1]
   def up
-    drop_table :songs
-    drop_table :tasks
+    drop_table :songs, if_exists: true
+    drop_table :tasks, if_exists: true
   end
 
   def down
