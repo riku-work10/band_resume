@@ -49,10 +49,10 @@ function ResumeLikes() {
                   className="w-full h-36 object-cover rounded-md mb-2"
                 />
               <h2 className="text-lg font-semibold">{resume.user.name}の履歴書</h2>
-              <p className="text-sm text-stone-200">年齢: {resume.age}</p>
-              <p className="text-sm text-stone-200">性別: {resume.gender}</p>
-              <p className="text-sm text-stone-200">場所: {resume.location}</p>
-              <p className="text-sm text-stone-300 truncate">{resume.introduction}</p>
+              {resume.age && <p className="text-sm text-stone-200">年齢: {resume.age}</p>}
+              {resume.gender && <p className="text-sm text-stone-200">性別: {resume.gender}</p>}
+              {resume.location && <p className="text-sm text-stone-200">場所: {resume.location}</p>}
+              {resume.introduction && <p className="text-sm text-stone-300 truncate">{resume.introduction}</p>}
             </Link>
           ))}
         </div>
