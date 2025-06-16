@@ -102,7 +102,7 @@ function ResumePageShow() {
               <img
                 src={
                   resume.profile_image ||
-                  'https://bandresume.s3.ap-northeast-1.amazonaws.com/profile_images/default_ogp.jpg'
+                  'https://bandresume.s3.ap-northeast-1.amazonaws.com/profile_images/default.png'
                 }
                 alt={resume.title}
                 className="w-24 h-24 md:w-32 md:h-32 object-cover rounded-full border-2 border-stone-600"

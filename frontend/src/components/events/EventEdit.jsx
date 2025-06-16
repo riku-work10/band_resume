@@ -8,7 +8,7 @@ import { useS3Upload } from '../../hooks/useS3Upload';
 function EventEdit({ event, onClose, onUpdate }) {
   const { user } = useAuth();
   const defaultImage =
-    'https://bandresume.s3.ap-northeast-1.amazonaws.com/profile_images/default_ogp.jpg';
+    'https://bandresume.s3.ap-northeast-1.amazonaws.com/profile_images/default.png';
 
   const [title, setTitle] = useState('');
   const [date, setDate] = useState('');

@@ -104,7 +104,7 @@ const ResumesCreate = ({ onClose }) => {
             <img
               src={
                 profileImage ||
-                'https://bandresume.s3.ap-northeast-1.amazonaws.com/profile_images/default_ogp.jpg'
+                'https://bandresume.s3.ap-northeast-1.amazonaws.com/profile_images/default.png'
               }
               alt="アップロード済み画像"
               className="mt-2 h-24 w-24 object-cover rounded"

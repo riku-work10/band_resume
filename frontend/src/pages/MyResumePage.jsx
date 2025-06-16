@@ -49,7 +49,7 @@ function MyResumePage() {
                   <img
                     src={
                       resume.profile_image ||
-                      'https://bandresume.s3.ap-northeast-1.amazonaws.com/profile_images/default_ogp.jpg'
+                      'https://bandresume.s3.ap-northeast-1.amazonaws.com/profile_images/default.png'
                     }
                     alt={resume.title}
                     className="w-full h-full object-cover sm:rounded-l-2xl"
