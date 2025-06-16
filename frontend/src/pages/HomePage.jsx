@@ -3,7 +3,6 @@ import { motion } from 'framer-motion';
 import '../components/homepage/HomePage.css';
 import ImageSlider from '../components/homepage/ImageSlider';
 import TopLikeSection from '../components/homepage/TopLikeSection';
-import HomePageFooter from '../components/homepage/HomePageFooter';
 
 function HomePage() {
   return (
@@ -53,7 +52,6 @@ function HomePage() {
         UseUrl="https://t.gyazo.com/teams/harukamirai-resume/fd8e0a0e14c335ef408504bddb785468.mp4"
       />
       <TopLikeSection />
-      <HomePageFooter />
     </div>
   );
 }
