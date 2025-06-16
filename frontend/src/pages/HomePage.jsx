@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import '../components/homepage/HomePage.css';
 import ImageSlider from '../components/homepage/ImageSlider';
+import TopLikeSection from '../components/homepage/TopLikeSection';
 
 function HomePage() {
   return (
@@ -50,7 +51,7 @@ function HomePage() {
         bg="#263333"
         UseUrl="https://t.gyazo.com/teams/harukamirai-resume/fd8e0a0e14c335ef408504bddb785468.mp4"
       />
-      <FinalLogoSection />
+      <TopLikeSection />
     </div>
   );
 }
@@ -97,20 +98,6 @@ function Section({ title, bg, UseUrl, reverse = false, content }) {
           style={{ width: '100%', maxWidth: '600px' }}
         />
       </div>
-    </motion.section>
-  );
-}
-
-function FinalLogoSection() {
-  return (
-    <motion.section
-      className="final-logo-section"
-      initial={{ opacity: 0, scale: 0.8 }}
-      whileInView={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 1 }}
-      viewport={{ once: true, amount: 0.5 }}
-    >
-      <img src="https://bandresume.s3.ap-northeast-1.amazonaws.com/profile_images/aaresize_image+(2).jpg" alt="ロゴ" className="final-logo-img" />
     </motion.section>
   );
 }

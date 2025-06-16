@@ -9,7 +9,7 @@ const stars = Array.from({ length: 30 }, (_, i) => ({
   delay: Math.random() * 3,
 }));
 
-function LiveStagePage() {
+function TopPage() {
   return (
     <div
       className="fixed inset-0 z-40 bg-black bg-cover bg-center overflow-hidden"
@@ -73,4 +73,4 @@ function LiveStagePage() {
   );
 }
 
-export default LiveStagePage;
+export default TopPage;
