@@ -1,4 +1,4 @@
-function ResumeShareButton({ resumeId, title, introduction }) {
+function ResumeShareButton({ resumeId, introduction }) {
   const baseUrl = process.env.REACT_APP_API_URL;
   const shareUrl = `${baseUrl}/ogp/resumes/${resumeId}`;
   const tweetText = `${introduction}\n#ハルカミライ履歴書 #ハルカミライ`;

@@ -48,10 +48,11 @@ function EventLikes() {
                   alt={event.title}
                   className="w-full h-36 object-cover rounded-md mb-2"
                 />
+                {event.date && <p>@ {event.date}</p>}
               <h2 className="text-lg font-semibold">{event.title}</h2>
-              <p className="text-sm text-stone-200">日時: {event.date}</p>
-              <p className="text-sm text-stone-200">場所: {event.location}</p>
-              <p className="text-sm text-stone-300 truncate">{event.introduction}</p>
+              {event.date && <p className="text-sm text-stone-200">日時: {event.date}</p>}
+              {event.location && <p className="text-sm text-stone-200">場所: {event.location}</p>}
+              {event.introduction && <p className="text-sm text-stone-300 truncate">{event.introduction}</p>}
             </Link>
           ))}
         </div>
