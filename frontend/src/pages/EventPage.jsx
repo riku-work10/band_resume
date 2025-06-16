@@ -76,7 +76,7 @@ function EventPage() {
                 <img
                   src={
                     event.image ||
-                    'https://bandresume.s3.ap-northeast-1.amazonaws.com/profile_images/default_ogp.jpg'
+                    'https://bandresume.s3.ap-northeast-1.amazonaws.com/profile_images/default.png'
                   }
                   alt={event.title}
                   className="w-full h-full object-cover"

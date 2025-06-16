@@ -82,7 +82,7 @@ function EventCreate({ onClose }) {
             <img
               src={
                 eventImage ||
-                'https://bandresume.s3.ap-northeast-1.amazonaws.com/profile_images/default_ogp.jpg'
+                'https://bandresume.s3.ap-northeast-1.amazonaws.com/profile_images/default.png'
               }
               alt="イベント画像プレビュー"
               className="mb-2 w-32 h-32 object-cover rounded border border-stone-700"

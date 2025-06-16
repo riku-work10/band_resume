@@ -44,7 +44,7 @@ function EventLikes() {
               className="snap-start flex-shrink-0 w-64 bg-stone-700 text-stone-100 rounded-lg shadow-lg p-4 transform transition-transform hover:scale-105 hover:bg-stone-600"
             >
                 <img
-                  src={event.image || 'https://bandresume.s3.ap-northeast-1.amazonaws.com/profile_images/default_ogp.jpg'}
+                  src={event.image || 'https://bandresume.s3.ap-northeast-1.amazonaws.com/profile_images/default.png'}
                   alt={event.title}
                   className="w-full h-36 object-cover rounded-md mb-2"
                 />
