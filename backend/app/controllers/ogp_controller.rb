@@ -20,6 +20,7 @@ class OgpController < ApplicationController
       Twitterbot facebookexternalhit Slackbot
       Discordbot LinkedInBot TelegramBot WhatsApp
     ]
+    Rails.logger.info "[OGP] User-Agent: #{user_agent}"
     bot_keywords.any? { |keyword| user_agent.to_s.include?(keyword) }
   end
 end
