@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { MdNotificationsActive } from 'react-icons/md';
 import apiClient from '../services/apiClient';
 
-function NotificationList() {
+function NotificationList( {onClose } ) {
   const [notifications, setNotifications] = useState([]);
   const navigate = useNavigate();
 
@@ -34,6 +34,7 @@ function NotificationList() {
       await apiClient.patch(`/notifications/${id}/read`);
       setNotifications((prev) => prev.map((n) => (n.id === id ? { ...n, read: true } : n)));
       navigate(`/resumes/${resumeId}`);
+      onClose?.();
     } catch (error) {
       console.error('既読処理失敗:', error);
     }

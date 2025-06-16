@@ -94,7 +94,7 @@ function LoginHeader() {
                 <MdClose className="text-2xl text-stone-300" />
               </button>
             </div>
-            <NotificationPage />
+            <NotificationPage onClose={() => setShowNotificationModal(false)}/>
           </div>
         </div>
       )}
