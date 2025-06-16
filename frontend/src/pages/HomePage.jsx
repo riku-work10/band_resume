@@ -47,7 +47,7 @@ function HomePage() {
       />
       <Section
         title="感動・興奮・余韻を共有しよう！"
-        content="「セトリ神すぎた！、predawn初めて聞けた！、余韻がやばい、グッズかわいい！」あなたが思ったこと感じたことをなんでもチャットで共有しよう！"
+        content="「セトリ神すぎた！、predawn初めて聞けた！、余韻がやばい、グッズかわいい！」あなたが思ったこと感じたことをなんでもチャットで共有しよう！※誹謗中傷や不快な発言はNGです"
         bg="#263333"
         UseUrl="https://t.gyazo.com/teams/harukamirai-resume/fd8e0a0e14c335ef408504bddb785468.mp4"
       />
