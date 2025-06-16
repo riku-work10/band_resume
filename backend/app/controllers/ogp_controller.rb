@@ -14,12 +14,15 @@ class OgpController < ApplicationController
 
   private
 
-  def bot_request?(user_agent)
-    # 有名なクローラーの一例
-    bot_keywords = %w[
-      Twitterbot facebookexternalhit Slackbot
-      Discordbot LinkedInBot TelegramBot WhatsApp
-    ]
-    bot_keywords.any? { |keyword| user_agent.to_s.include?(keyword) }
-  end
+def bot_request?(user_agent)
+  Rails.logger.info "[OGP] Checking User-Agent: #{user_agent}"
+  bot_keywords = %w[
+    Twitterbot facebookexternalhit Slackbot
+    Discordbot LinkedInBot TelegramBot WhatsApp
+  ]
+  result = bot_keywords.any? { |keyword| user_agent.to_s.include?(keyword) }
+  Rails.logger.info "[OGP] Is bot? #{result}"
+  result
+end
+
 end
