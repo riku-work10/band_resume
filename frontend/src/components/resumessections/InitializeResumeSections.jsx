@@ -1,7 +1,9 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import apiClient from '../../services/apiClient';
 
 export function InitializeResumeSections({ resumeId, setResumeSectionsList }) {
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const fetchAndInitializeSections = async () => {
       try {
@@ -76,11 +78,24 @@ export function InitializeResumeSections({ resumeId, setResumeSectionsList }) {
         }
       } catch (error) {
         console.error('Error initializing sections:', error);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchAndInitializeSections();
   }, [resumeId, setResumeSectionsList]);
 
-  return null; // UIは不要なので描画しない
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-64">
+        <div className="flex flex-col items-center space-y-4">
+          <div className="w-10 h-10 border-4 border-green-500 border-t-transparent rounded-full animate-spin"></div>
+          <div className="text-white text-lg font-medium">テンプレを用意中...</div>
+        </div>
+      </div>
+    );
+  }
+
+  return null;
 }

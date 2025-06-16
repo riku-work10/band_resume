@@ -1,4 +1,3 @@
-import React from 'react';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import apiClient from '../../services/apiClient';
 import { ResumeItem } from './ResumeItem';
