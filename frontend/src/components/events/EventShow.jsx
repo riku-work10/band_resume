@@ -8,6 +8,7 @@ import EventLikeButton from '../likes/EventLikeButton';
 import SetlistList from '../setlists/SetlistList';
 import SetlistActionButton from './SetlistActionButton';
 import EventOwnerButtons from './EventOwnerButtons';
+import EventShareButton from './EventShareButton';
 
 function EventShow() {
   const { eventId } = useParams();
@@ -94,6 +95,13 @@ function EventShow() {
                         onDelete={handleDelete}
                       />
                     )}
+                       {user && user.id === event.user_id && (
+                        <EventShareButton
+                          enventId={event.id}
+                          introduction={event.introduction}
+                          title={event.title}
+                        />
+                      )}
                     <EventLikeButton
                       eventId={event.id}
                       className="ml-2 py-2 px-4 bg-green-500 text-white rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400"

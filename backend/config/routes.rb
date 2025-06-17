@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   root to: 'health_check#index'
 
   get '/ogp/resumes/:id', to: 'ogp#resume', as: :ogp_resume
+  get '/ogp/events/:id', to: 'ogp#event', as: :ogp_event
 
   namespace :api do
     namespace :v1 do
