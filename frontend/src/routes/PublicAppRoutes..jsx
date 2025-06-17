@@ -8,6 +8,7 @@ import ForgotPasswordForm from '../components/auth/ForgotPasswordForm';
 import ResetPasswordForm from '../components/auth/ResetPasswordForm';
 import ContactPage from '../pages/info/ContactPage';
 import ResumesShow from '../components/resumes/ResumesShow';
+import EventShow from '../components/events/EventShow';
 
 function PublicAppRoutes() {
   return (
@@ -21,6 +22,7 @@ function PublicAppRoutes() {
       <Route path="/password/forgot" element={<ForgotPasswordForm />} />
       <Route path="/password/reset" element={<ResetPasswordForm />} />
       <Route path="/resumes/:resumeId" element={<ResumesShow />} />
+      <Route path="/events/:eventId" element={<EventShow />} />
     </Routes>
   );
 }
