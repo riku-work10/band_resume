@@ -43,6 +43,13 @@ function MyResumePage() {
                 key={resume.id}
                 className="relative flex flex-col sm:flex-row bg-stone-700 rounded-2xl shadow-md overflow-hidden hover:bg-stone-600 hover:shadow-lg transition"
               >
+              {resume.user.id === user.id && (
+              <div className="absolute top-0 right-0 w-[100px] h-[100px] overflow-hidden z-10">
+                <div className="absolute top-[10px] right-[-35px] w-[100px] bg-orange-600 text-white text-[10px] font-bold text-center py-1 shadow-md rotate-45">
+                　　
+                </div>
+              </div>
+             )}
                 <Link
                   to={`/resumes/${resume.id}`}
                   className="w-full sm:w-36 flex-shrink-0 aspect-square sm:aspect-auto bg-stone-900"

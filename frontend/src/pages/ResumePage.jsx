@@ -5,6 +5,7 @@ import ResumeSearch from '../components/search/ResumeSearch';
 import { useAuth } from '../hooks/AuthContext';
 import ResumeLikeButton from '../components/likes/ResumeLikeButton ';
 import ResumesCreate from '../components/resumes/ResumesCreate';
+import { FaRibbon } from 'react-icons/fa';
 
 function ResumePage() {
   const [resumes, setResumes] = useState([]);
@@ -71,6 +72,13 @@ function ResumePage() {
               key={resume.id}
               className="relative flex flex-col sm:flex-row bg-stone-700 rounded-2xl shadow-md overflow-hidden hover:bg-stone-600 hover:shadow-lg transition"
             >
+            {resume.user.id === user.id && (
+              <div className="absolute top-0 right-0 w-[100px] h-[100px] overflow-hidden z-10">
+                <div className="absolute top-[10px] right-[-35px] w-[100px] bg-orange-600 text-white text-[10px] font-bold text-center py-1 shadow-md rotate-45">
+                　　
+                </div>
+              </div>
+            )}
               {/* プロフィール画像 */}
               <Link
                 to={`/resumes/${resume.id}`}
