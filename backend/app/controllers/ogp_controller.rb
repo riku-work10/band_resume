@@ -1,6 +1,6 @@
 class OgpController < ActionController::Base
   def resume
-    @resume = Resume.find_by(id: params[:id])
+    @resume = Resume.includes(:user).find_by(id: params[:id])
     return render plain: "Not found", status: 404 unless @resume
 
     if bot_request?(request.user_agent)
