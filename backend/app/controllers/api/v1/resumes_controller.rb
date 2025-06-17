@@ -5,9 +5,9 @@ module Api
 
       def index
         resumes = if params[:user_id]
-                    Resume.where(user_id: params[:user_id])
+                    Resume.where(user_id: params[:user_id]).order(created_at: :desc)
                   else
-                    Resume.all
+                    Resume.order(created_at: :desc)
                   end
 
         render json: resumes.as_json(include: :user)
