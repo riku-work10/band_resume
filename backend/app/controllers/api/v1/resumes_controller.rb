@@ -39,11 +39,15 @@ module Api
       def update
         resume = Resume.find(params[:id])
         if resume.update(resume_params)
-          render json: resume.as_json(include: { resume_sections: { include: :resume_items } })
+          render json: resume.as_json(include: {
+            user: {},
+            resume_sections: { include: :resume_items }
+          })
         else
           render json: { errors: resume.errors.full_messages }, status: :unprocessable_entity
         end
       end
+
 
       def destroy
         resume = Resume.find(params[:id])
