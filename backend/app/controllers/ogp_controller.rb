@@ -14,14 +14,14 @@ class OgpController < ActionController::Base
 
     def event
     @event = Event.includes(:user).find_by(id: params[:id])
-    return render plain: "Not found", status: 404 unless @evnet
+    return render plain: "Not found", status: 404 unless @event
 
     if bot_request?(request.user_agent)
       # botならOGP付きHTMLを表示（metaタグが必要）
       render template: "ogp/event", layout: false
     else
       # 人間ユーザーならReact側に即リダイレクト
-      redirect_to "#{ENV['VERCEL_URL']}/events/#{@evnet.id}", allow_other_host: true
+      redirect_to "#{ENV['VERCEL_URL']}/events/#{@event.id}", allow_other_host: true
     end
   end
 
