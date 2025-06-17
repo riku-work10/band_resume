@@ -12,7 +12,7 @@ const stars = Array.from({ length: 20 }, (_, i) => ({
 export default function TopLikeSection() {
   return (
 <motion.section
-  className="content-section relative bg-black text-white min-h-screen" // ← 追加ここ！
+  className="content-section relative bg-black text-white min-h-screen"
   initial={{ opacity: 0, y: 30 }}
   whileInView={{ opacity: 1, y: 0 }}
   transition={{ duration: 1 }}
