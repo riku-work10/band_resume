@@ -7,6 +7,7 @@ import SignIn from '../components/auth/SignIn';
 import ForgotPasswordForm from '../components/auth/ForgotPasswordForm';
 import ResetPasswordForm from '../components/auth/ResetPasswordForm';
 import ContactPage from '../pages/info/ContactPage';
+import ResumesShow from '../components/resumes/ResumesShow';
 
 function PublicAppRoutes() {
   return (
@@ -19,6 +20,7 @@ function PublicAppRoutes() {
       <Route path="/signin" element={<SignIn />} />
       <Route path="/password/forgot" element={<ForgotPasswordForm />} />
       <Route path="/password/reset" element={<ResetPasswordForm />} />
+      <Route path="/resumes/:resumeId" element={<ResumesShow />} />
     </Routes>
   );
 }

@@ -1,7 +1,7 @@
 module Api
   module V1
     class ResumesController < ApplicationController
-      before_action :authenticate_api_v1_user!
+      before_action :authenticate_api_v1_user!, except: [:show]
 
       def index
         resumes = if params[:user_id]

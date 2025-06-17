@@ -23,7 +23,6 @@ function ProctedAppRoutes() {
       <Route path="/top" element={<TopPage />} />
       <Route path="/events" element={<EventPage />} />
       <Route path="/events/:eventId" element={<EventShow />} />
-      <Route />
       <Route path="/resumes" element={<ResumePage />} />
       <Route path="/resumes/:resumeId" element={<ResumesShow />} />
       <Route path="/myresumes" element={<MyResumePage />} />
