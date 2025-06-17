@@ -3,7 +3,7 @@ import { MdShare } from 'react-icons/md';
 function EventShareButton({ enventId, introduction, title }) {
   const baseUrl = process.env.REACT_APP_API_URL;
   const shareUrl = `${baseUrl}/ogp/events/${enventId}`;
-  const tweetText = `${title}\n#ハルカミライ履歴書 #ハルカミライ`;
+  const tweetText = `${title}\nセトリ\n#ハルカミライ履歴書 #ハルカミライ`;
 
   const handleShare = () => {
     const tweetUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(
