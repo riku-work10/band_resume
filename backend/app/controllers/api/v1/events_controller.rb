@@ -7,9 +7,9 @@ module Api
         events = if params[:user_id]
                    Event.includes(:setlists, :tags).where(user_id: params[:user_id]).order(date: :desc)
                  else
-                   Event.includes(:setlists, :tags).order(date: :desc)
+                   Event.includes(:setlists, :tags, :user).order(date: :desc)
                  end
-        render json: events.as_json(include: %i[setlists tags])
+        render json: events.as_json(include: [:setlists, :tags, :user])
       end
 
       def show

@@ -71,6 +71,13 @@ function EventPage() {
               key={event.id}
               className="relative flex bg-stone-700 text-stone-300 rounded-lg shadow-md overflow-hidden transition hover:bg-stone-600 hover:shadow-xl"
             >
+            {event.user.id === user.id && (
+              <div className="absolute top-0 right-0 w-[100px] h-[100px] overflow-hidden z-10">
+                <div className="absolute top-[10px] right-[-35px] w-[100px] bg-orange-600 text-white text-[10px] font-bold text-center py-1 shadow-md rotate-45">
+                　　
+                </div>
+              </div>
+            )}
               {/* 左側：画像 */}
               <Link to={`/events/${event.id}`} className="flex-shrink-0 w-32 h-32 md:w-40 md:h-40">
                 <img
