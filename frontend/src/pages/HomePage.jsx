@@ -51,7 +51,7 @@ function HomePage() {
         bg="#263333"
         UseUrl="https://t.gyazo.com/teams/harukamirai-resume/fd8e0a0e14c335ef408504bddb785468.mp4"
       />
-      <TopLikeSection />
+      <TopLikeSection className="top-like-section" />
     </div>
   );
 }

@@ -1,10 +1,15 @@
 body {
   margin: 0;
+  padding: 0;
   font-family: sans-serif;
   background-color: #111;
   color: white;
   scroll-behavior: smooth;
   overflow-x: hidden;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
 }
 
 .intro-screen {
@@ -162,50 +167,154 @@ body {
 
 /* スマホなど幅が狭いデバイス対応 */
 @media (max-width: 768px) {
-  .content-section {
-    flex-direction: column;
-    padding: 2rem 1rem;
+  html, body {
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  .hero {
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .hero-logo {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2rem;
+    padding: 0 1rem;
     text-align: center;
+    z-index: 10;
+    white-space: nowrap;
+  }
+
+ .hero-buttons {
+  position: absolute;
+  bottom: 22%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap; /* 折り返しなし */
+  gap: 1rem;
+  justify-content: center;
+  width: auto;
+  padding: 0 1rem;
+  box-sizing: border-box;
+}
+
+.hero-btn {
+  min-width: 120px;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  flex-shrink: 0;
+  width: auto;
+}
+
+  .scroll-indicator {
+    bottom: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.8rem;
+  }
+
+.content-section {
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4rem 2rem;
+  gap: 1.5rem; /* 3rem → 1.5rem に変更 */
+  color: white;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+}
+
+
+  .section-text, .section-video {
+    width: 100%;
+    max-width: 100%;
   }
 
   .section-text h2 {
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
 
   .section-text p {
     font-size: 1rem;
+    line-height: 1.6;
   }
 
-  .section-video {
-    margin-top: 1rem;
+  .section-video video {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    border-radius: 12px;
+  }
+
+  .hero-section {
+    height: auto;
+    padding: 3rem 1rem;
+    box-sizing: border-box;
+  }
+
+  .final-logo-section {
+    height: auto;
+    padding: 2rem 1rem;
+    text-align: center;
+  }
+
+  .final-logo-img {
+    width: 100%;
+    height: auto;
   }
 }
+.top-like-section {
+  width: 100vw;       /* ビューポート幅いっぱい */
+  height: 100vh;      /* ビューポート高さいっぱい */
+  overflow: hidden;   /* はみ出し要素を隠す場合 */
+}
 
-.hero-section {
+.hero-logo {
+  position: absolute;       /* 親要素に対して絶対位置 */
+  top: 50%;                /* 縦中央 */
+  left: 50%;               /* 横中央 */
+  transform: translate(-50%, -145%); /* 完全中央に */
+  font-size: 2.5rem;         /* 大きさ */
+  font-weight: bold;
+  color: white;
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.6);
+  pointer-events: none;
+  z-index: 10;
+  white-space: nowrap;     /* 折り返し禁止 */
+}
+
+/* IntroScreenの親要素はfixedで全画面 */
+.intro-logo {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
   height: 100vh;
-  background-color: #ff8d44;
+  background-color: black;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
-  text-align: center;
-  padding: 2rem;
+  z-index: 999;
+  overflow: hidden;
+  font-size: 2.5rem;
 }
 
-.final-logo-section {
-  width: 100%;
+/* HomePageのheroセクションはrelativeにしてabsoluteのcommon-logoを基準に */
+.hero {
+  position: relative;
   height: 100vh;
-  background-color: #111;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-
-.final-logo-img {
-  width: 100%;
-  height: 100vh;
-  border-radius: 12px;
-  margin-bottom: 1rem;
+  overflow: hidden;
 }
