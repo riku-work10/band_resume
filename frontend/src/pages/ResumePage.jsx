@@ -110,7 +110,6 @@ function ResumePage() {
                 </div>
 
                 {/* いいねボタン */}
-                {user && user.id !== resume.user_id && (
                   <div className="absolute bottom-4 right-4">
                     <ResumeLikeButton
                       resumeId={resume.id}
@@ -118,7 +117,6 @@ function ResumePage() {
                       className="py-1 px-4 bg-orange-600 text-white text-sm font-medium rounded-lg shadow hover:bg-orange-700 transition"
                     />
                   </div>
-                )}
               </div>
             </div>
           ))}

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import ResumesCreate from '../components/resumes/ResumesCreate';
 import { useAuth } from '../hooks/AuthContext';
 import { getResumesByUserId } from '../services/apiResumes';
+import ResumeLikeButton from '../components/likes/ResumeLikeButton ';
 
 function MyResumePage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -71,6 +72,13 @@ function MyResumePage() {
                         {resume.introduction}
                       </p>
                     </Link>
+                     <div className="absolute bottom-4 right-4">
+                    <ResumeLikeButton
+                      resumeId={resume.id}
+                      textColor="text-white"
+                      className="py-1 px-4 bg-orange-600 text-white text-sm font-medium rounded-lg shadow hover:bg-orange-700 transition"
+                    />
+                  </div>
                   </div>
                 </div>
               </div>
