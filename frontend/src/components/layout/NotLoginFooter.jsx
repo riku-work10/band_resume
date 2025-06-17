@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
-import { FaTwitter, FaGithub } from 'react-icons/fa';
+import { FaXTwitter } from 'react-icons/fa6';
+import { FaGithub } from 'react-icons/fa';
 
 export default function HomePageFooter() {
   return (
@@ -18,7 +19,7 @@ export default function HomePageFooter() {
             aria-label="X (Twitter)"
             className="hover:text-white flex items-center gap-1"
           >
-            <FaTwitter size={18} /> Twitter
+            <FaXTwitter size={18} />
           </a>
           <a
             href="https://github.com/riku-work10"
@@ -27,7 +28,7 @@ export default function HomePageFooter() {
             aria-label="GitHub"
             className="hover:text-white flex items-center gap-1"
           >
-            <FaGithub size={18} /> GitHub
+            <FaGithub size={18} />
           </a>
         </div>
 
