@@ -1,4 +1,4 @@
-import { MdShare } from 'react-icons/md'; // ← アイコン追加
+import { MdShare } from 'react-icons/md';
 
 function EventShareButton({ enventId, introduction, title }) {
   const baseUrl = process.env.REACT_APP_API_URL;

@@ -1,3 +1,5 @@
+import { MdShare } from 'react-icons/md';
+
 function ResumeShareButton({ resumeId, introduction }) {
   const baseUrl = process.env.REACT_APP_API_URL;
   const shareUrl = `${baseUrl}/ogp/resumes/${resumeId}`;
@@ -11,9 +13,9 @@ function ResumeShareButton({ resumeId, introduction }) {
   return (
     <button
       onClick={handleShare}
-      className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
+      className="py-2 px-4 bg-gray-500 text-white rounded-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-400 flex items-center justify-center"
     >
-      Xで共有
+      <MdShare size={20} />
     </button>
   );
 }

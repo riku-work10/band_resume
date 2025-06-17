@@ -155,18 +155,16 @@ function ResumePageShow() {
                 {user && user.id === resume.user_id ? (
                   <div className="flex flex-col md:flex-row space-y-3 md:space-y-0 md:space-x-3">
                     <button
-                      className="py-2 px-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition flex items-center justify-center"
+                      className="py-2 px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
                       onClick={() => setIsEditModalOpen(true)}
                     >
                       <MdEdit className="mr-1" />
-                      編集
                     </button>
                     <button
                       onClick={handleDelete}
-                      className="py-2 px-4 bg-red-600 text-white rounded-lg hover:bg-red-700 transition flex items-center justify-center"
+                      className="py-2 px-4 bg-red-500 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400"
                     >
                       <MdDelete className="mr-1" />
-                      削除
                     </button>
                     <ResumeShareButton
                       resumeId={resume.id}
