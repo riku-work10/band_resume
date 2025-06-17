@@ -12,8 +12,8 @@ class OgpController < ActionController::Base
     end
   end
 
-    def revent
-    @evnet = Event.includes(:user).find_by(id: params[:id])
+    def event
+    @event = Event.includes(:user).find_by(id: params[:id])
     return render plain: "Not found", status: 404 unless @evnet
 
     if bot_request?(request.user_agent)
