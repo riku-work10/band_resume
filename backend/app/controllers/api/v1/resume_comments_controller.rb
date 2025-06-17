@@ -1,7 +1,7 @@
 module Api
   module V1
     class ResumeCommentsController < ApplicationController
-      before_action :authenticate_api_v1_user!
+      before_action :authenticate_api_v1_user!, except: [:index]
 
       def index
         resume = Resume.find(params[:resume_id])
