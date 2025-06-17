@@ -4,6 +4,7 @@ import { MdClose, MdOutlineMenu, MdHome, MdNotifications } from 'react-icons/md'
 import SignOutButtun from '../auth/SignOutButtun';
 import GetPageName from '../../hooks/GetPageName';
 import NotificationPage from '../../pages/NotificationPage';
+import apiClient from '../../services/apiClient';
 
 function LoginHeader() {
   const [isOpen, setIsOpen] = useState(false);
@@ -11,6 +12,17 @@ function LoginHeader() {
   const location = useLocation();
   const menuRef = useRef(null);
   const modalRef = useRef(null);
+  const [unreadCount, setUnreadCount] = useState(0);
+
+  useEffect(() => {
+    apiClient
+      .get('/notifications')
+      .then((response) => {
+        const unread = response.data.filter((n) => !n.read);
+        setUnreadCount(unread.length);
+      })
+      .catch((error) => console.error('通知数取得エラー:', error));
+  }, []);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -41,8 +53,13 @@ function LoginHeader() {
           <p className="text-lg font-semibold">{GetPageName()}</p>
         </div>
         <div className="flex-1 flex justify-end items-center space-x-4">
-          <button className="block text-white" onClick={() => setShowNotificationModal(true)}>
-            <MdNotifications className="text-xl" />
+          <button className="relative text-white" onClick={() => setShowNotificationModal(true)}>
+            <MdNotifications className="text-2xl" />
+            {unreadCount > 0 && (
+              <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] min-w-[16px] h-[16px] px-[4px] rounded-full flex items-center justify-center leading-none shadow-sm">
+                {unreadCount > 99 ? '99+' : unreadCount}
+              </span>
+            )}
           </button>
           <button className="text-white z-50" onClick={() => setIsOpen(!isOpen)}>
             {isOpen ? <MdClose className="text-xl" /> : <MdOutlineMenu className="text-xl" />}
