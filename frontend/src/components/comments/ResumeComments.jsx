@@ -140,12 +140,14 @@ function ResumeComments({ resumeId }) {
             rows="3"
             placeholder="コメントを入力..."
           />
+          <div className="mt-2 flex justify-end">
           <button
             type="submit"
-            className="mt-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
+            className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
           >
             投稿
           </button>
+          </div>
         </form>
       )}
     </div>
