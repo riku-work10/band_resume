@@ -14,7 +14,6 @@ module Api
 
           @user = User.find_or_initialize_by(email: google_email)
           @user.name = google_name if @user.name.blank?
-          @user.image = google_image if @user.image.blank?
           @user.provider = 'google_oauth2'
           @user.uid = payload['sub']
 
