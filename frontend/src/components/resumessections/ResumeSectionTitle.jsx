@@ -23,12 +23,12 @@ export function ResumeSectionTitle({
           resume_section: {
             title: trimmedTitle,
           },
-        },
+        }
       );
       setResumeSectionsList(
         resumeSectionsList.map((section) =>
-          section.id === resumeSection.id ? response.data : section,
-        ),
+          section.id === resumeSection.id ? response.data : section
+        )
       );
     } catch (error) {
       console.error('Error updating section title:', error);
@@ -58,13 +58,13 @@ export function ResumeSectionTitle({
             autoFocus
             maxLength={20}
             placeholder="セクションタイトルを入力"
-            className="w-full bg-stone-800 text-white placeholder-stone-400 border border-stone-600 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-600 transition"
+            className="w-full bg-stone-800 text-white placeholder-stone-400 border border-stone-600 rounded-lg px-3 sm:px-4 py-2 sm:py-2.5 text-sm sm:text-base md:text-lg focus:outline-none focus:ring-2 focus:ring-orange-600 transition"
           />
         </form>
       ) : (
         <div
           onClick={() => setIsEditing(true)}
-          className={`w-full bg-stone-800 border border-stone-600 rounded-lg px-4 py-2 cursor-pointer hover:bg-stone-700 transition ${
+          className={`w-full bg-stone-800 border border-stone-600 rounded-lg px-3 sm:px-4 py-2 sm:py-2.5 cursor-pointer hover:bg-stone-700 transition text-sm sm:text-base md:text-lg ${
             inputTitle ? 'text-white' : 'text-stone-400 italic'
           }`}
         >

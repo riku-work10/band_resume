@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
-import { MdExpandMore, MdExpandLess, MdDragIndicator  } from 'react-icons/md';
+import { MdExpandMore, MdExpandLess, MdDragIndicator } from 'react-icons/md';
 import apiClient from '../../services/apiClient';
 import { ResumeSectionTitle } from './ResumeSectionTitle';
 import { ResumeSectionDeleteButton } from './ResumeSectionDeleteButton';
@@ -31,23 +31,21 @@ export function ResumeSection({
         <div
           ref={provided.innerRef}
           {...provided.draggableProps}
-          className={`bg-stone-800 rounded-xl shadow-lg border transition-colors duration-200 ${
-            snapshot.isDragging ? 'border-stone-400' : 'border-stone-700'
-          }`}
+          className={`bg-stone-800 rounded-xl shadow-lg border transition-colors duration-200 mx-auto w-full max-w-5xl
+            ${snapshot.isDragging ? 'border-stone-400' : 'border-stone-700'}`}
         >
           {/* Header */}
-          <div className="flex items-center justify-between p-4 bg-stone-700 border-b border-stone-600 rounded-t-xl">
+          <div className="flex items-center justify-between px-3 py-3 sm:px-6 sm:py-4 bg-stone-700 border-b border-stone-600 rounded-t-xl">
             <div className="flex items-center flex-1 min-w-0">
               {/* Drag Handle */}
-            <div
-              {...provided.dragHandleProps}
-              className={`p-2 mr-2 cursor-grab active:cursor-grabbing transition-colors duration-200 ${
-                snapshot.isDragging ? 'text-white' : 'text-stone-400 hover:text-white'
-              }`}
-              title="ドラッグして移動"
-            >
-              <MdDragIndicator size={20} />
-            </div>
+              <div
+                {...provided.dragHandleProps}
+                className={`p-2 mr-2 cursor-grab active:cursor-grabbing transition-colors duration-200
+                  ${snapshot.isDragging ? 'text-white' : 'text-stone-400 hover:text-white'}`}
+                title="ドラッグして移動"
+              >
+                <MdDragIndicator size={20} />
+              </div>
 
               <ResumeSectionTitle
                 resumeSectionsList={resumeSectionsList}
@@ -57,7 +55,7 @@ export function ResumeSection({
               />
             </div>
 
-            <div className="flex items-center gap-2 ml-4">
+            <div className="flex items-center gap-1 sm:gap-2 ml-2 sm:ml-4">
               <button
                 onClick={(e) => {
                   e.stopPropagation();
@@ -66,7 +64,7 @@ export function ResumeSection({
                 className="p-2 text-stone-400 hover:text-white rounded-full hover:bg-stone-600 transition-colors duration-200"
                 title={isExpanded ? 'セクションを閉じる' : 'セクションを開く'}
               >
-                {isExpanded ? <MdExpandLess size={24} /> : <MdExpandMore size={24} />}
+                {isExpanded ? <MdExpandLess size={22} /> : <MdExpandMore size={22} />}
               </button>
 
               <ResumeSectionDeleteButton
@@ -80,14 +78,14 @@ export function ResumeSection({
 
           {/* Content */}
           {isExpanded && (
-            <div className="p-4 flex flex-col gap-4">
+            <div className="p-3 sm:p-6 flex flex-col gap-4">
               <div className="flex justify-end">
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
                     setShowInputToggle(!showInputToggle);
                   }}
-                  className="flex items-center gap-1 px-3 py-1 text-sm text-stone-300 bg-stone-700 hover:bg-stone-700 hover:text-white rounded-md transition-all duration-200"
+                  className="flex items-center gap-1 px-3 py-1 text-sm sm:text-base text-stone-300 bg-stone-700 hover:bg-stone-700 hover:text-white rounded-md transition-all duration-200"
                 >
                   {showInputToggle ? <MdExpandLess size={18} /> : <MdExpandMore size={18} />}
                   {showInputToggle ? '入力欄を隠す' : '入力欄を表示'}
