@@ -41,13 +41,19 @@ function ResumeLikes() {
             <Link
               to={`/resumes/${resume.id}`}
               key={resume.id}
-              className="snap-start flex-shrink-0 w-64 bg-stone-700 text-stone-100 rounded-lg shadow-lg p-4 transform transition-transform hover:scale-105 hover:bg-stone-600"
+              className="
+                snap-start flex-shrink-0 
+                w-48 sm:w-56 md:w-64 
+                bg-stone-700 text-stone-100 rounded-lg shadow-lg p-4
+                transform transition-transform 
+                hover:scale-105 hover:bg-stone-600
+              "
             >
-                <img
-                  src={resume.profile_image || 'https://bandresume.s3.ap-northeast-1.amazonaws.com/profile_images/default.png'}
-                  alt={resume.title}
-                  className="w-full h-36 object-cover rounded-md mb-2"
-                />
+              <img
+                src={resume.profile_image || 'https://bandresume.s3.ap-northeast-1.amazonaws.com/profile_images/default.png'}
+                alt={resume.title}
+                className="w-full h-28 sm:h-32 md:h-36 object-cover rounded-md mb-2"
+              />
               <h2 className="text-lg font-semibold">{resume.user.name}の履歴書</h2>
               {resume.age && <p className="text-sm text-stone-200">年齢: {resume.age}</p>}
               {resume.gender && <p className="text-sm text-stone-200">性別: {resume.gender}</p>}

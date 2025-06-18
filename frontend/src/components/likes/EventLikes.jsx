@@ -13,7 +13,7 @@ function EventLikes() {
         const response = await apiClient.get('/events/my_liked_events');
         setLikedEvents(response.data);
       } catch (error) {
-        console.error('いいねしたイベントの取得に失敗しました', error);
+        console.error('いいねしたライブの取得に失敗しました', error);
       }
     };
 
@@ -25,15 +25,15 @@ function EventLikes() {
   if (!likedevents.length) {
     return (
       <div className="mt-10 text-gray-400">
-        <h1 className="text-2xl font-bold text-white mb-4">いいねしたイベント</h1>
-        <p>いいねしたイベントはありません。</p>
+        <h1 className="text-2xl font-bold text-white mb-4">いいねしたライブ</h1>
+        <p>いいねしたライブはありません。</p>
       </div>
     );
   }
 
   return (
     <div className="mt-10 px-4 md:px-10">
-      <h1 className="text-2xl font-bold text-white mb-4">いいねしたイベント</h1>
+      <h1 className="text-2xl font-bold text-white mb-4">いいねしたライブ</h1>
 
       <div className="overflow-x-auto scrollbar-hide pb-4">
         <div className="flex space-x-6 snap-x snap-mandatory">
@@ -41,14 +41,20 @@ function EventLikes() {
             <Link
               to={`/events/${event.id}`}
               key={event.id}
-              className="snap-start flex-shrink-0 w-64 bg-stone-700 text-stone-100 rounded-lg shadow-lg p-4 transform transition-transform hover:scale-105 hover:bg-stone-600"
+              className="
+                snap-start flex-shrink-0 
+                w-48 sm:w-56 md:w-64 
+                bg-stone-700 text-stone-100 rounded-lg shadow-lg p-4
+                transform transition-transform 
+                hover:scale-105 hover:bg-stone-600
+              "
             >
-                <img
-                  src={event.image || 'https://bandresume.s3.ap-northeast-1.amazonaws.com/profile_images/default.png'}
-                  alt={event.title}
-                  className="w-full h-36 object-cover rounded-md mb-2"
-                />
-                {event.date && <p>@ {event.date}</p>}
+              <img
+                src={event.image || 'https://bandresume.s3.ap-northeast-1.amazonaws.com/profile_images/default.png'}
+                alt={event.title}
+                className="w-full h-28 sm:h-32 md:h-36 object-cover rounded-md mb-2"
+              />
+              {event.date && <p>@ {event.date}</p>}
               <h2 className="text-lg font-semibold">{event.title}</h2>
               {event.date && <p className="text-sm text-stone-200">日時: {event.date}</p>}
               {event.location && <p className="text-sm text-stone-200">場所: {event.location}</p>}
