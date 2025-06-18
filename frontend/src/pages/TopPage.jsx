@@ -1,3 +1,4 @@
+import { useRef, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import FloatingLyrics from '../components/toppage/FloatingLyrics';
 
@@ -10,17 +11,27 @@ const stars = Array.from({ length: 30 }, (_, i) => ({
 }));
 
 function TopPage() {
+  const mainTextRef = useRef(null);
+  const [mainTextRect, setMainTextRect] = useState(null);
+
+  useEffect(() => {
+    const updateRect = () => {
+      if (mainTextRef.current) {
+        setMainTextRect(mainTextRef.current.getBoundingClientRect());
+      }
+    };
+    updateRect();
+    window.addEventListener('resize', updateRect);
+    return () => window.removeEventListener('resize', updateRect);
+  }, []);
+
   return (
-    <div
-      className="fixed inset-0 z-40 bg-black bg-cover bg-center overflow-hidden"
-      // style={{
-      //   backgroundImage:
-      //     "url('https://www.musicman.co.jp/wp-content/uploads/2022/07/220702_tatewaki_2856-1560x1040.jpg')",
-      // }}
-    >
+    <div className="fixed inset-0 z-40 bg-black bg-cover bg-center overflow-hidden">
       {/* 暗がりオーバーレイ */}
       <div className="absolute inset-0 bg-black bg-opacity-50 z-10" />
-      <FloatingLyrics />
+
+      {/* 歌詞（メインテキスト領域を避けて表示） */}
+      <FloatingLyrics avoidRect={mainTextRect} />
 
       {/* 星アニメーション */}
       {stars.map((star) => (
@@ -47,9 +58,12 @@ function TopPage() {
       ))}
 
       {/* メインテキスト */}
-      <div className="relative z-30 flex flex-col items-center justify-center h-screen max-h-full text-center text-white px-4 sm:px-8">
+      <div
+        className="relative z-30 flex flex-col items-center justify-center h-screen max-h-full text-center text-white px-4 sm:px-8"
+        ref={mainTextRef}
+      >
         <motion.h1
-          className="text-3xl sm:text-5xl md:text-7xl font-bold tracking-widest drop-shadow-2xl leading-tight"
+          className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-widest drop-shadow-2xl leading-tight"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}

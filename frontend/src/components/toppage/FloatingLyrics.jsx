@@ -52,32 +52,69 @@ const lyrics = [
   '真夜中のサーチライト　行こうか',
 ];
 
-const getRandomLyric = () => {
+const getRandomLyric = (avoidRect) => {
   const isMobile = window.innerWidth < 768;
-  const top = isMobile ? Math.random() * 75 + 5 : Math.random() * 80 + 5;
-  const left = isMobile ? Math.random() * 45 + 5 : Math.random() * 60 + 5;
-  const fontSize = isMobile ? '0.8rem' : '1.4rem';
+  const fontSize = isMobile ? 12 : 22; // px換算（rem → px簡易計算）
+
+  let top, left;
+  let attempts = 0;
+
+  do {
+    top = isMobile ? Math.random() * 75 + 5 : Math.random() * 80 + 5;
+    left = isMobile ? Math.random() * 45 + 5 : Math.random() * 60 + 5;
+
+    attempts++;
+    if (attempts > 50) break; // 無限ループ回避
+  } while (
+    avoidRect &&
+    isOverlapping(avoidRect, top, left, fontSize)
+  );
 
   const text = lyrics[Math.floor(Math.random() * lyrics.length)];
-  return { id: Date.now() + Math.random(), text, top, left, fontSize };
+  return {
+    id: Date.now() + Math.random(),
+    text,
+    top,
+    left,
+    fontSize: isMobile ? '0.8rem' : '1.4rem',
+  };
 };
 
-function FloatingLyrics() {
+// avoidRect と歌詞の位置が重なるかを簡易判定
+const isOverlapping = (rect, topPercent, leftPercent, fontSizePx) => {
+  const vh = window.innerHeight;
+  const vw = window.innerWidth;
+
+  const topPx = (topPercent / 100) * vh;
+  const leftPx = (leftPercent / 100) * vw;
+
+  // 歌詞の幅・高さを簡易計算（幅は文字数×フォントサイズの約4倍として）
+  const height = fontSizePx * 1.5;
+  const width = fontSizePx * 4 * 5; // 5文字分程度を想定
+
+  return !(
+    leftPx + width < rect.left ||
+    leftPx > rect.right ||
+    topPx + height < rect.top ||
+    topPx > rect.bottom
+  );
+};
+
+function FloatingLyrics({ avoidRect }) {
   const [floatingLyrics, setFloatingLyrics] = useState([]);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const lyric = getRandomLyric();
+      const lyric = getRandomLyric(avoidRect);
       setFloatingLyrics((prev) => [...prev, lyric]);
 
-      // 5秒後に消す
       setTimeout(() => {
         setFloatingLyrics((prev) => prev.filter((l) => l.id !== lyric.id));
       }, 5000);
     }, 2500);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [avoidRect]);
 
   return (
     <div className="absolute inset-0 pointer-events-none z-50">
