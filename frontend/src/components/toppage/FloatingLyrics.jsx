@@ -53,10 +53,13 @@ const lyrics = [
 ];
 
 const getRandomLyric = () => {
+  const isMobile = window.innerWidth < 768;
+  const top = isMobile ? Math.random() * 75 + 5 : Math.random() * 80 + 5;
+  const left = isMobile ? Math.random() * 45 + 5 : Math.random() * 60 + 5;
+  const fontSize = isMobile ? '0.8rem' : '1.4rem';
+
   const text = lyrics[Math.floor(Math.random() * lyrics.length)];
-  const top = Math.random() * 80 + 10; // 10〜90% 縦位置
-  const left = Math.random() * 80 + 10; // 10〜90% 横位置
-  return { id: Date.now() + Math.random(), text, top, left };
+  return { id: Date.now() + Math.random(), text, top, left, fontSize };
 };
 
 function FloatingLyrics() {
@@ -67,11 +70,11 @@ function FloatingLyrics() {
       const lyric = getRandomLyric();
       setFloatingLyrics((prev) => [...prev, lyric]);
 
-      // 5秒後に自動削除
+      // 5秒後に消す
       setTimeout(() => {
         setFloatingLyrics((prev) => prev.filter((l) => l.id !== lyric.id));
       }, 5000);
-    }, 2500); // 2.5秒ごとに出現
+    }, 2500);
 
     return () => clearInterval(interval);
   }, []);
@@ -91,7 +94,7 @@ function FloatingLyrics() {
               top: `${lyric.top}%`,
               left: `${lyric.left}%`,
               color: '#ffffff',
-              fontSize: '1.2rem',
+              fontSize: lyric.fontSize,
               fontWeight: 'bold',
               textShadow: '0 0 8px #fff',
               whiteSpace: 'nowrap',

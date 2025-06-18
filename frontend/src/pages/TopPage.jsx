@@ -47,9 +47,9 @@ function TopPage() {
       ))}
 
       {/* メインテキスト */}
-      <div className="relative z-30 flex flex-col items-center justify-center h-full text-center text-white">
+      <div className="relative z-30 flex flex-col items-center justify-center h-screen max-h-full text-center text-white px-4 sm:px-8">
         <motion.h1
-          className="text-5xl md:text-7xl font-bold tracking-widest drop-shadow-2xl"
+          className="text-3xl sm:text-5xl md:text-7xl font-bold tracking-widest drop-shadow-2xl leading-tight"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
@@ -58,7 +58,7 @@ function TopPage() {
         </motion.h1>
 
         <motion.p
-          className="mt-4 text-lg md:text-2xl text-gray-300"
+          className="mt-4 text-base sm:text-lg md:text-2xl text-gray-300 max-w-xl"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.8 }}

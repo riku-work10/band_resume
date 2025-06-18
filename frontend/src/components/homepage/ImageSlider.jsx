@@ -82,7 +82,10 @@ function ImageSlider() {
         ))}
       </Swiper>
       <div className="slider-content">
-        <h2 className="slider-title">語ろ！つながろ！ハルカミライで！</h2>
+        <h2 className="slider-title">
+          語ろ！つながろ！<br className="mobile-break" />
+          ハルカミライで！
+        </h2>
         <p className="slider-description">
           「好き」がつながる。想いが残る。
           『ハルカミライ履歴書』は、あなたの“好き”をカタチにして共有できるファンアプリ。

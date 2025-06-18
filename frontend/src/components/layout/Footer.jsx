@@ -1,7 +1,6 @@
-import React from 'react';
 import LoginFooter from './LoginFooter';
 import { useAuth } from '../../hooks/AuthContext';
-import HomePageFooter from './NotLoginFooter';
+import NotLoginFooter from './NotLoginFooter';
 
 function Footer() {
   const { user } = useAuth();
@@ -13,10 +12,7 @@ function Footer() {
       </div>
     );
   }
-
-  // userがいない場合はHomePageFooterを表示
-  return <HomePageFooter />;
+  return <NotLoginFooter />;
 }
-
 
 export default Footer;

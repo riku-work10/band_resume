@@ -59,73 +59,73 @@ function EditProfile({ setIsEditing }) {
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 px-4">
       <div
         ref={modalRef}
-        className="bg-stone-800 text-white dark:bg-stone-800 w-full max-w-md sm:max-w-md rounded-xl shadow-lg overflow-y-auto max-h-[calc(100vh-30px)]"
+        className="bg-stone-800 text-white dark:bg-stone-800 w-full max-w-md sm:max-w-lg md:max-w-xl rounded-xl shadow-lg overflow-y-auto max-h-[calc(100vh-30px)] p-6"
       >
-        <div className="p-6">
-  <h2 className="text-xl font-bold mb-4 text-left">プロフィール編集</h2>
-  {error && <p className="text-red-500 mb-4 text-left">{error}</p>}
+        <h2 className="text-xl font-bold mb-4 text-left">プロフィール編集</h2>
+        {error && <p className="text-red-500 mb-4 text-left">{error}</p>}
 
-  {/* 画像と名前エリア */}
-  <div className="flex flex-col items-start mb-6">
-    <img
-      src={profileImage || defaultProfileImage}
-      alt="profile"
-      className="w-32 h-32 object-cover rounded-full mb-3 border-2 border-stone-600"
-    />
-    <div className="mb-4 w-full">
-      <label className="block mb-1 font-semibold">名前:</label>
-      <input
-        type="text"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        required
-        className="w-full border border-stone-600 bg-stone-900 text-white rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-      />
-    </div>
-    {profileImage && (
-      <button
-        type="button"
-        onClick={handleDeleteClick}
-        className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded"
-      >
-        画像削除
-      </button>
-    )}
-  </div>
+        {/* 画像と名前エリア 横並び（PC）、縦並び（モバイル） */}
+        <div className="flex flex-col md:flex-row items-center md:items-start gap-6 mb-6">
+          <img
+            src={profileImage || defaultProfileImage}
+            alt="profile"
+            className="w-32 h-32 object-cover rounded-full border-2 border-stone-600"
+          />
 
-  <form onSubmit={handleSubmit}>
-    {/* アップロード部分 */}
-    <div className="flex flex-col items-start gap-4 mb-6">
-      <input
-        type="file"
-        accept="image/*"
-        onChange={handleFileChange}
-        className="border border-stone-500 rounded px-2 py-1 bg-stone-900 text-white w-full"
-      />
-      <button
-        type="button"
-        onClick={handleUploadClick}
-        disabled={isUploading || !selectedFile}
-        className={`px-4 py-2 rounded text-white ${
-          isUploading || !selectedFile
-            ? 'bg-stone-500 cursor-not-allowed'
-            : 'bg-green-600 hover:bg-green-700'
-        }`}
-        style={{ minWidth: '120px' }}
-      >
-        {isUploading ? 'アップロード中...' : 'アップロード'}
-      </button>
-    </div>
+          <div className="flex-1 w-full">
+            <label className="block mb-1 font-semibold">名前:</label>
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+              className="w-full border border-stone-600 bg-stone-900 text-white rounded px-3 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
 
-    {/* 更新ボタン */}
-    <button
-      type="submit"
-      className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded font-semibold transition-colors"
-    >
-      更新
-    </button>
-  </form>
-</div>
+            {/* 画像削除ボタン */}
+            {profileImage && (
+              <button
+                type="button"
+                onClick={handleDeleteClick}
+                className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded mb-4"
+              >
+                画像削除
+              </button>
+            )}
+          </div>
+        </div>
+
+        <form onSubmit={handleSubmit}>
+          {/* アップロード部分 */}
+          <div className="flex flex-col sm:flex-row items-center gap-4 mb-6">
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleFileChange}
+              className="border border-stone-500 rounded px-2 py-1 bg-stone-900 text-white w-full sm:w-auto flex-1"
+            />
+            <button
+              type="button"
+              onClick={handleUploadClick}
+              disabled={isUploading || !selectedFile}
+              className={`px-4 py-2 rounded text-white ${
+                isUploading || !selectedFile
+                  ? 'bg-stone-500 cursor-not-allowed'
+                  : 'bg-green-600 hover:bg-green-700'
+              } min-w-[120px]`}
+            >
+              {isUploading ? 'アップロード中...' : 'アップロード'}
+            </button>
+          </div>
+
+          {/* 更新ボタン */}
+          <button
+            type="submit"
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded font-semibold transition-colors"
+          >
+            更新
+          </button>
+        </form>
       </div>
     </div>
   );

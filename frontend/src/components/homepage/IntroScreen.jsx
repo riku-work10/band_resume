@@ -9,7 +9,7 @@ function IntroScreen() {
       exit={{ opacity: 0 }}
       transition={{ duration: 1 }}
     >
-      <h1 className="intro-logo text-white text-4xl">ハルカミライ履歴書</h1>
+      <h1 className="intro-logo">ハルカミライ履歴書</h1>
     </motion.div>
   );
 }

@@ -51,7 +51,7 @@ function HomePage() {
         bg="#263333"
         UseUrl="https://t.gyazo.com/teams/harukamirai-resume/fd8e0a0e14c335ef408504bddb785468.mp4"
       />
-      <TopLikeSection />
+      <TopLikeSection className="top-like-section" />
     </div>
   );
 }
@@ -59,7 +59,7 @@ function HomePage() {
 function HeroSection() {
   return (
     <motion.section
-      className="hero-section"
+      className="hero-section slider-wrapper"
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}

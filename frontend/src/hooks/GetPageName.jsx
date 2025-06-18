@@ -18,7 +18,7 @@ const GetPageName = () => {
       return 'お問い合わせ';
     case '/privacypolicy':
       return 'プライバシーポリシー';
-    case '/termspfservice':
+    case '/termsofservice':
       return '利用規約';
     default:
       return 'ハルカミライ';

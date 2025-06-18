@@ -5,7 +5,7 @@ import { MdClose, MdOutlineMenu, MdHome } from 'react-icons/md';
 function NotLoginHeader() {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
-  const menuRef = useRef(null); // メニューのref
+  const menuRef = useRef(null);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -26,15 +26,16 @@ function NotLoginHeader() {
   }, [isOpen]);
 
   return (
-    <header className="fixed bg-stone-800 text-white relative">
-<div className="flex items-center h-full">
+    <header className="fixed top-0 left-0 w-full bg-stone-800 text-white z-40">
+      <div className="flex items-center h-14 sm:h-16 px-4">
         {/* 左：ロゴ */}
         <div className="flex items-center space-x-4">
           <Link
             to="/"
-            className={`text-lg font-bold ${location.pathname === '/' ? 'text-orange-500' : ''}`}
+            className={`text-lg font-bold ${location.pathname === '/' ? 'text-orange-500' : 'text-white'}`}
+            aria-label="ホーム"
           >
-            <MdHome className="text-2xl" />
+            <MdHome className="text-2xl sm:text-3xl" />
           </Link>
         </div>
 
@@ -42,21 +43,22 @@ function NotLoginHeader() {
         <div className="flex items-center space-x-3 ml-auto">
           <Link
             to="/signup"
-            className="px-3 py-1 bg-stone-200 text-stone-800 rounded hover:bg-stone-100 transition"
+            className="px-3 py-1 bg-stone-200 text-stone-800 rounded hover:bg-stone-100 transition text-sm sm:text-base"
           >
             新規登録
           </Link>
           <Link
             to="/signin"
-            className=" px-3 py-1 bg-stone-600 rounded hover:bg-stone-500 transition"
+            className="px-3 py-1 bg-stone-600 rounded hover:bg-stone-500 transition text-sm sm:text-base"
           >
             ログイン
           </Link>
           <button
             className="text-white focus:outline-none z-50"
+            aria-label={isOpen ? 'メニューを閉じる' : 'メニューを開く'}
             onClick={() => setIsOpen(!isOpen)}
           >
-            {isOpen ? <MdClose className="text-2xl" /> : <MdOutlineMenu className="text-2xl" />}
+            {isOpen ? <MdClose className="text-2xl sm:text-3xl" /> : <MdOutlineMenu className="text-2xl sm:text-3xl" />}
           </button>
         </div>
       </div>
@@ -64,37 +66,37 @@ function NotLoginHeader() {
       {/* メニューリスト */}
       {isOpen && (
         <nav
-          ref={menuRef} // ref をつける
-          className="menu-container absolute top-12 right-0 w-1/8 bg-stone-700 p-4 shadow-lg rounded-l-lg"
+          ref={menuRef}
+          className="absolute top-16 right-2 w-48 sm:w-64 bg-stone-700 p-4 shadow-lg rounded-lg z-40"
         >
-          <ul className="space-y-2">
+          <ul className="space-y-2 text-sm sm:text-base">
             <li>
-              <Link to="/" className="block" onClick={() => setIsOpen(false)}>
+              <Link to="/" className="block hover:text-orange-400" onClick={() => setIsOpen(false)}>
                 ホーム
               </Link>
             </li>
             <li>
-              <Link to="/signin" className="block" onClick={() => setIsOpen(false)}>
+              <Link to="/signin" className="block hover:text-orange-400" onClick={() => setIsOpen(false)}>
                 ログイン
               </Link>
             </li>
             <li>
-              <Link to="/signup" className="block" onClick={() => setIsOpen(false)}>
+              <Link to="/signup" className="block hover:text-orange-400" onClick={() => setIsOpen(false)}>
                 新規登録
               </Link>
             </li>
             <li>
-              <Link to="/contact" className="block" onClick={() => setIsOpen(false)}>
+              <Link to="/contact" className="block hover:text-orange-400" onClick={() => setIsOpen(false)}>
                 お問い合わせ
               </Link>
             </li>
             <li>
-              <Link to="/privacypolicy" className="block" onClick={() => setIsOpen(false)}>
+              <Link to="/privacypolicy" className="block hover:text-orange-400" onClick={() => setIsOpen(false)}>
                 プライバシーポリシー
               </Link>
             </li>
             <li>
-              <Link to="/termsofservice" className="block" onClick={() => setIsOpen(false)}>
+              <Link to="/termsofservice" className="block hover:text-orange-400" onClick={() => setIsOpen(false)}>
                 利用規約
               </Link>
             </li>
