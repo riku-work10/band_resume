@@ -5,7 +5,6 @@ import ResumeSearch from '../components/search/ResumeSearch';
 import { useAuth } from '../hooks/AuthContext';
 import ResumeLikeButton from '../components/likes/ResumeLikeButton ';
 import ResumesCreate from '../components/resumes/ResumesCreate';
-import { FaRibbon } from 'react-icons/fa';
 
 function ResumePage() {
   const [resumes, setResumes] = useState([]);
