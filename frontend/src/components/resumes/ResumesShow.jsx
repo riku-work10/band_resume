@@ -66,7 +66,7 @@ function ResumePageShow() {
         <div
           className={`max-w-5xl mx-auto ${
             !showControls || !isOwnResume
-              ? 'flex flex-col items-center justify-center min-h-[70vh] gap-8 py-8'
+              ? 'flex flex-col items-center justify-center py-8'
               : ''
           }`}
         >
@@ -92,11 +92,13 @@ function ResumePageShow() {
           <HarukamiraiTitle />
 
           {/* メイン情報と写真 */}
-          <div
-            className={`flex flex-col md:flex-row justify-center${
-              showControls ? 'items-start' : 'items-center justify-center'
-            } space-y-3 md:space-y-0 ${showControls ? 'md:space-x-6' : 'gap-6'}`}
-          >
+<div
+  className={`flex flex-col md:flex-row ${
+    showControls
+      ? 'items-center md:space-x-6 space-y-3 md:space-y-0'
+      : 'items-center md:space-x-6 space-y-0 md:space-y-0'
+  }`}
+>
             {/* プロフィール画像 */}
             <div className="flex-shrink-0 mx-auto md:mx-0">
               <img
@@ -151,9 +153,9 @@ function ResumePageShow() {
 
             {/* ボタン群 */}
             {showControls && (
-              <div className="flex-shrink-0 flex justify-end w-full md:w-auto mt-4 md:mt-0">
+              <div className="flex-shrink-0 flex justify-end w-full md:justify-start md:w-auto mt-4 md:mt-0">
                 {isOwnResume ? (
-                  <div className="flex flex-wrap justify-end gap-3">
+                  <div className="flex flex-row flex-nowrap gap-2 md:gap-3 items-center">
                     <button
                       className="py-2 px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 flex items-center"
                       onClick={() => setIsEditModalOpen(true)}
