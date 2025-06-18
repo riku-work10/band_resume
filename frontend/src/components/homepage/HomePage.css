@@ -26,7 +26,7 @@ body {
 }
 
 .intro-logo {
-  font-size: 3rem;
+  font-size: 5rem;
   font-weight: bold;
   color: white;
 }
@@ -106,7 +106,7 @@ body {
   position: absolute;
   top: 46%;
   transform: translate(-50%, -50%);
-  font-size: 3rem;
+  font-size: 5rem;
   color: white;
   font-weight: bold;
   text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.6);
@@ -127,12 +127,10 @@ body {
   box-sizing: border-box;
 }
 
-/* Reverse layout */
 .content-section.reverse {
   flex-direction: row-reverse;
 }
 
-/* テキスト部分 */
 .section-text {
   flex: 1;
   min-width: 300px;
@@ -150,7 +148,6 @@ body {
   line-height: 1.8;
 }
 
-/* 動画部分 */
 .section-video {
   flex: 1;
   min-width: 300px;
@@ -164,6 +161,27 @@ body {
   border-radius: 12px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
 }
+
+.slider-wrapper {
+  background-color: #ff914d; /* オレンジ */
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  box-sizing: border-box;
+  color: #fff; /* デフォルト文字色を白に */
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1200px;
+  width: 100%;
+}
+
 
 /* スマホなど幅が狭いデバイス対応 */
 @media (max-width: 768px) {
@@ -276,8 +294,8 @@ body {
     width: 100%;
     height: auto;
   }
-}
-.top-like-section {
+
+  .top-like-section {
   width: 100vw;       /* ビューポート幅いっぱい */
   height: 100vh;      /* ビューポート高さいっぱい */
   overflow: hidden;   /* はみ出し要素を隠す場合 */
@@ -318,3 +336,14 @@ body {
   height: 100vh;
   overflow: hidden;
 }
+
+  .slider-wrapper {
+    height: auto;
+    padding: 2rem 1rem;
+  }
+
+  .hero-content {
+    width: 100%;
+  }
+}
+

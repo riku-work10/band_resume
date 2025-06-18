@@ -1,8 +1,8 @@
 .slider-container {
   text-align: center;
   padding: 20px;
-  overflow: hidden; /* ← これが非常に重要 */
-  max-width: 100vw; /* ← 横幅制限 */
+  overflow: hidden;
+  max-width: 100vw;
 }
 
 .slider-title {
@@ -20,11 +20,11 @@
 .mySwiper {
   width: 100%;
   padding: 10px 20px;
-  overflow: hidden; /* ← スクロールバーを隠す */
+  overflow: hidden;
 }
 
 .slide {
-  width: 150px !important; /* 明示的に指定 */
+  width: 150px !important;
   height: 150px;
   flex-shrink: 0;
 }
@@ -33,6 +33,7 @@
   object-fit: cover;
   max-width: 600px;
   width: 100%;
+  height: auto;
   border-radius: 12px;
 }
 
@@ -43,6 +44,45 @@
   max-width: 100%;
 }
 
+.slider-title {
+  color: #fff; /* タイトルは白 */
+}
+
 .slider-content {
   margin: 90px 0px;
+}
+
+.mobile-break {
+  display: none;
+}
+
+/* モバイル対応 */
+@media (max-width: 768px) {
+  .slider-title {
+    font-size: 1.8rem;
+    margin: 1rem 0;
+  }
+
+  .slider-description {
+    font-size: 1rem;
+    padding: 0 10px;
+  }
+
+  .slide {
+    width: 100px !important;
+    height: 100px;
+  }
+
+  .slide-img {
+    max-width: 100px;
+  }
+  .slider-content {
+  margin: 0px 0px;
+}
+.slider-container {
+  padding: 0px 20px;
+}
+  .mobile-break {
+    display: inline;
+  }
 }
