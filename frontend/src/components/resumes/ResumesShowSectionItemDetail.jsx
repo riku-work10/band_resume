@@ -37,7 +37,7 @@ function ResumesShowSectionItemDetail({ resume }) {
 
             {/* タイトル */}
             <div
-              className="inline-block bg-stone-400 text-black px-4 sm:px-6 py-2 sm:py-2 rounded-full font-bold shadow-xl absolute left-1/2 -top-5 transform -translate-x-1/2 z-10 max-w-[90vw] sm:max-w-[60%] text-center whitespace-nowrap overflow-hidden text-ellipsis"
+              className="inline-block bg-stone-400 text-black px-3 sm:px-6 py-2 sm:py-2 rounded-full font-bold shadow-xl absolute left-1/2 -top-5 transform -translate-x-1/2 z-10 max-w-[90vw] sm:max-w-[60%] text-center whitespace-nowrap overflow-hidden text-ellipsis"
               style={{ fontSize: 'clamp(0.75rem, 4vw, 1.25rem)' }}
             >
               {section.title || 'No Title'}
