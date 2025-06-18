@@ -22,7 +22,7 @@ export function ResumeSectionDeleteButton({
   return (
     <button
       onClick={() => resumeSectionDeleteButton(resumeSection.id)}
-      className="p-2 bg-red-700 hover:bg-red-800 text-white rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-red-500"
+      className="p-1.5 sm:p-2 bg-red-700 hover:bg-red-800 text-white rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-red-500"
       title="セクションを削除"
     >
       <MdDelete size={18} />

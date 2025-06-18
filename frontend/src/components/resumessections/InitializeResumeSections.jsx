@@ -3,12 +3,19 @@ import apiClient from '../../services/apiClient';
 
 export function InitializeResumeSections({ resumeId, setResumeSectionsList }) {
   const [loading, setLoading] = useState(true);
+  const [isInitializingTemplate, setIsInitializingTemplate] = useState(false); // 明示的にフラグ管理
 
   useEffect(() => {
     const fetchAndInitializeSections = async () => {
       try {
         const res = await apiClient.get(`resumes/${resumeId}/resume_sections`);
-        if (res.data.length === 0) {
+
+        // 分岐：テンプレが必要かどうか
+        const isEmpty = res.data.length === 0;
+        setIsInitializingTemplate(isEmpty);
+
+        if (isEmpty) {
+          // 初期テンプレートを作成
           const defaultSections = [
             {
               title: '好きになったきっかけ',
@@ -91,7 +98,9 @@ export function InitializeResumeSections({ resumeId, setResumeSectionsList }) {
       <div className="flex justify-center items-center h-64">
         <div className="flex flex-col items-center space-y-4">
           <div className="w-10 h-10 border-4 border-green-500 border-t-transparent rounded-full animate-spin"></div>
-          <div className="text-white text-lg font-medium">テンプレを用意中...</div>
+          <div className="text-white text-lg font-medium">
+            {isInitializingTemplate ? 'テンプレを用意中...' : 'データを取得中...'}
+          </div>
         </div>
       </div>
     );

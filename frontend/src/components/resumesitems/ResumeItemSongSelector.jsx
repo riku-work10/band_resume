@@ -25,7 +25,7 @@ export function ResumeItemSongSelector({ itemList, setItemList, resumeSection, r
             content: '',
             song_title: song.title,
           },
-        },
+        }
       );
       setItemList([...itemList, response.data]);
     } catch (error) {
@@ -35,7 +35,7 @@ export function ResumeItemSongSelector({ itemList, setItemList, resumeSection, r
 
   return (
     <div className="w-full">
-      <div className="space-y-2">
+      <div className="space-y-1 sm:space-y-4">
         {albums.map((album) => (
           <div
             key={album}
@@ -44,11 +44,14 @@ export function ResumeItemSongSelector({ itemList, setItemList, resumeSection, r
             {/* アルバム名ヘッダー */}
             <button
               onClick={() => handleAlbumToggle(album)}
-              className="w-full px-4 py-3 text-left hover:bg-stone-600 transition-colors flex items-center justify-between text-white border-b border-stone-600"
+              aria-label={`アルバム ${album} の楽曲表示切り替え`}
+              className="w-full px-4 sm:px-6 py-2 sm:py-3 text-left hover:bg-stone-600 transition-colors flex items-center justify-between text-white border-b border-stone-600 text-sm sm:text-base"
             >
-              <span className="font-medium">{album}</span>
+              <span className="font-medium truncate">{album}</span>
               <span
-                className={`transform transition-transform ${expandedAlbums.has(album) ? 'rotate-90' : ''}`}
+                className={`transform transition-transform duration-200 ${
+                  expandedAlbums.has(album) ? 'rotate-90' : ''
+                }`}
               >
                 ▶
               </span>
@@ -56,15 +59,16 @@ export function ResumeItemSongSelector({ itemList, setItemList, resumeSection, r
 
             {/* 楽曲リスト */}
             {expandedAlbums.has(album) && (
-              <div className="bg-stone-800">
+              <div className="bg-stone-800 divide-y divide-stone-600">
                 {ALBUM_SONGS[album].map((song) => (
                   <button
                     key={song.id}
                     onClick={() => handleSongSelect(song)}
-                    className="w-full px-6 py-2 text-left hover:bg-orange-600 transition-colors flex items-center justify-between group text-white"
+                    aria-label={`楽曲「${song.title}」を追加`}
+                    className="w-full px-4 sm:px-6 py-2 text-left hover:bg-orange-600 transition-colors flex items-center justify-between group text-white text-sm sm:text-base"
                   >
-                    <span className="group-hover:text-white">{song.title}</span>
-                    <span className="text-orange-100 opacity-0 group-hover:opacity-100 transition-opacity text-sm">
+                    <span className="truncate group-hover:text-white">{song.title}</span>
+                    <span className="text-orange-100 opacity-0 group-hover:opacity-100 transition-opacity text-xs sm:text-sm">
                       追加 →
                     </span>
                   </button>

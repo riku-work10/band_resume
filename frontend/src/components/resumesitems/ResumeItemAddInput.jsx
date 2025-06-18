@@ -40,17 +40,19 @@ export function ResumeItemAddInput({
     <form onSubmit={handleSubmit} className="relative">
       <textarea
         placeholder="アイテム内容を入力してください"
-        className="w-full px-4 py-2 bg-stone-700 border border-stone-600 rounded-lg text-white placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent resize-none min-h-[120px] pr-16"
+        className="w-full px-4 py-3 pr-20 bg-stone-700 border border-stone-600 rounded-lg text-white text-sm sm:text-base placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent resize-none min-h-[120px]"
         onChange={handleChange}
         value={inputText}
         rows={1}
+        aria-label="アイテム内容入力欄"
       />
       <button
         type="submit"
-        className="absolute bottom-2 right-2 flex items-center justify-center gap-2 px-3 py-1.5 bg-blue-700 hover:bg-blue-800 text-white rounded-lg font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 h-10"
+        aria-label="追加"
+        className="absolute bottom-2 right-2 flex items-center justify-center gap-1 px-3 py-1.5 sm:gap-2 sm:px-4 sm:py-2 bg-blue-700 hover:bg-blue-800 text-white rounded-lg font-medium text-sm sm:text-base transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 h-9 sm:h-10"
       >
         <MdAdd size={18} />
-        追加
+        <span className="hidden sm:inline">追加</span>
       </button>
     </form>
   );

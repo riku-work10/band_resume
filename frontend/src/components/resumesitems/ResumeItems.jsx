@@ -42,7 +42,7 @@ export function ResumeItems({ itemList, setItemList, resumeSection, resumeId }) 
       <DragDropContext onDragEnd={handleDragEnd}>
         <Droppable droppableId="droppable">
           {(provided) => (
-            <div {...provided.droppableProps} ref={provided.innerRef} className="space-y-2">
+            <div {...provided.droppableProps} ref={provided.innerRef} className="space-y-1 sm:space-y-2">
               {itemList.map((item, index) => (
                 <ResumeItem
                   key={item.id}

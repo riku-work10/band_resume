@@ -34,14 +34,14 @@ export function ResumeItem({ index, item, itemList, setItemList }) {
         return;
       }
 
-      const response = await apiClient.put(`resume_items/${item.id}`, {
+      await apiClient.put(`resume_items/${item.id}`, {
         resume_item: {
           content: editContent,
         },
       });
 
       const updatedItemList = itemList.map((listItem) =>
-        listItem.id === item.id ? { ...listItem, content: editContent } : listItem,
+        listItem.id === item.id ? { ...listItem, content: editContent } : listItem
       );
       setItemList(updatedItemList);
       setIsEditing(false);
@@ -56,39 +56,37 @@ export function ResumeItem({ index, item, itemList, setItemList }) {
         <div
           ref={provided.innerRef}
           {...provided.draggableProps}
-          {...provided.dragHandleProps} // 全体がドラッグ可能
+          {...provided.dragHandleProps}
           className={`relative bg-stone-700 rounded-lg overflow-hidden border transition-colors duration-200
             ${snapshot.isDragging ? 'border-stone-400' : 'border-stone-600'}`}
         >
-          <div className="pl-4 pr-4 py-3 space-y-3">
-            {/* 楽曲タイトルと削除ボタン */}
+          <div className="px-3 sm:px-4 py-2 sm:py-3 space-y-3 text-sm sm:text-base">
+            {/* 楽曲タイトル + 削除ボタン */}
             {item.song_title && (
               <div className="flex justify-between items-start text-stone-200">
                 <div className="flex items-center gap-2">
-                  <span className="font-medium text-sm">{item.song_title}</span>
+                  <span className="font-medium truncate">{item.song_title}</span>
                 </div>
-                <div className="flex gap-2">
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleDelete(item.id);
-                    }}
-                    className="flex items-center gap-1 px-2 py-1 bg-red-700 hover:bg-red-800 text-white rounded-md text-xs"
-                    title="削除"
-                  >
-                    <MdDelete size={14} />
-                  </button>
-                </div>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDelete(item.id);
+                  }}
+                  className="flex items-center gap-1 px-2 py-1 bg-red-700 hover:bg-red-800 text-white rounded-md text-xs sm:text-sm"
+                  title="削除"
+                >
+                  <MdDelete size={14} />
+                </button>
               </div>
             )}
 
-            {/* コンテンツ編集モード */}
+            {/* 編集モード */}
             {isEditing ? (
               <div className="space-y-3">
                 <textarea
                   value={editContent}
                   onChange={(e) => setEditContent(e.target.value)}
-                  className="w-full p-3 bg-stone-800 border border-stone-600 rounded-lg text-white placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-amber-500 min-h-[80px] resize-y"
+                  className="w-full p-3 bg-stone-800 border border-stone-600 rounded-lg text-white placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-amber-500 min-h-[80px] resize-y text-sm sm:text-base"
                   placeholder="内容を入力してください（空白で保存すると削除されます）"
                   onClick={(e) => e.stopPropagation()}
                 />
@@ -118,18 +116,19 @@ export function ResumeItem({ index, item, itemList, setItemList }) {
             ) : (
               item.content && (
                 <div className="flex justify-between items-start">
-                  <p className="text-stone-200 text-sm leading-relaxed w-full pr-3">
+                  <p className="text-stone-200 leading-relaxed w-full pr-3 break-words">
                     {item.content}
                   </p>
 
+                  {/* 編集・削除（楽曲以外のアイテムに表示） */}
                   {!item.song_title && (
-                    <div className="flex gap-2 flex-shrink-0">
+                    <div className="flex gap-2 flex-shrink-0 ml-2">
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
                           handleEditStart();
                         }}
-                        className="flex items-center gap-1 px-2 py-1 bg-blue-700 hover:bg-blue-800 text-white rounded-md text-xs"
+                        className="flex items-center gap-1 px-2 py-1 bg-blue-700 hover:bg-blue-800 text-white rounded-md text-xs sm:text-sm"
                         title="編集"
                       >
                         <MdEdit size={14} />
@@ -139,7 +138,7 @@ export function ResumeItem({ index, item, itemList, setItemList }) {
                           e.stopPropagation();
                           handleDelete(item.id);
                         }}
-                        className="flex items-center gap-1 px-2 py-1 bg-red-700 hover:bg-red-800 text-white rounded-md text-xs"
+                        className="flex items-center gap-1 px-2 py-1 bg-red-700 hover:bg-red-800 text-white rounded-md text-xs sm:text-sm"
                         title="削除"
                       >
                         <MdDelete size={14} />
