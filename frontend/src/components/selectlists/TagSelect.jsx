@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const tags = ['フェス', 'ワンマン', '対バン', 'ツアー'];
+const tags = ['フェス', 'ワンマン', '対バン', 'ツアー', 'その他'];
 
 function TagSelect({ value, onChange }) {
   const [isOpen, setIsOpen] = useState(false);

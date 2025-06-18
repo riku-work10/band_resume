@@ -46,6 +46,13 @@ const prefectures = [
   '宮崎県',
   '鹿児島県',
   '沖縄県',
+  '秘密',
+  '非公開',
+  '宇宙',
+  'ヨーロビル',
+  'ライブ会場',
+  '海外',
+  'その他',
 ];
 
 function SelectLocation({ value, onChange }) {
