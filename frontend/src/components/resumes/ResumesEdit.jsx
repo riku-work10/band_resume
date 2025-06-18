@@ -72,126 +72,139 @@ const ResumeEdit = ({ resume, onClose, onUpdate, userName }) => {
     }
   };
 
-  const modalContent = (
+const modalContent = (
+  <div
+    className="fixed inset-0 bg-black bg-opacity-50 z-[9999] flex items-center justify-center px-4" // 横padding追加
+    onClick={onClose}
+  >
     <div
-      className="fixed inset-0 bg-black bg-opacity-50 z-[9999] flex items-center justify-center"
-      onClick={onClose}
+      className="bg-stone-800 text-white max-h-[calc(100vh-30px)] overflow-y-auto w-full max-w-xl rounded-2xl shadow-xl p-6"
+      onClick={(e) => e.stopPropagation()}
     >
-      <div
-        className="bg-stone-800 text-white max-h-[calc(100vh-30px)] overflow-y-auto w-full max-w-xl mx-4 rounded-2xl shadow-xl p-6"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <h2 className="text-xl font-bold mb-4">{userName}の履歴書編集</h2>
+      <h2 className="text-xl font-bold mb-4">{userName}の履歴書編集</h2>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block mb-1">プロフィール画像：</label>
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleFileChange}
-              className="mb-2 w-full text-white"
-            />
-            <div className="flex gap-2">
-              <button
-                type="button"
-                onClick={uploadImage}
-                disabled={isUploading || !selectedFile}
-                className={`px-4 py-2 rounded ${
-                  isUploading || !selectedFile
-                    ? 'bg-stone-500 cursor-not-allowed'
-                    : 'bg-green-600 hover:bg-green-700'
-                }`}
-              >
-                {isUploading ? 'アップロード中...' : 'アップロード'}
-              </button>
-              {profileImage && (
-                <button
-                  type="button"
-                  onClick={deleteImage}
-                  className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded"
-                >
-                  削除
-                </button>
-              )}
-            </div>
-            <img
-              src={
-                previewUrl ||
-                'https://bandresume.s3.ap-northeast-1.amazonaws.com/profile_images/default.png'
-              }
-              alt="アップロード済み画像"
-              className="mt-2 h-24 w-24 object-cover rounded"
-            />
-          </div>
-
-          <div>
-            <label className="block mb-1">年齢：</label>
-            <SelectAge value={age} onChange={(e) => setAge(e.target.value)} />
-          </div>
-
-          <div>
-            <label className="block mb-1">性別：</label>
-            <SelectGender value={gender} onChange={(e) => setGender(e.target.value)} />
-          </div>
-
-          <div>
-            <label className="block mb-1">場所：</label>
-            <SelectLocation value={location} onChange={(e) => setLocation(e.target.value)} />
-          </div>
-
-          <div>
-            <label className="block mb-1">Xユーザー名（@から入力）：</label>
-            <input
-              type="text"
-              value={snsUrl}
-              onChange={(e) => setSnsUrl(e.target.value)}
-              placeholder="@example"
-              className="w-full border border-stone-600 bg-stone-900 text-white p-2 rounded"
-            />
-          </div>
-
-          <div>
-            <label className="block mb-1">プレイリストURL：</label>
-            <input
-              type="url"
-              value={playlistUrl}
-              onChange={(e) => setPlaylistUrl(e.target.value)}
-              placeholder="共有したいプレイリストのURL"
-              className="w-full border border-stone-600 bg-stone-900 text-white p-2 rounded"
-            />
-          </div>
-
-          <div>
-            <label className="block mb-1">自己紹介：</label>
-            <textarea
-              value={introduction}
-              onChange={(e) => setIntroduction(e.target.value)}
-              className="w-full border border-stone-600 bg-stone-900 text-white p-2 rounded"
-            />
-          </div>
-
-          {error && <p className="text-red-500 text-sm">{error}</p>}
-
-          <div className="flex justify-end gap-2 pt-4">
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div>
+          <label className="block mb-1">プロフィール画像：</label>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleFileChange}
+            className="mb-2 w-full text-white"
+          />
+          <div className="flex flex-col sm:flex-row gap-2">
             <button
               type="button"
-              onClick={onClose}
-              className="bg-stone-600 hover:bg-stone-700 text-white px-4 py-2 rounded"
+              onClick={uploadImage}
+              disabled={isUploading || !selectedFile}
+              className={`px-4 py-2 rounded w-full sm:w-auto ${
+                isUploading || !selectedFile
+                  ? 'bg-stone-500 cursor-not-allowed'
+                  : 'bg-green-600 hover:bg-green-700'
+              }`}
             >
-              キャンセル
+              {isUploading ? 'アップロード中...' : 'アップロード'}
             </button>
-            <button
-              type="submit"
-              className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"
-            >
-              更新する
-            </button>
+            {profileImage && (
+              <button
+                type="button"
+                onClick={deleteImage}
+                className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded w-full sm:w-auto"
+              >
+                削除
+              </button>
+            )}
           </div>
-        </form>
-      </div>
+          <img
+            src={
+              previewUrl ||
+              'https://bandresume.s3.ap-northeast-1.amazonaws.com/profile_images/default.png'
+            }
+            alt="アップロード済み画像"
+            className="mt-2 h-24 w-24 object-cover rounded mx-auto sm:mx-0"
+          />
+        </div>
+
+        <div>
+          <label className="block mb-1">年齢：</label>
+          <SelectAge
+            value={age}
+            onChange={(e) => setAge(e.target.value)}
+            className="w-full"
+          />
+        </div>
+
+        <div>
+          <label className="block mb-1">性別：</label>
+          <SelectGender
+            value={gender}
+            onChange={(e) => setGender(e.target.value)}
+            className="w-full"
+          />
+        </div>
+
+        <div>
+          <label className="block mb-1">場所：</label>
+          <SelectLocation
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            className="w-full"
+          />
+        </div>
+
+        <div>
+          <label className="block mb-1">Xユーザー名（@から入力）：</label>
+          <input
+            type="text"
+            value={snsUrl}
+            onChange={(e) => setSnsUrl(e.target.value)}
+            placeholder="@example"
+            className="w-full border border-stone-600 bg-stone-900 text-white p-2 rounded"
+          />
+        </div>
+
+        <div>
+          <label className="block mb-1">プレイリストURL：</label>
+          <input
+            type="url"
+            value={playlistUrl}
+            onChange={(e) => setPlaylistUrl(e.target.value)}
+            placeholder="共有したいプレイリストのURL"
+            className="w-full border border-stone-600 bg-stone-900 text-white p-2 rounded"
+          />
+        </div>
+
+        <div>
+          <label className="block mb-1">自己紹介：</label>
+          <textarea
+            value={introduction}
+            onChange={(e) => setIntroduction(e.target.value)}
+            className="w-full border border-stone-600 bg-stone-900 text-white p-2 rounded"
+            rows={4}
+          />
+        </div>
+
+        {error && <p className="text-red-500 text-sm">{error}</p>}
+
+        <div className="flex flex-col sm:flex-row justify-end gap-2 pt-4">
+          <button
+            type="button"
+            onClick={onClose}
+            className="bg-stone-600 hover:bg-stone-700 text-white px-4 py-2 rounded w-full sm:w-auto"
+          >
+            キャンセル
+          </button>
+          <button
+            type="submit"
+            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded w-full sm:w-auto"
+          >
+            更新する
+          </button>
+        </div>
+      </form>
     </div>
-  );
+  </div>
+);
 
   return ReactDOM.createPortal(modalContent, document.body);
 };
