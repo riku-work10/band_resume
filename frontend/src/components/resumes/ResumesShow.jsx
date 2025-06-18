@@ -93,9 +93,9 @@ function ResumePageShow() {
 
           {/* メイン情報と写真 */}
           <div
-            className={`flex flex-col md:flex-row ${
+            className={`flex flex-col md:flex-row justify-center${
               showControls ? 'items-start' : 'items-center justify-center'
-            } space-y-6 md:space-y-0 ${showControls ? 'md:space-x-6' : 'gap-6'}`}
+            } space-y-3 md:space-y-0 ${showControls ? 'md:space-x-6' : 'gap-6'}`}
           >
             {/* プロフィール画像 */}
             <div className="flex-shrink-0 mx-auto md:mx-0">
@@ -151,18 +151,18 @@ function ResumePageShow() {
 
             {/* ボタン群 */}
             {showControls && (
-              <div className="flex-shrink-0 flex justify-center md:block space-x-3 mt-4 md:mt-0">
-                {user && user.id === resume.user_id ? (
-                  <div className="flex flex-col md:flex-row space-y-3 md:space-y-0 md:space-x-3">
+              <div className="flex-shrink-0 flex justify-end w-full md:w-auto mt-4 md:mt-0">
+                {isOwnResume ? (
+                  <div className="flex flex-wrap justify-end gap-3">
                     <button
-                      className="py-2 px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                      className="py-2 px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 flex items-center"
                       onClick={() => setIsEditModalOpen(true)}
                     >
                       <MdEdit className="mr-1" />
                     </button>
                     <button
                       onClick={handleDelete}
-                      className="py-2 px-4 bg-red-500 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400"
+                      className="py-2 px-4 bg-red-500 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400 flex items-center"
                     >
                       <MdDelete className="mr-1" />
                     </button>
@@ -184,10 +184,9 @@ function ResumePageShow() {
           </div>
 
           {/* 詳細セクション */}
-          <div className="relative w-full">
-            <ResumesShowSectionItemDetail resume={resume} />
-            {showControls && user && user.id === resume.user_id && (
-              <div className="absolute top-0 right-0">
+          <div className="relative w-full mt-4">
+            {showControls && isOwnResume && (
+              <div className="flex justify-end mb-2">
                 <button
                   onClick={CreateEditButton}
                   className="py-2 px-4 bg-orange-500 text-white rounded-lg hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-400 transition font-medium"
@@ -196,8 +195,8 @@ function ResumePageShow() {
                 </button>
               </div>
             )}
+            <ResumesShowSectionItemDetail resume={resume} />
           </div>
-
           {/* コメント */}
           {showControls && (
             <div className="w-full">
