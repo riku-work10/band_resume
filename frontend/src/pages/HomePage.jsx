@@ -4,6 +4,14 @@ import '../components/homepage/HomePage.css';
 import ImageSlider from '../components/homepage/ImageSlider';
 import TopLikeSection from '../components/homepage/TopLikeSection';
 
+function convertToEmbedUrl(url) {
+  const match = url.match(/\/([a-f0-9]{32})\.mp4$/);
+  if (!match) return url; // fallback
+
+  return `https://gyazo.com/${match[1]}/embed`;
+}
+
+
 function HomePage() {
   return (
     <div className="App">
@@ -88,18 +96,19 @@ function Section({ title, bg, UseUrl, reverse = false, content }) {
       </div>
 
       <div className="section-video">
-        <video
-          src={UseUrl}
-          autoPlay
-          muted
-          loop
-          playsInline
-          controls
-          style={{ width: '100%', maxWidth: '600px' }}
+        <iframe
+          src={convertToEmbedUrl(UseUrl)}
+          width="100%"
+          height="315"
+          frameBorder="0"
+          allow="autoplay; fullscreen"
+          allowFullScreen
+          title="Gyazo video"
         />
       </div>
     </motion.section>
   );
 }
+
 
 export default HomePage;
