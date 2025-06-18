@@ -66,8 +66,8 @@ function ResumePageShow() {
         <div
           className={`max-w-5xl mx-auto ${
             !showControls || !isOwnResume
-              ? 'flex flex-col items-center justify-center py-8'
-              : ''
+              ? 'flex flex-col items-center justify-center pt-36'
+              : 'pt-28'
           }`}
         >
           {/* ← 戻る（左上固定） */}
@@ -92,13 +92,13 @@ function ResumePageShow() {
           <HarukamiraiTitle />
 
           {/* メイン情報と写真 */}
-<div
-  className={`flex flex-col md:flex-row ${
-    showControls
-      ? 'items-center md:space-x-6 space-y-3 md:space-y-0'
-      : 'items-center md:space-x-6 space-y-0 md:space-y-0'
-  }`}
->
+            <div
+              className={`flex flex-col md:flex-row ${
+                showControls
+                  ? 'items-center md:space-x-6 space-y-3 md:space-y-0'
+                  : 'items-center md:space-x-6 space-y-0 md:space-y-0'
+              }`}
+            >
             {/* プロフィール画像 */}
             <div className="flex-shrink-0 mx-auto md:mx-0">
               <img

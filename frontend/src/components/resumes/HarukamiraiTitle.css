@@ -3,14 +3,14 @@
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  height: 150px;
+  height: 0px;
   color: white;
 }
 
 .arc-letter {
   position: absolute;
   transform-origin: bottom center;
-  bottom: 0;
+  bottom: -80px; 
   font-weight: bold;
   font-family: 'serif';
   letter-spacing: 0.1em;
@@ -18,7 +18,7 @@
 
 .arc-label {
   position: absolute;
-  top: 60px;
+  bottom: 0px;
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
