@@ -65,11 +65,11 @@ function ResumePage() {
       <div className="max-w-7xl mx-auto">
         <ResumeSearch onSearch={handleSearch} />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-6">
           {filteredResumes.map((resume) => (
             <div
               key={resume.id}
-              className="relative flex flex-col sm:flex-row bg-stone-700 rounded-2xl shadow-md overflow-hidden hover:bg-stone-600 hover:shadow-lg transition"
+              className="relative flex flex-row bg-stone-700 rounded-2xl shadow-md overflow-hidden hover:bg-stone-600 hover:shadow-lg transition"
             >
             {resume.user.id === user.id && (
               <div className="absolute top-0 right-0 w-[100px] h-[100px] overflow-hidden z-10">
@@ -81,7 +81,7 @@ function ResumePage() {
               {/* プロフィール画像 */}
               <Link
                 to={`/resumes/${resume.id}`}
-                className="w-full sm:w-36 flex-shrink-0 aspect-square sm:aspect-auto bg-stone-900"
+                className="w-36 flex-shrink-0 aspect-square sm:aspect-auto bg-stone-900"
               >
                 <img
                   src={
