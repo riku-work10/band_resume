@@ -80,22 +80,44 @@ function NotificationList( {onClose } ) {
       ) : (
         <ul className="space-y-4">
           {unreadNotifications.map((n) => (
-            <li
-              key={n.id}
-              onClick={() => handleReadNotification(n.id, n.resume_id)}
-              className="flex items-start gap-3 bg-stone-700 hover:bg-stone-600 transition-all p-4 rounded-xl shadow-sm border border-stone-600 cursor-pointer"
-            >
-              <div className="bg-orange-500 rounded-full p-2">
-                <MdNotificationsActive className="text-white text-xl" />
-              </div>
-              <div className="flex-1">
-                <p className="text-sm font-semibold text-stone-100 mb-1">{n.message}</p>
-                {n.comment_content && <p className="text-sm text-stone-300">{n.comment_content}</p>}
-              </div>
-              <span className="text-xs text-stone-400 whitespace-nowrap ml-2 mt-1">
-                {formatDate(n.created_at)}
-              </span>
-            </li>
+            <React.Fragment key={n.id}>
+              {/* ✅ モバイル表示（〜639px） */}
+              <li
+                onClick={() => handleReadNotification(n.id, n.resume_id)}
+                className="block sm:hidden bg-stone-700 hover:bg-stone-600 transition-all p-4 rounded-xl shadow-sm border border-stone-600 cursor-pointer"
+              >
+                <div className="flex justify-between items-center mb-2">
+                  <div className="bg-orange-500 rounded-full p-2 flex-shrink-0">
+                    <MdNotificationsActive className="text-white text-xl" />
+                  </div>
+                  <span className="text-xs text-stone-400 whitespace-nowrap ml-2">
+                    {formatDate(n.created_at)}
+                  </span>
+                </div>
+                <p className="text-sm font-semibold text-stone-100">{n.message}</p>
+                {n.comment_content && (
+                  <p className="text-sm text-stone-300">{n.comment_content}</p>
+                )}
+              </li>
+              {/* ✅ PC表示（640px〜） */}
+              <li
+                onClick={() => handleReadNotification(n.id, n.resume_id)}
+                className="hidden sm:flex items-start gap-3 bg-stone-700 hover:bg-stone-600 transition-all p-4 rounded-xl shadow-sm border border-stone-600 cursor-pointer"
+              >
+                <div className="bg-orange-500 rounded-full p-2">
+                  <MdNotificationsActive className="text-white text-xl" />
+                </div>
+                <div className="flex-1">
+                  <p className="text-sm font-semibold text-stone-100 mb-1">{n.message}</p>
+                  {n.comment_content && (
+                    <p className="text-sm text-stone-300">{n.comment_content}</p>
+                  )}
+                </div>
+                <span className="text-xs text-stone-400 whitespace-nowrap ml-2 mt-1">
+                  {formatDate(n.created_at)}
+                </span>
+              </li>
+            </React.Fragment>
           ))}
         </ul>
       )}

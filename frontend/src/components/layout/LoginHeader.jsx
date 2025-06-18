@@ -110,10 +110,10 @@ function LoginHeader() {
 
       {/* 通知モーダル */}
       {showNotificationModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 px-4">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 px-2 sm:px-4">
           <div
             ref={modalRef}
-            className="bg-stone-800 text-stone-100 rounded-lg max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-xl p-6 border border-stone-600"
+            className="bg-stone-800 text-stone-100 rounded-lg w-full max-w-3xl max-h-[90vh] overflow-y-auto shadow-xl p-4 sm:p-6 border border-stone-600"
           >
             <div className="flex justify-end mb-4">
               <button
